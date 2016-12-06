@@ -14,13 +14,13 @@ export = () => {
         //logger: $.util.log,
         runtimeCaching: [{
             // See https://github.com/GoogleChrome/sw-toolbox#methods
-            urlPattern: /runtime-caching/,
+            urlPattern: /https:\/\/fonts.(googleapis|gstatic).com/,
             handler: 'cacheFirst',
             // See https://github.com/GoogleChrome/sw-toolbox#options
             options: {
                 cache: {
-                    maxEntries: 1,
-                    name: 'runtime-cache'
+                    maxEntries: 32,
+                    name: 'google-fonts'
                 }
             }
         }],

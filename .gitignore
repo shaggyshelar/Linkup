@@ -56,3 +56,4 @@ src/client/app/shared/config/env.config.js
 src/client/app/shared/config/env.config.js.map
 
 !src/server/**/*.js
+!src/client/assets/**/*.js

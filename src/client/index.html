@@ -14,7 +14,7 @@
   <!-- inject:css -->
   <!-- endinject -->
 </head>
-<body>
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
 
   <sd-app>Loading...</sd-app>
 
@@ -29,6 +29,12 @@
   <% if (BUILD_TYPE === 'dev') { %>
   <script src="<%= APP_BASE %>app/system-config.js"></script>
   <% } %>
+
+  <!--[if lt IE 9]>
+    <script src="../assets/global/plugins/respond.min.js"></script>
+    <script src="../assets/global/plugins/excanvas.min.js"></script> 
+    <script src="../assets/global/plugins/ie8.fix.min.js"></script> 
+  <![endif]-->
 
   <!-- libs:js -->
   <!-- endinject -->

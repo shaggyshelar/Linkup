@@ -1,63 +1,45 @@
-/* Reset */
-html,
-body,
-div {
-  border: 0;
-  margin: 0;
-  padding: 0;
+.fc-today {
+     background: #FFF !important;
+     border: none !important;
+     border-top: 1px solid #ddd !important;
+     font-weight: bold;
+ } 
+
+.page-header.navbar .page-logo .logo-default {
+    margin: 17px 0px 0 !important;
 }
 
-/* Box-sizing border-box */
-* {
-  box-sizing: border-box;
+@media only screen and (max-width: 767px){
+    .page-header.navbar .top-menu .navbar-nav>li.dropdown-notification .dropdown-menu{
+            margin-right: -165px !important;
+    }
+    .page-header.navbar .top-menu .navbar-nav>li.dropdown-inbox .dropdown-menu{
+        margin-right: -103px !important;
+    }
+    .page-header.navbar .top-menu .navbar-nav>li.dropdown-tasks .dropdown-menu{
+        margin-right: -35px !important;
+    }
 }
 
-/* Set up a default font and some padding to provide breathing room */
-body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@media only screen and (max-width: 370px){
+    .page-header.navbar .page-logo{
+        width:90px !important;
+    }
 }
 
-p {
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 20px;
-  margin-bottom: 1em;
-  margin-top: 1em;
+@media only screen and (max-width: 342px){
+    .page-header.navbar .page-logo .logo-default{
+            position: absolute;
+            clip: rect(0px,47px,50px,0px)
+    }
 }
 
-ul {
-  margin: 10px 0 0;
-  padding: 0 0 0 20px;
+.fc-axis.fc-time.ui-widget-content{
+     height: 30px!important; 
 }
 
-li {
-  font-weight: 400;
-  margin-top: 4px;
-}
-
-input {
-  border: 1px solid #106cc8;
-  font-size: 14px;
-  height: 40px;
-  outline: none;
-  padding: 8px;
-}
-
-button {
-  background-color: #106cc8;
-  border-style: none;
-  color: rgba(255, 255, 255, 0.87);
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  height: 40px;
-  padding: 8px 18px;
-  text-decoration: none;
-}
-
-button:hover {
-  background-color: #28739e;
+.calender-btn-add{
+  color: blue;
+  float: right; 
+  z-index: 10000000;
 }

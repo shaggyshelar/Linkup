@@ -15,7 +15,7 @@ export class ProjectConfig extends SeedConfig {
 
   constructor() {
     super();
-    // this.APP_TITLE = 'Put name of your app here';
+    this.APP_TITLE = 'Linkup';
 
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
     // this.TYPED_COMPILE_INTERVAL = 5;
@@ -44,6 +44,21 @@ export class ProjectConfig extends SeedConfig {
       ...this.APP_ASSETS,
       // {src: `${this.APP_SRC}/your-path-to-lib/libs/jquery-ui.js`, inject: true, vendor: false}
       // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
+      { src: `${this.APP_SRC}/assets/global/css/components.min.css`, inject: true, vendor: false },
+      { src: `${this.APP_SRC}/assets/global/css/plugins.min.css`, inject: true, vendor: false },
+      { src: `${this.APP_SRC}/assets/layouts/layout4/css/layout.min.css`, inject: true, vendor: false },
+      { src: `${this.APP_SRC}/assets/layouts/layout4/css/themes/default.min.css`, inject: true, vendor: false },
+      { src: `${this.APP_SRC}/css/custom.css`, inject: true, vendor: false },
+
+      //TODO: Check if we can use it from npm packages
+      // { src: `${this.APP_SRC}/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js`, inject: true, vendor: false },
+      // { src: `${this.APP_SRC}/assets/global/plugins/jquery.blockui.min.js`, inject: true, vendor: false },
+
+      { src: `${this.APP_SRC}/assets/layouts/app.js`, inject: true, vendor: false },
+      { src: `${this.APP_SRC}/assets/layouts/layout.js`, inject: true, vendor: false },
+      { src: `${this.APP_SRC}/assets/layouts/demo.js`, inject: true, vendor: false },
+      { src: `${this.APP_SRC}/assets/layouts/quick-sidebar.min.js`, inject: true, vendor: false },
+      //{ src: `${this.APP_SRC}/assets/layouts/global/scripts/quick-nav.min.js`, inject: true, vendor: false },
     ];
 
     // Add packages (e.g. lodash)

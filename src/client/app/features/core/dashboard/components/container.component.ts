@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 export class DashboardContainerComponent implements OnInit {
 
     ngOnInit() {
-        // window['App'].init();
-        // window['Layout'].init();
+        window['App'].init();
+        window['Layout'].init();
     }
 }

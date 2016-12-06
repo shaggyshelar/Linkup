@@ -1,3 +1,4 @@
+const proxy = require('proxy-middleware');
 import { join } from 'path';
 import * as slash from 'slash';
 import { argv } from 'yargs';
@@ -367,6 +368,13 @@ export class SeedConfig {
       '@angular/router/testing': 'node_modules/@angular/router/bundles/router-testing.umd.js',
 
       'app/*': '/app/*',
+
+      //Custom dependencies
+      'moment': `${this.APP_BASE}node_modules/moment`,
+      'fullcalendar': `${this.APP_BASE}node_modules/fullcalendar`,
+      'primeng': `${this.APP_BASE}node_modules/primeng`,
+      'font-awesome': `${this.APP_BASE}node_modules/font-awesome`,
+
       // For test config
       'dist/dev/*': '/base/dist/dev/*',
       '*': 'node_modules/*'
@@ -442,6 +450,18 @@ export class SeedConfig {
       'rxjs': {
         main: 'Rx.js',
         defaultExtension: 'js'
+      },
+      'lodash': {
+        main: 'lodash.js',
+        defaultExtension: 'js'
+      },
+      'primeng': {
+        defaultExtension: 'js'
+      },
+      'moment': {
+        map: 'moment.js',
+        type: 'cjs',
+        defaultExtension: 'js'
       }
     }
   };
@@ -482,9 +502,16 @@ export class SeedConfig {
      * @type {any}
      */
     'browser-sync': {
-      middleware: [require('connect-history-api-fallback')({
-        index: `${this.APP_BASE}index.html`
-      })],
+      middleware: [
+        proxy({
+          protocol: 'http:',
+          hostname: 'localhost',
+          port: 4000,
+          pathname: '/api',
+          route: '/api'
+        }),
+        require('connect-history-api-fallback')({ index: `${this.APP_BASE}index.html` })
+      ],
       port: this.PORT,
       startPath: this.APP_BASE,
       open: argv['b'] ? false : true,

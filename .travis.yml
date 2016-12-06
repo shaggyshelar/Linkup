@@ -1,6 +1,5 @@
 language: node_js
 node_js: stable
-
 sudo: false
 
 install: true  # yarn bug
@@ -9,37 +8,52 @@ addons:
   firefox: "45.0"
 
 os:
-  - linux
-  - osx
-
+- linux
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew outdated xctool || brew upgrade xctool; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CHROME_BIN=chromium-browser; fi  # Karma CI
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cask install google-chrome; fi  # Karma CI
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; fi
-
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CHROME_BIN=chromium-browser;
+  fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; fi
 before_script:
   - npm install
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh -e /etc/init.d/xvfb start; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then nohup bash -c "webdriver-manager start 2>&1 &"; fi  # Protractor CI
+  - chmod +x ./slacktee.sh
 
 after_failure:
-  - cat /home/travis/build/mgechev/angular-seed/npm-debug.log
+- cat /home/travis/build/NathanWalker/angular-seed-advanced/npm-debug.log
 
+after_success: |
+  if [ -n "$GITHUB_API_KEY" -a "$TRAVIS_EVENT_TYPE" == "push" ]; then
+    npm run build.prod
+    cp -r ./coverage ./dist/prod/
+    cd ./dist/prod
+    git init
+    git add .
+    git -c user.name='shaggyshelar' -c user.email='shaggy.shelar@gmail.com' commit -m CommitFromTravisCI
+    if [ "$TRAVIS_BRANCH" == "develop" ]; then
+      git push -f -q https://$GITHUB_API_KEY@github.com/shaggyshelar/Temp.git master
+    fi
+    if [ "$TRAVIS_BRANCH" == "framework" ]; then
+      git push -f -q https://$GITHUB_API_KEY@github.com/shaggyshelar/AngularDemo.git master
+    fi
+    cd ..
+    cd ..
+    echo "Application Deployed Successfully!" | ./slacktee.sh -t "Heroku Deploy"
+  fi
 branches:
-  only: master
-
+  only: framework
 notifications:
   email: true
   webhooks:
-    urls: https://webhooks.gitter.im/e/565e4b2fed3b96c1b964
-    on_success: change  # options: [always|never|change] default: always
-    on_failure: always  # options: [always|never|change] default: always
-    on_start: never     # options: [always|never|change] default: always
-
+    on_success: change
+    on_failure: always
+    on_start: never
 cache:
   directories: node_modules
-
 script:
-  - npm run tests.all && npm run build.prod.exp
+- npm run test
+
+env:
+  global:
+  - secure: WkAWV7wZEIXTgspj5gvxB9fGiapU/LmYX2fTtqol/3A301j5fzkaMgkiQlfKBBiDJIN2RhawgqW5wmDA6v3WoDC7LtYyV0z2II9WsGRtWJ3z/8lvxh+MdXAlqjYTllc6+NJ8MxXFRh2fLFu9dC2rRcVnM+9CydaCCmRZQ/d+ppor9UxMHIVTodZVC1SRSGoyZ5FKb8VthMBthweqWj3cw7uszYqak2tZ0PUHYg+43UJJ8ZnV9L6HKpqia2qmRbnB/OZoxBMbIkJ2BVU+5+w1TiyFZIh9vS+w7F4PNP2TgXyKMSv7Q2NkvbmWrpkPpVWMdBAwrgssXxcUwmGrI7KcnpwRzzJJCsTFrxmBShhf9KGznlxvMPPYCgOf1H0zUw3uIv11Dav0z8OtVdTU3AYJUxWb8UIxMv7e38rrhEqJq1h2ZOFdn1pUgKDGitJImdfY0rc44qyklZAMLnV6ikprIKlRclVdj0I/4noWi5cPxCSYi42ZZ4JsF464ZJJyygnuZXG/nLvD6laegY5pXDfVuVfLHBZYqiFHDTx6rojgKXmJ4w+dNHJgiNXdLxG96obLegRJHnYTDIL4D08nwB6LntbfCrD1FqWE24KWuPZZJ7mFBjEfDvUO+0lyEs/apLlK0GBE0QskuAh/CtI2V1HT9QOfMweIiUb0vjH3sYyD404=
+  - secure: bzaJE5725fsHIeYtfYh8iFi46xh3KQK1kovogiUZH960RPoTS9xwaRMu6QsLge8qU6X/7HcM5hrH39wiWXUk3YZCjY/dweAvwyCgWbMyJoi5bEluxO+iy4rBAnLL0k0qLE5yJ4GwhDI5z66wCGjLalSSwgHHVD7HWrKwt3fTvlxFOCDCCf6Jm26R0/V5Aod/QoTzhM6NKlQAApWiNxOzm04EXw582/C0jgHSqvJKqLEDz9JWuAOeQGuxo9GVijhULyuSL1U4URzWCxDJ8R6qRNiqjBsp7WjQSumg61SRSsvXd/ar0QkK6Fe7v++6tdEITvbggZ1aqtvI1aX0eMF49UetLeh04vchNI+LUNr37uRoMS0BbfBKw4HzMqWHguVpgCBPS+A5yfK7fnbVHiNbkaVda8QyY+B2DEwLnwllEkKe8SxSVIuHV6FD+EJP2iAfDKDlDJoNtr/gaiayuHBRs+wB7YMIN/s7KvHQTvzC3xsMhqXUnokBTM0R8mbKNvgxr2EEeeCb3q7jZwGeWCv9k/ozoi4aum8wVOiavZWOPGvWtgIvLPgrzy5sSoWzCNths8JLsiYCDk2msbHzeNSwayNm3B0BTLarSNXJpv+mAWKT8JLaTMnl35GtYngmGj2+quWBUcafyKB0Jes1BFYd4EpyfMNAb5bMYXs+SJiO7kQ=

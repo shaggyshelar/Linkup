@@ -10,6 +10,8 @@ import { SeedConfig } from './seed.config';
 export class ProjectConfig extends SeedConfig {
 
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
+  FONTS_DEST = `${this.APP_DEST}/fonts`;
+  FONTS_SRC = ['node_modules/font-awesome/fonts/**', 'node_modules/simple-line-icons/fonts/**'];
 
   constructor() {
     super();
@@ -23,6 +25,18 @@ export class ProjectConfig extends SeedConfig {
       ...this.NPM_DEPENDENCIES,
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
+      { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
+      { src: 'primeng/resources/primeng.min.css', inject: true },
+      { src: 'primeng/resources/themes/omega/theme.css', inject: true },
+      { src: 'font-awesome/css/font-awesome.min.css', inject: true },
+      { src: 'simple-line-icons/css/simple-line-icons.css', inject: true },
+      { src: 'fullcalendar/dist/fullcalendar.min.css', inject: true },
+      { src: 'fullcalendar/dist/fullcalendar.min.js', inject: true },
+      { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' },
+      { src: 'bootstrap/dist/css/bootstrap.min.css', inject: true },
+      { src: 'bootstrap-switch/dist/js/bootstrap-switch.min.js', inject: 'libs' },
+      { src: 'bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css', inject: true },
+      { src: 'moment/moment.js', inject: 'libs' },
     ];
 
     // Add `local` third-party libraries to be injected/bundled.

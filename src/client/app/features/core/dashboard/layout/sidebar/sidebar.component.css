@@ -1,0 +1,48 @@
+.active {
+  background: #f2f6f9 !important;
+  color: #5b9bd1 !important;
+}
+.profile{
+    box-sizing: border-box;
+    padding-top: 30px;
+    height: 90px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.156863) 0px 2px 5px 0px;
+}
+.profile-image{
+  border-radius: 50% !important;
+    width: 60px;
+    height: 60px;
+    margin: 0px auto 5px;
+    background: url("../assets/images/avatar.png") left top / 60px 60px no-repeat;
+}
+ .profile .profile-name {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+.user-menu{
+    list-style: none;
+    padding-left: 20px;
+    border-bottom: 1px solid rgb(153, 153, 199);
+}
+.user-menu li{
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.user-menu li a{
+    display: block;
+    position: relative;
+    margin: 1px 0 0;
+    border: 0;
+    padding: 8px 0px;
+    text-decoration: none;
+    color: #6b8bae;
+}
+
+.icon-size {
+    font-size: 60px;    
+}

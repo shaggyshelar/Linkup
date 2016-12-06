@@ -1,0 +1,189 @@
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar-wrapper">
+	<!-- BEGIN SIDEBAR -->
+	<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+	<!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+	<div class="page-sidebar navbar-collapse collapse">
+		<!-- BEGIN SIDEBAR MENU -->
+		<!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+		<!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+		<!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+		<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+		<!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+		<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+		<div class="profile hidden-lg hidden-sm hidden-md">
+			<div>
+				<i class="fa fa-user icon-size"></i>
+			</div>
+			<a id="profile-options" (click)="toggleUserMenu()">
+				<span class="profile-name">Jane Williams</span>
+				<i *ngIf="isUserMenuOpen" class="fa fa-chevron-up" aria-hidden="true"></i>
+				<i *ngIf="!isUserMenuOpen" class="fa fa-chevron-down" aria-hidden="true"></i>
+			</a>
+		</div>
+		<ul class="user-menu" style="display:none">
+			<br/>
+			<li>
+				<a routerLink="/profile" routerLinkActive="active">
+					<i class="icon-user"></i> &nbsp;&nbsp; MY_PROFILE
+				</a>
+			</li>
+			<li>
+				<a routerLink="/change-password" routerLinkActive="active">
+					<i class="icon-wrench"></i> &nbsp;&nbsp; Change Password
+				</a>
+			</li>
+			<li class="divider"> </li>
+			<li>
+				<a href="page_user_lock_1.html">
+					<i class="icon-lock"></i> &nbsp;&nbsp; Lock Screen </a>
+			</li>
+			<li>
+				<a (click)="logout()">
+					<i class="icon-key"></i> &nbsp;&nbsp; Log Out </a>
+			</li>
+			<br/>
+		</ul>
+		<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+			<li class="nav-item start ">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="icon-home"></i>
+					<span class="title">Dashboard</span>
+					<span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li class="nav-item start ">
+						<a routerLink="/" class="nav-link ">
+							<i class="icon-bar-chart"></i>
+							<span class="title">Dashboard 1</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item" [ifAuthorize]="['ADMIN.MANAGE']">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="fa fa-briefcase"></i>
+					<span class="title">ADMIN</span>
+					<span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li class="nav-item" >
+						<a  routerLinkActive="active">
+							<span class="title">User</span>
+						</a>
+					</li>
+					<li class="nav-item" [ifAuthorize]="['FEATURE.READ']">
+						<a routerLink="/admin/feature" routerLinkActive="active">
+							<span class="title">Feature</span>
+						</a>
+					</li>
+					<li class="nav-item" >
+						<a routerLink="/admin/role" routerLinkActive="active">
+							<span class="title">Role</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="heading">
+				<h3 class="uppercase">Features</h3>
+			</li>
+			<li class="nav-item ">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="fa fa-clock-o"></i>
+					<span class="title">Timesheet</span>
+					<span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li class="nav-item">
+						<a routerLink="/timesheet" routerLinkActive="active">
+							<span class="title">My Timesheets</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a routerLink="/timesheet/add-edit" routerLinkActive="active">
+							<span class="title">Enter Timesheets</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a routerLink="/timesheet/approve" routerLinkActive="active">
+							<span class="title">Approve Timesheets</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a routerLink="/timesheet/approved" routerLinkActive="active">
+							<span class="title">Approved Timesheets</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a routerLink="/timesheet/report" routerLinkActive="active">
+							<span class="title">Timesheet Report</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item  " [ifAuthorize]="['Leave.READ']">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="icon-calendar"></i>
+					<span class="title">Leave Management</span>
+					<span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li class="nav-item  " [ifAuthorize]="['Holiday.READ']">
+						<a routerLink="/leave-management/holidays" routerLinkActive="active">
+							<span class="title">Holidays</span>
+						</a>
+					</li>
+					<li class="nav-item  " [ifAuthorize]="['Leave.READ']">
+						<a routerLink="/leave-management/my-leaves" routerLinkActive="active">
+							<span class="title">My Leaves</span>
+						</a>
+					</li>
+					<li class="nav-item  " [ifAuthorize]="['Leave.CREATE']">
+						<a routerLink="/leave-management/apply-leave" routerLinkActive="active">
+							<span class="title">Apply For Leave</span>
+						</a>
+					</li>
+					<li class="nav-item  " [ifAuthorize]="['LeaveApproval.READ']">
+						<a routerLink="/leave-management/approve-leave" routerLinkActive="active">
+							<span class="title">Leave Approval</span>
+						</a>
+					</li>
+					<li class="nav-item  " [ifAuthorize]="['BulkLeaveApproval.UPDATE','BulkLeaveApproval.READ']">
+						<a routerLink="/leave-management/bulk-approval" routerLinkActive="active">
+							<span class="title">Bulk Leave Approval</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item  " [ifAuthorize]="['ConferenceBook.READ']">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="fa fa-briefcase"></i>
+					<span class="title">Corporate</span>
+					<span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li class="nav-item  ">
+						<a routerLink="/corporate/conferenceBooking" routerLinkActive="active">
+							<span class="title">Conference Booking</span>
+						</a>
+					</li>
+					<li class="nav-item  ">
+						<a routerLink="/corporate/log-ticket" routerLinkActive="active">
+							<span class="title">Log Ticket</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item  ">
+				<a routerLink="/user" routerLinkActive="active" class="nav-link nav-toggle">
+					<i class="icon-calendar"></i>
+					<span class="title">Users</span>
+					<span class="arrow"></span>
+				</a>
+			</li>
+		</ul>
+		<!-- END SIDEBAR MENU -->
+	</div>
+	<!-- END SIDEBAR -->
+</div>
+<!-- END SIDEBAR -->

@@ -1,10 +1,14 @@
-<div>
-    <h1>Login</h1>
-    <form>
-        <label>Username: </label>
-        <input type="email" />
-        <label>Password : </label>
-        <input type="password" />
-        <button type="button" (click)="login()">Submit</button>
-    </form>
+<div class="logo"></div>
+<div class="login-block">
+  <h1>Login</h1>
+  <form class="form-signin" (ngSubmit)="login()" #authForm="ngForm">
+    <input id="userName" required [(ngModel)]="model.UserName" type="text" class="form-control" name="name" placeholder="Username"
+    />
+    <input id="password" required [(ngModel)]="model.Password" type="password" class="form-control" name="password" placeholder="Password"
+    />
+    <button type="submit" id="loginBtn" class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" [disabled]="authForm.form.invalid">Login</button>
+    <div class="alert alert-danger" [hidden]="!showError">
+      {{errorMessage}}
+    </div>
+  </form>
 </div>

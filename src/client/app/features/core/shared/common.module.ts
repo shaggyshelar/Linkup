@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule as AngularCommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ScheduleModule, DataTableModule, SharedModule, ButtonModule, InputTextareaModule, CalendarModule, DropdownModule, DialogModule, ConfirmDialogModule, GrowlModule, ConfirmationService, ProgressBarModule, CheckboxModule, FileUploadModule } from 'primeng/primeng';
+import {
+    ScheduleModule, DataTableModule, SharedModule, ButtonModule, InputTextareaModule, CalendarModule,
+    DropdownModule, DialogModule, ConfirmDialogModule, GrowlModule, ConfirmationService,
+    ProgressBarModule, CheckboxModule, FileUploadModule, AutoCompleteModule
+} from 'primeng/primeng';
 import { LoginService } from './services/login.service';
 import { IfAuthorize } from './directives/ifAuthorize.directive';
 import { UnauthorizedAccessComponent } from '../errorPages/unauthorizedAccess/unauthorizedAccess.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MessageService } from './services/message.service';
 
 let primeNgComponents = [
     ScheduleModule,
@@ -19,7 +25,8 @@ let primeNgComponents = [
     GrowlModule,
     ProgressBarModule,
     CheckboxModule,
-    FileUploadModule
+    FileUploadModule,
+    AutoCompleteModule
 ];
 
 /**
@@ -27,16 +34,23 @@ let primeNgComponents = [
  */
 let imports = [
     RouterModule,
-    AngularCommonModule];
+    AngularCommonModule,
+    FormsModule,
+    ReactiveFormsModule];
 
 /**  Exported components declaration   */
 let exportComponents = [
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularCommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     IfAuthorize,
     UnauthorizedAccessComponent,
     ...primeNgComponents
 ];
+
 
 /**
  * Components/ Directives declaration
@@ -49,7 +63,7 @@ let declarations = [
 /**
  * Providers Declaration
  */
-let providers = [LoginService, ConfirmationService];
+let providers = [LoginService, ConfirmationService, MessageService];
 
 /** Module Definition */
 @NgModule({

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 import { BaseService } from '../shared/index';
 
-export const CONTEXT = 'login';
+export const CONTEXT = 'Auth';
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -12,14 +13,40 @@ export class AuthService extends BaseService {
     constructor(httpService: Http, private router: Router) {
         super(httpService, CONTEXT);
     }
+
     isAuthenticated() {
-        return this.authenticated;
+        if (localStorage.getItem('accessToken')) {
+            this.authenticated = true;
+            return true;
+        } else {
+            this.authenticated = false;
+            return false;
+        }
+    }
+    logout() {
+        localStorage.clear();
+        this.authenticated = false;
+    }
+    authenticate(credentials: any): Observable<any> {
+        return this.post$(credentials).map((res: Response) => { this.setToken(res); });
+    }
+    getLoggedInUserPermission() {
+        return this.getList$(0, 0, true).map((res: Response) => { this.setLoggedInUserPermission(res); });
     }
 
-    authenticate(username: string, password: string) {
-        this.router.navigate(['/']);
+    private setToken(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Bad response status: ' + res.status);
+        }
+        let body = res.json();
+        localStorage.setItem('accessToken', body.token);
         this.authenticated = true;
-        return true;
     }
-
+    private setLoggedInUserPermission(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Bad response status: ' + res.status);
+        }
+        let body = res.json();
+        localStorage.setItem('loggedInUserPermission', JSON.stringify(body));
+    }
 }

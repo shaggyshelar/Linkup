@@ -1,5 +1,4 @@
-import { Directive, ElementRef, OnInit, Input, EventEmitter } from '@angular/core';
-import { LoginService } from '../services/login.service';
+import { Directive, ElementRef, OnInit, Input } from '@angular/core';
 @Directive({
     selector: '[ifAuthorize]'
 })
@@ -7,20 +6,12 @@ export class IfAuthorize implements OnInit {
 
     @Input('ifAuthorize') permissions: Array<string>;
     private _element: HTMLElement;
-    private subscription: EventEmitter<boolean> = new EventEmitter<boolean>();
-    constructor(private loginService: LoginService, _element: ElementRef) {
+    constructor( _element: ElementRef) {
         this._element = _element.nativeElement;
     }
 
     ngOnInit() {
         this.checkPermission();
-        this.subscription = this.loginService.getAuthEmitter()
-            .subscribe((value: boolean) => {
-                if (value) {
-                    this.checkPermission();
-                }
-            });
-
     }
 
     checkPermission() {

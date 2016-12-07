@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 export class AuthComponent implements OnInit {
     public errorMessage: string;
     showError: boolean = false;
-    private model: User;
+    public model: User;
     constructor(private _router: Router, private authService: AuthService) {
         this.model = new User('', '');
     }

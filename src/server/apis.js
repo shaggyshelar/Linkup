@@ -3,7 +3,7 @@ var users = require('./userData');
 var _ = require('lodash');
 
 module.exports = function (app) {
-    app.post('/api/Authentication/GetToken', function (req, res) {
+    app.post('/api/Auth', function (req, res) {
         var userName = req.body.UserName;
         var password = req.body.Password;
         var userIndex = _.findIndex(users, { UserName: userName, Password: password });
@@ -11,8 +11,13 @@ module.exports = function (app) {
             var token = utils.CreateJWT(users[userIndex]);
             res.send({ token: token });
         } else {
-            res.status(500).end('Invalid credentials.');
+            res.status(401).json({error:'Invalid userName Password.'});
         }
+    });
+
+    app.get('/api/Auth', utils.EnsureAuthenticated, function (req, res) {
+        var userIndex = _.findIndex(users, { Id: req.userID });
+        res.json(users[userIndex].Permissions);
     });
     
     app.get('/api/GetLoggedInUserPermission', utils.EnsureAuthenticated, function (req, res) {

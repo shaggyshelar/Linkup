@@ -1,11 +1,24 @@
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent, DashboardContainerComponent } from './core/dashboard/index';
-import { AuthGuard } from './core/index';
+import { ErrorPagesRoutes, AuthGuard, AuthRoutes } from './core/index';
+
+export const featureRoutes: Routes = [
+    {
+        path: '',
+        component: DashboardComponent
+    },
+];
+
 const routes: Routes = [
+    ...AuthRoutes,
     {
         path: '',
         component: DashboardContainerComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
+        children: [
+            ...featureRoutes,
+            ...ErrorPagesRoutes,
+        ]
         // children: [
         //     {
         //         path: 'timesheet',

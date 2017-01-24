@@ -8,6 +8,7 @@ import { AdminModule } from './admin/index';
 import { ProfileModule } from './profile/index';
 import { ChangePasswordModule } from './changePassword/index';
 import { LeaveModule } from './leaveManagement/index';
+import { TimesheetModule } from './timesheet/index';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { LeaveModule } from './leaveManagement/index';
         AdminModule,
         ProfileModule,
         ChangePasswordModule,
-        LeaveModule
+        LeaveModule,
+        TimesheetModule
     ],
     exports: [],
     providers: [],

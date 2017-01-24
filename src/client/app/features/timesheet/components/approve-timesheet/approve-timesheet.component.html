@@ -1,0 +1,38 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content" [ifAuthorize]="['Timesheet.UPDATE','Timesheet.READ']">
+        <ul class="page-breadcrumb breadcrumb hidden-xs">
+            <li>
+                <span>LINK UP</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span class="active">Employee Timesheet</span>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="portlet light ">
+                    <div class="portlet-body">
+                        <p-dataTable [value]="approveEmployee" [responsive]="true" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+                            <p-column header="Edit">
+                                <template let-approveEmployeeData="rowData" pTemplate type="body">
+                                    <i class="fa fa-pencil-square-o icon-color" (click)="selectEmployee()"></i>
+                                </template>
+                            </p-column>
+                            <p-column field="employee" header="Employee" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="startDate" header="Start Date" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="endDate" header="End Date" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="billableHours" header="Billable Hours" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="nonBillableHours" header="Non-Billable Hours" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="approverUser" header="Approver User" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="status" header="Status" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="pendingApprover" header="Pending Approver" [sortable]="true" [filter]="true"></p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import { CorporateModule } from './corporate/index';
 import { AdminModule } from './admin/index';
 import { ProfileModule } from './profile/index';
 import { ChangePasswordModule } from './changePassword/index';
+import { LeaveModule } from './leaveManagement/index';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { ChangePasswordModule } from './changePassword/index';
         CorporateModule,
         AdminModule,
         ProfileModule,
-        ChangePasswordModule
+        ChangePasswordModule,
+        LeaveModule
     ],
     exports: [],
     providers: [],

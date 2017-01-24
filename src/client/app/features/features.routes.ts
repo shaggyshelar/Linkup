@@ -3,6 +3,7 @@ import { DashboardComponent, DashboardContainerComponent } from './core/dashboar
 import { ErrorPagesRoutes, AuthGuard, AuthRoutes } from './core/index';
 import { CorporateRoutes } from './corporate/index';
 import { AdminRoutes } from './admin/index';
+import { ProfileRoutes } from './profile/index';
 
 export const featureRoutes: Routes = [
     {
@@ -24,6 +25,13 @@ export const featureRoutes: Routes = [
            permissions: ['ADMIN.MANAGE']
         }
     },
+    {
+        path: 'profile',
+        children: [...ProfileRoutes],
+        data: {
+           permissions: ['PROFILE.MANAGE']
+        }
+    }
 ];
 
 const routes: Routes = [

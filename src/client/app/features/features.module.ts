@@ -5,6 +5,7 @@ import { AuthModule } from './core/auth/auth.module';
 import { DashboardModule } from './core/dashboard/dashboard.module';
 import { CorporateModule } from './corporate/index';
 import { AdminModule } from './admin/index';
+import { ProfileModule } from './profile/index';
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { AdminModule } from './admin/index';
         routing,
         FormsModule,
         CorporateModule,
-        AdminModule
+        AdminModule,
+        ProfileModule
     ],
     exports: [],
     providers: [],

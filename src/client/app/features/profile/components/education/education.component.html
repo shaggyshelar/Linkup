@@ -1,0 +1,105 @@
+<form novalidate (ngSubmit)="onSubmit(educationForm)" [formGroup]="educationForm">
+    <div class="portlet-body">
+        <div class="alert alert-warning message-align">
+            Details of SSC, HSC and Graduation are mandatory
+        </div>
+        <div *ngIf="(education | async)?.length == 0">
+            <hr>
+            <h5> No Records Found!</h5>
+        </div>
+        <div *ngIf="(education | async)?.length > 0">
+            <p-dataTable [value]="education | async" [responsive]="true" emptyMessage="No Records Found!">
+                <p-column header="Edit">
+                    <template let-educationData="rowData" pTemplate type="body">
+                        <i class="fa fa-pencil icon-color" (click)="editEducation(educationData)"></i>
+                    </template>
+                </p-column>
+                <p-column header="Class" field="Class.Name"></p-column>
+                <p-column header="Degree" field="Degree"></p-column>
+                <p-column header="Grade" field="Grade"></p-column>
+                <p-column header="Precentage" field="Percentage"></p-column>
+                <p-column header="Year Of Passing" field="YearOfPassing"></p-column>
+                <p-column header="Certificate" field="FilePath"></p-column>
+                <p-column header="Status" field="Status"></p-column>
+                <p-column header="HR Comments" field="Comments"></p-column>
+            </p-dataTable>
+        </div>
+        <div *ngIf="!showDiv">
+            <div class="row row-margin">
+                <div class="col-md-2 col-margin">
+                    <span>Class</span>
+                    <span class="req-field"> *</span>
+                    <div class="div-margin">
+                        <p-dropdown [options]="class" [style]="{'width':'100%'}" formControlName="class" id="education_class"></p-dropdown>
+                        <div class="alert alert-danger" *ngIf="educationForm.get('class').hasError('required') && educationForm.get('class').touched">
+                            Class is required
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-margin">
+                    <span>Degree</span>
+                    <span class="req-field"> *</span>
+                    <div class="form-group div-margin">
+                        <input type="text" class="form-control" placeholder="" formControlName="degree" id="education_degree">
+                    </div>
+                    <div class="alert alert-danger" *ngIf="educationForm.get('degree').hasError('required') && educationForm.get('degree').touched">
+                        Degree is required
+                    </div>
+                    <div class="alert alert-danger" *ngIf="educationForm.get('degree').hasError('pattern') && educationForm.get('degree').touched">
+                        Invalid Degree
+                    </div>
+                </div>
+                <div class="col-md-2 col-margin">
+                    <span>Grade</span>
+                    <span class="req-field"> *</span>
+                    <div class="div-margin">
+                        <p-dropdown [options]="grade" [style]="{'width':'100%'}" formControlName="grade" id="education_grade"></p-dropdown>
+                        <div class="alert alert-danger" *ngIf="educationForm.get('grade').hasError('required') && educationForm.get('grade').touched">
+                            Grade is required
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-margin">
+                    <span>Precentage</span>
+                    <span class="req-field"> *</span>
+                    <div class="div-margin">
+                        <input type="text" class="form-control" placeholder="" formControlName="percentage" id="education_percentage">
+                    </div>
+                    <div class="alert alert-danger" *ngIf="educationForm.get('percentage').hasError('required') && educationForm.get('percentage').touched">
+                        Precentage is required
+                    </div>
+                    <div class="alert alert-danger" *ngIf="educationForm.get('percentage').hasError('pattern') && educationForm.get('percentage').touched">
+                        Please enter an integer between than 1 and 100 and Value must be a whole number
+                    </div>
+                </div>
+                <div class="col-md-2 col-margin">
+                    <span>Year Of Passing</span>
+                    <span class="req-field"> *</span>
+                    <div class="div-margin">
+                        <input type="text" class="form-control" placeholder="" formControlName="yearOfPassing" id="education_yearOfPassing">
+                    </div>
+                    <div class="alert alert-danger" *ngIf="educationForm.get('yearOfPassing').hasError('required') && educationForm.get('yearOfPassing').touched">
+                        Year Of Passing is required
+                    </div>
+                    <div class="alert alert-danger" *ngIf="educationForm.get('yearOfPassing').hasError('pattern') && educationForm.get('yearOfPassing').touched">
+                        Invalid Year
+                    </div>
+                </div>
+                <div class="col-md-2 col-margin">
+                    <span>Scanned Copy</span>
+                    <span class="req-field"> *</span>
+                    <div class="div-margin">
+                        <input type="file" id="education_certificate" (change)="onChange($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-margin button-margin">
+                <button pButton type="submit" label="Submit" [disabled]="educationForm.invalid"></button>
+                <button pButton type="text" label="Cancel" (click)="cancel()"></button>
+            </div>
+        </div>
+        <div class="row row-margin button-margin" *ngIf="showDiv">
+            <button pButton type="text" icon="fa fa-plus" (click)="onAddClick()" label="Add New Education Record"></button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,211 @@
+<form novalidate (ngSubmit)="onSubmit(employmentHistoryForm)" [formGroup]="employmentHistoryForm">
+    <div class="portlet box yellow border-color">
+        <div class="portlet-title div-color">
+            <div class="caption title">
+                Employment Detail
+            </div>
+            <div class="actions">
+                <span class="div-actions"> 
+                <i class="fa fa-check-circle"></i> Requires Approval  
+            </span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div *ngIf="(employmentHistory | async)?.length == 0">
+                <hr>
+                <h5> No Records Found!</h5>
+            </div>
+            <div *ngIf="(employmentHistory | async)?.length > 0">
+                <p-dataTable [value]="employmentHistory | async" [responsive]="true" emptyMessage="No Records Found!">
+                    <p-column header="Edit">
+                        <template let-employmentHistoryData="rowData" pTemplate type="body">
+                            <i class="fa fa-pencil icon-color" (click)="editEmploymentHistory(employmentHistoryData)"></i>
+                        </template>
+                    </p-column>
+                    <p-column header="Employment Detail" field="EmploymentDetail"></p-column>
+                    <p-column header="Designation" field="Designation"></p-column>
+                    <p-column header="Start Date" field="StartDate"></p-column>
+                    <p-column header="End Date" field="EndDate"></p-column>
+                    <p-column header="Duration" field="Duration"></p-column>
+                    <p-column header="Status" field="Status"></p-column>
+                    <p-column header="Comments" field="Comments"></p-column>
+                </p-dataTable>
+            </div>
+            <div *ngIf="!showDiv">
+                <div class="row row-margin">
+                    <div class="col-md-3 col-margin">
+                        <span>Employment Detail</span>
+                        <span class="req-field"> *</span>
+                        <div class="div-margin">
+                            <input type="text" class="form-control" id="employmentHistory_employementDetails" formControlName="employementDetails" placeholder="">
+                            <div class="alert alert-danger" *ngIf="employmentHistoryForm.get('employementDetails').hasError('required') && employmentHistoryForm.get('employementDetails').touched">
+                                Please Enter Employment Detail
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-margin">
+                        <span>Designation</span>
+                        <span class="req-field"> *</span>
+                        <div class="div-margin">
+                            <input type="text" class="form-control" id="employmentHistory_designation" formControlName="designation" placeholder="">
+                            <div class="alert alert-danger" *ngIf="employmentHistoryForm.get('designation').hasError('required') && employmentHistoryForm.get('designation').touched">
+                                Please Enter Designation
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-margin">
+                        <span>Start Date</span>
+                        <span class="req-field"> *</span>
+                        <div class="div-margin">
+                            <p-calendar [showIcon]="true" id="employmentHistory_startDate" formControlName="startDate" dateFormat="dd/mm/yy" readonlyInput="readonlyInput"></p-calendar>
+                            <div class="alert alert-danger" *ngIf="employmentHistoryForm.get('startDate').hasError('required') && employmentHistoryForm.get('startDate').touched">
+                                Please Enter Start Date
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-margin">
+                        <span>End Date</span>
+                        <span class="req-field"> *</span>
+                        <div class="div-margin">
+                            <p-calendar [showIcon]="true" id="employmentHistory_endDate" formControlName="endDate" dateFormat="dd/mm/yy" readonlyInput="readonlyInput"></p-calendar>
+                            <div class="alert alert-danger" *ngIf="employmentHistoryForm.get('endDate').hasError('required') && employmentHistoryForm.get('endDate').touched">
+                                Please Enter End Date
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-margin button-margin">
+                    <button pButton type="submit" label="Submit" [disabled]="employmentHistoryForm.invalid"></button>
+                    <button pButton type="text" label="Cancel" (click)="cancel()"></button>
+                </div>
+            </div>
+            <div class="row row-margin button-margin" *ngIf="showDiv">
+                <button pButton type="text" icon="fa fa-plus" (click)="onAddClick()" label="Add New Employment"></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="portlet box yellow border-color">
+    <div class="portlet-title div-color">
+        <div class="caption title">
+            Last Employer Details
+            <i class="fa fa-pencil icon-css" (click)="addLastEmployer()"></i>
+        </div>
+        <div class="actions">
+            <span class="div-actions">           
+                <i class="fa fa-check-circle"></i> Requires Approval  
+            </span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered detail-table">
+                    <tbody>
+                        <tr>
+                            <td><b>1st Month Salary Slip</b></td>
+                            <td>
+                                {{ lastEmployerDetails.length > 0 ? lastEmployerDetails[0].firstMonth : '' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>2st Month Salary Slip</b></td>
+                            <td>
+                                <span> {{ lastEmployerDetails.length > 0 ? lastEmployerDetails[0].secondMonth : '' }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>3st Month Salary Slip</b></td>
+                            <td>
+                                <span> {{ lastEmployerDetails.length > 0 ? lastEmployerDetails[0].thirdDate : '' }} </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Employer Relieving/Exp Letter One</b></td>
+                            <td>
+                                <span> {{ lastEmployerDetails.length > 0 ? lastEmployerDetails[0].expLetterOne : '' }} </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Employer Relieving/Exp Letter Two</b></td>
+                            <td>
+                                <span> {{ lastEmployerDetails.length > 0 ? lastEmployerDetails[0].expLetterSecond : '' }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Status</b></td>
+                            <td>
+                                <span> {{ lastEmployerDetails.length > 0 ? lastEmployerDetails[0].status : '' }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>HR Comments</b></td>
+                            <td>
+                                <span> {{ lastEmployerDetails.length > 0 ? lastEmployerDetails[0].hrComments : '' }} </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <div *ngIf="!showEmployerDiv">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>1st Month Salary Slip </label>
+                                <div class="div-margin">
+                                    <input type="file" id="firstMonthSalarySlip">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>2st Month Salary Slip </label>
+                                <div class="div-margin">
+                                    <input type="file" id="secondMonthSalarySlip">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>3st Month Salary Slip </label>
+                                <div class="div-margin">
+                                    <input type="file" id="thirdMonthSalarySlip">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Employer Relieving/Exp Letter One </label>
+                                <div class="div-margin">
+                                    <input type="file" id="expLetterOne">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Employer Relieving/Exp Letter Two </label>
+                                <div class="div-margin">
+                                    <input type="file" id="expLetterTwo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button pButton type="text" label="Submit" (click)="submitLastEmployer()"></button>
+                    <button pButton type="text" label="Cancel" (click)="cancelLastEmployer()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+.profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50%!important;
+    -moz-border-radius: 50%!important;
+    border-radius: 50%!important;
+}
+
+.user-profile-name {
+    color: #3D79A2 !important;
+    font-size: 26px;
+    margin-top: 15px;
+    text-shadow: 2px 2px #f9f4f4;
+    text-align: left !important;
+}
+
+.user-profile-emp-id {
+    color: #000 !important;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: left !important;
+}
+
+.profile-completness-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #525252 !important;
+    font-style: italic;
+}
+
+.div-margin {
+    margin-top: 10px; 
+}
+
+.div-margin-bottom {
+    margin-bottom: 10px; 
+}
+
+.icon-size {
+    font-size: 70px;
+}
+
+.icon-align {
+    text-align: center;
+}
+.choose-file-div {   
+    margin-top: 5px;
+}
+.file-align {
+    display: inline-block !important;
+    width: 200px;
+}
+
+@media (max-width: 767px) {
+  .page-content-wrapper .page-content { 
+    overflow: inherit;
+  }
+}
+.profile-img {
+    border-radius: 50% !important;   
+    height: 180px;
+}
+.btn-margin {
+    margin-right: 5px;
+} 
+.btn_font {
+    font-size: 12px !important;
+}

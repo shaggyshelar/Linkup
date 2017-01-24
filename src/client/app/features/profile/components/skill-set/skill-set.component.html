@@ -1,0 +1,52 @@
+<form novalidate (ngSubmit)="onSubmit(skillSetForm)" [formGroup]="skillSetForm">
+	<div class="portlet-body">
+		<div *ngIf="(skillSet | async)?.length == 0">
+			<hr>
+			<h5> No Records Found!</h5>
+		</div>
+		<div *ngIf="(skillSet | async)?.length > 0">
+			<p-dataTable [value]="skillSet | async" [responsive]="true" emptyMessage="No Records Found!">
+				<p-column header="Edit">
+					<template let-skillSetData="rowData" pTemplate type="body">
+						<i class="fa fa-pencil icon-color" (click)="editSkillSetData(skillSetData)"></i>
+					</template>
+				</p-column>
+				<p-column header="Skill Type" field="Type.Name"></p-column>
+				<p-column header="Skills" field="Name"></p-column>
+				<p-column header="Status" field="Status"></p-column>
+				<p-column header="Comments" field="Comments"></p-column>
+				<p-column header="Approvers" field="Approvers"></p-column>
+			</p-dataTable>
+		</div>
+		<div *ngIf="!showDiv">
+			<div class="row row-margin">
+				<div class="col-md-2 col-margin">
+					<span>Skill Type</span>
+					<span class="skill-set-req-field"> *</span>
+					<div>
+						<p-dropdown [options]="skillTypes" formControlName="skillType" [style]="{'width':'100%'}"></p-dropdown>
+						<div class="alert alert-danger" *ngIf="skillSetForm.get('skillType').hasError('required') && skillSetForm.get('skillType').touched">
+							Please select Skill Type
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 col-margin">
+					<span>Skills</span>
+					<span class="skill-set-req-field"> *</span>
+					<div class="form-group">
+						<input type="text" formControlName="skills" class="form-control" placeholder="">
+						<div class="alert alert-danger" *ngIf="skillSetForm.get('skills').hasError('required') && skillSetForm.get('skills').touched">
+							Please enter skills
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-margin button-margin">
+				<button pButton type="submit" label="Submit" [disabled]="skillSetForm.invalid"></button>
+				<button pButton type="text" label="Cancel" (click)="cancel()"></button>
+			</div>
+		</div>
+		<div class="row row-margin button-margin" *ngIf="showDiv">
+			<button pButton type="text" icon="fa fa-plus" (click)="onAddClick()" label="Add New SkillSet"></button>
+		</div>
+	</div>

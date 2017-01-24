@@ -1,0 +1,16 @@
+.personal-info-label{   
+    font-weight: 700;   
+
+    line-height: 1.8em; 
+}
+.icon-size{
+    font-size: 20px;
+    margin-left: 5px; 
+    color:#3D79A2;  
+}
+.col-margin {
+    margin-top :10px;
+}
+.input-border {
+    border: 1px solid gray;
+}

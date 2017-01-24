@@ -1,0 +1,77 @@
+<form novalidate (ngSubmit)="onSubmit(certificationForm)" [formGroup]="certificationForm">
+    <div class="portlet-body">
+        <div *ngIf="(certifications | async)?.length == 0">
+            <hr>
+            <h5> No Records Found!</h5>
+        </div>
+        <div *ngIf="(certifications | async)?.length > 0">
+            <p-dataTable [value]="certifications | async" [responsive]="true" emptyMessage="No Records Found!">
+                <p-column header="Edit">
+                    <template let-certificationData="rowData" pTemplate type="body">
+                        <i class="fa fa-pencil icon-color" (click)="selectCertification(certificationData)"></i>
+                    </template>
+                </p-column>
+                <p-column header="Certification" field="Name"></p-column>
+                <p-column header="Code" field="Code"></p-column>
+                <p-column header="Certification Date" field="Date"></p-column>
+                <p-column header="Document" field="FilePath"></p-column>
+                <p-column header="Status" field="Status"></p-column>
+                <p-column header="Comments" field="Comments"></p-column>
+            </p-dataTable>
+        </div>
+        <div *ngIf="!showDiv">
+            <div class="row row-margin">
+                <div class="col-md-2 col-margin">
+                    <span>Certification</span>
+                    <span class="req-field"> *</span>
+                    <div class="div-margin">
+                        <p-dropdown [options]="certificationOptions" id="certification_option" formControlName="option" [style]="{'width':'100%'}"></p-dropdown>
+                        <div class="alert alert-danger" *ngIf="certificationForm.get('option').hasError('required') && certificationForm.get('option').touched">
+                            Please Enter Certification
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-margin">
+                    <span>Cerification Code</span>
+                    <span class="req-field"> *</span>
+                    <div class="div-margin">
+                        <p-dropdown [options]="certificationCodes" id="certification_code" formControlName="code" disabled="true" [style]="{'width':'100%'}"></p-dropdown>
+                        <div class="alert alert-danger" *ngIf="certificationForm.get('code').hasError('required') && certificationForm.get('code').touched">
+                            Please Enter Cerification Code
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-margin">
+                    <span>From Espl</span>
+                    <div class="div-margin">
+                        <p-checkbox binary="true" id="certification_fromEspl" formControlName="fromEspl"></p-checkbox>
+                    </div>
+                </div>
+                <div class="col-md-3 col-margin">
+                    <span>Certification Date</span>
+                    <span class="req-field"> *</span>
+                    <div class="div-margin">
+                        <p-calendar [showIcon]="true" id="certification_date" formControlName="date" dateFormat="dd/mm/yy" readonlyInput="readonlyInput"></p-calendar>
+                    </div>
+                    <div class="alert alert-danger" *ngIf="certificationForm.get('date').hasError('required') && certificationForm.get('date').touched">
+                        Please Enter Certification Date
+                    </div>
+                </div>
+                <div class="col-md-2 col-margin">
+                    <span>Upload Certificate</span>
+                    <span class="req-field"> *</span>
+                    <div class="div-margin">
+                        <input type="file" id="certification_file">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-margin button-margin">
+                <button pButton type="submit" label="Submit" [disabled]="certificationForm.invalid"></button>
+                <button pButton type="text" label="Cancel" (click)="cancel()"></button>
+            </div>
+        </div>
+        <div class="row row-margin button-margin" *ngIf="showDiv">
+            <button pButton type="text" icon="fa fa-plus" (click)="onAddClick()" label="Add New Cerificate"></button>
+        </div>
+    </div>
+</form>

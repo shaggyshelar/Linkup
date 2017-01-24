@@ -1,0 +1,78 @@
+<form novalidate (ngSubmit)="onSubmit(passportForm)" [formGroup]="passportForm">
+    <div class="portlet box yellow border-color">
+        <div class="portlet-title div-color">
+            <div class="caption title">
+                Passport
+                <i class="fa fa-pencil icon-css" (click)="addClick()"></i>
+            </div>
+            <div class="actions">
+                <span class="div-actions"> 
+                <i class="fa fa-check-circle"></i> Requires Approval  
+            </span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div *ngIf="(passport | async)?.length == 0">
+                <table class="table table-bordered no-record-table" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td>No Records Found!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="(passport | async)?.length > 0">
+                <p-dataTable [value]="passport | async" [responsive]="true" emptyMessage="No Records Found!">
+                    <p-column header="Passport Number" field="Number"></p-column>
+                    <p-column header="Passport Expiry Date" field="ExpDate"></p-column>
+                    <p-column header="Document" field="FilePath"></p-column>
+                    <p-column header="Status" field="Status"></p-column>
+                    <p-column header="HR Comments" field="Comments"></p-column>
+                </p-dataTable>
+            </div>
+
+            <div *ngIf="!showDiv">
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><b>Passport No</b> <span class="req-field">*</span></label>
+                            <div class="div-margin">
+                                <input type="text" id="passport_number" class="form-control" placeholder="" formControlName="number">
+                                <div class="alert alert-danger" *ngIf="passportForm.get('number').hasError('required') && passportForm.get('number').touched">
+                                    Please Enter Passport No
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><b>Passport Expiry Date </b><span class="req-field">*</span></label><br>
+                            <div class="div-margin">
+                                <p-calendar id="passport_passportExpiryDate" [showIcon]="true" formControlName="expiryDate" dateFormat="dd/mm/yy" readonlyInput="readonlyInput"></p-calendar>
+                                <div class="alert alert-danger" *ngIf="passportForm.get('expiryDate').hasError('required') && passportForm.get('expiryDate').touched">
+                                    Please Enter Passport Expiry Date
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><b>Scanned Copy</b> <span class="req-field">*</span></label>
+                            <div class="div-margin">
+                                <input type="file" id="passport_document">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-margin button-margin">
+                    <button pButton type="submit" label="Submit" [disabled]="passportForm.invalid"></button>
+                    <button pButton type="text" label="Cancel" (click)="cancel()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

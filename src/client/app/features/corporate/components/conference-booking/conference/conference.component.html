@@ -1,0 +1,62 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb hidden-xs">
+      <li>
+        <a href="index.html">LINK UP</a>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span class="active">Conference Booking</span>
+      </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE BASE CONTENT -->
+    <div class="portlet light bordered">
+      <div class="portlet-body">
+        <div class="row">
+          <div class="col-sm-5">
+            <button class="btn btn-default col-sm-6" id="manageBooking" [routerLink]="['/corporate/myBookings']">Manage My Booking</button>
+            <button class="btn btn-default col-sm-6" id="manageAllRoom" [class.selected-link]="selectedRoom=='AllRooms'" (click)="getEventByRooms('AllRooms')">All Conference Rooms</button>
+          </div>
+          <div class="col-sm-7">
+            <ul class="legend">
+              <li *ngFor="let item of conferenceRooms | async" class="col-xs-6 col-md-4 col-sm-4">
+                <a (click)="getEventByRooms(item.Name)" id="{{item.Name}}" [class.selected-room]="item.Name==selectedRoom"><span class="color-list" [style.backgroundColor]="item.Color"></span> {{item.Name}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="portlet light bordered">
+      <div class="portlet-body">
+        <p-schedule [events]="serverEvents | async" [contentHeight]="700" [header]="headerConfig" (onDayClick)="handleDayClick($event)"
+          [slotEventOverlap]="false" [defaultView]="'agendaDay'" [minTime]="minTime" [maxTime]="maxTime" (onEventClick)="handleEventClicked($event)">
+        </p-schedule>
+      </div>
+      
+      <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false">
+        <div class="ui-grid ui-grid-responsive ui-fluid">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="title">Title</label></div>
+            <div class="ui-grid-col-8"><label id="title">{{selectedEvent.title}}</label></div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="date">Start</label></div>
+            <div class="ui-grid-col-8"><label id="start">{{selectedEvent.start }}</label></div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="date">End</label></div>
+            <div class="ui-grid-col-8"><label id="end">{{selectedEvent.end}}</label></div>
+          </div>
+        </div>
+      </p-dialog>
+    </div>
+    <!-- END PAGE BASE CONTENT -->
+  </div>
+  <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

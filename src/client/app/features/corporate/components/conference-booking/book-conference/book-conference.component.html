@@ -1,0 +1,185 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb hidden-xs">
+      <li>
+        <a href="index.html">LINK UP</a>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span class="active">Conference Booking</span>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span class="active">New Booking</span>
+      </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE BASE CONTENT -->
+    <div class="portlet light bordered legends-portlet">
+      <div class="portlet-body">
+        <form class="form-horizontal" novalidate (ngSubmit)="onSubmit(conferenceForm)" [formGroup]="conferenceForm">
+          <div class="form-group">
+            <label class="control-label col-sm-2">Title</label>
+            <div class="col-sm-10">
+              <input type="text" id="title" class="form-control" formControlName="title" name="title">
+              <div class="alert alert-danger" *ngIf="conferenceForm.get('title').hasError('required') && conferenceForm.get('title').touched">
+                Please Enter Title
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="startTime">Start Time *</label>
+            <div class="col-sm-10">
+              <p-calendar formControlName="start" id="startTime" [showTime]="true" name="startTime"></p-calendar>
+              <div class="alert alert-danger" *ngIf="conferenceForm.get('start').hasError('required') && conferenceForm.get('start').touched">
+                Please select Start Time
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="endTime">End Time *</label>
+            <div class="col-sm-10">
+              <p-calendar formControlName="end" id="endTime" [showTime]="true" name="endTime"></p-calendar>
+              <div class="alert alert-danger" *ngIf="conferenceForm.get('end').hasError('required') && conferenceForm.get('end').touched">
+                Please select End Time
+              </div>
+               <div class="alert alert-danger" *ngIf="endTimeError">
+                 The start date and time should be before the end date and time.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="attendees">Attendees</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="attendees">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="room">Conference Rooms*</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="conferenceRooms" [style]="{'width':'100%'}" id="selectRoomDropdown" formControlName="Room" name="rooms" [styleClass]="form-control"></p-dropdown>
+              <div class="alert alert-danger" *ngIf="conferenceForm.get('Room').hasError('required') && conferenceForm.get('Room').touched">
+                Please select room
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Double Booking</label>
+            <div class="col-sm-10">
+              <button class="btn btn-default" id="doubleBookingBtn">Check</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Description</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" formControlName="Description" id="description"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">All Day Event</label>
+            <div class="col-sm-10">
+              <p><input type="checkbox" formControlName="allDay" id="allDayEvent">&nbsp;Make this an all-day activity that doesn't
+                start or end at a specific hour.
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2"> Recurrence</label>
+            <div class="col-sm-10">
+              <p><input type="checkbox" id="recurrance" name="recurrance">&nbsp;Make this a repeating event.</p>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="recurrance">
+            <div class="col-sm-12">
+              <label class="radio-inline">
+      <input type="radio" id="optionDaily" value="daily" name="optradio">Daily
+    </label>
+              <label class="radio-inline">
+      <input type="radio"  id="optionWeekly"  value="weekly"  name="optradio">Weekly
+    </label>
+              <label class="radio-inline">
+      <input type="radio"  id="optionMonthly" value="monthly" name="optradio">Monthly
+    </label>
+              <label class="radio-inline">
+      <input type="radio"  id="optionYearly" value="yearly" name="optradio">Yearly
+    </label>
+            </div>
+          </div>
+          <div class="form-group" [ngSwitch]="recurranceType" *ngIf="recurrance">
+            <label class="control-label col-sm-2" for="recurranceType">Pattern</label>
+            <div class="col-sm-10" *ngSwitchCase="'daily'">
+              <p><input type="checkbox" id="optionYearly"> Daily </p>
+            </div>
+            <div class="col-sm-10" *ngSwitchCase="'weekly'">
+              <p><input type="checkbox" id="optionWeekly"> Weekly</p>
+            </div>
+            <div class="col-sm-10" *ngSwitchCase="'monthly'">
+              <p>Monthly</p>
+            </div>
+            <div class="col-sm-10" *ngSwitchCase="'yearly'">
+              <p>Yearly</p>
+            </div>
+          </div>
+          <label class="control-label col-sm-2 col-sm-2" *ngIf="recurrance" for="description">Date Range</label>
+          <div class="form-group" *ngIf="recurrance">
+            <label class="col-sm-12 col-xs-12" for="startTime">Start Date<p-calendar  id="recurranceStartDate" name="recurranceStartDate"></p-calendar></label>
+          </div>
+          <div class="form-group" *ngIf="recurrance">
+            <div class="col-sm-12">
+              <label class="radio-inline">
+               <input type="radio"  value="1" id="optionNoEndDate" name="recurrancePattern">No End Date
+            </label>
+              <label class="radio-inline">
+               <input type="radio"  value="2" id="optionEndAfter" name="recurrancePattern">End after: 10 occurrence(s)
+            </label>
+              <label class="radio-inline">
+               <input type=" radio" value="3" id="optionEndBy" name="recurrancePattern">Number of Guests: <p-calendar name="recurranceEndDate"></p-calendar>
+            </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Special Treatment</label>
+            <div class="col-sm-10">
+              <p><input type="checkbox" id="waterChkbox"> Water</p>
+              <p><input type="checkbox" id="teaChkbox"> Tea </p>
+              <p><input type="checkbox" id="coffeeChkbox"> Coffee</p>
+              <p><input type="checkbox" id="juiceChkbox"> Juice</p>
+              <p><input type="checkbox" id="snacksChkbox"> Snacks</p>
+              <p><input type="checkbox" id="breakfastChkbox"> Breakfast</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Special Comments</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" formControlName="SpecialComment" id="specialComments"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Number of Guests</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" formControlName="NoOfGuest" id="noOfGuest">
+              <div class="alert alert-danger" *ngIf="conferenceForm.get('NoOfGuest').invalid">
+                Only Number allowed
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-offset-1 col-sm-10">IsDeleted  &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"   id="isdeleted"></label>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button pButton type="submit" label="Save" id="saveBtn" [disabled]="conferenceForm.invalid"></button>
+              <button pButton type="button" label="Cancel" id="cancelBtn" (click)="onCancel()"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- END PAGE BASE CONTENT -->
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

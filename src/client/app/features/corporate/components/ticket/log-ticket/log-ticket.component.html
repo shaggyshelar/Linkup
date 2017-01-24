@@ -1,0 +1,57 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+	<!-- BEGIN CONTENT BODY -->
+	<div class="page-content" [ifAuthorize]="['Timesheet.READ']">
+		<ul class="page-breadcrumb breadcrumb hidden-xs">
+			<li>
+				<span>LINK UP</span>
+				<i class="fa fa-circle"></i>
+			</li>
+			<li>
+				<span class="active">Log Ticket</span>
+			</li>
+		</ul>
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<div class="portlet light ">
+					<nav class="container">
+						<a class="buttons hidden-sm hidden-md hidden-lg" [routerLink]="['../manage-ticket']" tooltip="New Ticket" href="#"><i class="fa fa-plus-circle fa-4x" aria-hidden="true"></i></a>
+					</nav>
+					<div class="portlet-title">
+						<div class="actions">
+							<a [routerLink]="['../manage-ticket']" id="manageTicket" class="btn green hidden-xs"><i class="fa fa-plus"></i> New Ticket</a>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<p-dataTable [value]="ticket | async" [responsive]="true" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+							<p-column field="Department" header="Department" [sortable]="true"></p-column>
+							<p-column field="Concern" header="Concern" [sortable]="true"></p-column>
+							<p-column field="Description" header="Description" [sortable]="true"></p-column>
+							<p-column field="Status" header="Status" [sortable]="true"></p-column>
+							<p-column field="Priority" header="Priority" [sortable]="true"></p-column>
+							<p-column field="CreatedDate" header="CreatedDate" [sortable]="true"></p-column>
+							<p-column field="UpdatedDate" header="UpdatedDate" [sortable]="true"></p-column>
+							<p-column field="UpdatedBy" header="UpdatedBy" [sortable]="true"></p-column>
+							<p-column field="ResolvedBy" header="ResolvedBy" [sortable]="true"></p-column>
+							<p-column field="AgeDays" header="AgeDays" [sortable]="true"></p-column>
+							<p-column header="Action">
+								<template let-currentTicket="rowData" pTemplate>
+									<!--<button #btn type="button" pButton icon="fa fa-list" label="Show" (click)="showAction($event,menu)"></button>-->
+									<div class="dropdown pull-right">
+										<i class="fa fa-ellipsis-v dropdown-toggle action-icon" data-toggle="dropdown" aria-hidden="true"></i>
+										<ul class="dropdown-menu pull-right">
+											<li (click)="editTicket(currentTicket)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</li>
+											<li (click)="selectTicket(ticket)"><i class="fa  fa-reply" aria-hidden="true"></i>Reply</li>
+											<li (click)="selectTicket(ticket)"><i class="fa fa-times" aria-hidden="true"></i>Close</li>
+											<li (click)="selectTicket(ticket)"><i class="fa fa-retweet" aria-hidden="true"></i>Reopen</li>
+										</ul>
+									</div>
+								</template>
+							</p-column>
+						</p-dataTable>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

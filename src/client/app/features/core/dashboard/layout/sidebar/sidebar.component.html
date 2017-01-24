@@ -87,99 +87,92 @@
 			<li class="heading">
 				<h3 class="uppercase">Features</h3>
 			</li>
-			<li class="nav-item ">
+			<li class="nav-item " [ifAuthorize]="['Timesheet.READ']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-clock-o"></i>
 					<span class="title">Timesheet</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item">
-						<a routerLink="/timesheet" routerLinkActive="active">
+					<li class="nav-item  " [ifAuthorize]="['Timesheet.READ']">
+						<a routerLink="/timesheet/my" routerLinkActive="active">
 							<span class="title">My Timesheets</span>
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  " [ifAuthorize]="['Timesheet.CREATE']">
 						<a routerLink="/timesheet/add-edit" routerLinkActive="active">
 							<span class="title">Enter Timesheets</span>
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  " [ifAuthorize]="['Timesheet.UPDATE','Timesheet.READ']">
 						<a routerLink="/timesheet/approve" routerLinkActive="active">
 							<span class="title">Approve Timesheets</span>
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  " [ifAuthorize]="['Timesheet.READ']">
 						<a routerLink="/timesheet/approved" routerLinkActive="active">
 							<span class="title">Approved Timesheets</span>
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  " [ifAuthorize]="['Timesheet.READ']">
 						<a routerLink="/timesheet/report" routerLinkActive="active">
 							<span class="title">Timesheet Report</span>
 						</a>
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item  " [ifAuthorize]="['Leave.READ']">
+			<li class="nav-item  " [ifAuthorize]="['LEAVE.MANAGE','HOLIDAY.MANAGE']" >
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="icon-calendar"></i>
 					<span class="title">Leave Management</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item  " [ifAuthorize]="['Holiday.READ']">
-						<a routerLink="/leave-management/holidays" routerLinkActive="active">
+					<li class="nav-item  " [ifAuthorize]="['HOLIDAY.READ']">
+						<a routerLink="/leave/holidays" routerLinkActive="active">
 							<span class="title">Holidays</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['Leave.READ']">
-						<a routerLink="/leave-management/my-leaves" routerLinkActive="active">
+					<li class="nav-item  " [ifAuthorize]="['LEAVE.READ']">
+						<a routerLink="/leave/my-leaves" routerLinkActive="active">
 							<span class="title">My Leaves</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['Leave.CREATE']">
-						<a routerLink="/leave-management/apply-leave" routerLinkActive="active">
+					<li class="nav-item  " [ifAuthorize]="['LEAVE.CREATE']">
+						<a routerLink="/leave/apply-leave" routerLinkActive="active">
 							<span class="title">Apply For Leave</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['LeaveApproval.READ']">
-						<a routerLink="/leave-management/approve-leave" routerLinkActive="active">
+					<li class="nav-item  " [ifAuthorize]="['LEAVE.UPDATE', 'LEAVE.READ']">
+						<a routerLink="/leave/approve-leave" routerLinkActive="active">
 							<span class="title">Leave Approval</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['BulkLeaveApproval.UPDATE','BulkLeaveApproval.READ']">
-						<a routerLink="/leave-management/bulk-approval" routerLinkActive="active">
+					<li class="nav-item  " [ifAuthorize]="['LEAVE.UPDATE', 'LEAVE.READ']">
+						<a routerLink="/leave/bulk-approval" routerLinkActive="active">
 							<span class="title">Bulk Leave Approval</span>
 						</a>
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item  " [ifAuthorize]="['ConferenceBook.READ']">
+			<li class="nav-item"  [ifAuthorize]="['CORPORATE.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-briefcase"></i>
 					<span class="title">Corporate</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item  ">
+					<li class="nav-item"  [ifAuthorize]="['CONFERENCE_BOOK.READ']">
 						<a routerLink="/corporate/conferenceBooking" routerLinkActive="active">
 							<span class="title">Conference Booking</span>
 						</a>
 					</li>
-					<li class="nav-item  ">
+					<li class="nav-item  "  [ifAuthorize]="['TICKET.READ']">
 						<a routerLink="/corporate/log-ticket" routerLinkActive="active">
 							<span class="title">Log Ticket</span>
 						</a>
 					</li>
 				</ul>
-			</li>
-			<li class="nav-item  ">
-				<a routerLink="/user" routerLinkActive="active" class="nav-link nav-toggle">
-					<i class="icon-calendar"></i>
-					<span class="title">Users</span>
-					<span class="arrow"></span>
-				</a>
 			</li>
 		</ul>
 		<!-- END SIDEBAR MENU -->

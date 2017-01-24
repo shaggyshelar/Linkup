@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent, DashboardContainerComponent } from './core/dashboard/index';
 import { ErrorPagesRoutes, AuthGuard, AuthRoutes } from './core/index';
 import { CorporateRoutes } from './corporate/index';
+import { AdminRoutes } from './admin/index';
 
 export const featureRoutes: Routes = [
     {
@@ -15,7 +16,14 @@ export const featureRoutes: Routes = [
         data: {
             permissions: ['CORPORATE.MANAGE']
         }
-    }
+    },
+     {
+        path: 'admin',
+        children: [...AdminRoutes],
+        data: {
+           permissions: ['ADMIN.MANAGE']
+        }
+    },
 ];
 
 const routes: Routes = [

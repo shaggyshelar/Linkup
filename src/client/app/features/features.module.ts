@@ -4,13 +4,16 @@ import { routing } from './features.routes';
 import { AuthModule } from './core/auth/auth.module';
 import { DashboardModule } from './core/dashboard/dashboard.module';
 import { CorporateModule } from './corporate/index';
+import { AdminModule } from './admin/index';
+
 @NgModule({
     imports: [
         AuthModule,
         DashboardModule,
         routing,
         FormsModule,
-        CorporateModule
+        CorporateModule,
+        AdminModule
     ],
     exports: [],
     providers: [],

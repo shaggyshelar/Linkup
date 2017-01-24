@@ -6,6 +6,7 @@ import { DashboardModule } from './core/dashboard/dashboard.module';
 import { CorporateModule } from './corporate/index';
 import { AdminModule } from './admin/index';
 import { ProfileModule } from './profile/index';
+import { ChangePasswordModule } from './changePassword/index';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { ProfileModule } from './profile/index';
         FormsModule,
         CorporateModule,
         AdminModule,
-        ProfileModule
+        ProfileModule,
+        ChangePasswordModule
     ],
     exports: [],
     providers: [],

@@ -4,6 +4,7 @@ import { ErrorPagesRoutes, AuthGuard, AuthRoutes } from './core/index';
 import { CorporateRoutes } from './corporate/index';
 import { AdminRoutes } from './admin/index';
 import { ProfileRoutes } from './profile/index';
+import { ChangePasswordRoutes } from './changePassword/index';
 
 export const featureRoutes: Routes = [
     {
@@ -31,6 +32,10 @@ export const featureRoutes: Routes = [
         data: {
            permissions: ['PROFILE.MANAGE']
         }
+    },
+    {
+        path: 'password',
+        children: [...ChangePasswordRoutes]
     }
 ];
 

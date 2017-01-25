@@ -87,7 +87,7 @@ export class UANComponent implements OnInit {
                 id: this.uan[0].ID,
                 number: this.uan[0].Number,
                 fromESPL: this.uan[0].FromESPL
-            })
+            });
         }
     }
 }

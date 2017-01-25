@@ -22,7 +22,7 @@ export class PermissionService extends BaseService {
     getAllPermission(): Observable<any> {
         return this.getList$(0,0,true).map(res => res.json());
     }
-    getPermissionsByRole(roleId:string): Observable<any> {
+    getPermissionsByRole(roleId:any): Observable<any> {
         return this.get$(roleId,true).map(res => res.json());
     }
     addPermissionToRole(permission:any): Observable<any> {

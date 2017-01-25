@@ -30,7 +30,7 @@ export class UpdateLeaveComponent {
     isCancellable: boolean;
     errorMsg: string;
     today: Date;
-    
+
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -54,7 +54,7 @@ export class UpdateLeaveComponent {
         });
     }
 
-    setCancellable(param) {
+    setCancellable(param:any) {
         this.isCancellable = param;
     }
 

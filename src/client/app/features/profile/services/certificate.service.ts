@@ -25,11 +25,11 @@ export class CertificateService extends BaseService {
         return this.getList$().map(res => res.json());
     }
 
-    addCertificate(params): Observable<boolean> {
+    addCertificate(params:any): Observable<boolean> {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updateCertificate(id, params): Observable<boolean> {
+    updateCertificate(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

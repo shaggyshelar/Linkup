@@ -10,7 +10,7 @@ import { User } from '../../models/user';
 import { MessageService } from '../../../core/shared/services/message.service';
 
 /** Other Module Dependencies */
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 
 /** Component Declaration */
 @Component({

@@ -6,8 +6,6 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
-/** Framework Level Dependencies */
-import { AnalyticsService } from '../../framework.ref';
 
 /** Module Level Dependencies */
 import { BaseService } from '../../core/index';
@@ -28,11 +26,11 @@ export class ExperienceService extends BaseService {
         return this.getList$().map(res => res.json());
     }
 
-    addExperience(params): Observable<boolean> {
+    addExperience(params:any): Observable<boolean> {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updateExperience(id, params): Observable<boolean> {
+    updateExperience(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

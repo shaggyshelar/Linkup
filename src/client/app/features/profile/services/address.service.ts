@@ -29,7 +29,7 @@ export class AddressService extends BaseService {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updateAddress(id, params): Observable<boolean> {
+    updateAddress(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

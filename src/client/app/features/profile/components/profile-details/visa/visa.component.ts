@@ -79,7 +79,7 @@ export class VisaComponent implements OnInit {
         this.showDiv = true;
         this.visaForm.reset();
     }
-    editVisa(visaData) {
+    editVisa(visaData:any) {
         this.showDiv = false;
         var date = visaData.ExpDate.split('/');
         this.visaForm.setValue({

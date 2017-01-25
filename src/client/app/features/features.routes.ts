@@ -36,7 +36,7 @@ export const featureRoutes: Routes = [
         }
     },
     {
-        path: 'password',
+        path: 'change-password',
         children: [...ChangePasswordRoutes]
     },
     {

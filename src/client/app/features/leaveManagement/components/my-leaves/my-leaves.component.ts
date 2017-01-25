@@ -51,11 +51,11 @@ export class MyLeavesComponent {
     this.router.navigate(['/leave/apply-leave']);
   }
 
-  updateBtnClicked(id) {
+  updateBtnClicked(id:string) {
     this.router.navigate(['/leave/update-leave', id]);
   }
 
-  arrangeData(leaveParam) {
+  arrangeData(leaveParam:any) {
     // TODO : Convert response into flat object
   }
 }

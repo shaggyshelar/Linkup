@@ -17,7 +17,7 @@ import { SkillSetFormValidation } from '../../models/validation/skillSetFormVali
 import { SkillMasterService } from '../../../core/shared/services/master/skillMaster.service';
 
 /** Other Module Dependencies */
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 
 /** Component Declaration */
 @Component({
@@ -46,7 +46,7 @@ export class SkillSetComponent implements OnInit {
     this.skillMaster.subscribe(result => {
       if (result) {
         this.skillTypes.push({ label: 'Select Skill Type', value: null });
-        result.forEach(element => {
+        result.forEach((element:any) => {
           this.skillTypes.push({
             label: element.Name,
             value: {
@@ -105,7 +105,7 @@ export class SkillSetComponent implements OnInit {
     this.showDiv = true;
     this.skillSetForm.reset();
   }
-  editSkillSetData(skillSetData) {
+  editSkillSetData(skillSetData:any) {
     this.showDiv = false;
     this.skillSetForm.setValue({
       id: skillSetData.ID,

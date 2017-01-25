@@ -5,7 +5,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 /** Third Party Dependencies */
 import { SelectItem } from 'primeng/primeng';
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 /** Module Level Dependencies */
 import { Ticket } from '../../../models/ticket';
 import { TicketService } from '../../../services/ticket.service';

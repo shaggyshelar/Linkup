@@ -90,7 +90,7 @@ export class ApplyLeaveComponent implements OnInit {
     ngOnInit() {
 
         this.userObs = this.userService.getUserDetails();
-        this.subLeaveType = this.leaveTypeService.getLeaveTypes().subscribe(res => {
+        this.subLeaveType = this.leaveTypeService.getLeaveTypes().subscribe((res:any) => {
             for (var index in res)
                 this.leaves.push({ label: res[index].name, value: res[index] });
         });
@@ -205,7 +205,7 @@ export class ApplyLeaveComponent implements OnInit {
     dayDiffCalc() { // input given as Date objects
         var dDate1 = this.model.start;
         var dDate2 = this.model.end;
-        var iWeeks, iDateDiff, iAdjust = 0;
+        var iWeeks:any, iDateDiff:any, iAdjust = 0;
         if (dDate2 < dDate1) return -1; // error code if dates transposed
         var iWeekday1 = dDate1.getDay(); // day of week
         var iWeekday2 = dDate2.getDay();
@@ -235,6 +235,5 @@ export class ApplyLeaveComponent implements OnInit {
     }
 
     addLeaves() {
-
     }
 }

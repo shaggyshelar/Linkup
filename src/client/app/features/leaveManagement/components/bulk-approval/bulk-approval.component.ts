@@ -78,7 +78,7 @@ export class BulkApproveComponent {
   }
 
   assembleReqPayload(status: string) {
-    var payload = [];
+    var payload:any = [];
     for (var index in this.selectedEmployees) {
       payload.push(
         {
@@ -91,7 +91,7 @@ export class BulkApproveComponent {
     return payload;
   }
 
-  sendRequest(status) {
+  sendRequest(status:any) {
     return this.leaveService.updateLeaveRecord(1, this.assembleReqPayload(status)).subscribe(res => {
       if (res) {
         if (status === 'Rejected') {

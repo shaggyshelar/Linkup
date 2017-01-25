@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Rx';
 
 /** Other Module Dependencies */
 import * as moment from 'moment/moment';
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 
 /** Module Level Dependencies */
 import { ConferenceBookingService } from '../../../services/conference-booking.service';

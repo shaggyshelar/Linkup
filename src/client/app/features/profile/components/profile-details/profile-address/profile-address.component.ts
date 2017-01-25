@@ -12,7 +12,7 @@ import { MessageService } from '../../../../core/shared/services/message.service
 import { AddressFormValidation } from '../../../models/validation/addressFormValidation';
 
 /** Other Module Dependencies */
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 
 /** Component Declaration */
 @Component({

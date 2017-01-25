@@ -25,11 +25,11 @@ export class VisaService extends BaseService {
         return this.getList$().map(res => res.json());
     }
 
-    addVisa(params): Observable<boolean> {
+    addVisa(params:any): Observable<boolean> {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updateVisa(id, params): Observable<boolean> {
+    updateVisa(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

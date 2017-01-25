@@ -64,7 +64,7 @@ export class HolidaysComponent {
   ngOnDestroy() {
     // this.subscription.unsubscribe();
   }
-  handleEventClicked(event) {
+  handleEventClicked(event:any) {
     let start = event.calEvent.start;
     start.stripTime();
     this.holiday.Title = event.calEvent.title;
@@ -72,7 +72,7 @@ export class HolidaysComponent {
     this.dialogVisible = true;
   }
 
-  typeClicked(holiday) {
+  typeClicked(holiday:any) {
     this.holiday = {
       ID: null,
       HolidayDate: holiday.start,
@@ -84,7 +84,7 @@ export class HolidaysComponent {
 
   }
 
-  arrangeData(params) {
+  arrangeData(params:any) {
     // TODO : Code For Arrange Leave
   }
 

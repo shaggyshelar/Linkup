@@ -14,7 +14,7 @@ import { IdentityTypeMasterService } from '../../../../core/shared/services/mast
 
 /** Third Party Dependencies */
 import { SelectItem } from 'primeng/primeng';
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 
 /** Component Declaration */
 @Component({
@@ -47,7 +47,7 @@ export class IdentityProofsComponent implements OnInit {
         this.identityTypesMaster.subscribe(result => {
             if (result) {
                 this.identityTypes.push({ label: 'Select', value: null }),
-                    result.forEach(element => {
+                    result.forEach((element:any) => {
                         this.identityTypes.push({
                             label: element.Name,
                             value: {
@@ -115,11 +115,11 @@ export class IdentityProofsComponent implements OnInit {
         this.selectedIdentityType = {};
         this.identityProofForm.reset();
     }
-    onIdentityTypeChange(event) {
+    onIdentityTypeChange(event:any) {
         this.showSubDiv = true;
     }
 
-    editIdentityProof(identity) {
+    editIdentityProof(identity:any) {
         this.showDiv = false;
         this.showSubDiv = true;
         var typeIndex = _.findIndex(this.identityTypes, { label: identity.Type.Name });

@@ -26,11 +26,11 @@ export class SkillService extends BaseService {
         return this.getList$().map(res => res.json());
     }
 
-    addSkill(params): Observable<boolean> {
+    addSkill(params:any): Observable<boolean> {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updateSkill(id, params): Observable<boolean> {
+    updateSkill(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

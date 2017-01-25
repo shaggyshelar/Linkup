@@ -23,16 +23,16 @@ export class RoleService extends BaseService {
     getRoles(): Observable<Role[]> {
         return this.getList$(0,0,true).map((res:Response) => res.json());
     }
-    addRole(role:Role): Observable<any> {
+    addRole(role:any): Observable<any> {
         return this.post$(role,true).map((res:Response) => res.json());
     }
-    editRole(role:Role): Observable<any> {
+    editRole(role:any): Observable<any> {
         return this.put$(role.ID,role,true).map((res:Response) => res.json());
     }
-    getRoleById(roleID:string): Observable<any> {
+    getRoleById(roleID:any): Observable<any> {
         return this.get$(roleID,true).map((res:Response) => res.json());
     }
-    deleteRole(roleID:string): Observable<any> {
+    deleteRole(roleID:any): Observable<any> {
         return this.delete$(roleID,true);
     }
 }

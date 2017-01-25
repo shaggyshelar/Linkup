@@ -26,7 +26,7 @@ export class LeaveService extends BaseService {
      * getLeave method
      * Gets leave object corresponding to ID specified
      */
-    getLeave(id): Observable<Leave> {
+    getLeave(id:any): Observable<Leave> {
         return this.get$(id).map(res => res.json());
     }
 
@@ -43,7 +43,7 @@ export class LeaveService extends BaseService {
      * Gets child array in the object to be returned. List of applied leaves, in this case
      * @methodParam mandatory parameter
      */
-    getLeaveArray(methodParam): Observable<LeaveDetail> {
+    getLeaveArray(methodParam:any): Observable<LeaveDetail> {
         return this.getChildList$(methodParam).map(res => res.json());
     }
 
@@ -51,7 +51,7 @@ export class LeaveService extends BaseService {
      * addLeaveRecord method
      * Adds leave record. returns true if successful, false if not.
      */
-    addLeaveRecord(leavePayload): Observable<boolean> {
+    addLeaveRecord(leavePayload:any): Observable<boolean> {
         return this.post$(leavePayload).map(res => res.status === 201 ? true : false);
     }
 
@@ -60,7 +60,7 @@ export class LeaveService extends BaseService {
      * Gets data form the path extension specified.
      * @params : Parameter : path extension
      */
-    getChildRecord(params): Observable<any> {
+    getChildRecord(params:any): Observable<any> {
         return this.getChildList$(params).map(res => res.json());
     }
 
@@ -70,7 +70,7 @@ export class LeaveService extends BaseService {
      * @ID : Parameter : ID of entity to update
      * @payload : Parameter : Object with properties of entity to be updated
      */
-    updateLeaveRecord(ID, payload): Observable<boolean> {
+    updateLeaveRecord(ID:any, payload:any): Observable<boolean> {
         return this.put$(ID, payload).map(res => res.status === 200 ? true : false);
     }
 
@@ -79,7 +79,7 @@ export class LeaveService extends BaseService {
      * Delete request to delete a record.
      * @ID : Parameter : ID of entity to update
      */
-    deleteLeaveRecord(ID): Observable<boolean> {
+    deleteLeaveRecord(ID:any): Observable<boolean> {
         return this.delete$(ID).map((res) => {
             return res.status === 200 ? true : false;
         });

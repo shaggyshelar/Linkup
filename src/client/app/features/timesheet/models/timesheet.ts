@@ -1,14 +1,14 @@
 /** Timesheet Model Definition */
 export interface Timesheet {
-    id;
-    employeeName;
-    project;
-    date;
-    task;
-    billableHours;
-    nonBillableHours;
-    status;
-    totalHours;
-    noteBillableHours;
-    noteNonBillableHours;
+    id:number;
+    employeeName:string;
+    project:string;
+    date:string;
+    task:string;
+    billableHours:number;
+    nonBillableHours:number;
+    status:string;
+    totalHours:number;
+    noteBillableHours:string;
+    noteNonBillableHours:string;
 }

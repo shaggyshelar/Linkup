@@ -33,7 +33,7 @@ export class ChangePasswordComponent {
     passwordForm: FormGroup;
 
     isFormClean: boolean = false;
-    isConfirmPasswordSame;
+    isConfirmPasswordSame:boolean;
 
     constructor(
         private messageService: MessageService,

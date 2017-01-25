@@ -21,7 +21,7 @@ export class ProfileService extends BaseService {
         super( http, CONTEXT);
     }
 
-    getProfile(id): Observable<User> {
+    getProfile(id:any): Observable<User> {
         return this.get$(id).map(res => res.json());
     }
 }

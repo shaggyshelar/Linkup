@@ -26,11 +26,11 @@ export class EmploymentHistoryService extends BaseService {
         return this.getList$().map(res => res.json());
     }
 
-    addEmploymentHistory(params): Observable<boolean> {
+    addEmploymentHistory(params:any): Observable<boolean> {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updateEmploymentHistory(id, params): Observable<boolean> {
+    updateEmploymentHistory(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

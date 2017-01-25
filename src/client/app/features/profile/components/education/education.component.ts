@@ -20,7 +20,7 @@ import { SelectItem } from 'primeng/primeng';
 
 
 /** Other Module Dependencies */
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 
 export interface Select {
     id: number;
@@ -60,7 +60,7 @@ export class EducationComponent implements OnInit {
         this.classMaster.subscribe(result => {
             if (result) {
                 this.class.push({ label: 'Select', value: null }),
-                    result.forEach(element => {
+                    result.forEach((element:any) => {
                         this.class.push({
                             label: element.Name,
                             value: {
@@ -76,7 +76,7 @@ export class EducationComponent implements OnInit {
         this.gradeMaster.subscribe(result => {
             if (result) {
                 this.grade.push({ label: 'Select', value: null }),
-                    result.forEach(element => {
+                    result.forEach((element:any) => {
                         this.grade.push({
                             label: element.Name,
                             value: {
@@ -135,7 +135,7 @@ export class EducationComponent implements OnInit {
         }
     }
 
-    onFileSelect(event) {
+    onFileSelect(event:any) {
         console.log('event', event);
     }
 
@@ -148,7 +148,7 @@ export class EducationComponent implements OnInit {
         this.showDiv = true;
         this.educationForm.reset();
     }
-    editEducation(educationData) {
+    editEducation(educationData:any) {
         this.showDiv = false;
         this.educationForm.setValue({
             id: educationData.ID,
@@ -160,7 +160,7 @@ export class EducationComponent implements OnInit {
         });
     }
 
-    onChange(event) {
+    onChange(event:any) {
         var files = event.srcElement.files;
     }
 }

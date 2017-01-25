@@ -25,7 +25,7 @@ export class UserService extends BaseService {
         return this.getList$().map(res => res.json());
     }
 
-    getLeaveDetails(param): Observable<LeaveDetail> {
-        return this.getChildList$(param).map(res => res.json())
+    getLeaveDetails(param:any): Observable<LeaveDetail> {
+        return this.getChildList$(param).map(res => res.json());
     }
 }

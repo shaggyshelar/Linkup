@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 /** Other Module Dependencies */
 import { SelectItem } from 'primeng/primeng';
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 //import * as localForage from 'localforage';
 import { Conference } from '../../../models/conference';
 import { ConferenceBookingService } from '../../../services/conference-booking.service';

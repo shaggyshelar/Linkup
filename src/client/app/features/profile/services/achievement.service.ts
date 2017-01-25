@@ -29,7 +29,7 @@ export class AchievementService extends BaseService {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updateAchievement(id:string, params:any): Observable<boolean> {
+    updateAchievement(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

@@ -36,12 +36,11 @@ export class RoleListComponent implements OnInit {
     }
     onDelete(role: Role) {
         this.roleService.deleteRole(role.ID)
-            .subscribe(
-            results => {
+            .subscribe((results:any) => {
                 this.getRole();
                 this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted' });
             },
-            error => this.errorMessage = <any>error);
+            (error:any) => this.errorMessage = <any>error);
     }
     goToAdd() {
         this.router.navigate(['/admin/role/add']);

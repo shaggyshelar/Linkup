@@ -47,7 +47,7 @@ export class PassportComponent implements OnInit {
         });
     }
 
-    addClick(passport) {
+    addClick(passport:any) {
         this.showDiv = false;
         if (this.passportList && this.passportList.length > 0) {
             var expiryDate = this.passportList[0].ExpDate.split('/');

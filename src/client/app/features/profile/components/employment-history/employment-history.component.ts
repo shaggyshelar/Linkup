@@ -112,7 +112,7 @@ export class EmploymentHistoryComponent implements OnInit {
     cancelLastEmployer() {
         this.showEmployerDiv = true;
     }
-    editEmploymentHistory(employmentHistoryData) {
+    editEmploymentHistory(employmentHistoryData:any) {
         this.showDiv = false;
         var startDate = employmentHistoryData.StartDate.split('/');
         var endDate = employmentHistoryData.EndDate.split('/');

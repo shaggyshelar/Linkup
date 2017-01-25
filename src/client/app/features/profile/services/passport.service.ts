@@ -24,11 +24,11 @@ export class PassportService extends BaseService {
     getPassport(): Observable<Passport> {
         return this.getList$().map(res => res.json());
     }
-    addPassport(params): Observable<boolean> {
+    addPassport(params:any): Observable<boolean> {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updatePassport(id, params): Observable<boolean> {
+    updatePassport(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

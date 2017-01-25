@@ -25,11 +25,11 @@ export class IdentityProofService extends BaseService {
         return this.getList$().map(res => res.json());
     }
 
-    addIdentityProof(params): Observable<boolean> {
+    addIdentityProof(params:any): Observable<boolean> {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updateIdentityProof(id, params): Observable<boolean> {
+    updateIdentityProof(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

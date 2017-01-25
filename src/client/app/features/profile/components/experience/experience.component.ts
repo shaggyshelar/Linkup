@@ -102,7 +102,7 @@ export class ExperienceComponent implements OnInit {
         this.showDiv = true;
         this.experienceForm.reset();
     }
-    editExperienceData(experienceData) {
+    editExperienceData(experienceData:any) {
         this.showDiv = false;
         var startDate = experienceData.StartDate.split('/');
         var endDate = experienceData.EndDate.split('/');

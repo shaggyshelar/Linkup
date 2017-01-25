@@ -25,11 +25,11 @@ export class EducationService extends BaseService {
         return this.getList$().map(res => res.json());
     }
 
-    addEducation(params): Observable<boolean> {
+    addEducation(params:any): Observable<boolean> {
         return this.post$(params).map(res => res.status === 200 ? true : false);
     }
 
-    updateEducation(id, params): Observable<boolean> {
+    updateEducation(id:any, params:any): Observable<boolean> {
         return this.put$(id, params).map(res => res.status === 200 ? true : false);
     }
 }

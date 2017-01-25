@@ -2,7 +2,7 @@
 import { OnInit, Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 /** Other Module Dependencies */
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';

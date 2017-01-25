@@ -49,7 +49,7 @@ export class AchievementComponent implements OnInit {
                 ID: value.id,
                 Name: value.description
             };
-            this.achievementService.updateAchievement(value.id, params).subscribe(res => {
+            this.achievementService.updateAchievement(value.id, params).subscribe((res:any) => {
                 if (res) {
                     this.achievements = this.achievementService.getAchievements();
                     this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Achievement updated successfully.' });
@@ -73,7 +73,7 @@ export class AchievementComponent implements OnInit {
         this.showDiv = true;
         this.achievementForm.reset();
     }
-    editAchievement(achievementData) {
+    editAchievement(achievementData:any) {
         this.achievementForm.setValue({
             id: achievementData.ID,
             description: achievementData.Name

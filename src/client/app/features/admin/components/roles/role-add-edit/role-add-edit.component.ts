@@ -41,14 +41,13 @@ export class RoleAddEditComponent implements OnInit {
             this.params = params['roleId'];
             if (this.params) {
                 this.roleService.getRoleById(this.params)
-                    .subscribe(
-                    results => {
+                    .subscribe((results:Role) => {
                         this.roleForm.setValue({
                             ID: results.ID,
                             Name: results.Name
                         });
                     },
-                    error => this.errorMessage = <any>error);
+                    (error:any) => this.errorMessage = <any>error);
                 this.getAllPermissions();
                 this.getPermissionsByRole();
             }
@@ -98,7 +97,7 @@ export class RoleAddEditComponent implements OnInit {
             }
         }
     }
-    revokePermission(permission) {
+    revokePermission(permission:any) {
         permission.RoleId = this.params;
         this.permissionService.revokePermission(permission)
             .subscribe(

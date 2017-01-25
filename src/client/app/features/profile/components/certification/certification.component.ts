@@ -17,7 +17,7 @@ import { CertificationCodeMasterService } from '../../../core/shared/services/ma
 import { SelectItem } from 'primeng/primeng';
 
 /** Other Module Dependencies */
-import * as _ from 'lodash/lodash';
+import * as _ from 'lodash/index';
 import * as moment from 'moment/moment';
 
 /** Component Declaration */
@@ -49,7 +49,7 @@ export class CertificationComponent implements OnInit {
         this.certificationOptionsMaster.subscribe(result => {
             if (result) {
                 this.certificationOptions.push({ label: 'Select', value: null }),
-                    result.forEach(element => {
+                    result.forEach((element:any) => {
                         this.certificationOptions.push({
                             label: element.Name,
                             value: {
@@ -65,7 +65,7 @@ export class CertificationComponent implements OnInit {
         this.certificationCodesMaster.subscribe(result => {
             if (result) {
                 this.certificationCodes.push({ label: 'Select', value: null }),
-                    result.forEach(element => {
+                    result.forEach((element:any) => {
                         this.certificationCodes.push({
                             label: element.Name,
                             value: {
@@ -132,7 +132,7 @@ export class CertificationComponent implements OnInit {
         this.certificationForm.reset();
     }
 
-    selectCertification(certificationData) {
+    selectCertification(certificationData:any) {
         this.showDiv = false;
         var date = certificationData.Date.split('/');
         this.certificationForm.setValue({

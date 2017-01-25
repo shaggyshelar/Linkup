@@ -174,6 +174,20 @@
 					</li>
 				</ul>
 			</li>
+			<li class="nav-item"  [ifAuthorize]="['PROJECT.MANAGE']">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="fa fa-briefcase"></i>
+					<span class="title">Projects</span>
+					<span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li class="nav-item"  [ifAuthorize]="['PROJECT.READ']">
+						<a routerLink="/project/manage" routerLinkActive="active">
+							<span class="title">Manage My Project</span>
+						</a>
+					</li>
+				</ul>
+			</li>
 		</ul>
 		<!-- END SIDEBAR MENU -->
 	</div>

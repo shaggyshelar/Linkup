@@ -7,6 +7,7 @@ import { ProfileRoutes } from './profile/index';
 import { ChangePasswordRoutes } from './changePassword/index';
 import { LeaveRoutes } from './leaveManagement/index';
 import { TimesheetRoutes } from './timesheet/index';
+import { ProjectRoutes } from './project/index';
 
 export const featureRoutes: Routes = [
     {
@@ -47,6 +48,14 @@ export const featureRoutes: Routes = [
         path: 'timesheet',
         children: [...TimesheetRoutes],
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'project',
+        children: [...ProjectRoutes],
+        canActivate: [AuthGuard],
+        data: {
+           permissions: ['PROJECT.MANAGE']
+        }
     },
 ];
 

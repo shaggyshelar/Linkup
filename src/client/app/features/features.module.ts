@@ -9,6 +9,7 @@ import { ProfileModule } from './profile/index';
 import { ChangePasswordModule } from './changePassword/index';
 import { LeaveModule } from './leaveManagement/index';
 import { TimesheetModule } from './timesheet/index';
+import { ProjectModule } from './project/index';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { TimesheetModule } from './timesheet/index';
         ProfileModule,
         ChangePasswordModule,
         LeaveModule,
-        TimesheetModule
+        TimesheetModule,
+        ProjectModule
     ],
     exports: [],
     providers: [],

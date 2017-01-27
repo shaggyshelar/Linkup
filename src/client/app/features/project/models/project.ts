@@ -11,6 +11,6 @@ export class Project {
        public ProjectManager: string,
        public AccountManager: string,
        public DeliveryManager: string,
-       public Isglobal: boolean
+       public IsGlobal: boolean
     ) { }
 }

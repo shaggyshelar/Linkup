@@ -2,8 +2,10 @@
 import { Routes } from '@angular/router';
 
 /** Module Level Depedencies */
-import { ManageProjectComponent } from './components/manage-project/manage-project.component';
 import { AuthGuard } from '../core/index';
+import { ManageProjectComponent } from './components/manage-project/manage-project.component';
+import { AddEditProjectComponent } from './components/add-edit-project/add-edit-project.component';
+
 
 export const ProjectRoutes: Routes = [
   {
@@ -17,6 +19,22 @@ export const ProjectRoutes: Routes = [
     canActivate: [AuthGuard],
     data: {
       permissions: ['PROJECT.READ']
+    }
+  },
+   {
+    path: 'add',
+    component: AddEditProjectComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permissions: ['PROJECT.CREATE']
+    }
+  },
+  {
+    path: 'edit/:id',
+    component: AddEditProjectComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permissions: ['PROJECT.UPDATE']
     }
   },
 ];

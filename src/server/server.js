@@ -43,6 +43,12 @@ require('./master/conferenceRoom/conferenceRoom')(app);
 require('./master/priority/priority')(app);
 require('./master/concern/concern')(app);
 require('./master/department/department')(app);
+require('./master/client/client')(app);
+require('./master/projectType/projectType')(app);
+require('./master/priceType/priceType')(app);
+require('./master/deliveryModel/deliveryModel')(app);
+require('./master/deliveryUnit/deliveryUnit')(app);
+require('./master/projectCategory/projectCategory')(app);
 require('./project/project')(app);
 
 app.get('/', function (req, res) {

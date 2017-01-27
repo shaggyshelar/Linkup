@@ -13,7 +13,13 @@ var projectData = {
         ProjectManager: 'Aradhana Chindhade	',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
-        Isglobal: 'Yes'
+        BillType:'Billable',
+        ProjectSummary: 'Project Summary',
+        DeliveryModel:'ODC Model',
+        PriceType:'Fixed',
+        TeamSize: 10,
+        IsActive: true,
+        IsGlobal: true
     },
     {
         Id: 2,
@@ -27,10 +33,16 @@ var projectData = {
         ProjectManager: 'Kunal Kirankumar Adhikari',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
-        Isglobal: 'Yes'
+        BillType:'Billable',
+        ProjectSummary: 'Project Summary',
+        DeliveryModel:'ODC Model',
+        PriceType:'Fixed',
+        TeamSize: 10,
+        IsActive: true,
+        IsGlobal: true
     }, {
         Id: 3,
-         ProjectName: 'Go Nimbly',
+        ProjectName: 'Go Nimbly',
         ProjectType: 'Internal',
         DeliveryUnit: 'Microsoft',
         ProjectCategory: 'Delv - CoE (MSPlus)',
@@ -40,7 +52,13 @@ var projectData = {
         ProjectManager: 'Sagar Shelar',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
-        Isglobal: 'Yes'
+        BillType:'Billable',
+        ProjectSummary: 'Project Summary',
+        DeliveryModel:'ODC Model',
+        PriceType:'Fixed',
+        TeamSize: 10,
+        IsActive: true,
+        IsGlobal: true
     }, {
         Id: 4,
         ProjectName: 'Jenzabar - Web Corporate',
@@ -53,7 +71,13 @@ var projectData = {
         ProjectManager: 'Prasad Udupi	',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
-        Isglobal: 'Yes'
+        BillType:'Billable',
+        ProjectSummary: 'Project Summary',
+        DeliveryModel:'ODC Model',
+        PriceType:'Fixed',
+        TeamSize: 10,
+        IsActive: true,
+        IsGlobal: true
     }, {
         Id: 5,
         ProjectName: 'Synergy Code',
@@ -66,7 +90,13 @@ var projectData = {
         ProjectManager: 'Sagar Shelar	',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
-        Isglobal: 'Yes'
+        BillType:'Billable',
+        ProjectSummary: 'Project Summary',
+        DeliveryModel:'ODC Model',
+        PriceType:'Fixed',
+        TeamSize: 10,
+        IsActive: true,
+        IsGlobal: true
     }],
     ids: 7
 };

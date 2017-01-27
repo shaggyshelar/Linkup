@@ -6,29 +6,29 @@ var getProjects = function (req, res) {
     res.json(projectData.projectList);
 };
 
-var getTicketById = function (req, res) {
+var getProjectById = function (req, res) {
     var id = parseInt(req.params.id);
-    var index = _.findIndex(ticketData.ticketList, { Id: id });
-    res.json(ticketData.ticketList[index]);
+    var index = _.findIndex(projectData.projectList, { Id: id });
+    res.json(projectData.projectList[index]);
 };
 
-var saveTicket = function (req, res) {
-    var ticket = req.body;
-    ticket.Id = ++ticketData.ids;
-    ticketData.ticketList.push(ticket);
-    res.json(ticket);
+var saveProject = function (req, res) {
+    var project = req.body;
+    project.Id = ++projectData.ids;
+    projectData.projectList.push(project);
+    res.json(project);
 };
 
-var editTicket = function (req, res) {
-    var ticket = req.body;
-    var index = _.findIndex(ticketData.ticketList, { Id: ticket.Id });
-    ticketData.ticketList[index] = ticket
-    res.json(ticket);
+var editProject = function (req, res) {
+    var project = req.body;
+    var index = _.findIndex(projectData.projectList, { Id: project.Id });
+    projectData.projectList[index] = project
+    res.json(project);
 };
 
 module.exports = function (app) {
     app.get('/api/project',utils.EnsureAuthenticated, getProjects);
-    // app.get('/api/ticket/:id', getTicketById);
-    // app.post('/api/ticket', saveTicket);
-    // app.put('/api/ticket', editTicket);
+    app.get('/api/project/:id', getProjectById);
+    app.post('/api/project', saveProject);
+    app.put('/api/project', editProject);
 };

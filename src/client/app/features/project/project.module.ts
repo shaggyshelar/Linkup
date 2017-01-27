@@ -5,9 +5,16 @@ import { BrowserModule } from '@angular/platform-browser';
 /** Module level Dependencies */
 import { CommonModule } from '../core/index';
 import { ManageProjectComponent } from './components/manage-project/manage-project.component';
+import { AddEditProjectComponent } from './components/add-edit-project/add-edit-project.component';
 
 /** Service Declarations */
 import { ProjectService } from './services/project.service';
+import { ClientService } from '../core/shared/services/master/client.service';
+import { ProjectTypeService } from '../core/shared/services/master/projectType.service';
+import { ProjectCategoryService } from '../core/shared/services/master/projectCategory.service';
+import { PriceTypeService  } from '../core/shared/services/master/priceType.service';
+import { DeliveryModelService } from '../core/shared/services/master/deliveryModel.service';
+import { DeliveryUnitService } from '../core/shared/services/master/deliveryUnit.service';
 
 /** Module Definition */
 @NgModule({
@@ -16,9 +23,13 @@ import { ProjectService } from './services/project.service';
     ],
     exports: [],
     declarations: [
-        ManageProjectComponent
+        ManageProjectComponent,
+        AddEditProjectComponent
     ],
-    providers: [ProjectService]
+    providers: [
+        ProjectService,ClientService,ProjectTypeService,
+        ProjectCategoryService,PriceTypeService,DeliveryModelService,DeliveryUnitService
+        ]
 })
 export class ProjectModule {
 }

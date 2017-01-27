@@ -25,4 +25,19 @@ export class ProjectService extends BaseService {
             .getList$(0,0,true)
             .map(res => res.json());
     }
+    getProjectById(id:string) : Observable < Project > {
+        return this
+            .get$(id)
+            .map(res => res.json());
+    }
+    saveProject(project:any) : Observable < any > {
+        return this
+            .post$(project)
+            .map(res => res.json());
+    }
+    editProject(project:any) : Observable < any > {
+        return this
+            .put$(project.Id, project)
+            .map(res => res.json());
+    }
 }

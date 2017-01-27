@@ -20,11 +20,13 @@ export class ManageProjectComponent implements OnInit {
    projectList: Observable<Project[]>;
     constructor(
          private projectService: ProjectService,
+         private router: Router
     ) {}
 
     ngOnInit() {
         this.projectList = this.projectService.getProjectList();
     }
     onEdit(projectId:number) {
+        this.router.navigate(['/project/edit', projectId]);
     }
 }

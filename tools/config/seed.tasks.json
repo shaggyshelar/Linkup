@@ -36,7 +36,7 @@
     "build.service_worker"
   ],
 
-  "build.prod.exp": [
+  "build.prod.aot": [
     "check.tools",
     "clean.prod",
     "tslint",
@@ -44,9 +44,25 @@
     "build.html_css",
     "copy.prod",
     "compile.ahead.prod",
-    "build.js.prod.exp",
+    "build.js.prod.aot",
     "build.bundles",
-    "build.bundles.app.exp",
+    "build.bundles.app.aot",
+    "minify.bundles",
+    "build.index.prod"
+  ],
+
+  "build.prod.rollup.aot": [
+    "check.tools",
+    "clean.prod",
+    "tslint",
+    "build.assets.prod",
+    "build.html_css",
+    "copy.prod",
+    "compile.ahead.prod",
+    "build.js.prod.rollup.aot",
+    "build.bundles",
+    "build.bundles.app.rollup.aot",
+    "transpile.bundles.rollup.aot",
     "minify.bundles",
     "build.index.prod"
   ],
@@ -86,8 +102,13 @@
     "server.prod"
   ],
 
-  "serve.prod.exp": [
-    "build.prod.exp",
+  "serve.prod.aot": [
+    "build.prod.aot",
+    "server.prod"
+  ],
+
+  "serve.prod.rollup.aot": [
+    "build.prod.rollup.aot",
     "server.prod"
   ],
 

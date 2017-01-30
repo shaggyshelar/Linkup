@@ -1,7 +1,8 @@
-import { OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginService } from '../../../shared/services/login.service';
+/** Angular Dependencies */
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../../auth/auth.service';
 declare var $: any;
 
 /** Component Definition */
@@ -13,12 +14,12 @@ declare var $: any;
 })
 export class SidebarComponent {
   isUserMenuOpen: boolean;
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     this.isUserMenuOpen = false;
   }
 
   logout() {
-    this.loginService.logout();
+    this.authService.logout();
     this.isUserMenuOpen = false;
     this.router.navigate(['/login']);
   }

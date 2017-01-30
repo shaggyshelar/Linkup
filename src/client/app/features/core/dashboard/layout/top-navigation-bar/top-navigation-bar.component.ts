@@ -1,7 +1,7 @@
-import { OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginService } from '../../../shared/services/login.service';
+/** Angular Dependencies */
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   moduleId: module.id,
@@ -11,11 +11,11 @@ import { Component } from '@angular/core';
 })
 export class TopNavigationBarComponent {
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   logout() {
-    this.loginService.logout();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

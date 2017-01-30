@@ -6,7 +6,6 @@ import {
     DropdownModule, DialogModule, ConfirmDialogModule, GrowlModule, ConfirmationService,
     ProgressBarModule, CheckboxModule, FileUploadModule, AutoCompleteModule
 } from 'primeng/primeng';
-import { LoginService } from './services/login.service';
 import { IfAuthorize } from './directives/ifAuthorize.directive';
 import { UnauthorizedAccessComponent } from '../errorPages/unauthorizedAccess/unauthorizedAccess.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -63,7 +62,7 @@ let declarations = [
 /**
  * Providers Declaration
  */
-let providers = [LoginService, ConfirmationService, MessageService];
+let providers = [ ConfirmationService, MessageService];
 
 /** Module Definition */
 @NgModule({

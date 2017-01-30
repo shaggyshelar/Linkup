@@ -36,6 +36,9 @@ export class AddEditProjectComponent implements OnInit {
     deliverUnits:SelectItem[];
     priceType:SelectItem[];
     projectCategory:SelectItem[];
+    teamMember:any;
+    filteredMemberList:any;
+    selectedTeamMember:Object;
     constructor(
         private projectService: ProjectService,
         private route: ActivatedRoute,
@@ -51,6 +54,7 @@ export class AddEditProjectComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.teamMember=[];
         this.billTypes=[];
         this.clients=[];
         this.projectType=[];
@@ -145,6 +149,7 @@ export class AddEditProjectComponent implements OnInit {
                 this.params = params['id'];
                 this.projectService.getProjectById(this.params.toString()).subscribe((result:any) => {
                     if (result) {
+                        this.teamMember = result.TeamMembers;
                         this.projectForm.setValue({
                             Id: result.Id,
                             ProjectName: result.ProjectName,
@@ -163,7 +168,7 @@ export class AddEditProjectComponent implements OnInit {
                             PriceType:result.PriceType,
                             TeamSize: result.TeamSize,
                             IsActive: result.IsActive,
-                            IsGlobal: result.IsGlobal,
+                            IsGlobal: result.IsGlobal
                         });
                     }
                 });
@@ -174,7 +179,7 @@ export class AddEditProjectComponent implements OnInit {
     onSubmit({ value, valid }: { value: Project, valid: boolean }) {
         value.ProjectStartDate = moment(value.ProjectStartDate).format('DD-MM-YYYY');
         value.ProjectEndDate = moment(value.ProjectEndDate).format('DD-MM-YYYY');
-
+        value.TeamMembers = this.teamMember;
         if (this.params) {
             this.projectService.editProject(value).subscribe(result => {
                 if (result) {
@@ -194,5 +199,21 @@ export class AddEditProjectComponent implements OnInit {
 
     onCancel() {
         this.router.navigate(['/project/manage']);
+    }
+    onDeleteMember(index:number) {
+        this.teamMember.splice(index,1);
+    }
+    onTeamMemberSelect(item:any) {
+        this.selectedTeamMember=item;
+    }
+    onAddTeamMember() {
+       this.teamMember.push(this.selectedTeamMember);
+       this.selectedTeamMember='';
+    }
+    filterTeamMember() {
+        this.filteredMemberList =  [
+            {Id:1,Name:'Salauddin'},
+            {Id:2,Name:'Sachin'},
+            {Id:3,Name:'Aman'}];
     }
 }

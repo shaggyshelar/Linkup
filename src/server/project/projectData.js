@@ -9,7 +9,7 @@ var projectData = {
         ProjectCategory: 'Delv - CoE (MSPlus)',
         ClientName: 'Eternus Solutions Pvt Ltd',
         ProjectStartDate: '01-05-2014',
-        ProjectEndDate: '30-11-2015	',
+        ProjectEndDate: '1-11-2015	',
         ProjectManager: 'Aradhana Chindhade	',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
@@ -19,17 +19,22 @@ var projectData = {
         PriceType:'Fixed',
         TeamSize: 10,
         IsActive: true,
-        IsGlobal: true
+        IsGlobal: true,
+        TeamMembers:[
+            {Id:1,Name:'Salauddin'},
+            {Id:2,Name:'Sachin'},
+            {Id:3,Name:'Aman'},
+        ]
     },
     {
         Id: 2,
-       ProjectName: 'ESPL - Practice Management - MSPlus',
+        ProjectName: 'ESPL - Practice Management - MSPlus',
         ProjectType: 'Internal',
         DeliveryUnit: 'Microsoft',
         ProjectCategory: 'Delv - CoE (MSPlus)',
         ClientName: 'Eternus Solutions Pvt Ltd',
         ProjectStartDate: '01-05-2014',
-        ProjectEndDate: '30-11-2015	',
+        ProjectEndDate: '1-11-2015	',
         ProjectManager: 'Kunal Kirankumar Adhikari',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
@@ -39,7 +44,12 @@ var projectData = {
         PriceType:'Fixed',
         TeamSize: 10,
         IsActive: true,
-        IsGlobal: true
+        IsGlobal: true,
+        TeamMembers:[
+            {Id:1,Name:'Salauddin'},
+            {Id:2,Name:'Sachin'},
+            {Id:3,Name:'Aman'},
+        ]
     }, {
         Id: 3,
         ProjectName: 'Go Nimbly',
@@ -48,7 +58,7 @@ var projectData = {
         ProjectCategory: 'Delv - CoE (MSPlus)',
         ClientName: 'Go Nimbly',
         ProjectStartDate: '01-05-2014',
-        ProjectEndDate: '30-11-2015	',
+        ProjectEndDate: '2-11-2015	',
         ProjectManager: 'Sagar Shelar',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
@@ -58,7 +68,11 @@ var projectData = {
         PriceType:'Fixed',
         TeamSize: 10,
         IsActive: true,
-        IsGlobal: true
+        IsGlobal: true,
+        TeamMembers:[
+            {Id:2,Name:'Sachin'},
+            {Id:3,Name:'Aman'},
+        ]
     }, {
         Id: 4,
         ProjectName: 'Jenzabar - Web Corporate',
@@ -67,7 +81,7 @@ var projectData = {
         ProjectCategory: 'Delv - CoE (MSPlus)',
         ClientName: 'Jenzabar',
         ProjectStartDate: '01-05-2014',
-        ProjectEndDate: '30-11-2015	',
+        ProjectEndDate: '4-11-2015	',
         ProjectManager: 'Prasad Udupi	',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
@@ -77,7 +91,10 @@ var projectData = {
         PriceType:'Fixed',
         TeamSize: 10,
         IsActive: true,
-        IsGlobal: true
+        IsGlobal: true,
+        TeamMembers:[
+            {Id:2,Name:'Sachin'},
+        ]
     }, {
         Id: 5,
         ProjectName: 'Synergy Code',
@@ -86,7 +103,7 @@ var projectData = {
         ProjectCategory: 'Delv - CoE (MSPlus)',
         ClientName: 'Eternus Solutions Pvt Ltd',
         ProjectStartDate: '01-05-2014',
-        ProjectEndDate: '30-11-2015	',
+        ProjectEndDate: '5-11-2015	',
         ProjectManager: 'Sagar Shelar	',
         AccountManager: 'Kunal Kirankumar Adhikari',
         DeliveryManager: 'Kunal Kirankumar Adhikari',
@@ -96,7 +113,11 @@ var projectData = {
         PriceType:'Fixed',
         TeamSize: 10,
         IsActive: true,
-        IsGlobal: true
+        IsGlobal: true,
+        TeamMembers:[
+            {Id:2,Name:'Sachin'},
+            {Id:3,Name:'Aman'},
+        ]
     }],
     ids: 7
 };

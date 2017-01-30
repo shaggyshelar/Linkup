@@ -43,3 +43,9 @@
   float: right; 
   z-index: 10000000;
 }
+.floating-add-btn {
+  bottom: 0;
+  position: fixed;
+  margin: 1em;
+  right: 0px;
+}

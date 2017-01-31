@@ -67,7 +67,8 @@ import { GradeMasterService } from '../core/shared/services/master/gradeMaster.s
     ],
     providers: [ProfileService, AchievementService, CertificateService, SkillService, EducationService, EmploymentHistoryService,
         ExperienceService, AddressService, IdentityProofService, NomineesService, PassportService, UanService, VisaService,
-        SkillMasterService, CertificationMasterService, CertificationCodeMasterService, IdentityTypeMasterService, ClassMasterService, GradeMasterService
+        SkillMasterService, CertificationMasterService, CertificationCodeMasterService, IdentityTypeMasterService,
+        ClassMasterService, GradeMasterService
     ]
 })
 

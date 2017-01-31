@@ -60,7 +60,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="room">Conference Rooms*</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="conferenceRooms" [style]="{'width':'100%'}" id="selectRoomDropdown" formControlName="Room" name="rooms" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="conferenceRooms" [style]="{'width':'100%'}" id="selectRoomDropdown" formControlName="Room" name="rooms" ></p-dropdown>
               <div class="alert alert-danger" *ngIf="conferenceForm.get('Room').hasError('required') && conferenceForm.get('Room').touched">
                 Please select room
               </div>
@@ -106,21 +106,6 @@
               <label class="radio-inline">
       <input type="radio"  id="optionYearly" value="yearly" name="optradio">Yearly
     </label>
-            </div>
-          </div>
-          <div class="form-group" [ngSwitch]="recurranceType" *ngIf="recurrance">
-            <label class="control-label col-sm-2" for="recurranceType">Pattern</label>
-            <div class="col-sm-10" *ngSwitchCase="'daily'">
-              <p><input type="checkbox" id="optionYearly"> Daily </p>
-            </div>
-            <div class="col-sm-10" *ngSwitchCase="'weekly'">
-              <p><input type="checkbox" id="optionWeekly"> Weekly</p>
-            </div>
-            <div class="col-sm-10" *ngSwitchCase="'monthly'">
-              <p>Monthly</p>
-            </div>
-            <div class="col-sm-10" *ngSwitchCase="'yearly'">
-              <p>Yearly</p>
             </div>
           </div>
           <label class="control-label col-sm-2 col-sm-2" *ngIf="recurrance" for="description">Date Range</label>

@@ -33,7 +33,7 @@ export interface Select {
 /** Component Declaration */
 @Component({
     moduleId: module.id,
-    selector: 'education',
+    selector: 'profile-education',
     templateUrl: 'education.component.html',
     styleUrls: ['education.component.css']
 })
@@ -48,7 +48,8 @@ export class EducationComponent implements OnInit {
     public profile_Observable: Observable<any>;
 
     constructor(
-        private router: Router, private formBuilder: FormBuilder, private educationService: EducationService, private messageService: MessageService,
+        private router: Router,
+        private formBuilder: FormBuilder, private educationService: EducationService, private messageService: MessageService,
         private classMasterService: ClassMasterService, private gradeMasterService: GradeMasterService) {
         this.class = [];
         this.grade = [];
@@ -59,34 +60,34 @@ export class EducationComponent implements OnInit {
         this.classMaster = this.classMasterService.getClassMaster();
         this.classMaster.subscribe(result => {
             if (result) {
-                this.class.push({ label: 'Select', value: null }),
-                    result.forEach((element:any) => {
+                this.class.push({ label: 'Select', value: null });
+                result.forEach((element:any) => {
                         this.class.push({
                             label: element.Name,
                             value: {
                                 id: element.ID,
                                 name: element.Name
                             }
-                        })
+                        });
                     });
             }
-        })
+        });
 
         this.gradeMaster = this.gradeMasterService.getGradeMaster();
         this.gradeMaster.subscribe(result => {
             if (result) {
-                this.grade.push({ label: 'Select', value: null }),
-                    result.forEach((element:any) => {
+                this.grade.push({ label: 'Select', value: null });
+                result.forEach((element:any) => {
                         this.grade.push({
                             label: element.Name,
                             value: {
                                 id: element.ID,
                                 name: element.Name
                             }
-                        })
-                    });
+                        });
+                });
             }
-        })
+        });
 
         this.education = this.educationService.getEducation();
 
@@ -113,7 +114,10 @@ export class EducationComponent implements OnInit {
             this.educationService.updateEducation(value.id, params).subscribe(res => {
                 if (res) {
                     this.education = this.educationService.getEducation();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Education Information updated successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Education Information updated successfully.' });
                     this.showDiv = true;
                 }
             });
@@ -128,7 +132,10 @@ export class EducationComponent implements OnInit {
             this.educationService.addEducation(params).subscribe(res => {
                 if (res) {
                     this.education = this.educationService.getEducation();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Education Information saved successfully.' });
+                    this.messageService.addMessage({
+                         severity: 'success',
+                         summary: 'Success',
+                         detail: 'Education Information saved successfully.' });
                     this.showDiv = true;
                 }
             });
@@ -153,7 +160,8 @@ export class EducationComponent implements OnInit {
         this.educationForm.setValue({
             id: educationData.ID,
             degree: educationData.Degree,
-            class: _.find(this.class, ['label', educationData.Class.Name]) ? _.find(this.class, ['label', educationData.Class.Name]).value : '',
+            class: _.find(this.class,
+             ['label', educationData.Class.Name]) ? _.find(this.class, ['label', educationData.Class.Name]).value : '',
             grade: _.find(this.grade, ['label', educationData.Grade]) ? _.find(this.grade, ['label', educationData.Grade]).value : '',
             yearOfPassing: educationData.YearOfPassing,
             percentage: educationData.Percentage

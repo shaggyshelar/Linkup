@@ -79,7 +79,10 @@ export class ProfileAddressComponent implements OnInit {
                     this.addressList.subscribe(result => {
                         this.addressArray = result ? result : [];
                     });
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Address updated successfully.' });                   
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Address updated successfully.' });
                 }
             });
         } else {
@@ -97,8 +100,10 @@ export class ProfileAddressComponent implements OnInit {
                     this.addressList.subscribe(result => {
                         this.addressArray = result ? result : [];
                     });
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Address saved successfully.' });
-                   
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Address saved successfully.' });
                 }
             });
         }

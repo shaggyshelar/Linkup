@@ -41,9 +41,9 @@ var editRole = function (req, res) {
 };
 
 module.exports = function (app) {
-  app.get('/api/role', getRoles);
-  app.get('/api/role/:id', getRoleById);
-  app.post('/api/role', addRole);
-  app.delete('/api/role/:id', deleteRole);
-  app.put('/api/role', editRole);
+  app.get('/api/Role', getRoles);
+  app.get('/api/Role/:id', getRoleById);
+  app.post('/api/Role', addRole);
+  app.delete('/api/Role/:id', deleteRole);
+  app.put('/api/Role', editRole);
 };

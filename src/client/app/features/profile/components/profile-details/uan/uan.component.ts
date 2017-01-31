@@ -14,7 +14,7 @@ import { UanFormValidation } from '../../../models/validation/uanFormValidation'
 /** Component Declaration */
 @Component({
     moduleId: module.id,
-    selector: 'UAN',
+    selector: 'profile-detail-uan',
     templateUrl: 'uan.component.html',
     styleUrls: ['uan.component.css']
 })
@@ -54,7 +54,10 @@ export class UANComponent implements OnInit {
                     this.uanData.subscribe(result => {
                         this.uan = result ? result : [];
                     });
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'UAN updated successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'UAN updated successfully.' });
                     this.showDiv = true;
                 }
             });
@@ -69,7 +72,10 @@ export class UANComponent implements OnInit {
                     this.uanData.subscribe(result => {
                         this.uan = result ? result : [];
                     });
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'UAN saved successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'UAN saved successfully.' });
                     this.showDiv = true;
                 }
             });

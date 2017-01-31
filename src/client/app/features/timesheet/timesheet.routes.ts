@@ -7,7 +7,7 @@ import { AddEditTimesheetComponent } from './components/add-edit-timesheet/add-e
 import { ApproveTimesheetComponent } from './components/approve-timesheet/approve-timesheet.component';
 import { ApprovedTimesheetComponent } from './components/approved-timesheet/approved-timesheet.component';
 import { ReportTimesheetComponent } from './components/report-timesheet/report-timesheet.component';
-import { ViewApproveTimesheetComponent } from './components/approve-timesheet/view-approve-timesheet.component'
+import { ViewApproveTimesheetComponent } from './components/approve-timesheet/view-approve-timesheet.component';
 
 /** TimesheetRoutes Definition */
 export const TimesheetRoutes: Route[] = [

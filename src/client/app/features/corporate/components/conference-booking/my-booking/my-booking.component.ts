@@ -22,7 +22,9 @@ export class MyBookingComponent implements OnInit {
     conferenceRooms: Observable<any>;
     constructor(
         private roomService: RoomService,
-        private messageService: MessageService, private conferenceBookingService: ConferenceBookingService, private confirmationService: ConfirmationService) {
+        private messageService: MessageService,
+        private conferenceBookingService: ConferenceBookingService,
+        private confirmationService: ConfirmationService) {
     }
     ngOnInit() {
         this.conferenceRooms = this.roomService.getConferenceRooms();

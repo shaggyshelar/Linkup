@@ -25,12 +25,12 @@ import { MessageService } from '../../../core/shared/services/message.service';
 
 @Component({
     moduleId: module.id,
-    selector: 'singleapproval',
+    selector: 'single-approval',
     templateUrl: 'single-approval.component.html',
     styleUrls: ['single-approval.component.css']
 })
 
-export class SingleApprovalComponent {
+export class SingleApprovalComponent implements OnInit {
     leaveID: number;
     leaveObs: Observable<Leave>;
     userDetObs: Observable<User>;
@@ -56,8 +56,7 @@ export class SingleApprovalComponent {
         };
         this.singleApprovalForm = this.formBuilder.group({
             comments: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(600)]]
-        })
-
+        });
     }
 
     ngOnInit() {

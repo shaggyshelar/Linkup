@@ -22,7 +22,7 @@ import * as _ from 'lodash/index';
 /** Component Declaration */
 @Component({
   moduleId: module.id,
-  selector: 'skillSet',
+  selector: 'skill-set',
   templateUrl: 'skill-set.component.html',
   styleUrls: ['skill-set.component.css']
 })
@@ -53,10 +53,10 @@ export class SkillSetComponent implements OnInit {
               id: element.ID,
               name: element.Name
             }
-          })
+          });
         });
       }
-    })
+    });
 
     this.skillSetForm = this.formBuilder.group({
       id: [null],

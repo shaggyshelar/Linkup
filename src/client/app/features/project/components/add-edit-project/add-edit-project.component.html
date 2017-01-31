@@ -24,7 +24,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Client Name *</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="clients" [style]="{'width':'100%'}" formControlName="ClientName" name="clientName" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="clients" [style]="{'width':'100%'}" formControlName="ClientName" name="clientName" ></p-dropdown>
               <div class="alert alert-danger" *ngIf="projectForm.get('ClientName').hasError('required') && projectForm.get('ClientName').touched">
                 Please select Client
               </div>
@@ -33,7 +33,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Billable/Non-Billable *</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="billTypes" [style]="{'width':'100%'}" formControlName="BillType" name="billType" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="billTypes" [style]="{'width':'100%'}" formControlName="BillType" name="billType"></p-dropdown>
               <div class="alert alert-danger" *ngIf="projectForm.get('BillType').hasError('required') && projectForm.get('BillType').touched">
                 Please select
               </div>
@@ -66,7 +66,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Project Type *</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="projectType" [style]="{'width':'100%'}" formControlName="ProjectType" name="projectType" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="projectType" [style]="{'width':'100%'}" formControlName="ProjectType" name="projectType" ></p-dropdown>
               <div class="alert alert-danger" *ngIf="projectForm.get('ProjectType').hasError('required') && projectForm.get('ProjectType').touched">
                 Please select Project Type
               </div>
@@ -76,7 +76,7 @@
             <label class="control-label col-sm-2">Project Category *</label>
             <div class="col-sm-10">
               <p-dropdown [options]="projectCategory" [style]="{'width':'100%'}" formControlName="ProjectCategory" name="projectCategory"
-                [styleClass]="form-control"></p-dropdown>
+                ></p-dropdown>
                 <div class="alert alert-danger" *ngIf="projectForm.get('ProjectCategory').hasError('required') && projectForm.get('ProjectCategory').touched">
                   Please select Project Category
                 </div>
@@ -105,7 +105,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Delivery Unit *</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="deliverUnits" [style]="{'width':'100%'}" formControlName="DeliveryUnit" name="deliveryUnit" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="deliverUnits" [style]="{'width':'100%'}" formControlName="DeliveryUnit" name="deliveryUnit" ></p-dropdown>
               <div class="alert alert-danger" *ngIf="projectForm.get('DeliveryUnit').hasError('required') && projectForm.get('DeliveryUnit').touched">
                 Please select Delivery Unit
               </div>
@@ -114,7 +114,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Delivery Model *</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="deliverModels" [style]="{'width':'100%'}" formControlName="DeliveryModel" name="DeliveryModel" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="deliverModels" [style]="{'width':'100%'}" formControlName="DeliveryModel" name="DeliveryModel"></p-dropdown>
               <div class="alert alert-danger" *ngIf="projectForm.get('DeliveryModel').hasError('required') && projectForm.get('DeliveryModel').touched">
                 Please select Delivery Model
               </div>
@@ -141,7 +141,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Price Type *</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="priceType" [style]="{'width':'100%'}" formControlName="PriceType" name="PriceType" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="priceType" [style]="{'width':'100%'}" formControlName="PriceType" name="PriceType"></p-dropdown>
               <div class="alert alert-danger" *ngIf="projectForm.get('PriceType').hasError('required') && projectForm.get('PriceType').touched">
                 Please select Price Type
               </div>

@@ -27,8 +27,8 @@ var editTicket = function (req, res) {
 };
 
 module.exports = function (app) {
-    app.get('/api/ticket', getTicket);
-    app.get('/api/ticket/:id', getTicketById);
-    app.post('/api/ticket', saveTicket);
-    app.put('/api/ticket', editTicket);
+    app.get('/api/Ticket', getTicket);
+    app.get('/api/Ticket/:id', getTicketById);
+    app.post('/api/Ticket', saveTicket);
+    app.put('/api/Ticket', editTicket);
 };

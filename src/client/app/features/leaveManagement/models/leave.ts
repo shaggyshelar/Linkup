@@ -3,7 +3,6 @@ import { LeaveType } from './leaveType';
 
 export interface Leave {
     ID: number;
-
     User: User;
     Type: LeaveType;
     StartDate: Date;

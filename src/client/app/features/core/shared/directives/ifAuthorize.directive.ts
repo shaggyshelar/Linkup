@@ -2,7 +2,7 @@ import { Directive, ElementRef, OnInit, Input } from '@angular/core';
 @Directive({
     selector: '[ifAuthorize]'
 })
-export class IfAuthorize implements OnInit {
+export class IfAuthorizeDirective implements OnInit {
 
     @Input('ifAuthorize') permissions: Array<string>;
     private _element: HTMLElement;

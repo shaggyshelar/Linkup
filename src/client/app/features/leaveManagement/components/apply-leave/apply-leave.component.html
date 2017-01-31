@@ -71,11 +71,6 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h4>Apply Leave</h4>
-                                <div class="pull-right">
-                                    <h5 class="warning">
-                                        <span>{{warning}}</span>
-                                    </h5>
-                                </div>
                             </div>
                         </div>
                         <form novalidate [formGroup]="applyLeaveForm">
@@ -107,7 +102,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Start Date<span class="warning">*</span> </label>
                                         <div>
-                                            <p-calendar id="start" [defaultDate]="today" required dateFormat="dd/mm/yy" [styleClass]="fullWidth" [showIcon]="true" (onSelect)="startChanged()"
+                                            <p-calendar id="start"  required dateFormat="dd/mm/yy" [showIcon]="true" (onSelect)="startChanged()"
                                                 formControlName="start" [(ngModel)]="model.start"></p-calendar>
                                             <div class="alert alert-danger" *ngIf="applyLeaveForm.get('start').hasError('required') && applyLeaveForm.get('start').touched">
                                                 Start Date is required
@@ -119,7 +114,7 @@
                                     <div class="form-group">
                                         <label class="control-label">End Date<span class="warning">*</span> </label>
                                         <div>
-                                            <p-calendar [disabled]="!isEndDtEnable" id="end" [styleClass]="fullWidth" required dateFormat="dd/mm/yy" [(minDate)]="model.start"
+                                            <p-calendar [disabled]="!isEndDtEnable" id="end" required dateFormat="dd/mm/yy" [(minDate)]="model.start"
                                                 [showIcon]="true" (onSelect)="endChanged()" formControlName="end" [(ngModel)]="model.end">
                                             </p-calendar>
                                             <div class="alert alert-danger" *ngIf="applyLeaveForm.get('end').hasError('required') && applyLeaveForm.get('end').touched">
@@ -153,7 +148,7 @@
                                             <p-column field="end" header="End Date" [sortable]="false"></p-column>
                                             <p-column header="Delete" styleClass="col-button" field="color">
                                                 <template let-day="rowData" pTemplate type="body">
-                                                    <button type="button" (click)="delLeaveRec(day)" pButton icon="fa fa-trash"></button>
+                                                    <button type="button"  pButton icon="fa fa-trash"></button>
                                                 </template>
                                             </p-column>
                                         </p-dataTable>
@@ -163,7 +158,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="pull-right">
-                                        <button id="addLeave" [disabled]="applyLeaveForm.invalid" class="btn btn-outline" (click)="addLeaves()">Add Leave</button>
+                                        <button id="addLeave" [disabled]="applyLeaveForm.invalid" class="btn btn-outline" >Add Leave</button>
                                         <button id="submit" [disabled]="applyLeaveForm.invalid" type="submit" class="btn btn-outline" (click)="submitForm(applyLeaveForm)">Submit</button>
                                         <button id="cancel" type="reset" (click)="cancelClick()" class="btn btn-outline">Cancel</button>
                                     </div>

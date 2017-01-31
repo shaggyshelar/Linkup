@@ -2,7 +2,7 @@
 import { OnInit, Component } from '@angular/core';
 
 /** Third Party Dependencies */
-import {SelectItem} from 'primeng/primeng';
+import { SelectItem } from 'primeng/primeng';
 
 /** Module Level Dependencies */
 import { Timesheet } from '../../models/timesheet';

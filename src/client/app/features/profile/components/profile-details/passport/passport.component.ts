@@ -17,7 +17,7 @@ import * as moment from 'moment/moment';
 /** Component Declaration */
 @Component({
     moduleId: module.id,
-    selector: 'passport',
+    selector: 'profile-detail-passport',
     templateUrl: 'passport.component.html',
     styleUrls: ['passport.component.css']
 })
@@ -70,7 +70,10 @@ export class PassportComponent implements OnInit {
             this.passportService.updatePassport(value.id, params).subscribe(res => {
                 if (res) {
                     this.passport = this.passportService.getPassport();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Passport Information updated successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Passport Information updated successfully.' });
                     this.showDiv = true;
                 }
             });
@@ -82,7 +85,10 @@ export class PassportComponent implements OnInit {
             this.passportService.addPassport(params).subscribe(res => {
                 if (res) {
                     this.passport = this.passportService.getPassport();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Passport Information saved successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Passport Information saved successfully.' });
                     this.showDiv = true;
                 }
             });

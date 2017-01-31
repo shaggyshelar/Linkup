@@ -23,7 +23,7 @@ import * as moment from 'moment/moment';
 /** Component Declaration */
 @Component({
     moduleId: module.id,
-    selector: 'certification',
+    selector: 'profile-certification',
     templateUrl: 'certification.component.html',
     styleUrls: ['certification.component.css']
 })
@@ -37,8 +37,12 @@ export class CertificationComponent implements OnInit {
     certificationForm: FormGroup;
     public profile_Observable: Observable<any>;
 
-    constructor(private formBuilder: FormBuilder, private certificateService: CertificateService, private messageService: MessageService,
-        private certificationMasterService: CertificationMasterService, private certificationCodeMasterService: CertificationCodeMasterService) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private certificateService: CertificateService,
+        private messageService: MessageService,
+        private certificationMasterService: CertificationMasterService,
+        private certificationCodeMasterService: CertificationCodeMasterService) {
         this.certificationOptions = [];
         this.certificationCodes = [];
         this.showDiv = true;
@@ -48,7 +52,7 @@ export class CertificationComponent implements OnInit {
         this.certificationOptionsMaster = this.certificationMasterService.getCertificationMaster();
         this.certificationOptionsMaster.subscribe(result => {
             if (result) {
-                this.certificationOptions.push({ label: 'Select', value: null }),
+                this.certificationOptions.push({ label: 'Select', value: null });
                     result.forEach((element:any) => {
                         this.certificationOptions.push({
                             label: element.Name,
@@ -56,15 +60,15 @@ export class CertificationComponent implements OnInit {
                                 id: element.ID,
                                 name: element.Name
                             }
-                        })
+                        });
                     });
             }
-        })
+        });
 
         this.certificationCodesMaster = this.certificationCodeMasterService.getCertificationCodeMaster();
         this.certificationCodesMaster.subscribe(result => {
             if (result) {
-                this.certificationCodes.push({ label: 'Select', value: null }),
+                this.certificationCodes.push({ label: 'Select', value: null });
                     result.forEach((element:any) => {
                         this.certificationCodes.push({
                             label: element.Name,
@@ -72,10 +76,10 @@ export class CertificationComponent implements OnInit {
                                 id: element.ID,
                                 name: element.Name
                             }
-                        })
+                        });
                     });
             }
-        })
+        });
 
         this.certificationForm = this.formBuilder.group({
             id: [null],
@@ -105,7 +109,10 @@ export class CertificationComponent implements OnInit {
             this.certificateService.updateCertificate(value.id, params).subscribe(res => {
                 if (res) {
                     this.certifications = this.certificateService.getCertificates();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Certificate Information updated successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Certificate Information updated successfully.' });
                     this.showDiv = true;
                 }
             });
@@ -120,7 +127,11 @@ export class CertificationComponent implements OnInit {
             this.certificateService.addCertificate(params).subscribe(res => {
                 if (res) {
                     this.certifications = this.certificateService.getCertificates();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Certificate Information saved successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                         summary: 'Success',
+                          detail: 'Certificate Information saved successfully.'
+                        });
                     this.showDiv = true;
                 }
             });
@@ -137,8 +148,11 @@ export class CertificationComponent implements OnInit {
         var date = certificationData.Date.split('/');
         this.certificationForm.setValue({
             id: certificationData.ID,
-            option: _.find(this.certificationOptions, ['label', certificationData.Name]) ? _.find(this.certificationOptions, ['label', certificationData.Name]).value : '',
-            code: _.find(this.certificationCodes, ['label', certificationData.Code]) ? _.find(this.certificationCodes, ['label', certificationData.Code]).value : '',
+            option: _.find(this.certificationOptions,
+                            ['label', certificationData.Name]) ? _.find(this.certificationOptions,
+                            ['label', certificationData.Name]).value : '',
+            code: _.find(this.certificationCodes,
+             ['label', certificationData.Code]) ? _.find(this.certificationCodes, ['label', certificationData.Code]).value : '',
             date: new Date(date[2] + '-' + date[1] + '-' + date[0]),
             fromEspl: certificationData.FromESPL,
         });

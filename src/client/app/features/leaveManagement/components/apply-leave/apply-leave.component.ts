@@ -1,7 +1,7 @@
 /** Angular Dependencies */
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { OnInit } from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 
@@ -30,7 +30,7 @@ import { SelectItem } from 'primeng/primeng';
     styleUrls: ['apply-leave.component.css']
 })
 
-export class ApplyLeaveComponent implements OnInit {
+export class ApplyLeaveComponent implements OnInit,OnDestroy {
     leaveTypesObs: Observable<Select>;
     leaveObs: Observable<boolean>;
     userObs: Observable<User>;
@@ -48,7 +48,7 @@ export class ApplyLeaveComponent implements OnInit {
     leaves: SelectItem[];
     model: ApplyLeaveValidation;
     subLeaveType: any;
-
+    finalLeaveData:any;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -141,8 +141,7 @@ export class ApplyLeaveComponent implements OnInit {
             if (res) {
                 this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave applied!' });
                 this.cancelClick();
-            }
-            else {
+            } else {
                 this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: 'Failed to process your request.' });
             }
         });
@@ -169,7 +168,6 @@ export class ApplyLeaveComponent implements OnInit {
                 return;
 
             case 2:
-                debugger;
                 this.leaveTypeValid = true;
                 this.model.numDays = 0.5;
                 this.isEndDtEnable = false;
@@ -184,7 +182,6 @@ export class ApplyLeaveComponent implements OnInit {
                 return;
 
             case 4:
-                debugger;
                 this.leaveTypeValid = true;
                 this.model.numDays = 0.5;
                 this.isEndDtEnable = false;
@@ -234,6 +231,4 @@ export class ApplyLeaveComponent implements OnInit {
         this.router.navigate(['/leave/my-leaves']);
     }
 
-    addLeaves() {
-    }
 }

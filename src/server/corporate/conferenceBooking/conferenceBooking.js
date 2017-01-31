@@ -33,8 +33,8 @@ var getConferenceById = function (req, res) {
   res.json(conferenceBooking.conferenceBookingList[index]);
 }
 module.exports = function (app) {
-  app.get('/api/conferenceBooking', getConferenceBookingEvents);
-  app.post('/api/conferenceBooking', saveConference);
-  app.get('/api/conferenceBooking/:id', getConferenceById);
-  app.delete('/api/conferenceBooking/:id', deleteMyBooking);
+  app.get('/api/ConferenceBooking', getConferenceBookingEvents);
+  app.post('/api/ConferenceBooking', saveConference);
+  app.get('/api/ConferenceBooking/:id', getConferenceById);
+  app.delete('/api/ConferenceBooking/:id', deleteMyBooking);
 };

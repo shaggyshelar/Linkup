@@ -1,17 +1,17 @@
 /** Angular Dependencies */
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
 /** Third Party Dependencies */
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 //import 'rxjs/add/operator/map';
 
 /** Module Level Dependencies */
-import {BaseService} from '../../core/index';
-import {Ticket} from '../models/ticket';
+import { BaseService } from '../../core/index';
+import { Ticket } from '../models/ticket';
 
 /** Context for service calls */
-export const CONTEXT = 'ticket';
+export const CONTEXT = 'Ticket';
 
 /** Service Definition */
 @Injectable()
@@ -24,7 +24,7 @@ export class TicketService extends BaseService {
     /**
      * getTicketById method
      */
-    getTicketById(id:string) : Observable < Ticket > {
+    getTicketById(id : string) : Observable < Ticket > {
         return this
             .get$(id)
             .map(res => res.json());
@@ -33,7 +33,7 @@ export class TicketService extends BaseService {
     /**
      * getTicketById method
      */
-    saveTicket(ticket:any) : Observable < any > {
+    saveTicket(ticket : any) : Observable < any > {
         return this
             .post$(ticket)
             .map(res => res.json());
@@ -42,7 +42,7 @@ export class TicketService extends BaseService {
     /**
      * getTicketById method
      */
-    editTicket(ticket:any) : Observable < any > {
+    editTicket(ticket : any) : Observable < any > {
         return this
             .put$(ticket.Id, ticket)
             .map(res => res.json());

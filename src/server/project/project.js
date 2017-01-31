@@ -27,8 +27,8 @@ var editProject = function (req, res) {
 };
 
 module.exports = function (app) {
-    app.get('/api/project',utils.EnsureAuthenticated, getProjects);
-    app.get('/api/project/:id', getProjectById);
-    app.post('/api/project', saveProject);
-    app.put('/api/project', editProject);
+    app.get('/api/Project',utils.EnsureAuthenticated, getProjects);
+    app.get('/api/Project/:id',utils.EnsureAuthenticated, getProjectById);
+    app.post('/api/Project',utils.EnsureAuthenticated, saveProject);
+    app.put('/api/Project',utils.EnsureAuthenticated, editProject);
 };

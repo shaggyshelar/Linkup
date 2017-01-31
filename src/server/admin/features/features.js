@@ -40,9 +40,9 @@ var editFeature = function (req, res) {
 };
 
 module.exports = function (app) {
-  app.get('/api/feature', utils.EnsureAuthenticated, getFeatures);
-  app.get('/api/feature/:id', utils.EnsureAuthenticated, getFeatureById);
-  app.post('/api/feature', utils.EnsureAuthenticated, addFeature);
-  app.delete('/api/feature/:id', utils.EnsureAuthenticated, deleteFeature);
-  app.put('/api/feature', utils.EnsureAuthenticated, editFeature);
+  app.get('/api/Feature', utils.EnsureAuthenticated, getFeatures);
+  app.get('/api/Feature/:id', utils.EnsureAuthenticated, getFeatureById);
+  app.post('/api/Feature', utils.EnsureAuthenticated, addFeature);
+  app.delete('/api/Feature/:id', utils.EnsureAuthenticated, deleteFeature);
+  app.put('/api/Feature', utils.EnsureAuthenticated, editFeature);
 };

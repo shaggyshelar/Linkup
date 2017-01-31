@@ -22,10 +22,10 @@ import { MessageService } from '../../../core/shared/services/message.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'leaves',
+  selector: 'my-leaves',
   templateUrl: 'my-leaves.component.html'
 })
-export class MyLeavesComponent {
+export class MyLeavesComponent implements OnInit {
   public leaveObs: Observable<Leave>;
   public leaveDetObs: Observable<LeaveDetail>;
   public leaveDetailObs: Observable<LeaveDetail>;
@@ -35,8 +35,8 @@ export class MyLeavesComponent {
 
   constructor(
     private messageService: MessageService,
-    private router: Router, 
-    private leaveService: LeaveService, 
+    private router: Router,
+    private leaveService: LeaveService,
     private userService: UserService
   ) {
     this.leaves = [];

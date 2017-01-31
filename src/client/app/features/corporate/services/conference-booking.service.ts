@@ -12,7 +12,7 @@ import { BaseService } from '../../core/index';
 import { Conference } from '../models/conference';
 
 /** Context for service calls */
-export const CONTEXT = 'conferenceBooking';
+export const CONTEXT = 'ConferenceBooking';
 
 /** Service Definition */
 @Injectable()

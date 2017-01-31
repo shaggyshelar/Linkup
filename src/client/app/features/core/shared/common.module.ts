@@ -6,7 +6,7 @@ import {
     DropdownModule, DialogModule, ConfirmDialogModule, GrowlModule, ConfirmationService,
     ProgressBarModule, CheckboxModule, FileUploadModule, AutoCompleteModule
 } from 'primeng/primeng';
-import { IfAuthorize } from './directives/ifAuthorize.directive';
+import { IfAuthorizeDirective } from './directives/ifAuthorize.directive';
 import { UnauthorizedAccessComponent } from '../errorPages/unauthorizedAccess/unauthorizedAccess.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from './services/message.service';
@@ -45,7 +45,7 @@ let exportComponents = [
     AngularCommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IfAuthorize,
+    IfAuthorizeDirective,
     UnauthorizedAccessComponent,
     ...primeNgComponents
 ];
@@ -55,7 +55,7 @@ let exportComponents = [
  * Components/ Directives declaration
  */
 let declarations = [
-    IfAuthorize,
+    IfAuthorizeDirective,
     UnauthorizedAccessComponent
 ];
 

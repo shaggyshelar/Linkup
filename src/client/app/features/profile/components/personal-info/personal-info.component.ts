@@ -91,7 +91,7 @@ export class PersonalInfoComponent implements OnInit {
         this.profileInfo.EmergencyContactName = result.Contact ? result.Contact.Name : '';
         this.profileInfo.EmergencyContactNumber = result.Contact ? result.Contact.Number : '';
       }
-    })
+    });
   }
 
   addBloodGroup() {

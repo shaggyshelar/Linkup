@@ -18,7 +18,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
 /** Component Declaration */
 @Component({
     moduleId: module.id,
-    selector: 'achievement',
+    selector: 'profile-achievement',
     templateUrl: 'achievement.component.html',
     styleUrls: ['achievement.component.css']
 })
@@ -52,7 +52,11 @@ export class AchievementComponent implements OnInit {
             this.achievementService.updateAchievement(value.id, params).subscribe((res:any) => {
                 if (res) {
                     this.achievements = this.achievementService.getAchievements();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Achievement updated successfully.' });
+                    this.messageService.addMessage({
+                         severity: 'success',
+                         summary: 'Success',
+                          detail: 'Achievement updated successfully.'
+                        });
                     this.showDiv = true;
                 }
             });

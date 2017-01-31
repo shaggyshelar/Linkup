@@ -28,7 +28,7 @@ import { Message } from 'primeng/primeng';
     styleUrls: ['change-password.component.css']
 })
 
-export class ChangePasswordComponent {
+export class ChangePasswordComponent implements OnInit {
     passwrdObs: Observable<any>;
     passwordForm: FormGroup;
 
@@ -69,7 +69,7 @@ export class ChangePasswordComponent {
                     this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: res.message });
                     this.passwordForm.reset();
                 }
-            })
+            });
         } else {
             this.isConfirmPasswordSame = false;
         }

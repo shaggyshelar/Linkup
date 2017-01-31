@@ -35,8 +35,8 @@ var revokePermissionFromRole = function (req, res) {
 };
 
 module.exports = function (app) {
-  app.get('/api/permission', utils.EnsureAuthenticated, getAllPermissions);
-  app.get('/api/permission/:id', utils.EnsureAuthenticated, getPermissionsByRole);
-  app.post('/api/permission', utils.EnsureAuthenticated, addPermissionToRole);
-  app.put('/api/permission', utils.EnsureAuthenticated, revokePermissionFromRole);
+  app.get('/api/Permission', utils.EnsureAuthenticated, getAllPermissions);
+  app.get('/api/Permission/:id', utils.EnsureAuthenticated, getPermissionsByRole);
+  app.post('/api/Permission', utils.EnsureAuthenticated, addPermissionToRole);
+  app.put('/api/Permission', utils.EnsureAuthenticated, revokePermissionFromRole);
 };

@@ -24,7 +24,7 @@ import { Leave } from '../../models/leave';
     templateUrl: 'update-leave.component.html',
     styleUrls: ['update-leave.component.css']
 })
-export class UpdateLeaveComponent {
+export class UpdateLeaveComponent implements OnInit {
     public leaveObs: Observable<Leave>;
     leaveID: any;
     isCancellable: boolean;
@@ -66,9 +66,8 @@ export class UpdateLeaveComponent {
         this.leaveService.deleteLeaveRecord(this.leaveID).subscribe(res => {
             if (res) {
                 this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave application deleted!' });
-                this.closeClicked()
-            }
-            else {
+                this.closeClicked();
+            } else {
                 this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
             }
         });

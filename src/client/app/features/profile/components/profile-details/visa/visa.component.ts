@@ -17,7 +17,7 @@ import * as moment from 'moment/moment';
 /** Component Declaration */
 @Component({
     moduleId: module.id,
-    selector: 'visa',
+    selector: 'profile-detail-visa',
     templateUrl: 'visa.component.html',
     styleUrls: ['visa.component.css']
 })
@@ -56,7 +56,10 @@ export class VisaComponent implements OnInit {
             this.visaService.updateVisa(value.id, params).subscribe(res => {
                 if (res) {
                     this.visa = this.visaService.getVisa();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Visa Information updated successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Visa Information updated successfully.' });
                     this.showDiv = true;
                 }
             });
@@ -69,7 +72,10 @@ export class VisaComponent implements OnInit {
             this.visaService.addVisa(params).subscribe(res => {
                 if (res) {
                     this.visa = this.visaService.getVisa();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Visa Information saved successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Visa Information saved successfully.' });
                     this.showDiv = true;
                 }
             });

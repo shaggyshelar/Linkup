@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Rx';
 /** Module Level Dependencies */
 import { BaseService } from '../../core/index';
 /** Context for service calls */
-export const CONTEXT = 'permission';
+export const CONTEXT = 'Permission';
 
 /** Service Definition */
 @Injectable()

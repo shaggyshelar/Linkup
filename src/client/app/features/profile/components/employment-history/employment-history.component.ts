@@ -29,7 +29,10 @@ export class EmploymentHistoryComponent implements OnInit {
     employmentHistoryForm: FormGroup;
     public profile_Observable: Observable<any>;
 
-    constructor(private formBuilder: FormBuilder, private employmentHistoryService: EmploymentHistoryService, private messageService: MessageService) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private employmentHistoryService: EmploymentHistoryService,
+        private messageService: MessageService) {
         this.lastEmployerDetails = [];
         this.showDiv = true;
         this.showEmployerDiv = true;
@@ -65,7 +68,10 @@ export class EmploymentHistoryComponent implements OnInit {
             this.employmentHistoryService.updateEmploymentHistory(value.id, params).subscribe(res => {
                 if (res) {
                     this.employmentHistory = this.employmentHistoryService.getEmploymentHistory();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Employment History updated successfully.' });
+                    this.messageService.addMessage({
+                         severity: 'success',
+                         summary: 'Success',
+                         detail: 'Employment History updated successfully.' });
                     this.showDiv = true;
                 }
             });
@@ -79,7 +85,10 @@ export class EmploymentHistoryComponent implements OnInit {
             this.employmentHistoryService.addEmploymentHistory(params).subscribe(res => {
                 if (res) {
                     this.employmentHistory = this.employmentHistoryService.getEmploymentHistory();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Employment History saved successfully.' });
+                    this.messageService.addMessage({
+                         severity: 'success',
+                         summary: 'Success',
+                         detail: 'Employment History saved successfully.' });
                     this.showDiv = true;
                 }
             });

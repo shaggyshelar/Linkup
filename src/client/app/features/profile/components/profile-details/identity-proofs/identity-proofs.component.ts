@@ -34,8 +34,12 @@ export class IdentityProofsComponent implements OnInit {
     public profile_Observable: Observable<any>;
     identityProofForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private identityProofService: IdentityProofService, private messageService: MessageService,
-        private identityTypeMasterService: IdentityTypeMasterService) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private identityProofService: IdentityProofService,
+        private messageService: MessageService,
+        private identityTypeMasterService: IdentityTypeMasterService
+    ) {
         this.showDiv = false;
         this.showSubDiv = false;
         this.selectedIdentityType = {};
@@ -46,18 +50,18 @@ export class IdentityProofsComponent implements OnInit {
         this.identityTypesMaster = this.identityTypeMasterService.getIdentityTypeMaster();
         this.identityTypesMaster.subscribe(result => {
             if (result) {
-                this.identityTypes.push({ label: 'Select', value: null }),
-                    result.forEach((element:any) => {
+                this.identityTypes.push({ label: 'Select', value: null });
+                result.forEach((element:any) => {
                         this.identityTypes.push({
                             label: element.Name,
                             value: {
                                 id: element.ID,
                                 name: element.Name
                             }
-                        })
-                    });
+                        });
+                });
             }
-        })
+        });
 
         this.identityProofForm = this.formBuilder.group({
             id: null,
@@ -84,7 +88,10 @@ export class IdentityProofsComponent implements OnInit {
             this.identityProofService.updateIdentityProof(value.id, params).subscribe(res => {
                 if (res) {
                     this.identityProofs = this.identityProofService.getIdentityProof();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Identity Proof updated successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Identity Proof updated successfully.' });
                     this.showDiv = false;
                     this.showSubDiv = false;
                 }
@@ -97,7 +104,10 @@ export class IdentityProofsComponent implements OnInit {
             this.identityProofService.addIdentityProof(params).subscribe(res => {
                 if (res) {
                     this.identityProofs = this.identityProofService.getIdentityProof();
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Identity Proof saved successfully.' });
+                    this.messageService.addMessage({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Identity Proof saved successfully.' });
                     this.showDiv = false;
                     this.showSubDiv = false;
                 }
@@ -127,6 +137,6 @@ export class IdentityProofsComponent implements OnInit {
         this.identityProofForm.setValue({
             id: identity.ID,
             value: identity.Value
-        })
+        });
     }
 }

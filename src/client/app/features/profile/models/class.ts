@@ -1,3 +1,3 @@
 export interface Class {
-    Name: string;   
+    Name: string;
 }

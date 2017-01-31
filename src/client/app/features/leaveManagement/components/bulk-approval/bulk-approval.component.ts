@@ -22,11 +22,11 @@ import { MessageService } from '../../../core/shared/services/message.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'bulkapproval',
+  selector: 'bulk-approval',
   templateUrl: 'bulk-approval.component.html',
   styleUrls: ['bulk-approval.component.css']
 })
-export class BulkApproveComponent {
+export class BulkApproveComponent implements OnInit {
 
   leaveObs: Observable<Leave>;
 
@@ -49,7 +49,7 @@ export class BulkApproveComponent {
 
     this.bulkApprovalForm = this.formBuilder.group({
       comments: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(600)]]
-    })
+    });
     this.selectedEmployees = [];
   }
 

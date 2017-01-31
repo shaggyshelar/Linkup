@@ -12,7 +12,7 @@ import { BaseService } from '../../core/index';
 import { Feature } from '../models/feature';
 
 /** Context for service calls */
-export const CONTEXT = 'feature';
+export const CONTEXT = 'Feature';
 
 /** Service Definition */
 @Injectable()

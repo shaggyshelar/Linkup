@@ -17,7 +17,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Department</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="departments"  [style]="{'width':'100%'}" formControlName="Department" name="departments" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="departments"  [style]="{'width':'100%'}" formControlName="Department" name="departments" ></p-dropdown>
               <div class="alert alert-danger" *ngIf="ticketForm.get('Department').hasError('required') && ticketForm.get('Department').touched">
                 Please select Department
               </div>
@@ -26,7 +26,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Priority</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="priorities"  [style]="{'width':'100%'}" formControlName="Priority" name="priorities" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="priorities"  [style]="{'width':'100%'}" formControlName="Priority" name="priorities"></p-dropdown>
               <div class="alert alert-danger" *ngIf="ticketForm.get('Priority').hasError('required') && ticketForm.get('Priority').touched">
                 Please select Priority
               </div>
@@ -35,7 +35,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Concern</label>
             <div class="col-sm-10">
-              <p-dropdown [options]="concerns"  [style]="{'width':'100%'}" formControlName="Concern" name="concerns" [styleClass]="form-control"></p-dropdown>
+              <p-dropdown [options]="concerns"  [style]="{'width':'100%'}" formControlName="Concern" name="concerns"></p-dropdown>
               <div class="alert alert-danger" *ngIf="ticketForm.get('Concern').hasError('required') && ticketForm.get('Concern').touched">
                 Please select Concern
               </div>

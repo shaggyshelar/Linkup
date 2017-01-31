@@ -12,7 +12,7 @@ import { BaseService } from '../../core/index';
 import { Project } from '../models/project';
 
 /** Context for service calls */
-export const CONTEXT = 'project';
+export const CONTEXT = 'Project';
 
 /** Service Definition */
 @Injectable()

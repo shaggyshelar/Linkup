@@ -18,7 +18,7 @@ import * as moment from 'moment/moment';
 /** Component Declaration */
 @Component({
     moduleId: module.id,
-    selector: 'experience',
+    selector: 'profile-experience',
     templateUrl: 'experience.component.html',
     styleUrls: ['experience.component.css']
 })

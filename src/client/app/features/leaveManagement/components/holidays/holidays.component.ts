@@ -1,6 +1,6 @@
 /** Angular Dependencies */
 import { Router } from '@angular/router';
-import { OnInit } from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
 
 /** Framework Dependencies */
 import { Component } from '@angular/core';
@@ -31,7 +31,7 @@ export class MyEvent {
   templateUrl: 'holidays.component.html'
 })
 
-export class HolidaysComponent {
+export class HolidaysComponent implements OnDestroy,OnInit {
 
   holidaysObs: Observable<Holiday>;
   servRows = 7;
@@ -47,7 +47,7 @@ export class HolidaysComponent {
 
   constructor(
     private messageService: MessageService,
-    private router: Router, 
+    private router: Router,
     private holidayService: HolidayService
   ) {
     this.holidays = [];
@@ -57,9 +57,7 @@ export class HolidaysComponent {
 
   ngOnInit() {
     this.holidaysObs = this.holidayService.getHolidays();
-    this.holidaysObs.subscribe(res => {
-    });
-
+    this.holidaysObs.subscribe();
   }
   ngOnDestroy() {
     // this.subscription.unsubscribe();

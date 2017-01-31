@@ -14,7 +14,7 @@ import { NomineeFormValidation } from '../../../models/validation/nomineeFormVal
 /** Component Declaration */
 @Component({
     moduleId: module.id,
-    selector: 'nominees',
+    selector: 'profile-detail-nominees',
     templateUrl: 'nominees.component.html',
     styleUrls: ['nominees.component.css']
 })

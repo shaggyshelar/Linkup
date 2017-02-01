@@ -15,7 +15,8 @@ export class TopNavigationBarComponent {
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+     this.authService.logout().subscribe((results : any)=> {
+        this.router.navigate(['/login']);
+    });
   }
 }

@@ -1,0 +1,39 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb  hidden-xs">
+      <li>
+        <a href="">LINK UP</a>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span class="active">Admin</span>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span class="active">User</span>
+      </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE BASE CONTENT -->
+    <div class="col-md-8">
+      <div class="portlet light bordered legends-portlet">
+        <div class="portlet-body">
+          <p-dataTable [value]="userList | async" [responsive]="true" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+            <p-column field="UserName" header="User Name" [sortable]="true"></p-column>
+            <p-column header="Manage Role">
+              <template let-role="rowData" pTemplate type="body">
+                <a (click)="onManageRoleClick(role)">Manage Role</a>
+              </template>
+            </p-column>
+          </p-dataTable>
+        </div>
+      </div>
+      <!-- END PAGE BASE CONTENT -->
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

@@ -24,8 +24,10 @@ export class AuthService extends BaseService {
         }
     }
     logout() {
-        localStorage.clear();
-        this.authenticated = false;
+        return this.delete$('',true).map((res: Response) => {
+            localStorage.clear();
+            this.authenticated = false;
+        });
     }
     authenticate(credentials: any): Observable<any> {
         return this.post$(credentials).map((res: Response) => { this.setToken(res); });

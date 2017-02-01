@@ -19,9 +19,10 @@ export class SidebarComponent {
   }
 
   logout() {
-    this.authService.logout();
-    this.isUserMenuOpen = false;
-    this.router.navigate(['/login']);
+    this.authService.logout().subscribe((results : any)=> {
+        this.isUserMenuOpen = false;
+        this.router.navigate(['/login']);
+    });
   }
 
   toggleUserMenu() {

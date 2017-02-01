@@ -13,6 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('./apis')(app);
 require('./admin/features/features')(app);
 require('./admin/roles/roles')(app);
+require('./admin/users/users')(app);
+require('./admin/users/user-role')(app);
 require('./admin/permissions/permissions')(app);
 require('./corporate/conferenceBooking/conferenceBooking')(app);
 require('./corporate/ticket/ticket')(app);

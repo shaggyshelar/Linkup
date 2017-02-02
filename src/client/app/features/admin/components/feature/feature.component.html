@@ -57,12 +57,12 @@
         <p-dataTable [value]="featureList | async" [responsive]="true" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
           <p-column field="Name" header="Feature Name" [sortable]="true"></p-column>
           <p-column header="Edit">
-            <template let-feature="rowData" pTemplate type="body">
+            <template let-feature="rowData" pTemplate="body">
               <button class="btn btn-danger" (click)="onEditClick(feature)"><i class="fa fa-edit"></i></button>
             </template>
           </p-column>
           <p-column header="Delete">
-            <template let-feature="rowData" pTemplate type="body">
+            <template let-feature="rowData" pTemplate="body">
               <button class="btn btn-danger" (click)="onDelete(feature)"><i class="fa fa-trash"></i></button>
             </template>
           </p-column>

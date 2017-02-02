@@ -68,7 +68,7 @@
                     <p-column field="Attendees" header="Attendees" [sortable]="true"></p-column>
                     <p-column field="Room.Name" header="Conference Rooms" [sortable]="true"></p-column>
                     <p-column header="Delete">
-                        <template let-ticket="rowData" pTemplate type="body">
+                        <template let-ticket="rowData" pTemplate="body">
                             <button class="btn btn-danger" (click)="confirm(ticket)" id="deleteBtn"><i class="fa fa-trash"></i></button>
                         </template>
                     </p-column>

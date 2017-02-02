@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions  } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { BaseService } from '../shared/index';
-
-export const CONTEXT = 'Auth';
+import { APIService } from '../shared/index';
 
 @Injectable()
-export class AuthService extends BaseService {
+export class AuthService extends APIService {
     private authenticated = false;
 
-    constructor(httpService: Http, private router: Router) {
-        super(httpService, CONTEXT);
+    constructor(httpService: Http, private router: Router,private http : Http) {
+        super(httpService);
     }
 
     isAuthenticated() {
@@ -24,16 +22,23 @@ export class AuthService extends BaseService {
         }
     }
     logout() {
-        return this.delete$('',true).map((res: Response) => {
+        return this.delete$('auth','',true).map((res: Response) => {
             localStorage.clear();
             this.authenticated = false;
         });
     }
     authenticate(credentials: any): Observable<any> {
-        return this.post$(credentials).map((res: Response) => { this.setToken(res); });
+       // return this.post$('/auth/Token',credentials).map((res: Response) => { this.setToken(res); });
+        let headers = new Headers();
+        let credentialString : string = 'grant_type=password&UserName='+credentials.UserName+'&Password='+credentials.Password;
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/auth/Token', credentialString, options)
+            .map((res: Response) => { this.setToken(res); })
+            .catch(this.handleError);
     }
     getLoggedInUserPermission() {
-        return this.getList$(0, 0, true).map((res: Response) => { this.setLoggedInUserPermission(res); });
+        return this.getList$('auth/permissions',0, 0, true).map((res: Response) => { this.setLoggedInUserPermission(res); });
     }
 
     private setToken(res: Response) {
@@ -41,7 +46,7 @@ export class AuthService extends BaseService {
             throw new Error('Bad response status: ' + res.status);
         }
         let body = res.json();
-        localStorage.setItem('accessToken', body.token);
+        localStorage.setItem('accessToken', body.access_token);
         this.authenticated = true;
     }
     private setLoggedInUserPermission(res: Response) {

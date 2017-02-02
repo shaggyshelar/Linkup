@@ -1,0 +1,120 @@
+<form novalidate (ngSubmit)="onSubmit(experienceForm)" [formGroup]="experienceForm">
+	<div class="portlet-body">
+		<div *ngIf="(experience | async)?.length == 0">
+			<hr>
+			<h5> No Records Found!</h5>
+		</div>
+		<div *ngIf="(experience | async)?.length > 0">
+			<p-dataTable [value]="experience | async" [responsive]="true" emptyMessage="No Records Found!">
+				<p-column header="Edit">
+					<template let-experienceData="rowData" pTemplate type="body">
+						<i class="fa fa-pencil icon-color" (click)="editExperienceData(experienceData)"></i>
+					</template>
+				</p-column>
+				<p-column header="Project" field="Project.Name"></p-column>
+				<p-column header="Client" field="Client.Name"></p-column>
+				<p-column header="Start Date" field="StartDate"></p-column>
+				<p-column header="End Date" field="EndDate"></p-column>
+				<p-column header="Role" field="Role"></p-column>
+				<p-column header="Environment" field="Environment"></p-column>
+				<p-column header="Duration" field="Duration"></p-column>
+				<p-column header="Status" field="Status"></p-column>
+				<p-column header="Current Project" field="IsCurrentProject"></p-column>
+				<p-column header="Comments" field="Comments"></p-column>
+			</p-dataTable>
+		</div>
+		<div *ngIf="!showDiv">
+			<div class="row row-margin">
+				<div class="alert alert-warning message-align">
+					All field mark * are mandatory
+				</div>
+				<div class="col-md-2 col-margin">
+					<span>Project</span>
+					<span class="req-field"> *</span>
+					<div class="form-group div-margin">
+						<input type="text" id="experience_project" formControlName="project" class="form-control" placeholder="">
+						<div class="alert alert-danger" *ngIf="experienceForm.get('project').hasError('required') && experienceForm.get('project').touched">
+							Please enter Project
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 col-margin">
+					<span>Client</span>
+					<span class="req-field"> *</span>
+					<div class="form-group div-margin">
+						<input type="text" id="experience_client" formControlName="client" class="form-control" placeholder="">
+						<div class="alert alert-danger" *ngIf="experienceForm.get('client').hasError('required') && experienceForm.get('client').touched">
+							Please enter Client name
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 col-margin">
+					<span>Role</span>
+					<span class="req-field"> *</span>
+					<div class="div-margin">
+						<input type="text" id="experience_role" formControlName="role" class="form-control" placeholder="">
+						<div class="alert alert-danger" *ngIf="experienceForm.get('role').hasError('required') && experienceForm.get('role').touched">
+							Please enter role
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 col-margin">
+					<span>Current Project</span>
+					<div class="form-group div-margin">
+						<input type="checkbox" id="experience_currentProject" formControlName="isCurrentProject">
+					</div>
+				</div>
+				<div class="col-md-3 col-margin">
+					<span>Start Date</span>
+					<span class="req-field"> *</span>
+					<div class="form-group div-margin">
+						<p-calendar id="experience_startDate" formControlName="startDate" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="dd/mm/yy"></p-calendar>
+						<div class="alert alert-danger" *ngIf="experienceForm.get('startDate').hasError('required') && experienceForm.get('startDate').touched">
+							Please enter start Date
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-margin">
+					<span>End Date</span>
+					<span class="req-field"> *</span>
+					<div class="div-margin">
+						<p-calendar id="experience_endDate" formControlName="endDate" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="dd/mm/yy"></p-calendar>
+						<div class="alert alert-danger" *ngIf="experienceForm.get('endDate').hasError('required') && experienceForm.get('endDate').touched">
+							Please enter end Date
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 col-margin">
+					<span>Environment</span>
+					<div class="div-margin">
+						<input type="text" id="experience_environment" formControlName="environment" class="form-control" placeholder="">
+					</div>
+				</div>
+				<div class="col-md-3 col-margin">
+					<span>Responsibilites</span>
+					<span class="req-field"> *</span>
+					<div class="div-margin">
+						<input type="text" id="experience_responsibilites" formControlName="responsibilites" class="form-control" placeholder="">
+						<div class="alert alert-danger" *ngIf="experienceForm.get('responsibilites').hasError('required') && experienceForm.get('responsibilites').touched">
+							Please enter respnsibility
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-margin">
+					<span>Description</span>
+					<div class="div-margin">
+						<input type="text" id="experience_description" formControlName="description" class="form-control" placeholder="">
+					</div>
+				</div>
+			</div>
+			<div class="row row-margin button-margin">
+				<button pButton type="text" label="Submit" [disabled]="experienceForm.invalid"></button>
+				<button pButton type="text" label="Cancel" (click)="cancel()"></button>
+			</div>
+		</div>
+		<div class="row row-margin button-margin" *ngIf="showDiv">
+			<button pButton type="text" icon="fa fa-plus" (click)="onAddClick()" label="Add New Experience"></button>
+		</div>
+	</div>

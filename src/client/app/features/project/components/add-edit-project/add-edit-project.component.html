@@ -1,0 +1,214 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb hidden-xs">
+      <li>
+        <a href="index.html">LINK UP</a>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span class="active">Project</span>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span class="active">New Project</span>
+      </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+    <!-- BEGIN PAGE BASE CONTENT -->
+    <div class="portlet light bordered legends-portlet">
+      <div class="portlet-body">
+        <form class="form-horizontal" novalidate (ngSubmit)="onSubmit(projectForm)" [formGroup]="projectForm">
+          <div class="form-group">
+            <label class="control-label col-sm-2">Client Name *</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="clients" [style]="{'width':'100%'}" formControlName="ClientName" name="clientName" ></p-dropdown>
+              <div class="alert alert-danger" *ngIf="projectForm.get('ClientName').hasError('required') && projectForm.get('ClientName').touched">
+                Please select Client
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Billable/Non-Billable *</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="billTypes" [style]="{'width':'100%'}" formControlName="BillType" name="billType"></p-dropdown>
+              <div class="alert alert-danger" *ngIf="projectForm.get('BillType').hasError('required') && projectForm.get('BillType').touched">
+                Please select
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Project Name *</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" formControlName="ProjectName" name="projectName">
+              <div class="alert alert-danger" *ngIf="projectForm.get('ProjectName').hasError('required') && projectForm.get('ProjectName').touched">
+                Please Enter Project Name
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Project Summary</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" formControlName="ProjectSummary" name="projectSummary"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Project Manager *</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" formControlName="ProjectManager" name="projectManager">
+              <div class="alert alert-danger" *ngIf="projectForm.get('ProjectManager').hasError('required') && projectForm.get('ProjectManager').touched">
+                Please select Project Manager
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Project Type *</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="projectType" [style]="{'width':'100%'}" formControlName="ProjectType" name="projectType" ></p-dropdown>
+              <div class="alert alert-danger" *ngIf="projectForm.get('ProjectType').hasError('required') && projectForm.get('ProjectType').touched">
+                Please select Project Type
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Project Category *</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="projectCategory" [style]="{'width':'100%'}" formControlName="ProjectCategory" name="projectCategory"
+                ></p-dropdown>
+                <div class="alert alert-danger" *ngIf="projectForm.get('ProjectCategory').hasError('required') && projectForm.get('ProjectCategory').touched">
+                  Please select Project Category
+                </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Project Start Date *</label>
+            <div class="col-sm-10">
+              <p-calendar id="startTime" [showIcon]="true" dateFormat="dd-mm-yy" readonlyInput="readonlyInput" formControlName="ProjectStartDate"
+                name="ProjectStartDate"></p-calendar>
+                <div class="alert alert-danger" *ngIf="projectForm.get('ProjectStartDate').hasError('required') && projectForm.get('ProjectStartDate').touched">
+                  Please select Start Date
+                </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="endTime">Project End Date *</label>
+            <div class="col-sm-10">
+              <p-calendar id="endTime" [showIcon]="true" dateFormat="dd-mm-yy" readonlyInput="readonlyInput" formControlName="ProjectEndDate"
+                name="projectEndDate"></p-calendar>
+                <div class="alert alert-danger" *ngIf="projectForm.get('ProjectEndDate').hasError('required') && projectForm.get('ProjectEndDate').touched">
+                  Please select End Date
+                </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Delivery Unit *</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="deliverUnits" [style]="{'width':'100%'}" formControlName="DeliveryUnit" name="deliveryUnit" ></p-dropdown>
+              <div class="alert alert-danger" *ngIf="projectForm.get('DeliveryUnit').hasError('required') && projectForm.get('DeliveryUnit').touched">
+                Please select Delivery Unit
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Delivery Model *</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="deliverModels" [style]="{'width':'100%'}" formControlName="DeliveryModel" name="DeliveryModel"></p-dropdown>
+              <div class="alert alert-danger" *ngIf="projectForm.get('DeliveryModel').hasError('required') && projectForm.get('DeliveryModel').touched">
+                Please select Delivery Model
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Account Manager *</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" formControlName="AccountManager" name="AccountManager">
+              <div class="alert alert-danger" *ngIf="projectForm.get('AccountManager').hasError('required') && projectForm.get('AccountManager').touched">
+                Please Add Account Manager
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Delivery Manager *</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" formControlName="DeliveryManager" name="DeliveryManager">
+              <div class="alert alert-danger" *ngIf="projectForm.get('DeliveryManager').hasError('required') && projectForm.get('DeliveryManager').touched">
+                Please Add Delivery Manager
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Price Type *</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="priceType" [style]="{'width':'100%'}" formControlName="PriceType" name="PriceType"></p-dropdown>
+              <div class="alert alert-danger" *ngIf="projectForm.get('PriceType').hasError('required') && projectForm.get('PriceType').touched">
+                Please select Price Type
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Team Members</label>
+            <div class="col-sm-4">
+               <p-autoComplete (onSelect)="onTeamMemberSelect($event)"  [suggestions]="filteredMemberList" (completeMethod)="filterTeamMember($event)"
+                    field="Name" [size]="30"  [minLength]="1"></p-autoComplete>
+            </div>
+            <div class="col-sm-2">
+                  <button type="button" class="btn btn-default" (click)="onAddTeamMember();" [disabled]="this.selectedTeamMember==null || this.selectedTeamMember==''"> Add Members </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2"></label>
+            <div class="col-sm-10">
+              <table class="table table-bordered" *ngIf="teamMember.length > 0">
+                <thead>
+                  <tr>
+                    <th>Sr No</th>
+                    <th>Members</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let member of teamMember;let i = index; trackBy: trackByFn'>
+                    <td>{{i+1}}</td>
+                    <td>{{member.Name}}</td>
+                    <td><a (click)="onDeleteMember(i)">Delete</a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="teamMember.length==0">No Members Yet</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Team Size</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" formControlName="TeamSize" name="teamSize">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2"> Is Global Project?	</label>
+            <div class="col-sm-10">
+              <input type="checkbox" formControlName="IsGlobal">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Active</label>
+            <div class="col-sm-10">
+              <input type="checkbox" formControlName="IsActive">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button pButton type="submit" label="Save" id="saveBtn" [disabled]="projectForm.invalid"></button>
+              <button pButton type="button" label="Deactivate" id="deactivateBtn"></button>
+              <button pButton type="button" label="Cancel" id="cancelBtn" (click)="onCancel()"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- END PAGE BASE CONTENT -->
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

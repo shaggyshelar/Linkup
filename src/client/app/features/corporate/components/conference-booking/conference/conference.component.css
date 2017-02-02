@@ -1,0 +1,44 @@
+.control-label{
+      font-size: 18px;
+}
+.color-list {
+    width: 30px;
+    height: 25px;
+}
+p{
+    font-size: 15px;
+    color: black;
+}
+.legend { 
+    margin-top: -9px;
+    margin-left: -30px;
+    list-style: none; 
+}
+.legend li { 
+    float: left;
+    white-space: nowrap;
+}
+.legend span {
+    border: 1px solid #ccc;   
+    float: left;
+    width: 22px;
+    height: 15px;
+    margin: 2px; 
+}
+.selected-room {
+    background-color: #C0CDDC;
+}
+.selected-link{
+    background-color: #e6e6e6;
+}
+
+@media only screen and (max-width: 920px) {
+    .legends-portlet {
+        height:90px
+    }
+}
+@media (max-width: 766px) {
+    .legend {
+        margin-top: 0px;
+    }
+}

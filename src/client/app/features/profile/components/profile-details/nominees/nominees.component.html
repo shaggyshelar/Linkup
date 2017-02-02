@@ -1,0 +1,108 @@
+<form novalidate (ngSubmit)="onSubmit(nomineeForm)" [formGroup]="nomineeForm">
+	<div class="portlet box yellow border-color">
+		<div class="portlet-title div-color">
+			<div class="caption title">
+				Nominees
+				<i class="fa fa-pencil icon-css" (click)="add()" *ngIf="showDiv"></i>
+			</div>
+		</div>
+		<div class="portlet-body">
+			<table class="table table-bordered detail-table">
+				<tbody>
+					<tr>
+						<td><b>Nominee 1 Name</b></td>
+						<td>
+							<span> {{ (nomineesData | async)?.length > 0 ? nomineesList[0].FirstNomineeName : '' }}</span>
+						</td>
+					</tr>
+					<tr>
+						<td><b>Nominee 1 Relationship with Emp</b></td>
+						<td>
+							<span> {{  (nomineesData | async)?.length > 0 ? nomineesList[0].FirstNomineeRelationWithEmp : '' }}</span>
+						</td>
+					</tr>
+					<tr>
+						<td><b>Nominee 2 Name</b></td>
+						<td>
+							{{  (nomineesData | async)?.length > 0 ? nomineesList[0].SecondNomineeName : '' }}
+						</td>
+					</tr>
+					<tr>
+						<td><b>Nominee 2 Relationship with Emp</b></td>
+						<td>
+							<span> {{  (nomineesData | async)?.length > 0 ? nomineesList[0].SecondNomineeRelationWithEmp : '' }}</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div *ngIf="!showDiv">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Nominee 1 Name </label>
+							<span class="req-field"> *</span>
+							<div class="div-margin">
+								<input type="text" id="nominee_firstNomineeName" formControlName="firstNomineeName" class="form-control" placeholder="">
+								<div class="alert alert-danger" *ngIf="nomineeForm.get('firstNomineeName').hasError('required') && nomineeForm.get('firstNomineeName').touched">
+									Please Enter Nominee 1 Name
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">							
+							<label>Nominee 1 Relationship with Emp <span class="req-field"> *</span></label>
+							<div class="div-margin">
+								<input type="text" id="nominee_firstNomineeRelationWithEmp" formControlName="firstNomineeRelationWithEmp" class="form-control"
+									placeholder="">
+								<div class="alert alert-danger" *ngIf="nomineeForm.get('firstNomineeRelationWithEmp').hasError('required') && nomineeForm.get('firstNomineeRelationWithEmp').touched">
+									Please Enter Nominee 1 Relationship With you
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Nominee 2 Name</label>
+							<span class="req-field"> *</span>
+							<div class="div-margin">
+								<input type="text" id="nominee_secondNomineeName" formControlName="secondNomineeName" class="form-control" placeholder="">
+								<div class="alert alert-danger" *ngIf="nomineeForm.get('secondNomineeName').hasError('required') && nomineeForm.get('secondNomineeName').touched">
+									Please Enter Nominee 2 Name
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Nominee 2 Relationship with Emp <span class="req-field"> *</span></label>
+							<div class="div-margin">
+								<input type="text" id="nominee_secondNomineeRelationWithEmp" formControlName="secondNomineeRelationWithEmp" class="form-control"
+									placeholder="">
+								<div class="alert alert-danger" *ngIf="nomineeForm.get('secondNomineeRelationWithEmp').hasError('required') && nomineeForm.get('secondNomineeRelationWithEmp').touched">
+									Please Enter Nominee 2 Relationship With you
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group">
+						<div class="div-margin nominee-info">
+							<input type="checkbox" formControlName="isDeclaration" id="nominee_isDeclaration"> I hereby
+							Nominate above nominees for all financials related to organization including Provident Fund, Medical, Salary & Full
+							& Final
+						</div>
+					</div>
+				</div>
+				<button pButton type="submit" label="Submit" [disabled]="nomineeForm.invalid"></button>
+				<button pButton type="text" label="Cancel" (click)="cancel()"></button>
+			</div>
+		</div>
+	</div>
+</form>

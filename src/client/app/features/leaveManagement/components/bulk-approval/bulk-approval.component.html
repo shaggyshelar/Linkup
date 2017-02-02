@@ -1,0 +1,78 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <div class="page-head">
+            <!-- BEGIN PAGE TITLE -->
+            <!-- END PAGE TITLE -->
+        </div>
+        <div class="hidden-xs">
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <span>LINK UP</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Bulk Approval</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <!-- START BULK APPROVAL LIST COMPONENT BY PRIMENG -->
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <p-dataTable [value]="leaveObs | async" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows)>
+                        <p-column selectionMode="multiple" header="Select" [sortable]="true"></p-column>
+                        <p-column field="User.ID" header="Employee ID" [sortable]="true"></p-column>
+                        <p-column field="User.Name" header="Employee" [sortable]="true"></p-column>
+                        <p-column field="NumberOfLeave" header="No. of Leaves" [sortable]="true"></p-column>
+                        <p-column field="Status" header="Status" [sortable]="true"></p-column>
+                        <p-column field="StartDate" header="Start Date" [sortable]="true"></p-column>
+                        <p-column field="EndDate" header="End Date" [sortable]="true"></p-column>
+                        <p-column field="approvers" header="Approvers" [sortable]="true"></p-column>
+                        <p-column field="pending" header="Pending Approvers" [sortable]="true"></p-column>
+                    </p-dataTable>
+                    <form novalidate [formGroup]="bulkApprovalForm">
+                        <div class="form-group">
+                            <label class="control-label">Comments</label>
+                            <div class="div-margin">
+                                <textarea id="comments" autoresize="autoResize" cols="30" rows="3" class="form-control" formControlName="comments" required>
+                                </textarea>
+                                <div class="alert alert-danger" *ngIf="bulkApprovalForm.get('comments').hasError('required') && bulkApprovalForm.get('comments').touched">
+                                    Comment is required
+                                </div>
+                                <div class="alert alert-danger" *ngIf="bulkApprovalForm.get('comments').hasError('minlength') && bulkApprovalForm.get('comments').touched">
+                                    Minimum 2 characters
+                                </div>
+                                <div class="alert alert-danger" *ngIf="bulkApprovalForm.get('comments').hasError('maxlength') && bulkApprovalForm.get('comments').touched">
+                                    Maximum 600 characters
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <!--<h5 class="warning">
+                                        <span>{{validationMessage}}</span>
+                                    </h5>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button id="approve" [disabled]="bulkApprovalForm.invalid" (click)="approveClicked(bulkApprovalForm)" class="btn ">Approve</button>
+                                    <button id="reject" [disabled]="bulkApprovalForm.invalid" (click)="rejectClicked(bulkApprovalForm)" class="btn ">Reject</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END BULK APPROVAL LIST COMPONENT BY PRIMENG -->
+        </div>
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

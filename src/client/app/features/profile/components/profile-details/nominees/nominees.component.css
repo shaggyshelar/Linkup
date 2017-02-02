@@ -1,0 +1,49 @@
+.req-field {
+    color :red;
+}
+.row-margin {
+    margin-top: 15px;
+}
+.col-margin {
+    margin-top :10px;
+}
+.button-margin{
+    margin-left: 0px;
+}
+.div-margin {
+    margin-top: 5px;
+}
+.div-actions {   
+    font-size: 11px;
+    font-style: italic;
+    color: #5599d4;
+    font-weight: bold;
+}
+.title {
+    font-weight: bold;
+    font-size: 13px !important;
+    color: #525252 !important;    
+}
+.border-color {    
+    border: 1px solid #F5F5E7 !important;
+}
+.div-color {
+    background-color: #F5F5E7 !important;
+}
+.detail-table td {
+    width: 50%;
+}
+.detail-table tr td:first-child {
+    background: #F5F5E7 !important;
+    font-weight: 600;
+}
+.icon-css {
+    float: right !important;
+    margin-left: 10px !important;
+    font-size: 15px !important;
+    color: #666 !important;
+}
+
+.nominee-info{
+    margin: 15px;
+}

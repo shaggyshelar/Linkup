@@ -1,0 +1,118 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+	<!-- BEGIN CONTENT BODY -->
+	<div class="page-content">
+		<ul class="page-breadcrumb breadcrumb hidden-xs">
+			<li>
+				<span>LINK UP</span>
+				<i class="fa fa-circle"></i>
+			</li>
+			<li>
+				<span>My Profile</span>
+				<i class="fa fa-circle"></i>
+			</li>
+		</ul>
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<div class="portlet light bordered">
+					<div class="portlet-title">
+						<div class="row div-margin-bottom">
+							<div class="col-md-4 col-sm-4 col-xs-12 icon-align">
+								<div class="profile-userpic">
+									<img alt="" class="profile-img" src="../assets/images/default-user.jpg">
+									<div class="div-margin">
+										<a (click)="edit()" *ngIf="!isEdit" class="btn-margin btn_font"><i class="fa fa-pencil"></i>Edit</a>
+										<a *ngIf="!isEdit" class="btn_font"><i class="fa fa-download"></i>Download</a>
+										<div *ngIf="isEdit">
+											<div>
+												<input type="file" class="file-align">
+											</div>
+											<div class="choose-file-div">
+												<button pButton type="text" label="Upload" (click)="upload()"></button>
+												<button pButton type="text" label="Cancel" (click)="cancel()"></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<h2 class="user-profile-name">Nick</h2>
+								<h4 class="user-profile-emp-id">Employee ID : 10000</h4>
+								<div>
+									<button pButton type="button" label="Download Profile"></button>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-12 div-margin">
+								<span class="profile-completness-label">Profile Completeness</span>
+								<div class="div-margin">
+									<p-progressBar [value]="50"></p-progressBar>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a href="#tab_personalInfo" data-toggle="tab">Personal Info </a>
+							</li>
+							<li class="dropdown">
+								<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> Dropdown
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										<a href="#tab_details" tabindex="-1" data-toggle="tab"> Details </a>
+									</li>
+									<li>
+										<a href="#tab_education" tabindex="-1" data-toggle="tab"> Education </a>
+									</li>
+									<li>
+										<a href="#tab_employmentHistory" tabindex="-1" data-toggle="tab"> Employment History </a>
+									</li>
+									<li>
+										<a href="#tab_experience" tabindex="-1" data-toggle="tab"> Experience</a>
+									</li>
+									<li>
+										<a href="#tab_skillSet" tabindex="-1" data-toggle="tab"> Skill Set </a>
+									</li>
+									<li>
+										<a href="#tab_certification" tabindex="-1" data-toggle="tab"> Certification </a>
+									</li>
+									<li>
+										<a href="#tab_achievements" tabindex="-1" data-toggle="tab"> Achievement </a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane fade active in" id="tab_personalInfo">
+								<personal-info></personal-info>
+							</div>
+							<div class="tab-pane fade" id="tab_details">
+								<profile-details></profile-details>
+							</div>
+							<div class="tab-pane fade" id="tab_employmentHistory">
+								<employment-history></employment-history>
+							</div>
+							<div class="tab-pane fade" id="tab_education">
+								<profile-education></profile-education>
+							</div>
+							<div class="tab-pane fade" id="tab_certification">
+								<profile-certification></profile-certification>
+							</div>
+							<div class="tab-pane fade" id="tab_achievements">
+								<profile-achievement></profile-achievement>
+							</div>
+							<div class="tab-pane fade" id="tab_skillSet">
+								<skill-set></skill-set>
+							</div>
+							<div class="tab-pane fade" id="tab_experience">
+								<profile-experience></profile-experience>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,47 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content" [ifAuthorize]="['Timesheet.UPDATE','Timesheet.READ']">
+        <ul class="page-breadcrumb breadcrumb hidden-xs">
+            <li>
+                <span>LINK UP</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span class="active">Employee Timesheet</span>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="portlet light ">
+                    <div class="portlet-body">
+                        <p-dataTable [value]="timesheetReport" [responsive]="true" >
+                            <p-column field="date" header="Date" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="project" header="Project" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="task" header="Task" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="billableHours" header="Billable Hours" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="nonBillableHours" header="Non-Billable Hours" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="totalHours" header="Total Hours" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="noteBillableHours" header="Note for Billable Hours"></p-column>
+                            <p-column field="noteNonBillableHours" header="Note for Non-Billable Hours"></p-column>
+                        </p-dataTable> 
+                        <div class="row row-padding">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Comments</label>
+                                <div class="col-md-10">
+                                    <textarea pInputTextarea rows="4" cols="30" id="approve_comments" autoResize="autoResize"></textarea>
+                                </div>
+                            </div>
+                            <div class="row btn-align">
+                                <button pButton type="button" label="Approve"></button>
+                                <button pButton type="button" label="Reject"></button>
+                                <button pButton type="button" label="Cancel"></button>
+                            </div>
+                        </div>
+                       
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

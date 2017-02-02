@@ -1,0 +1,63 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content" [ifAuthorize]="['Timesheet.READ']">
+    <ul class="page-breadcrumb breadcrumb hidden-xs">
+      <li>
+        <span>LINK UP</span>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span class="active">Manage Ticket</span>
+      </li>
+    </ul>
+    <div class="portlet light bordered legends-portlet">
+      <div class="portlet-body">
+        <form class="form-horizontal" novalidate (ngSubmit)="onSubmit(ticketForm)" [formGroup]="ticketForm">
+          <div class="form-group">
+            <label class="control-label col-sm-2">Department</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="departments"  [style]="{'width':'100%'}" formControlName="Department" name="departments" ></p-dropdown>
+              <div class="alert alert-danger" *ngIf="ticketForm.get('Department').hasError('required') && ticketForm.get('Department').touched">
+                Please select Department
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Priority</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="priorities"  [style]="{'width':'100%'}" formControlName="Priority" name="priorities"></p-dropdown>
+              <div class="alert alert-danger" *ngIf="ticketForm.get('Priority').hasError('required') && ticketForm.get('Priority').touched">
+                Please select Priority
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Concern</label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="concerns"  [style]="{'width':'100%'}" formControlName="Concern" name="concerns"></p-dropdown>
+              <div class="alert alert-danger" *ngIf="ticketForm.get('Concern').hasError('required') && ticketForm.get('Concern').touched">
+                Please select Concern
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Description</label>
+            <div class="col-sm-10">
+              <textarea formControlName="Description"  [style]="{'width':'100%'}" name="description" class="form-control" ></textarea>
+              <div class="alert alert-danger" *ngIf="ticketForm.get('Description').hasError('required') && ticketForm.get('Description').touched">
+                Please fill the Description
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button pButton type="submit" label="Save" [disabled]="ticketForm.invalid"></button>
+              <button pButton type="button" label="Cancel" (click)="cancel()"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

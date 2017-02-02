@@ -26,7 +26,6 @@ export class BaseService implements HttpServices {
     constructor(_httpService: Http, _context: string) {
         this.httpService = _httpService;
         this.requestUrl = this.baseUrl.concat(_context);
-        this.getHeaders();
     }
     /**
      * Get Single object using get$ method. 
@@ -34,6 +33,7 @@ export class BaseService implements HttpServices {
      * @input isSecured : Optional Parameter : Parameter to tell base service if security headers needs to be included
      */
     get$(id: string, isSecured?: boolean): Observable<Response> {
+        this.getHeaders(isSecured);
         return this.httpService.get(this.requestUrl + '/' + id, this.options).catch(err => {
             return this.handleError(err);
         });
@@ -45,6 +45,7 @@ export class BaseService implements HttpServices {
      * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included 
      */
     getList$(pageNum?: number, pageSize?: number, isSecured?: boolean): Observable<Response> {
+        this.getHeaders(isSecured);
         return this.httpService.get(this.requestUrl, this.options).catch(err => {
             return this.handleError(err);
         });
@@ -57,6 +58,7 @@ export class BaseService implements HttpServices {
      * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included   
      */
     getChildList$(childName: string, pageNum?: number, pageSize?: number, isSecured?: boolean) {
+        this.getHeaders(isSecured);
         return this.httpService.get(this.requestUrl + '/' + childName, this.options).catch(err => {
             return this.handleError(err);
         });
@@ -68,7 +70,7 @@ export class BaseService implements HttpServices {
      * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included
      */
     post$(payload: string, isSecured?: boolean): Observable<Response> {
-
+        this.getHeaders(isSecured);
         return this.httpService.post(this.requestUrl, payload, this.options).catch(err => {
             return this.handleError(err);
         });
@@ -80,6 +82,7 @@ export class BaseService implements HttpServices {
     * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included
     */
     put$(id: string, payload: any, isSecured?: boolean) {
+        this.getHeaders(isSecured);
         return this.httpService.put(this.requestUrl, payload, this.options).catch(err => {
             return this.handleError(err);
         });
@@ -90,6 +93,7 @@ export class BaseService implements HttpServices {
      * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included
      */
     delete$(id: string, isSecured?: boolean) {
+        this.getHeaders(isSecured);
         return this.httpService.delete(this.requestUrl + '/' + id, this.options).catch(err => {
             return this.handleError(err);
         });
@@ -114,9 +118,11 @@ export class BaseService implements HttpServices {
     /** 
      * Method for Including Headers 
      */
-    private getHeaders(): void {
+    private getHeaders(isSecured?: boolean): void {
         let headers = new Headers({});
+        if (isSecured) {
+            headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        }
         this.options = new RequestOptions({ headers: headers });
     }
-
 }

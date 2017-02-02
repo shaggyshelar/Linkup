@@ -14,7 +14,9 @@ module.exports = function (app) {
             res.status(401).json({error:'Invalid userName Password.'});
         }
     });
-
+    app.delete('/api/Auth', utils.EnsureAuthenticated, function (req, res) {
+        res.sendStatus(200);
+    });
     app.get('/api/Auth', utils.EnsureAuthenticated, function (req, res) {
         var userIndex = _.findIndex(users, { Id: req.userID });
         res.json(users[userIndex].Permissions);

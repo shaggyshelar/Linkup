@@ -1,0 +1,9 @@
+@media only screen and (max-width:424px){
+.h2FontSize{
+    font-size: 22px !important;
+}
+}
+
+.anchorTag {
+    color: dodgerblue;
+}

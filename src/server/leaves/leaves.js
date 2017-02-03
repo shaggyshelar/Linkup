@@ -9,6 +9,9 @@ module.exports = function(app) {
    app.get('/api/Leave/myleaves', function(req, res) {
         res.json(leave);
     });
+    app.get('/api/Leave/ApproverLeaves', function(req, res) {
+        res.json(leave);
+    });
     app.get('/api/Leave/:id', function(req, res) {
         var id = req.params.id;
         for (var index in leave) {

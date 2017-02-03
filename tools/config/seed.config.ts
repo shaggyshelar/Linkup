@@ -518,8 +518,8 @@ export class SeedConfig {
       middleware: [
         proxy({
           protocol: 'http:',
-          hostname: 'espld200',
-          port: 8090,
+          hostname: 'localhost',
+          port: 4000,
           pathname: '/api',
           route: '/api'
         }),

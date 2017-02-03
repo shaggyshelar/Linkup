@@ -103,7 +103,7 @@ export class BulkApproveComponent implements OnInit {
           this.approved = false;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves approved!' });
         }
-        this.leaveObs = this.leaveService.getLeaves();
+        this.leaveObs = this.leaveService.getApproverLeaves();
         this.bulkApprovalForm.reset();
         this.selectedEmployees = [];
       } else {

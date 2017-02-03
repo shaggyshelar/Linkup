@@ -22,7 +22,7 @@ export const LeaveRoutes: Route[] = [
     component: HolidaysComponent,
     canActivate: [AuthGuard],
     data: {
-      permissions: ['HOLIDAY.READ']
+      permissions: ['LEAVE.HOLIDAY.MANAGE']
     }
   },
   {
@@ -30,7 +30,7 @@ export const LeaveRoutes: Route[] = [
     component: MyLeavesComponent,
     canActivate: [AuthGuard],
     data: {
-      permissions: ['LEAVE.READ']
+      permissions: ['LEAVE.MY_LEAVE.MANAGE']
     }
   },
   {
@@ -38,7 +38,7 @@ export const LeaveRoutes: Route[] = [
     component: ApplyLeaveComponent,
     canActivate: [AuthGuard],
     data: {
-      permissions: ['LEAVE.CREATE']
+      permissions: ['LEAVE.APPLYFORLEAVE.MANAGE']
     }
   },
   {
@@ -46,7 +46,7 @@ export const LeaveRoutes: Route[] = [
     component: ApproveLeaveComponent,
     canActivate: [AuthGuard],
     data: {
-      permissions: ['LEAVE.UPDATE', 'LEAVE.READ']
+      permissions: ['LEAVE.APPROVAL.MANAGE']
     }
   },
   {
@@ -54,7 +54,7 @@ export const LeaveRoutes: Route[] = [
     component: BulkApproveComponent,
     canActivate: [AuthGuard],
     data: {
-      permissions: ['LEAVE.UPDATE', 'LEAVE.READ']
+      permissions: ['LEAVE.APPROVAL.MANAGE']
     }
   },
   {

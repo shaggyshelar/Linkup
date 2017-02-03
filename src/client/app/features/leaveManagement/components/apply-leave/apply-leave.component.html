@@ -131,7 +131,7 @@
                                             <textarea id="reason" required formControlName="reason" (keyup)="reasonTextChanged()" class="fullWidth" [(ngModel)]="model.reason"></textarea>
                                             <div class="charsLeft pull-right">{{charsLeft}} characters left</div>
                                             <div class="alert alert-danger" *ngIf="applyLeaveForm.get('reason').hasError('required') && applyLeaveForm.get('reason').touched">
-                                                Leave Type is required
+                                                Reason is required
                                             </div>
                                         </div>
                                     </div>

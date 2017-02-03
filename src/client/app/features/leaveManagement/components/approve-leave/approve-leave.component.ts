@@ -24,7 +24,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
 })
 export class ApproveLeaveComponent implements OnInit {
 
-  leaveObs: Observable<Leave>;
+  leaveObs: Observable<Leave[]>;
   approvalRecords: any[];
   servRows = 10;
 
@@ -36,7 +36,7 @@ export class ApproveLeaveComponent implements OnInit {
 
   ngOnInit() {
 
-    this.leaveObs = this.leaveService.getLeaves();
+    this.leaveObs = this.leaveService.getApproverLeaves();
   }
 
 

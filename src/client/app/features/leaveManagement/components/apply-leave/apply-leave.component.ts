@@ -15,6 +15,7 @@ import { ApplyLeaveValidation } from '../../models/applyLeaveValidation';
 /** Other Module Dependencies */
 import { MessageService } from '../../../core/shared/services/message.service';
 import { LeaveTypeMasterService } from '../../../core/shared/services/master/leaveTypeMaster.service';
+import * as moment from 'moment/moment';
 
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
@@ -91,8 +92,10 @@ export class ApplyLeaveComponent implements OnInit,OnDestroy {
 
         this.userObs = this.userService.getUserDetails();
         this.subLeaveType = this.leaveTypeService.getLeaveTypes().subscribe((res:any) => {
-            for (var index in res)
+            this.leaves.push({ label: 'Select', value: null });
+            for (var index in res) {
                 this.leaves.push({ label: res[index].name, value: res[index] });
+            }
         });
     }
 
@@ -200,30 +203,32 @@ export class ApplyLeaveComponent implements OnInit,OnDestroy {
     }
 
     dayDiffCalc() { // input given as Date objects
-        var dDate1 = this.model.start;
-        var dDate2 = this.model.end;
-        var iWeeks:any, iDateDiff:any, iAdjust = 0;
-        if (dDate2 < dDate1) return -1; // error code if dates transposed
-        var iWeekday1 = dDate1.getDay(); // day of week
-        var iWeekday2 = dDate2.getDay();
-        iWeekday1 = (iWeekday1 === 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
-        iWeekday2 = (iWeekday2 === 0) ? 7 : iWeekday2;
-        if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
-        iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
-        iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
+        this.dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
+        this.model.numDays = this.dayCount;
+        // var dDate1 = this.model.start;
+        // var dDate2 = this.model.end;
+        // var iWeeks:any, iDateDiff:any, iAdjust = 0;
+        // if (dDate2 < dDate1) return -1; // error code if dates transposed
+        // var iWeekday1 = dDate1.getDay(); // day of week
+        // var iWeekday2 = dDate2.getDay();
+        // iWeekday1 = (iWeekday1 === 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
+        // iWeekday2 = (iWeekday2 === 0) ? 7 : iWeekday2;
+        // if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
+        // iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
+        // iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
 
-        // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
-        iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000);
+        // // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
+        // iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000);
 
-        if (iWeekday1 <= iWeekday2) {
-            iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1);
-        } else {
-            iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2);
-        }
+        // if (iWeekday1 <= iWeekday2) {
+        //     iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1);
+        // } else {
+        //     iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2);
+        // }
 
-        iDateDiff -= iAdjust; // take into account both days on weekend
+        // iDateDiff -= iAdjust; // take into account both days on weekend
 
-        this.model.numDays = this.dayCount = (iDateDiff + 1); // add 1 because dates are 
+        // this.model.numDays = this.dayCount = (iDateDiff + 1); // add 1 because dates are 
         return this.dayCount;
     }
 

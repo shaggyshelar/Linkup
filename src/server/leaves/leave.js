@@ -3,7 +3,7 @@ var leaveType = require('./leaveType');
 var leave = [
     {
         ID: 6527,
-        User: {
+        Employee: {
             ID: 12345,
             Name: 'FName Lname',
             Department: 'EBS'
@@ -38,7 +38,7 @@ var leave = [
     },
     {
         ID: 6137,
-        User: {
+        Employee: {
             ID: 12345,
             Name: 'FName Lname',
             Department: 'EBS'
@@ -73,7 +73,7 @@ var leave = [
     },
     {
         ID: 6522,
-        User: {
+        Employee: {
             ID: 12345,
             Name: 'FName Lname',
             Department: 'EBS'
@@ -108,7 +108,7 @@ var leave = [
     },
     {
         ID: 6524,
-        User: {
+        Employee: {
             ID: 12345,
             Name: 'FName Lname',
             Department: 'EBS'
@@ -143,7 +143,7 @@ var leave = [
     },
     {
         ID: 6000,
-        User: {
+        Employee: {
             ID: 12345,
             Name: 'FName Lname',
             Department: 'EBS'

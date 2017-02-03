@@ -6,6 +6,9 @@ var _ = require('lodash');
 
 module.exports = function(app) {
 
+   app.get('/api/Leave/myleaves', function(req, res) {
+        res.json(leave);
+    });
     app.get('/api/Leave/:id', function(req, res) {
         var id = req.params.id;
         for (var index in leave) {
@@ -16,10 +19,8 @@ module.exports = function(app) {
         }
     });
 
-    app.get('/api/Leave', function(req, res) {
-        res.json(leave);
-    });
-
+   
+   
     app.post('/api/Leave', function(req, res) {
         if (req.body != null) {
             req.body.ID = leave.length + 1;

@@ -22,7 +22,7 @@
       <!-- START BULK APPROVAL LIST COMPONENT BY PRIMENG -->
       <div class="col-lg-12 col-xs-12 col-sm-12">
         <div class="portlet light bordered">
-          <p-dataTable [value]="leaveObs | async" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows)>
+          <p-dataTable [value]="leaveObs | async" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows) >
             <p-column selectionMode="multiple" header="Select" [sortable]="true"></p-column>
             <p-column field="EmpID" header="Employee ID" [sortable]="true"></p-column>
             <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
@@ -40,14 +40,14 @@
             </p-column>
             <p-column header="Approvers" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
-                    <div *ngFor="let item of rowData.Approvers" >
+                    <div class="wrap-text-inline" *ngFor="let item of rowData.Approvers" >
                         {{item.Name}}
                     </div>
                 </template>
               </p-column>
               <p-column  header="Pending Approvers" [sortable]="true">
                   <template let-rowData="rowData" pTemplate="body">
-                    <div *ngFor="let item of rowData.PendingApprovers" >
+                    <div class="wrap-text-inline" *ngFor="let item of rowData.PendingApprovers" >
                         {{item.Name}}
                     </div>
                 </template>

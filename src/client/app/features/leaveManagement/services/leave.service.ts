@@ -1,6 +1,6 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http,Headers,RequestOptions } from '@angular/http';
 
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
@@ -42,6 +42,12 @@ export class LeaveService extends BaseService {
     }
     getApproverLeaves(): Observable<Leave[]> {
         return this.getChildList$('ApproverLeaves',0,0,true).map(res => res.json());
+    }
+    getLeaveDetails(): Observable<any> {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/EmployeeLeaves/GetMyLeaveDetails',options).map((res => res.json()));
     }
     /**
      * getLeaveArray method

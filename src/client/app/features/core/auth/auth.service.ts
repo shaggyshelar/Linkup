@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions  } from '@angular/http';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { BaseService } from '../shared/index';
 
@@ -12,7 +11,7 @@ export class AuthService extends BaseService {
     public currentUser:any;
     private authenticated = false;
 
-    constructor(httpService: Http, private router: Router,private http : Http) {
+    constructor(httpService: Http, private http : Http) {
         super(httpService, CONTEXT);
     }
 

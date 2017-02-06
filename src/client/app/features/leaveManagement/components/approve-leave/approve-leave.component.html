@@ -35,14 +35,14 @@
               </p-column>
               <p-column header="Approvers" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
-                    <div *ngFor="let item of rowData.Approvers" >
+                    <div class="wrap-text-inline" *ngFor="let item of rowData.Approvers" >
                         {{item.Name}}
                     </div>
                 </template>
               </p-column>
               <p-column  header="Pending Approvers" [sortable]="true">
                   <template let-rowData="rowData" pTemplate="body">
-                    <div *ngFor="let item of rowData.PendingApprovers" >
+                    <div class="wrap-text-inline" *ngFor="let item of rowData.PendingApprovers" >
                         {{item.Name}}
                     </div>
                 </template>

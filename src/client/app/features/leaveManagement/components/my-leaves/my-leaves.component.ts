@@ -28,7 +28,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
 export class MyLeavesComponent implements OnInit {
   public leaveObs: Observable<Leave>;
   public leaveDetObs: Observable<LeaveDetail>;
-  public leaveDetail: LeaveDetail;
+  public leaveDetail: any;
   servRows = 5;
   leaves: {};
   leave: any;
@@ -44,8 +44,8 @@ export class MyLeavesComponent implements OnInit {
 
   ngOnInit() {
     this.leaveObs = this.leaveService.getMyLeaves();
-    this.userService.getLeaveDetails('LeaveDetails').subscribe((res:any) => {
-        this.leaveDetail= res;
+    this.leaveService.getLeaveDetails().subscribe((res:any) => {
+        this.leaveDetail= res[0];
     });
   }
 

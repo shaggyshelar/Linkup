@@ -38,22 +38,22 @@
                                 <tbody>
                                     <tr>
                                         <td> Leave </td>
-                                        <td> {{ (leaveDetail)?.NumberOfLeave }} </td>
-                                        <td> - </td>
+                                        <td> {{ leaveDetail ? leaveDetail.LeaveTaken:'' }} </td>
+                                        <td> {{ leaveDetail ? leaveDetail.LeaveBalance:'' }}  </td>
                                     </tr>
                                     <tr>
                                         <td> Half Day Leave </td>
-                                        <td> {{ (leaveDetail)?.HalfDayLeave }} </td>
+                                        <td> {{ leaveDetail ?leaveDetail.HalfdayLeaveTaken:'' }} </td>
                                         <td> - </td>
                                     </tr>
                                     <tr>
                                         <td> Absent </td>
-                                        <td> {{ (leaveDetail)?.Absent }} </td>
+                                        <td> {{ leaveDetail ? leaveDetail.AbsentTaken:'' }} </td>
                                         <td> - </td>
                                     </tr>
                                     <tr>
                                         <td> Half Day Absent </td>
-                                        <td> {{ (leaveDetail)?.HalfDayAbsent }} </td>
+                                        <td> {{ leaveDetail ? leaveDetail.HalfdayAbsentTaken:'' }} </td>
                                         <td> - </td>
                                     </tr>
                                 </tbody>

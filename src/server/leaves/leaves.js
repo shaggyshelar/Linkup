@@ -66,7 +66,7 @@ module.exports = function(app) {
         }
     });
 
-    app.get('/api/Users/LeaveDetails', function(req, res) {
+    app.get('/api/EmployeeLeaves/GetMyLeaveDetails', function(req, res) {
         res.json(leaveDetails);
     });
 

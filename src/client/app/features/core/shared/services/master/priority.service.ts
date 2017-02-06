@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Rx';
 import { BaseService } from '../../index';
 
 /** Context for service calls */
-export const CONTEXT = 'priorityMaster';
+const CONTEXT = 'priorityMaster';
 
 /** Service Definition */
 @Injectable()

@@ -16,7 +16,7 @@
 				<i class="fa fa-user icon-size"></i>
 			</div>
 			<a id="profile-options" (click)="toggleUserMenu()">
-				<span class="profile-name">Jane Williams</span>
+				<span class="profile-name">{{userDetail.Name}} </span>
 				<i *ngIf="isUserMenuOpen" class="fa fa-chevron-up" aria-hidden="true"></i>
 				<i *ngIf="!isUserMenuOpen" class="fa fa-chevron-down" aria-hidden="true"></i>
 			</a>
@@ -34,10 +34,6 @@
 				</a>
 			</li>
 			<li class="divider"> </li>
-			<li>
-				<a href="page_user_lock_1.html">
-					<i class="icon-lock"></i> &nbsp;&nbsp; Lock Screen </a>
-			</li>
 			<li>
 				<a (click)="logout()">
 					<i class="icon-key"></i> &nbsp;&nbsp; Log Out </a>
@@ -121,34 +117,34 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item  " [ifAuthorize]="['LEAVE.MANAGE','HOLIDAY.MANAGE']" >
+			<li class="nav-item  " [ifAuthorize]="['LEAVE.MANAGE']" >
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="icon-calendar"></i>
 					<span class="title">Leave Management</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item  " [ifAuthorize]="['HOLIDAY.READ']">
+					<li class="nav-item  " [ifAuthorize]="['LEAVE.HOLIDAY.MANAGE']">
 						<a routerLink="/leave/holidays" routerLinkActive="active">
 							<span class="title">Holidays</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['LEAVE.READ']">
+					<li class="nav-item  " [ifAuthorize]="['LEAVE.MY_LEAVE.MANAGE']">
 						<a routerLink="/leave/my-leaves" routerLinkActive="active">
 							<span class="title">My Leaves</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['LEAVE.CREATE']">
+					<li class="nav-item  " [ifAuthorize]="['LEAVE.APPLYFORLEAVE.MANAGE']">
 						<a routerLink="/leave/apply-leave" routerLinkActive="active">
 							<span class="title">Apply For Leave</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['LEAVE.UPDATE', 'LEAVE.READ']">
+					<li class="nav-item  " [ifAuthorize]="['LEAVE.APPROVAL.MANAGE']">
 						<a routerLink="/leave/approve-leave" routerLinkActive="active">
 							<span class="title">Leave Approval</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['LEAVE.UPDATE', 'LEAVE.READ']">
+					<li class="nav-item  " [ifAuthorize]="['LEAVE.APPROVAL.MANAGE']">
 						<a routerLink="/leave/bulk-approval" routerLinkActive="active">
 							<span class="title">Bulk Leave Approval</span>
 						</a>

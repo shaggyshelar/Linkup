@@ -35,9 +35,14 @@ export class LeaveService extends BaseService {
      * Gets array of leaves
      */
     getLeaves(): Observable<Leave> {
-        return this.getList$().map(res => res.json());
+        return this.getList$(0,0,true).map(res => res.json());
     }
-
+    getMyLeaves(): Observable<Leave> {
+        return this.getChildList$('myleaves',0,0,true).map(res => res.json());
+    }
+    getApproverLeaves(): Observable<Leave[]> {
+        return this.getChildList$('ApproverLeaves',0,0,true).map(res => res.json());
+    }
     /**
      * getLeaveArray method
      * Gets child array in the object to be returned. List of applied leaves, in this case

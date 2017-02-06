@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import { BaseService } from '../../../index';
 
 /** Context for service calls */
-export const CONTEXT = 'SkillMaster';
+const CONTEXT = 'SkillMaster';
 
 /** Service Definition */
 @Injectable()

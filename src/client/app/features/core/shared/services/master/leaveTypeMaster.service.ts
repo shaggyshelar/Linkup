@@ -9,11 +9,11 @@ import 'rxjs/add/operator/map';
 
 /** Module Level Dependencies */
 import { Select } from '../../../../leaveManagement/models/select';
-import { BaseService } from '../../../../core/index';
+import { BaseService } from '../../../index';
 // import { Employee } from '../models/employee';
 
 /** Context for service calls */
-export const CONTEXT = 'LeaveTypes';
+const CONTEXT = 'LeaveTypes';
 
 /** Service Definition */
 @Injectable()

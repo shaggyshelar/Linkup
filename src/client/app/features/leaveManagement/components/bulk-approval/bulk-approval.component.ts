@@ -28,7 +28,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
 })
 export class BulkApproveComponent implements OnInit {
 
-  leaveObs: Observable<Leave>;
+  leaveObs: Observable<Leave[]>;
 
   servRows = 20;
   selectedEmployees: any[];
@@ -54,7 +54,7 @@ export class BulkApproveComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.leaveObs = this.leaveService.getLeaves();
+    this.leaveObs = this.leaveService.getApproverLeaves();
   }
 
   approveClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
@@ -103,7 +103,7 @@ export class BulkApproveComponent implements OnInit {
           this.approved = false;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves approved!' });
         }
-        this.leaveObs = this.leaveService.getLeaves();
+        this.leaveObs = this.leaveService.getApproverLeaves();
         this.bulkApprovalForm.reset();
         this.selectedEmployees = [];
       } else {

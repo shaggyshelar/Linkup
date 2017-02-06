@@ -4,7 +4,7 @@ import { Directive, ElementRef, OnInit, Input } from '@angular/core';
 })
 export class IfAuthorizeDirective implements OnInit {
 
-    @Input('ifAuthorize') permissions: Array<string>;
+    @Input() ifAuthorize: Array<string>;
     private _element: HTMLElement;
     constructor( _element: ElementRef) {
         this._element = _element.nativeElement;
@@ -18,8 +18,8 @@ export class IfAuthorizeDirective implements OnInit {
         let userHasPermissions = false;
         if (localStorage.getItem('loggedInUserPermission') !== null) {
             let loggedInUserPermission = JSON.parse(localStorage.getItem('loggedInUserPermission'));
-            for (var i = 0; i < this.permissions.length; i++) {
-                if (loggedInUserPermission.indexOf(this.permissions[i]) === -1) {
+            for (var i = 0; i < this.ifAuthorize.length; i++) {
+                if (loggedInUserPermission.indexOf(this.ifAuthorize[i]) === -1) {
                     userHasPermissions = false;
                     break;
                 } else {

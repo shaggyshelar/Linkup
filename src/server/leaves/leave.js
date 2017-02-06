@@ -3,6 +3,7 @@ var leaveType = require('./leaveType');
 var leave = [
     {
         ID: 6527,
+        LeaveRequestMasterId:1,
         Employee: {
             ID: 12345,
             Name: 'FName Lname',
@@ -38,6 +39,7 @@ var leave = [
         ]
     },
     {
+        LeaveRequestMasterId:2,
         ID: 6137,
         Employee: {
             ID: 12345,
@@ -77,6 +79,7 @@ var leave = [
         ]
     },
     {
+        LeaveRequestMasterId:3,
         ID: 6522,
         Employee: {
             ID: 12345,
@@ -117,6 +120,7 @@ var leave = [
     },
     {
         ID: 6524,
+        LeaveRequestMasterId:4,
         Employee: {
             ID: 12345,
             Name: 'FName Lname',
@@ -164,6 +168,7 @@ var leave = [
     },
     {
         ID: 6000,
+        LeaveRequestMasterId:5,
         Employee: {
             ID: 12345,
             Name: 'FName Lname',
@@ -208,7 +213,7 @@ var leave = [
                 Name: 'Pooja Merchant',
             }
         ]
-    }
+    },
 ];
 
 module.exports = leave;

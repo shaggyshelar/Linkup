@@ -43,11 +43,29 @@ export class LeaveService extends BaseService {
     getApproverLeaves(): Observable<Leave[]> {
         return this.getChildList$('ApproverLeaves',0,0,true).map(res => res.json());
     }
+    getLeaveDetailByRefID(refId:any): Observable<Leave[]> {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('api/LeaveDetails/'+refId,options).map((res => res.json()));
+    }
+    getApproverListByRefID(refId:any): Observable<any> {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('api/LeaveApprovers/'+refId,options).map((res => res.json()));
+    }
     getLeaveDetails(): Observable<any> {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
         return this.http.get('/api/EmployeeLeaves/GetMyLeaveDetails',options).map((res => res.json()));
+    }
+     getActiveProjects(): Observable<any> {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/Project/GetMyActiveProjects',options).map((res => res.json()));
     }
     /**
      * getLeaveArray method

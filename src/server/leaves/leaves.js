@@ -21,9 +21,37 @@ module.exports = function(app) {
             }
         }
     });
-
-   
-   
+     app.get('/api/LeaveDetails/:id', function(req, res) {
+        var id = req.params.id;
+        for (var index in leave) {
+            if (leave[index].LeaveRequestMasterId == id) {
+                res.json([leave[index]]);
+                return;
+            }
+        }
+    });
+     app.get('/api/LeaveApprovers/:id', function(req, res) {
+        var id = req.params.id;
+        var ApproverList=[
+            {
+                Approver: { Name: 'Sagar Shelar'},
+                Project: 'HRMS',
+                Manager: 'Sagar Shelar',
+                Status: 'Approved',
+                Comments: 'Approved'
+            }
+        ];
+        res.json(ApproverList);
+    });
+     app.get('/api/Project/GetMyActiveProjects', function(req, res) {
+        var Project=[
+            {
+                ProjectManager: { Name: 'Sagar Shelar'},
+                Title: 'HRMS',
+            }
+        ];
+        res.json(Project);
+    });
     app.post('/api/Leave', function(req, res) {
         if (req.body != null) {
             req.body.ID = leave.length + 1;

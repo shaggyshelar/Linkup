@@ -1,128 +1,119 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
-    <!-- BEGIN CONTENT BODY -->
-    <div class="page-content">
-        <div class="page-head">
-            <!-- BEGIN PAGE TITLE -->
-            <!-- END PAGE TITLE -->
-        </div>
-        <div class="hidden-xs">
-            <ul class="page-breadcrumb breadcrumb">
-                <li>
-                    <span>LINK UP</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-                <li>
-                    <span> Leaves</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-                <li>
-                    <span> Apply Leave</span>
-                </li>
-            </ul>
-        </div>
-        <div class="row">
-            <!-- START HOLIDAY PARTICULARS COMPONENT -->
-            <div class="col-lg-4 col-xs-12 col-sm-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-body">
-                        <h4>Requestor Details</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <td> Employee ID </td>
-                                        <td> {{ (leaveObs | async)?.User.ID }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td> Employee Name </td>
-                                        <td> {{ (leaveObs | async)?.User.Name }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td> Department </td>
-                                        <td> {{ (leaveObs | async)?.User.Department }} </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <h4>Active on Projects</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Project</th>
-                                        <th>Manager</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let leaveRec of (leaveObs | async)?.Approvers">
-                                        <td> {{ leaveRec.Project }} </td>
-                                        <td> {{ leaveRec.Manager }} </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="page-head">
+      <!-- BEGIN PAGE TITLE -->
+      <!-- END PAGE TITLE -->
+    </div>
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span> Leaves</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span> Apply Leave</span>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <!-- START HOLIDAY PARTICULARS COMPONENT -->
+      <div class="col-lg-4 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-body">
+            <h4>Requestor Details</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td> Employee ID </td>
+                    <td> {{ userDetail.ID}} </td>
+                  </tr>
+                  <tr>
+                    <td> Employee Name </td>
+                    <td> {{ userDetail.Name }} </td>
+                  </tr>
+                  <tr>
+                    <td> Department </td>
+                    <td>  </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <!-- END HOLIDAY PARTICULARS COMPONENT  -->
-
-            <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
-            <div class="col-lg-8 col-xs-12 col-sm-12">
-                <div class="portlet light bordered">
-                    <h4>Update Leave</h4>
-                    <div class="row">
-                        <div class="pull-right">
-                            <h5 class="font-blue"></h5>
-                        </div>
-                        <div>
-                            <div class="ui-datatable ui-widget ui-datatable-reflow">
-                                <div class="ui-datatable-tablewrapper">
-                                    <table class="table dataTable">
-                                        <thead>
-                                            <tr class="ui-state-default">
-                                                <th class="ui-state-default ui-unselectable-text"> <span class="ui-column-title">Type</span></th>
-                                                <th class="ui-state-default ui-unselectable-text">No. of Leaves</th>
-                                                <th class="ui-state-default ui-unselectable-text">Start Date</th>
-                                                <th class="ui-state-default ui-unselectable-text">End Date</th>
-                                                <th class="ui-state-default ui-unselectable-text">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="ui-widget-content">
-                                                <td class="table-cell">{{ (leaveObs | async)?.Type.Title }}</td>
-                                                <td class="table-cell">{{ (leaveObs | async)?.NumberOfLeave }}</td>
-                                                <td class="table-cell">{{ (leaveObs | async)?.StartDate }}</td>
-                                                <td class="table-cell">{{ (leaveObs | async)?.EndDate }}</td>
-                                                <td class="table-cell">-</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="portlet light bordered">
-                    <div class="row">
-                        <p-dataTable [value]="(leaveObs | async)?.Approvers" [responsive]="true">
-                            <p-column field="Project" header="Project"></p-column>
-                            <p-column field="Manager" header="Manager"></p-column>
-                            <p-column field="Status" header="Status"></p-column>
-                            <p-column field="Comment" header="Comments"></p-column>
-                        </p-dataTable>
-                    </div><br>
-                    <div>
-                        <span *ngIf="!isCancellable">
+            <h4>Active on Projects</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Project</th>
+                    <th>Manager</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let project of activeProjects">
+                    <td> {{ project.Title }} </td>
+                    <td> {{ project.ProjectManager.Name }} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END HOLIDAY PARTICULARS COMPONENT  -->
+      <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
+      <div class="col-lg-8 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <h4>Update Leave</h4>
+          <div class="row">
+            <div class="pull-right">
+              <h5 class="font-blue"></h5>
+            </div>
+            <div>
+              <p-dataTable [value]="leaveList" [responsive]="true">
+                <p-column field="LeaveType.Value" header="Type"></p-column>
+                <p-column field="NumberOfDays" header="No. of Leaves"></p-column>
+                <p-column field="Reason" header="Reason"></p-column>
+                <p-column header="Start Date">
+                  <template let-rowData="rowData" pTemplate="body">
+                    {{rowData.StartDate | date:'dd/MM/y'}}
+                  </template>
+                </p-column>
+                <p-column header="End Date">
+                  <template let-rowData="rowData" pTemplate="body">
+                    {{rowData.EndDate | date:'dd/MM/y'}}
+                  </template>
+                </p-column>
+                <p-column header="Action"></p-column>
+              </p-dataTable>
+            </div>
+          </div>
+        </div>
+        <div class="portlet light bordered">
+          <div class="row">
+            <p-dataTable [value]="approverList" [responsive]="true">
+              <p-column field="Project" header="Project"></p-column>
+              <p-column field="Approver.Name" header="Manager"></p-column>
+              <p-column field="Status" header="Status"></p-column>
+              <p-column field="Comments" header="Comments"></p-column>
+            </p-dataTable>
+          </div><br>
+          <div>
+            <span *ngIf="!isCancellable">
                             <button id="cancel" class="btn red btn-outline" (click)="cancelClicked()">Cancel Leave</button>
                         </span>
-                        <button id="close" class="btn blue btn-outline" (click)="closeClicked()">Close</button>
-                    </div>
-                </div>
-            </div>
-            <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
+            <button id="close" class="btn blue btn-outline" (click)="closeClicked()">Close</button>
+          </div>
         </div>
+      </div>
+      <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
     </div>
-    <!-- END CONTENT BODY -->
+  </div>
+  <!-- END CONTENT BODY -->
 </div>
 <!-- END CONTENT -->

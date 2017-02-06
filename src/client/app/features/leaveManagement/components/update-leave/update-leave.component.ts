@@ -15,7 +15,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
 /** Module Level Dependencies */
 import { LeaveService } from '../../services/leave.service';
 import { Leave } from '../../models/leave';
-
+import { AuthService } from '../../../core/auth/auth.service';
 /** Component Declaration */
 
 @Component({
@@ -30,11 +30,15 @@ export class UpdateLeaveComponent implements OnInit {
     isCancellable: boolean;
     errorMsg: string;
     today: Date;
-
+    leaveList:any;
+    approverList:any;
+    activeProjects:any;
+    userDetail:any;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private route: ActivatedRoute,
+        private authService: AuthService,
         private leaveService: LeaveService
     ) {
         this.isCancellable = true;
@@ -43,15 +47,22 @@ export class UpdateLeaveComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.userDetail=this.authService.getCurrentUser();
         this.route.params.subscribe(params => {
-            this.leaveID = +params['id'];
+            this.leaveID = params['id'];
             console.log('param ID: ' + this.leaveID);
         });
 
-        this.leaveObs = this.leaveService.getLeave(this.leaveID);
-        this.leaveObs.subscribe(res => {
-            res.Status === 'Approved' ? this.isCancellable = true : this.isCancellable = false;
+        this.leaveService.getLeaveDetailByRefID(this.leaveID).subscribe(res => {
+            this.leaveList=res;
         });
+        this.leaveService.getApproverListByRefID(this.leaveID).subscribe(res => {
+            this.approverList=res;
+        });
+        this.leaveService.getActiveProjects().subscribe(res => {
+            this.activeProjects=res;
+        });
+
     }
 
     setCancellable(param:any) {

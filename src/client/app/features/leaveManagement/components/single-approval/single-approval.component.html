@@ -1,144 +1,127 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
-    <!-- BEGIN CONTENT BODY -->
-    <div class="page-content">
-        <div class="page-head">
-            <!-- BEGIN PAGE TITLE -->
-            <!-- END PAGE TITLE -->
-        </div>
-        <div class="hidden-xs">
-            <ul class="page-breadcrumb breadcrumb">
-                <li>
-                    <span>LINK UP</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-                <li>
-                    <span>Leave</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-                <li>
-                    <span>Approve Leave</span>
-                </li>
-            </ul>
-        </div>
-        <div class="row">
-            <!-- START HOLIDAY PARTICULARS COMPONENT -->
-            <div class="col-lg-4 col-xs-12 col-sm-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-body">
-                        <h4>Requestor Details</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <td>Employee ID</td>
-                                        <td> {{ (leaveObs | async)?.User.ID }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Employee</td>
-                                        <td> {{ (leaveObs | async)?.User.Name }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Department</td>
-                                        <td> {{ (leaveObs | async)?.User.Department }} </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <h4>Leave Details</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <td>Leave Type</td>
-                                        <td> {{ (leaveObs | async)?.Type.Title }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>No. of Leaves</td>
-                                        <td> {{ (leaveObs | async)?.NumberOfLeave }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Reason</td>
-                                        <td> {{ (leaveObs | async)?.Reason }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Start Date</td>
-                                        <td> {{ (leaveObs | async)?.StartDate }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>End Date</td>
-                                        <td> {{ (leaveObs | async)?.EndDate }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Action</td>
-                                        <td> - </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END HOLIDAY PARTICULARS COMPONENT  -->
-
-            <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
-            <div class="col-lg-8 col-xs-12 col-sm-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-body">
-                        <h4>Requestor Details</h4>
-                        <p-dataTable [value]="(leaveObs | async)?.Approvers" [responsive]="true">
-                            <p-column field="Project" header="Project" [sortable]="true"></p-column>
-                            <p-column field="Manager" header="Manager" [sortable]="true"></p-column>
-                            <p-column field="Status" header="Status" [sortable]="true"></p-column>
-                            <p-column field="Comment" header="Comments" [sortable]="true"></p-column>
-                        </p-dataTable>
-                        <form novalidate [formGroup]="singleApprovalForm">
-                            <div class="form-group">
-                                <label class="control-label">Comments</label>
-                                <div class="div-margin">
-                                    <textarea id="comments" autoresize="autoResize" cols="30" rows="3" class="form-control" formControlName="comments" required>
-                                    </textarea>
-                                    <div class="alert alert-danger" *ngIf="singleApprovalForm.get('comments').hasError('required') && singleApprovalForm.get('comments').touched">
-                                        Comment is required
-                                    </div>
-                                    <div class="alert alert-danger" *ngIf="singleApprovalForm.get('comments').hasError('minlength') && singleApprovalForm.get('comments').touched">
-                                        Minimum 2 characters
-                                    </div>
-                                    <div class="alert alert-danger" *ngIf="singleApprovalForm.get('comments').hasError('maxlength') && singleApprovalForm.get('comments').touched">
-                                        Maximum 600 characters
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <h5 class="warning">
-                                            <span>{{validationMessage}}</span>
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <button id="approve" [disabled]="singleApprovalForm.invalid" type="submit" name="approve" (click)="approveClicked(singleApprovalForm)"
-                                            class="btn">Approve</button>
-                                        <button id="reject" [disabled]="singleApprovalForm.invalid" type="submit" name="reject" (click)="rejectClicked(singleApprovalForm)"
-                                            class="btn">Reject</button>
-                                        <button id="close" type="reset" (click)=" closeClicked()" class="btn">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-            <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
-
-        </div>
-        <!-- END CONTENT BODY -->
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="page-head">
+      <!-- BEGIN PAGE TITLE -->
+      <!-- END PAGE TITLE -->
     </div>
-    <!-- END CONTENT -->
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Leave</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Approve Leave</span>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <!-- START HOLIDAY PARTICULARS COMPONENT -->
+      <div class="col-lg-4 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-body">
+            <h4>Requestor Details</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td>Employee ID</td>
+                    <td> {{ leaveList? leaveList[0].Employee.ID:"" }} </td>
+                  </tr>
+                  <tr>
+                    <td>Employee</td>
+                    <td> {{ leaveList? leaveList[0].Employee.Name:"" }} </td>
+                  </tr>
+                  <tr>
+                    <td>Department</td>
+                    <td>  </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END HOLIDAY PARTICULARS COMPONENT  -->
+      <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
+      <div class="col-lg-8 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-body">
+            <div>
+              <h4>Leave Details</h4>
+              <p-dataTable [value]="leaveList" [responsive]="true">
+                <p-column field="LeaveType.Value" header="Type"></p-column>
+                <p-column field="NumberOfDays" header="No. of Leaves"></p-column>
+                <p-column field="Reason" header="Reason"></p-column>
+                <p-column header="Start Date">
+                  <template let-rowData="rowData" pTemplate="body">
+                    {{rowData.StartDate | date:'dd/MM/y'}}
+                  </template>
+                </p-column>
+                <p-column header="End Date">
+                  <template let-rowData="rowData" pTemplate="body">
+                    {{rowData.EndDate | date:'dd/MM/y'}}
+                  </template>
+                </p-column>
+                <p-column header="Action"></p-column>
+              </p-dataTable>
+            </div>
+            <h4>Requestor Details</h4>
+            <p-dataTable [value]="approverList" [responsive]="true">
+              <p-column field="Project" header="Project"></p-column>
+              <p-column field="Approver.Name" header="Manager"></p-column>
+              <p-column field="Status" header="Status"></p-column>
+              <p-column field="Comments" header="Comments"></p-column>
+            </p-dataTable>
+            <form novalidate [formGroup]="singleApprovalForm">
+              <div class="form-group">
+                <label class="control-label">Comments</label>
+                <div class="div-margin">
+                  <textarea id="comments" autoresize="autoResize" cols="30" rows="3" class="form-control" formControlName="comments" required>
+                                    </textarea>
+                  <div class="alert alert-danger" *ngIf="singleApprovalForm.get('comments').hasError('required') && singleApprovalForm.get('comments').touched">
+                    Comment is required
+                  </div>
+                  <div class="alert alert-danger" *ngIf="singleApprovalForm.get('comments').hasError('minlength') && singleApprovalForm.get('comments').touched">
+                    Minimum 2 characters
+                  </div>
+                  <div class="alert alert-danger" *ngIf="singleApprovalForm.get('comments').hasError('maxlength') && singleApprovalForm.get('comments').touched">
+                    Maximum 600 characters
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    <h5 class="warning">
+                      <span>{{validationMessage}}</span>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    <button id="approve" [disabled]="singleApprovalForm.invalid" type="submit" name="approve" (click)="approveClicked(singleApprovalForm)"
+                      class="btn">Approve</button>
+                      <button id="reject" [disabled]="singleApprovalForm.invalid" type="submit" name="reject" (click)="rejectClicked(singleApprovalForm)"
+                        class="btn">Reject</button>
+                        <button id="close" type="reset" (click)=" closeClicked()" class="btn">Close</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
+    </div>
+    <!-- END CONTENT BODY -->
+  </div>
+  <!-- END CONTENT -->

@@ -38,11 +38,11 @@ export class SingleApprovalComponent implements OnInit {
     servRows = 6;
     singleApprovalForm: FormGroup;
     model: any;
-
+    approverList:any;
     validationMessage: string = '';
     approved: boolean = false;
     rejected: boolean = false;
-
+    leaveList:any;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -62,9 +62,14 @@ export class SingleApprovalComponent implements OnInit {
     ngOnInit() {
 
         this.route.params.subscribe(params => {
-            this.leaveID = +params['id'];
+            this.leaveID = params['id'];
         });
-        this.leaveObs = this.leaveService.getLeave(this.leaveID);
+        this.leaveService.getLeaveDetailByRefID(this.leaveID).subscribe(res => {
+            this.leaveList=res;
+        });
+        this.leaveService.getApproverListByRefID(this.leaveID).subscribe(res => {
+            this.approverList=res;
+        });
 
     }
 

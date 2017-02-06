@@ -14,7 +14,7 @@ var leave = [
         EndDate: new Date('12/12/2016 00:00:00'),
         NumberOfDays: 1,
         Comment: 'Granted',
-        Status: 'Approved',
+        Status: 'Rejected',
         Reason: 'Going home',
         EmpID:1023,
         Approvers: [

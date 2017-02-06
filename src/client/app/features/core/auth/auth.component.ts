@@ -39,6 +39,17 @@ export class AuthComponent implements OnInit {
         this.authService.getLoggedInUserPermission()
             .subscribe(
             results => {
+                this.getCurrentUserDetails();
+            },
+            error => {
+                this.showError = true;
+                this.errorMessage = error.message;
+            });
+    }
+    getCurrentUserDetails(): void {
+        this.authService.getCurrentUserDetails()
+            .subscribe(
+            results => {
                 this._router.navigate(['/']);
             },
             error => {
@@ -46,7 +57,6 @@ export class AuthComponent implements OnInit {
                 this.errorMessage = error.message;
             });
     }
-
 }
 
 class User {

@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions  } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { APIService } from '../shared/index';
+import { BaseService } from '../shared/index';
+
+/** Context for service calls */
+const CONTEXT = 'auth';
 
 @Injectable()
-export class AuthService extends APIService {
+export class AuthService extends BaseService {
+    public currentUser:any;
     private authenticated = false;
 
     constructor(httpService: Http, private router: Router,private http : Http) {
-        super(httpService);
+        super(httpService, CONTEXT);
     }
 
     isAuthenticated() {
@@ -22,10 +26,11 @@ export class AuthService extends APIService {
         }
     }
     logout() {
-        return this.delete$('auth','',true).map((res: Response) => {
-            localStorage.clear();
-            this.authenticated = false;
-        });
+        localStorage.clear();
+        this.authenticated = false;
+    }
+    getCurrentUser() {
+      return JSON.parse(localStorage.getItem('loggedInUserDetails'));
     }
     authenticate(credentials: any): Observable<any> {
        // return this.post$('/auth/Token',credentials).map((res: Response) => { this.setToken(res); });
@@ -38,9 +43,13 @@ export class AuthService extends APIService {
             .catch(this.handleError);
     }
     getLoggedInUserPermission() {
-        return this.getList$('auth/permissions',0, 0, true).map((res: Response) => { this.setLoggedInUserPermission(res); });
+        return this.getChildList$('permissions',0, 0, true).map((res: Response) => { this.setLoggedInUserPermission(res); });
     }
-
+    getCurrentUserDetails() {
+         return this.getChildList$('currentusername',0, 0, true).map((res: Response) => {
+            this.setLoggedInUserDetail(res);
+        });
+    }
     private setToken(res: Response) {
         if (res.status < 200 || res.status >= 300) {
             throw new Error('Bad response status: ' + res.status);
@@ -55,5 +64,12 @@ export class AuthService extends APIService {
         }
         let body = res.json();
         localStorage.setItem('loggedInUserPermission', JSON.stringify(body));
+    }
+    private setLoggedInUserDetail(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Bad response status: ' + res.status);
+        }
+        let body = res.json();
+        localStorage.setItem('loggedInUserDetails', JSON.stringify(body));
     }
 }

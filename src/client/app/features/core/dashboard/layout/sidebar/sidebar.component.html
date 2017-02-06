@@ -16,7 +16,7 @@
 				<i class="fa fa-user icon-size"></i>
 			</div>
 			<a id="profile-options" (click)="toggleUserMenu()">
-				<span class="profile-name">Jane Williams</span>
+				<span class="profile-name">{{userDetail.Name}} </span>
 				<i *ngIf="isUserMenuOpen" class="fa fa-chevron-up" aria-hidden="true"></i>
 				<i *ngIf="!isUserMenuOpen" class="fa fa-chevron-down" aria-hidden="true"></i>
 			</a>
@@ -34,10 +34,6 @@
 				</a>
 			</li>
 			<li class="divider"> </li>
-			<li>
-				<a href="page_user_lock_1.html">
-					<i class="icon-lock"></i> &nbsp;&nbsp; Lock Screen </a>
-			</li>
 			<li>
 				<a (click)="logout()">
 					<i class="icon-key"></i> &nbsp;&nbsp; Log Out </a>

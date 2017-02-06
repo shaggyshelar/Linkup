@@ -14,14 +14,17 @@ module.exports = function (app) {
             res.status(401).json({error:'Invalid userName Password.'});
         }
     });
-    app.delete('/api/Auth', utils.EnsureAuthenticated, function (req, res) {
-        res.sendStatus(200);
-    });
     app.get('/api/auth/permissions', utils.EnsureAuthenticated, function (req, res) {
         var userIndex = _.findIndex(users, { Id: req.userID });
         res.json(users[userIndex].Permissions);
     });
-    
+    app.get('/api/auth/currentusername', utils.EnsureAuthenticated, function (req, res) {
+        var user= {    
+              "Id": 85,
+              "Name": "Kunal Adhikari"
+            };
+        res.json(user);
+    });
     app.get('/api/GetLoggedInUserPermission', utils.EnsureAuthenticated, function (req, res) {
         var userIndex = _.findIndex(users, { Id: req.userID });
         res.json(users[userIndex].Permissions);

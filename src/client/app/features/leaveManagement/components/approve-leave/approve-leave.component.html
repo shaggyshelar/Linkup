@@ -1,49 +1,61 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
-    <!-- BEGIN CONTENT BODY -->
-    <div class="page-content">
-        <div class="hidden-xs">
-            <ul class="page-breadcrumb breadcrumb">
-                <li>
-                    <span>LINK UP</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-                <li>
-                    <span>Approve Leave</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-            </ul>
-        </div>
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="portlet light ">
-                    <div class="portlet-body">
-                        <p-dataTable [value]="leaveObs | async" [paginator]="true" [rows]=(servRows) [responsive]="true">
-                            <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
-                            <p-column field="Employee.ID" header="Employee ID" [sortable]="true"></p-column>
-                            <p-column field="NumberOfLeave" header="No. of Leaves" [sortable]="true"></p-column>
-                            <p-column field="Status" header="Status" [sortable]="true"></p-column>
-                            <p-column  header="Start Date" [sortable]="true">
-                            <template let-rowData="rowData" pTemplate="body">
-                                {{rowData.StartDate | date:'dd/MM/y'}}
-                            </template>
-                            </p-column>
-                            <p-column  header="End Date" [sortable]="true">
-                             <template let-rowData="rowData" pTemplate="body">
-                                {{rowData.EndDate | date:'dd/MM/y'}}
-                            </template>
-                            </p-column>
-                            <p-column field="approvers" header="Approvers" [sortable]="true"></p-column>
-                            <p-column field="pending" header="Pending Approvers" [sortable]="true"></p-column>
-                            <p-column styleClass="col-button" header="Edit">
-                                <template let-leave="rowData" pTemplate type="body">
-                                    <button id="actionEdit" type="button" (click)="editBtnClicked(leave.ID)" pButton icon="fa-edit"></button>
-                                </template>
-                            </p-column>
-                        </p-dataTable>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Approve Leave</span>
+          <i class="fa fa-circle"></i>
+        </li>
+      </ul>
     </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="portlet light ">
+          <div class="portlet-body">
+            <p-dataTable [value]="leaveObs | async" [paginator]="true" [rows]=(servRows) [responsive]="true">
+              <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
+              <p-column field="EmpID" header="Employee ID" [sortable]="true"></p-column>
+              <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>
+              <p-column field="Status" header="Status" [sortable]="true"></p-column>
+              <p-column header="Start Date" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                  {{rowData.StartDate | date:'dd/MM/y'}}
+                </template>
+              </p-column>
+              <p-column header="End Date" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                  {{rowData.EndDate | date:'dd/MM/y'}}
+                </template>
+              </p-column>
+              <p-column header="Approvers" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                    <div *ngFor="let item of rowData.Approvers" >
+                        {{item.Name}}
+                    </div>
+                </template>
+              </p-column>
+              <p-column  header="Pending Approvers" [sortable]="true">
+                  <template let-rowData="rowData" pTemplate="body">
+                    <div *ngFor="let item of rowData.PendingApprovers" >
+                        {{item.Name}}
+                    </div>
+                </template>
+              </p-column>
+              <p-column styleClass="col-button" header="Edit">
+                <template let-leave="rowData" pTemplate type="body">
+                  <button id="actionEdit" type="button" (click)="editBtnClicked(leave.ID)" pButton icon="fa-edit"></button>
+                </template>
+              </p-column>
+            </p-dataTable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

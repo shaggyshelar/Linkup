@@ -53,8 +53,9 @@ export class MyLeavesComponent implements OnInit {
     this.router.navigate(['/leave/apply-leave']);
   }
 
-  updateBtnClicked(id:string) {
-    this.router.navigate(['/leave/update-leave', id]);
+  updateBtnClicked(leave:any) {
+    this.leaveService.setEditableLeave(leave);
+    this.router.navigate(['/leave/update-leave', leave.LeaveRequestMasterId]);
   }
 
   arrangeData(leaveParam:any) {

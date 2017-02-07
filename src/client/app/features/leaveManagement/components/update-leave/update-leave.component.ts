@@ -34,6 +34,7 @@ export class UpdateLeaveComponent implements OnInit {
     approverList:any;
     activeProjects:any;
     userDetail:any;
+    selectedLeave:any;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -41,7 +42,7 @@ export class UpdateLeaveComponent implements OnInit {
         private authService: AuthService,
         private leaveService: LeaveService
     ) {
-        this.isCancellable = true;
+        this.isCancellable = false;
         this.errorMsg = '';
         this.today = new Date();
     }
@@ -62,11 +63,14 @@ export class UpdateLeaveComponent implements OnInit {
         this.leaveService.getActiveProjects().subscribe(res => {
             this.activeProjects=res;
         });
-
+        this.selectedLeave=this.leaveService.getEditableLeave();
+        this.checkIfApproved();
     }
 
-    setCancellable(param:any) {
-        this.isCancellable = param;
+    checkIfApproved() {
+        if(this.selectedLeave.Status==='Pending') {
+            this.isCancellable = true;
+        }
     }
 
     closeClicked() {
@@ -74,7 +78,12 @@ export class UpdateLeaveComponent implements OnInit {
     }
 
     cancelClicked() {
-        this.leaveService.deleteLeaveRecord(this.leaveID).subscribe(res => {
+        let leaveTobeCancelled= {
+            Status: 'Cancelled',
+            LeaveRequestMasterId: this.leaveID,
+            ID: this.selectedLeave.ID
+        };
+        this.leaveService.deleteLeaveRecord(leaveTobeCancelled).subscribe(res => {
             if (res) {
                 this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave application deleted!' });
                 this.closeClicked();

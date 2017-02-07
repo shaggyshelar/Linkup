@@ -18,6 +18,7 @@ export const CONTEXT = 'Leave';
 /** Service Definition */
 @Injectable()
 export class LeaveService extends BaseService {
+    editableLeave:any;
     constructor( public http: Http) {
         super( http, CONTEXT);
     }
@@ -73,6 +74,12 @@ export class LeaveService extends BaseService {
         let options = new RequestOptions({ headers: headers });
         return this.http.get('api/Employee/'+Id,options).map((res => res.json()));
     }
+    setEditableLeave(leave:any) {
+        this.editableLeave=leave;
+    }
+    getEditableLeave() {
+       return this.editableLeave;
+    }
     /**
      * getLeaveArray method
      * Gets child array in the object to be returned. List of applied leaves, in this case
@@ -121,9 +128,12 @@ export class LeaveService extends BaseService {
      * Delete request to delete a record.
      * @ID : Parameter : ID of entity to update
      */
-    deleteLeaveRecord(ID:any): Observable<boolean> {
-        return this.delete$(ID).map((res) => {
-            return res.status === 200 ? true : false;
-        });
+    deleteLeaveRecord(leavePayload:any): Observable<boolean> {
+        let headers = new Headers();
+        let body=JSON.stringify(leavePayload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('api/LeaveDetails/cancel',body,options).map((res => res.json()));
     }
 }

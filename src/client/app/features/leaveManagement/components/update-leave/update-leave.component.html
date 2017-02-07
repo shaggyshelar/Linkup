@@ -104,9 +104,9 @@
             </p-dataTable>
           </div><br>
           <div>
-            <span *ngIf="!isCancellable">
-                            <button id="cancel" class="btn red btn-outline" (click)="cancelClicked()">Cancel Leave</button>
-                        </span>
+            <span *ngIf="isCancellable">
+                  <button id="cancel" class="btn red btn-outline" (click)="cancelClicked()">Cancel Leave</button>
+            </span>
             <button id="close" class="btn blue btn-outline" (click)="closeClicked()">Close</button>
           </div>
         </div>

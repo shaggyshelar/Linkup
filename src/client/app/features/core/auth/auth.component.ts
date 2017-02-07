@@ -40,23 +40,15 @@ export class AuthComponent implements OnInit {
             .subscribe(
             results => {
                 this.getCurrentUserDetails();
-            },
-            error => {
-                this.showError = true;
-                this.errorMessage = error.message;
             });
-    }
+    };
     getCurrentUserDetails(): void {
         this.authService.getCurrentUserDetails()
             .subscribe(
             results => {
                 this._router.navigate(['/']);
-            },
-            error => {
-                this.showError = true;
-                this.errorMessage = error.message;
             });
-    }
+    };
 }
 
 class User {

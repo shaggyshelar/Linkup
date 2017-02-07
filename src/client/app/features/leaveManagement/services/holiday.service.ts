@@ -27,6 +27,6 @@ export class HolidayService extends BaseService {
      * Gets array of Holiday objects
      */
     getHolidays(): Observable<Holiday> {
-        return this.getList$().map(res=> res.json());
+        return this.getList$(0,0,true).map(res=> res.json());
     }
 }

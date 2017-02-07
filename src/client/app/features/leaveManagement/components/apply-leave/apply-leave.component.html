@@ -20,48 +20,48 @@
         </div>
         <div class="row">
             <!-- START HOLIDAY PARTICULARS COMPONENT -->
-            <div class="col-lg-4 col-xs-12 col-sm-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-body">
-                        <h4>Requestor Details</h4>
-                        <div class="table-responsive">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td> Employee ID </td>
-                                        <td class="empInfo">{{(userObs | async)?.ID}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Employee Name </td>
-                                        <td class="empInfo">{{(userObs | async)?.Name}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Department </td>
-                                        <td class="empInfo">{{(userObs | async)?.Department}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <h4>Active on Projects</h4>
-                        <div class="table-responsive">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Project</th>
-                                        <th>Manager</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let prjctDet of (userObs | async)?.Project">
-                                        <td>{{prjctDet.Title}}</td>
-                                        <td><span class="empInfo">{{prjctDet.Manager}}</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+             <div class="col-lg-4 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-body">
+            <h4>Requestor Details</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td> Employee ID </td>
+                    <td> {{ userDetail.ID}} </td>
+                  </tr>
+                  <tr>
+                    <td> Employee Name </td>
+                    <td> {{ userDetail.Name }} </td>
+                  </tr>
+                  <tr>
+                    <td> Department </td>
+                    <td>  </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+            <h4>Active on Projects</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Project</th>
+                    <th>Manager</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let project of activeProjects">
+                    <td> {{ project.Title }} </td>
+                    <td> {{ project.ProjectManager.Name }} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
             <!-- END HOLIDAY PARTICULARS COMPONENT  -->
 
             <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->

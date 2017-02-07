@@ -1,7 +1,7 @@
 /** Angular Dependencies */
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { OnInit, OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 
@@ -16,7 +16,7 @@ import { ApplyLeaveValidation } from '../../models/applyLeaveValidation';
 import { MessageService } from '../../../core/shared/services/message.service';
 import { LeaveTypeMasterService } from '../../../core/shared/services/master/leaveTypeMaster.service';
 import * as moment from 'moment/moment';
-
+import { AuthService } from '../../../core/auth/auth.service';
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
 import { SelectItem } from 'primeng/primeng';
@@ -31,10 +31,9 @@ import { SelectItem } from 'primeng/primeng';
     styleUrls: ['apply-leave.component.css']
 })
 
-export class ApplyLeaveComponent implements OnInit,OnDestroy {
+export class ApplyLeaveComponent implements OnInit {
     leaveTypesObs: Observable<Select>;
     leaveObs: Observable<boolean>;
-    userObs: Observable<User>;
     applyLeaveForm: FormGroup;
     addLeaveArr: any[];
     leaveTypeValid: boolean = true;
@@ -48,15 +47,17 @@ export class ApplyLeaveComponent implements OnInit,OnDestroy {
     dayCount: any;
     leaves: SelectItem[];
     model: ApplyLeaveValidation;
-    subLeaveType: any;
     finalLeaveData:any;
+    userDetail:any;
+    activeProjects:any;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private userService: UserService,
         private leaveService: LeaveService,
         private leaveTypeService: LeaveTypeMasterService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private authService: AuthService
     ) {
         this.leaves = [
             // { label: 'Submit', value: null },
@@ -89,19 +90,18 @@ export class ApplyLeaveComponent implements OnInit,OnDestroy {
     }
 
     ngOnInit() {
-
-        this.userObs = this.userService.getUserDetails();
-        this.subLeaveType = this.leaveTypeService.getLeaveTypes().subscribe((res:any) => {
+       this.leaveTypeService.getLeaveTypes().subscribe((res:any) => {
             this.leaves.push({ label: 'Select', value: null });
             for (var index in res) {
-                this.leaves.push({ label: res[index].name, value: res[index] });
+                this.leaves.push({ label: res[index].Type, value: res[index] });
             }
         });
+        this.leaveService.getActiveProjects().subscribe(res => {
+            this.activeProjects=res;
+        });
+        this.userDetail=this.authService.getCurrentUser();
     }
 
-    ngOnDestroy() {
-        this.subLeaveType.unsubscribe();
-    }
 
     submitForm(form: NgForm) {
         this.validateLeaveType();
@@ -162,7 +162,8 @@ export class ApplyLeaveComponent implements OnInit,OnDestroy {
     }
 
     validateLeaveType() {
-        switch (this.model.leaveType.id) {
+        if(this.model.leaveType!==null) {
+            switch (this.model.leaveType.ID) {
             case 1:
                 this.leaveTypeValid = true;
                 this.isEndDtEnable = true;
@@ -196,6 +197,8 @@ export class ApplyLeaveComponent implements OnInit,OnDestroy {
                 this.model.numDays = 0;
                 return;
         }
+        }
+        
     }
 
     reasonTextChanged() {

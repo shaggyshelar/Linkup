@@ -67,6 +67,12 @@ export class LeaveService extends BaseService {
         let options = new RequestOptions({ headers: headers });
         return this.http.get('/api/Project/GetMyActiveProjects',options).map((res => res.json()));
     }
+    getEmployeeDetail(Id:any): Observable<any> {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('api/Employee/'+Id,options).map((res => res.json()));
+    }
     /**
      * getLeaveArray method
      * Gets child array in the object to be returned. List of applied leaves, in this case
@@ -80,8 +86,15 @@ export class LeaveService extends BaseService {
      * addLeaveRecord method
      * Adds leave record. returns true if successful, false if not.
      */
-    addLeaveRecord(leavePayload:any): Observable<boolean> {
-        return this.post$(leavePayload).map(res => res.status === 201 ? true : false);
+    submitLeaveRecord(leavePayload:any): Observable<boolean> {
+        let headers = new Headers();
+        let body=JSON.stringify(leavePayload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('api/LeaveDetails',body,options).map((res => res.json()));
+
+       // return this.post$(leavePayload).map(res => res.status === 201 ? true : false);
     }
 
     /**

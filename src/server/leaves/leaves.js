@@ -52,12 +52,12 @@ module.exports = function(app) {
         ];
         res.json(Project);
     });
-    app.post('/api/Leave', function(req, res) {
+    app.post('/api/LeaveDetails', function(req, res) {
         if (req.body != null) {
             req.body.ID = leave.length + 1;
             req.body.Status = 'Pending';
             leave.push(req.body);
-            res.sendStatus(201);
+            res.json({});
         } else {
             res.sendSatus(500).end('Bad Request.');
         }

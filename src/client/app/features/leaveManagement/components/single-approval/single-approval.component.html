@@ -30,17 +30,17 @@
             <div class="table-responsive">
               <table class="table table-bordered">
                 <tbody>
-                  <tr>
-                    <td>Employee ID</td>
-                    <td> {{ leaveList? leaveList[0].Employee.ID:"" }} </td>
+                 <tr>
+                    <td> Employee ID </td>
+                    <td> {{userDetail? userDetail.Employee.ID:""  }} </td>
                   </tr>
                   <tr>
-                    <td>Employee</td>
-                    <td> {{ leaveList? leaveList[0].Employee.Name:"" }} </td>
+                    <td> Employee Name </td>
+                    <td> {{ userDetail? userDetail.Employee.Name:"" }} </td>
                   </tr>
                   <tr>
-                    <td>Department</td>
-                    <td>  </td>
+                    <td> Department </td>
+                    <td> {{ userDetail? userDetail.Department.Value:"" }} </td>
                   </tr>
                 </tbody>
               </table>

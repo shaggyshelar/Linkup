@@ -16,7 +16,7 @@
 				<i class="fa fa-user icon-size"></i>
 			</div>
 			<a id="profile-options" (click)="toggleUserMenu()">
-				<span class="profile-name">{{userDetail.Name}} </span>
+				<span class="profile-name">{{userDetail.Employee.Name}} </span>
 				<i *ngIf="isUserMenuOpen" class="fa fa-chevron-up" aria-hidden="true"></i>
 				<i *ngIf="!isUserMenuOpen" class="fa fa-chevron-down" aria-hidden="true"></i>
 			</a>

@@ -104,43 +104,23 @@ export class ApplyLeaveComponent implements OnInit {
 
 
     submitForm(form: NgForm) {
-        this.validateLeaveType();
-        if (!this.leaveTypeValid)
-            return;
-
-        //call to backend submit
-        let params = {
-            User: this.model.User,
-            NumberOfLeave: this.model.numDays,
-            StartDate: this.model.start,
-            EndDate: this.model.end,
-            Comment: '',
-            Status: '',
-            Reason: this.model.reason,
-            Approvers: [
-                {
-                    Project: 'HRMS',
-                    Manager: 'Sagar Shelar',
-                    Status: 'Approved',
-                    Comment: 'Approved'
-                },
-                {
-                    Project: 'EBS',
-                    Manager: 'Kunal Adhikari',
-                    Status: 'Approved',
-                    Comment: 'Approved'
-                },
-                {
-                    Project: 'HR',
-                    Manager: 'Pooja Merchant',
-                    Status: 'Approved',
-                    Comment: 'Approved'
-                }
-            ],
-            Type: { ID: this.model.leaveType.id, Title: this.model.leaveType.name }
-        };
-        console.log('mode : ' + JSON.stringify(this.model));
-        this.leaveService.addLeaveRecord(params).subscribe(res => {
+        let leaveDetails:any=[];
+        if(this.addLeaveArr.length===0) {
+            this.validateLeaveType();
+            if (!this.leaveTypeValid)
+                return;
+             let leave = {
+                 NumberOfDays: this.model.numDays,
+                 StartDate: this.model.start,
+                 EndDate: this.model.end,
+                 Reason: this.model.reason,
+                 LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name }
+            };
+            leaveDetails.push(leave);
+        } else {
+            leaveDetails=this.addLeaveArr;
+        }
+        this.leaveService.submitLeaveRecord(leaveDetails).subscribe(res => {
             if (res) {
                 this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave applied!' });
                 this.cancelClick();
@@ -150,6 +130,34 @@ export class ApplyLeaveComponent implements OnInit {
         });
     }
 
+    onAddLeave() {
+      if(this.model.numDays===0.5) {
+            let leave = {
+            NumberOfLeaves: this.model.numDays,
+            NumberOfDays: 1,
+            StartDate: this.model.start,
+            EndDate: this.model.start,
+            Reason: this.model.reason,
+            LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name }
+         };
+            this.addLeaveArr.push(leave);
+      } else {
+        for(let i=0;i<this.model.numDays;i++) {
+         let leave = {
+            NumberOfLeaves: 1,
+            NumberOfDays: 1,
+            StartDate: moment(this.model.start).add(i, 'days'),
+            EndDate: moment(this.model.start).add(i, 'days'),
+            Reason: this.model.reason,
+            LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name }
+         };
+            this.addLeaveArr.push(leave);
+        }
+      }
+    }
+    deleteLeave(index:number) {
+        this.addLeaveArr.splice(index,1);
+    }
     startChanged() {
         this.model.end = this.model.start;
         this.minDate = this.model.start;
@@ -197,8 +205,7 @@ export class ApplyLeaveComponent implements OnInit {
                 this.model.numDays = 0;
                 return;
         }
-        }
-        
+      }
     }
 
     reasonTextChanged() {

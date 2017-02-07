@@ -52,6 +52,7 @@ require('./master/deliveryModel/deliveryModel')(app);
 require('./master/deliveryUnit/deliveryUnit')(app);
 require('./master/projectCategory/projectCategory')(app);
 require('./project/project')(app);
+require('./employee/employee')(app);
 
 app.get('/', function (req, res) {
     res.render('index.html');

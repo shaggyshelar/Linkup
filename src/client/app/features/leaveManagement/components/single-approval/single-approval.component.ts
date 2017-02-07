@@ -43,6 +43,7 @@ export class SingleApprovalComponent implements OnInit {
     approved: boolean = false;
     rejected: boolean = false;
     leaveList:any;
+    userDetail:any;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -66,13 +67,18 @@ export class SingleApprovalComponent implements OnInit {
         });
         this.leaveService.getLeaveDetailByRefID(this.leaveID).subscribe(res => {
             this.leaveList=res;
+            this.getEmployeeDetails(this.leaveList[0].EmpID);
         });
         this.leaveService.getApproverListByRefID(this.leaveID).subscribe(res => {
             this.approverList=res;
         });
 
     }
-
+    getEmployeeDetails(id:any) {
+        this.leaveService.getEmployeeDetail(id).subscribe(res => {
+            this.userDetail=res;
+        });
+    }
     approveClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
         if (valid) {
         //    BACKEND CALL HERE

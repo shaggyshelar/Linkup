@@ -45,7 +45,10 @@ export class AuthService extends BaseService {
         return this.getChildList$('permissions',0, 0, true).map((res: Response) => { this.setLoggedInUserPermission(res); });
     }
     getCurrentUserDetails() {
-         return this.getChildList$('currentusername',0, 0, true).map((res: Response) => {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('api/Employee/currentuser',options).map((res: Response) => {
             this.setLoggedInUserDetail(res);
         });
     }

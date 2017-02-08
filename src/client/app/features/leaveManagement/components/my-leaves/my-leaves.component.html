@@ -39,7 +39,7 @@
                                     <tr>
                                         <td> Leave </td>
                                         <td> {{ leaveDetail ? leaveDetail.LeaveTaken:'' }} </td>
-                                        <td> {{ leaveDetail ? leaveDetail.LeaveBalance:'' }}  </td>
+                                        <td> {{ leaveDetail ? leaveDetail.LeaveBalance:'' }} </td>
                                     </tr>
                                     <tr>
                                         <td> Half Day Leave </td>
@@ -69,26 +69,37 @@
             <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
             <div class="col-lg-9 col-xs-12 col-sm-12">
                 <div class="portlet light bordered">
-                    <p-dataTable [value]="leaveObs | async" [paginator]="true" [rows]=(servRows) [responsive]="true">
-                        <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
-                        <p-column header="Start Date" [sortable]="true">
-                            <template let-rowData="rowData" pTemplate="body">
-                                {{rowData.StartDate | date:'dd/MM/y'}}
-                            </template>
-                        </p-column>
-                        <p-column  header="End Date" [sortable]="true">
-                            <template let-rowData="rowData" pTemplate="body">
-                                {{rowData.EndDate | date:'dd/MM/y'}}
-                            </template>
-                        </p-column>
-                        <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>
-                        <p-column field="Status" header="Status" [sortable]="true"></p-column>
-                        <p-column styleClass="col-button" header="Edit" field="color">
-                            <template let-leave="rowData" pTemplate type="body">
-                                <button id="actionUpdate" type="button" pButton (click)="updateBtnClicked(leave)" icon="fa fa-edit"></button>
-                            </template>
-                        </p-column>
-                    </p-dataTable>
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-equalizer font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">My Leaves</span>
+                        </div>
+                        <div class="tools">
+                            <a href="" class="expand" data-original-title="" title=""> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="display: none;">
+                        <p-dataTable [value]="leaveObs | async" [paginator]="true" [rows]=(servRows) [responsive]="true">
+                            <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
+                            <p-column header="Start Date" [sortable]="true">
+                                <template let-rowData="rowData" pTemplate="body">
+                                    {{rowData.StartDate | date:'dd/MM/y'}}
+                                </template>
+                            </p-column>
+                            <p-column header="End Date" [sortable]="true">
+                                <template let-rowData="rowData" pTemplate="body">
+                                    {{rowData.EndDate | date:'dd/MM/y'}}
+                                </template>
+                            </p-column>
+                            <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>
+                            <p-column field="Status" header="Status" [sortable]="true"></p-column>
+                            <p-column styleClass="col-button" header="Edit" field="color">
+                                <template let-leave="rowData" pTemplate type="body">
+                                    <button id="actionUpdate" type="button" pButton (click)="updateBtnClicked(leave)" icon="fa fa-edit"></button>
+                                </template>
+                            </p-column>
+                        </p-dataTable>
+                    </div>
                 </div>
             </div>
             <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->

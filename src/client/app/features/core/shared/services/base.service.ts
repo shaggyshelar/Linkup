@@ -27,6 +27,11 @@ export class BaseService implements HttpServices {
         this.httpService = _httpService;
         this.requestUrl = this.baseUrl.concat(_context);
     }
+
+    _window(): any {
+        return window;
+    }
+
     /**
      * Get Single object using get$ method. 
      * @input id :  of the object for which you need a data 
@@ -34,7 +39,15 @@ export class BaseService implements HttpServices {
      */
     get$(id: string, isSecured?: boolean): Observable<Response> {
         this.getHeaders(isSecured);
-        return this.httpService.get(this.requestUrl + '/' + id, this.options).catch(err => {
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.httpService.get(this.requestUrl + '/' + id, this.options)
+        .map(data => {
+            windowRef['App'].unblockUI();
+            return data;
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
             return this.handleError(err);
         });
     }
@@ -46,7 +59,15 @@ export class BaseService implements HttpServices {
      */
     getList$(pageNum?: number, pageSize?: number, isSecured?: boolean): Observable<Response> {
         this.getHeaders(isSecured);
-        return this.httpService.get(this.requestUrl, this.options).catch(err => {
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.httpService.get(this.requestUrl, this.options)
+        .map(data => {
+            windowRef['App'].unblockUI();
+            return data;
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
             return this.handleError(err);
         });
     }
@@ -59,11 +80,20 @@ export class BaseService implements HttpServices {
      */
     getChildList$(childName: string, pageNum?: number, pageSize?: number, isSecured?: boolean) {
         this.getHeaders(isSecured);
-        return this.httpService.get(this.requestUrl + '/' + childName, this.options).catch(err => {
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.httpService.get(this.requestUrl + '/' + childName, this.options)
+        .map(data => {
+            windowRef['App'].unblockUI();
+            return data;
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
             return this.handleError(err);
         });
 
     }
+
     /**
      * Send data to server using post$ method
      * @input payload : data to be sent, 
@@ -71,7 +101,15 @@ export class BaseService implements HttpServices {
      */
     post$(payload: string, isSecured?: boolean): Observable<Response> {
         this.getHeaders(isSecured);
-        return this.httpService.post(this.requestUrl, payload, this.options).catch(err => {
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.httpService.post(this.requestUrl, payload, this.options)
+        .map(data => {
+            windowRef['App'].unblockUI();
+            return data;
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
             return this.handleError(err);
         });
     }
@@ -83,7 +121,15 @@ export class BaseService implements HttpServices {
     */
     put$(id: string, payload: any, isSecured?: boolean) {
         this.getHeaders(isSecured);
-        return this.httpService.put(this.requestUrl, payload, this.options).catch(err => {
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.httpService.put(this.requestUrl, payload, this.options)
+        .map(data => {
+            windowRef['App'].unblockUI();
+            return data;
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
             return this.handleError(err);
         });
     }
@@ -94,7 +140,15 @@ export class BaseService implements HttpServices {
      */
     delete$(id: string, isSecured?: boolean) {
         this.getHeaders(isSecured);
-        return this.httpService.delete(this.requestUrl + '/' + id, this.options).catch(err => {
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.httpService.delete(this.requestUrl + '/' + id, this.options)
+        .map(data => {
+            windowRef['App'].unblockUI();
+            return data;
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
             return this.handleError(err);
         });
     }

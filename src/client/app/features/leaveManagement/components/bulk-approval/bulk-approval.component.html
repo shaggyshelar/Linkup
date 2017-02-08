@@ -22,84 +22,84 @@
       <!-- START BULK APPROVAL LIST COMPONENT BY PRIMENG -->
       <div class="col-lg-12 col-xs-12 col-sm-12">
         <div class="portlet light bordered">
-          <div class="portlet-title visible-xs">
+          <div class="portlet-title visible-xs hide-bottom-xs">
             <div class="caption">
               <i class="icon-directions font-green hide"></i>
               <span class="caption-subject bold font-dark uppercase">Bulk Leave Approval</span>
             </div>
             <div class="actions">
-              <div class="btn-group btn-group-devided" data-toggle="buttons">
-                <label class="btn green btn-outline btn-circle btn-sm active">
-                      <input type="radio" name="options" class="toggle" id="option1">Select All</label>
-              </div>
+                <a *ngIf="selectAllBtn" (click)="selectAllRecord()"  class="btn green "> Select All</a>
+                <a *ngIf="!selectAllBtn" (click)="unSelectAllRecord()"  class="btn green "> UnSelect All</a>
             </div>
           </div>
-          <p-dataTable [value]="leaveObs | async" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows)>
-            <p-column selectionMode="multiple" header="Select" [sortable]="true"></p-column>
-            <p-column field="EmpID" header="Employee ID" [sortable]="true"></p-column>
-            <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
-            <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>
-            <p-column field="Status" header="Status" [sortable]="true"></p-column>
-            <p-column header="Start Date" [sortable]="true">
-              <template let-rowData="rowData" pTemplate="body">
-                {{rowData.StartDate | date:'dd/MM/y'}}
-              </template>
-            </p-column>
-            <p-column header="End Date" [sortable]="true">
-              <template let-rowData="rowData" pTemplate="body">
-                {{rowData.EndDate | date:'dd/MM/y'}}
-              </template>
-            </p-column>
-            <p-column header="Approvers" [sortable]="true">
-              <template let-rowData="rowData" pTemplate="body">
-                <div class="wrap-text-inline" *ngFor="let item of rowData.Approvers">
-                  {{item.Name}}
-                </div>
-              </template>
-            </p-column>
-            <p-column header="Pending Approvers" [sortable]="true">
-              <template let-rowData="rowData" pTemplate="body">
-                <div class="wrap-text-inline" *ngFor="let item of rowData.PendingApprovers">
-                  {{item.Name}}
-                </div>
-              </template>
-            </p-column>
-          </p-dataTable>
-          <form novalidate [formGroup]="bulkApprovalForm">
-            <div class="form-group">
-              <label class="control-label">Comments</label>
-              <div class="div-margin">
-                <textarea id="comments" autoresize="autoResize" cols="30" rows="3" class="form-control" formControlName="comments" required>
+          <div class="portlet-body">
+            <p-dataTable [value]="leaveObs | async" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows)>
+              <p-column selectionMode="multiple" header="Select" [sortable]="true"></p-column>
+              <p-column field="EmpID" header="Employee ID" [sortable]="true"></p-column>
+              <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
+              <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>
+              <p-column field="Status" header="Status" [sortable]="true"></p-column>
+              <p-column header="Start Date" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                  {{rowData.StartDate | date:'dd/MM/y'}}
+                </template>
+              </p-column>
+              <p-column header="End Date" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                  {{rowData.EndDate | date:'dd/MM/y'}}
+                </template>
+              </p-column>
+              <p-column header="Approvers" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                  <div class="wrap-text-inline" *ngFor="let item of rowData.Approvers">
+                    {{item.Name}}
+                  </div>
+                </template>
+              </p-column>
+              <p-column header="Pending Approvers" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                  <div class="wrap-text-inline" *ngFor="let item of rowData.PendingApprovers">
+                    {{item.Name}}
+                  </div>
+                </template>
+              </p-column>
+            </p-dataTable>
+            <form novalidate [formGroup]="bulkApprovalForm">
+              <div class="form-group">
+                <label class="control-label">Comments</label>
+                <div class="div-margin">
+                  <textarea id="comments" autoresize="autoResize" cols="30" rows="3" class="form-control" formControlName="comments" required>
                                 </textarea>
-                <div class="alert alert-danger" *ngIf="bulkApprovalForm.get('comments').hasError('required') && bulkApprovalForm.get('comments').touched">
-                  Comment is required
-                </div>
-                <div class="alert alert-danger" *ngIf="bulkApprovalForm.get('comments').hasError('minlength') && bulkApprovalForm.get('comments').touched">
-                  Minimum 2 characters
-                </div>
-                <div class="alert alert-danger" *ngIf="bulkApprovalForm.get('comments').hasError('maxlength') && bulkApprovalForm.get('comments').touched">
-                  Maximum 600 characters
+                  <div class="alert alert-danger" *ngIf="bulkApprovalForm.get('comments').hasError('required') && bulkApprovalForm.get('comments').touched">
+                    Comment is required
+                  </div>
+                  <div class="alert alert-danger" *ngIf="bulkApprovalForm.get('comments').hasError('minlength') && bulkApprovalForm.get('comments').touched">
+                    Minimum 2 characters
+                  </div>
+                  <div class="alert alert-danger" *ngIf="bulkApprovalForm.get('comments').hasError('maxlength') && bulkApprovalForm.get('comments').touched">
+                    Maximum 600 characters
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="pull-right">
-                  <!--<h5 class="warning">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    <!--<h5 class="warning">
                                         <span>{{validationMessage}}</span>
                                     </h5>-->
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="pull-right">
-                  <button id="approve" [disabled]="bulkApprovalForm.invalid" (click)="approveClicked(bulkApprovalForm)" class="btn ">Approve</button>
-                  <button id="reject" [disabled]="bulkApprovalForm.invalid" (click)="rejectClicked(bulkApprovalForm)" class="btn ">Reject</button>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    <button id="approve" [disabled]="bulkApprovalForm.invalid" (click)="approveClicked(bulkApprovalForm)" class="btn ">Approve</button>
+                    <button id="reject" [disabled]="bulkApprovalForm.invalid" (click)="rejectClicked(bulkApprovalForm)" class="btn ">Reject</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
       <!-- END BULK APPROVAL LIST COMPONENT BY PRIMENG -->

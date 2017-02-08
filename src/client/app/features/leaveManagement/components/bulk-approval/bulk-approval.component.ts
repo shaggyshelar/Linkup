@@ -34,7 +34,7 @@ export class BulkApproveComponent implements OnInit {
   selectedEmployees: any[];
   bulkApprovalForm: FormGroup;
   model: any;
-
+  selectAllBtn: boolean = true;
   approved: boolean = false;
   rejected: boolean = false;
 
@@ -122,5 +122,14 @@ export class BulkApproveComponent implements OnInit {
       }
     });
   }
-
+  selectAllRecord() {
+   this.leaveObs.subscribe(res=> {
+       this.selectedEmployees= res;
+       this.selectAllBtn=false;
+    });
+  }
+  unSelectAllRecord() {
+    this.selectedEmployees=[];
+    this.selectAllBtn=true;
+  }
 }

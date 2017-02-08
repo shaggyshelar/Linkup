@@ -8,3 +8,8 @@
 .fixWidth{
     width:38px;
 }
+@media only screen and (max-width: 560px){
+    .hide-bottom-xs{
+        border-bottom: 0px !important;
+    }
+}

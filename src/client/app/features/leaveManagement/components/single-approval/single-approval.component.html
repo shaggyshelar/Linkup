@@ -79,7 +79,7 @@
               <p-column field="Comments" header="Comments"></p-column>
             </p-dataTable>
             <form novalidate [formGroup]="singleApprovalForm">
-              <div class="form-group">
+              <div class="form-group"  [hidden]="!isPending">
                 <label class="control-label">Comments</label>
                 <div class="div-margin">
                   <textarea id="comments" autoresize="autoResize" cols="30" rows="3" class="form-control" formControlName="comments" required>
@@ -107,9 +107,9 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="pull-right">
-                    <button id="approve" [disabled]="singleApprovalForm.invalid" type="submit" name="approve" (click)="approveClicked(singleApprovalForm)"
+                    <button id="approve" *ngIf="isPending" [disabled]="singleApprovalForm.invalid" type="submit" name="approve" (click)="approveClicked(singleApprovalForm)"
                       class="btn">Approve</button>
-                      <button id="reject" [disabled]="singleApprovalForm.invalid" type="submit" name="reject" (click)="rejectClicked(singleApprovalForm)"
+                      <button id="reject"  *ngIf="isPending" [disabled]="singleApprovalForm.invalid" type="submit" name="reject" (click)="rejectClicked(singleApprovalForm)"
                         class="btn">Reject</button>
                         <button id="close" type="reset" (click)=" closeClicked()" class="btn">Close</button>
                   </div>

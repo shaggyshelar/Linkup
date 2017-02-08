@@ -44,6 +44,7 @@ export class SingleApprovalComponent implements OnInit {
     rejected: boolean = false;
     leaveList:any;
     userDetail:any;
+    isPending: boolean=false;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -68,6 +69,9 @@ export class SingleApprovalComponent implements OnInit {
         this.leaveService.getLeaveDetailByRefID(this.leaveID).subscribe(res => {
             this.leaveList=res;
             this.getEmployeeDetails(this.leaveList[0].EmpID);
+            if(this.leaveList[0].Status==='Pending') {
+                this.isPending=true;
+            }
         });
         this.leaveService.getApproverListByRefID(this.leaveID).subscribe(res => {
             this.approverList=res;
@@ -81,7 +85,7 @@ export class SingleApprovalComponent implements OnInit {
     }
     approveClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
         if (valid) {
-            this.model.Comments = value.comments;
+            this.model.comments = value.comments;
             var params = {
                 Comments: this.model.comments.trim(),
                 Status: 'Approved',

@@ -35,7 +35,6 @@ export class ApproveLeaveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.leaveObs = this.leaveService.getApproverLeaves();
   }
 
@@ -45,10 +44,22 @@ export class ApproveLeaveComponent implements OnInit {
   }
 
   approveLeave(id: string) {
-    alert('Approve ID=' + id);
+    var params = {
+        Comments: 'Approved!!',
+        Status: 'Approved',
+        LeaveRequestRefId:id
+    };
+    this.leaveService.singleLeaveApprove(params).subscribe(res => {
+        if (res) {
+            this.leaveObs = this.leaveService.getApproverLeaves();
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave approved!' });
+        } else {
+            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
+        }
+    });
   }
 
   rejectLeave(id: string) {
-    alert('Reject ID=' + id);
+    console.log('Reject ID=' + id);
   }
 }

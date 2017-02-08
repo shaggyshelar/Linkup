@@ -52,3 +52,7 @@
 .wrap-text-inline{
   white-space: nowrap;
 }
+
+.hand-cursor{
+  cursor: pointer;
+}

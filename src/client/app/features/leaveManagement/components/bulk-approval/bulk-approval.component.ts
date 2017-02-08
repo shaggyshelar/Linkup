@@ -62,7 +62,18 @@ export class BulkApproveComponent implements OnInit {
       this.model.comments = value.comments;
       if (this.selectedEmployees.length > 0) {
         //    BACKEND CALL HERE
-        this.sendRequest('Approved');
+         this.leaveService.bulkLeaveApproval(this.assembleReqPayload('Approved')).subscribe(res => {
+            if (res) {
+               this.rejected = true;
+               this.approved = false;
+               this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves approved!' });
+               this.leaveObs = this.leaveService.getApproverLeaves();
+               this.bulkApprovalForm.reset();
+               this.selectedEmployees = [];
+         } else {
+            this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: 'Failed to process your request.' });
+         }
+      });
       }
     }
   }
@@ -82,8 +93,8 @@ export class BulkApproveComponent implements OnInit {
     for (var index in this.selectedEmployees) {
       payload.push(
         {
-          ID: this.selectedEmployees[index].ID,
-          Comment: this.model.comments,
+          LeaveRequestRefId: this.selectedEmployees[index].LeaveRequestMasterId,
+          Comments: this.model.comments.trim(),
           Status: status
         });
     }

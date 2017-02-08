@@ -81,15 +81,14 @@ export class SingleApprovalComponent implements OnInit {
     }
     approveClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
         if (valid) {
-        //    BACKEND CALL HERE
-            this.model.comments = value.comments;
-            var params = [{
-                ID: this.leaveID,
-                Comment: this.model.comments.trim(),
-                Status: 'Approved'
-            }];
+            this.model.Comments = value.comments;
+            var params = {
+                Comments: this.model.comments.trim(),
+                Status: 'Approved',
+                LeaveRequestRefId:this.leaveID
+            };
 
-            this.leaveService.updateLeaveRecord(this.leaveID, params)
+            this.leaveService.singleLeaveApprove(params)
                 .subscribe(res => {
                     if (res) {
                         this.rejected = false;
@@ -108,12 +107,11 @@ export class SingleApprovalComponent implements OnInit {
     rejectClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
         if (valid) {
         //    BACKEND CALL HERE
-
             this.model.comments = value.comments;
             var params = [{
-                ID: this.leaveID,
-                Comment: this.model.comments.trim(),
-                Status: 'Rejected'
+                Comments: this.model.comments.trim(),
+                Status: 'Rejected',
+                LeaveRequestRefId:this.leaveID
             }];
 
             this.leaveService.updateLeaveRecord(this.leaveID, params)

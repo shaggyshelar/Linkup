@@ -100,10 +100,23 @@ export class LeaveService extends BaseService {
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.baseUrl+'LeaveDetails',body,options).map((res => res.json()));
-
-       // return this.post$(leavePayload).map(res => res.status === 201 ? true : false);
     }
-
+    singleLeaveApprove(payload:any) {
+        let headers = new Headers();
+        let body=JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put(this.baseUrl+'LeaveApprovers/ApproveByManager',body,options).map((res => res.json()));
+    }
+    bulkLeaveApproval(payload:any) {
+        let headers = new Headers();
+        let body=JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put(this.baseUrl+'LeaveApprovers/BulkLeaveApproval',body,options).map((res => res.json()));
+    }
     /**
      * getChildRecord method
      * Gets data form the path extension specified.

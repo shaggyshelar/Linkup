@@ -40,7 +40,15 @@ export class ApproveLeaveComponent implements OnInit {
   }
 
 
-  editBtnClicked(id:string) {
+  editBtnClicked(id: string) {
     this.router.navigate(['/leave/single-approval', id]);
+  }
+
+  approveLeave(id: string) {
+    alert('Approve ID=' + id);
+  }
+
+  rejectLeave(id: string) {
+    alert('Reject ID=' + id);
   }
 }

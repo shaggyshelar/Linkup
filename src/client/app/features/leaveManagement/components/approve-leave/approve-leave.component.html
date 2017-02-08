@@ -35,21 +35,29 @@
               </p-column>
               <p-column header="Approvers" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
-                    <div class="wrap-text-inline" *ngFor="let item of rowData.Approvers" >
-                        {{item.Name}}
-                    </div>
+                  <div class="wrap-text-inline" *ngFor="let item of rowData.Approvers">
+                    {{item.Name}}
+                  </div>
                 </template>
               </p-column>
-              <p-column  header="Pending Approvers" [sortable]="true">
-                  <template let-rowData="rowData" pTemplate="body">
-                    <div class="wrap-text-inline" *ngFor="let item of rowData.PendingApprovers" >
-                        {{item.Name}}
-                    </div>
+              <p-column header="Pending Approvers" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                  <div class="wrap-text-inline" *ngFor="let item of rowData.PendingApprovers">
+                    {{item.Name}}
+                  </div>
                 </template>
               </p-column>
-              <p-column styleClass="col-button" header="Edit">
+              <p-column styleClass="col-button" header="Action">
                 <template let-leave="rowData" pTemplate type="body">
-                  <button id="actionEdit" type="button" (click)="editBtnClicked(leave.LeaveRequestMasterId)" pButton icon="fa-edit"></button>
+                  <!--<button id="actionEdit" type="button" (click)="editBtnClicked(leave.LeaveRequestMasterId)" pButton icon="fa-edit"></button>-->
+                  <div class="dropdown pull-right">
+                    <i class="fa fa-ellipsis-v dropdown-toggle action-icon" data-toggle="dropdown" aria-hidden="true"></i>
+                    <ul class="dropdown-menu pull-right" style="font-size: large">
+                      <li (click)="approveLeave(leave.LeaveRequestMasterId)"><i class="fa fa-check" aria-hidden="true"></i>Approve</li>
+                      <li (click)="rejectLeave(leave.LeaveRequestMasterId)"><i class="fa fa-times" aria-hidden="true"></i>Reject</li>
+                      <li (click)="editBtnClicked(leave.LeaveRequestMasterId)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</li>
+                    </ul>
+                  </div>
                 </template>
               </p-column>
             </p-dataTable>

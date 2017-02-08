@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Http, Response, Headers, RequestOptions  } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { BaseService } from '../shared/index';
@@ -8,25 +8,28 @@ const CONTEXT = 'auth';
 
 @Injectable()
 export class AuthService extends BaseService {
+    @Output() authStatus = new EventEmitter<boolean>();
     public currentUser:any;
     private authenticated = false;
 
     constructor(httpService: Http, private http : Http) {
         super(httpService, CONTEXT);
     }
-
     isAuthenticated() {
         if (localStorage.getItem('accessToken')) {
             this.authenticated = true;
+            this.authStatus.emit(true);
             return true;
         } else {
             this.authenticated = false;
+            this.authStatus.emit(false);
             return false;
         }
     }
     logout() {
         localStorage.clear();
         this.authenticated = false;
+        this.authStatus.emit(false);
     }
     getCurrentUser() {
       return JSON.parse(localStorage.getItem('loggedInUserDetails'));
@@ -59,6 +62,7 @@ export class AuthService extends BaseService {
         let body = res.json();
         localStorage.setItem('accessToken', body.access_token);
         this.authenticated = true;
+        this.authStatus.emit(true);
     }
     private setLoggedInUserPermission(res: Response) {
         if (res.status < 200 || res.status >= 300) {

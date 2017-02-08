@@ -48,31 +48,31 @@ export class LeaveService extends BaseService {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get('api/LeaveDetails/'+refId,options).map((res => res.json()));
+        return this.http.get(this.baseUrl+'LeaveDetails/'+refId,options).map((res => res.json()));
     }
     getApproverListByRefID(refId:any): Observable<any> {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get('api/LeaveApprovers/'+refId,options).map((res => res.json()));
+        return this.http.get(this.baseUrl+'LeaveApprovers/'+refId,options).map((res => res.json()));
     }
     getLeaveDetails(): Observable<any> {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get('/api/EmployeeLeaves/GetMyLeaveDetails',options).map((res => res.json()));
+        return this.http.get(this.baseUrl+'EmployeeLeaves/GetMyLeaveDetails',options).map((res => res.json()));
     }
      getActiveProjects(): Observable<any> {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get('/api/Project/GetMyActiveProjects',options).map((res => res.json()));
+        return this.http.get(this.baseUrl+'Project/GetMyActiveProjects',options).map((res => res.json()));
     }
     getEmployeeDetail(Id:any): Observable<any> {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get('api/Employee/'+Id,options).map((res => res.json()));
+        return this.http.get(this.baseUrl+'Employee/'+Id,options).map((res => res.json()));
     }
     setEditableLeave(leave:any) {
         this.editableLeave=leave;
@@ -99,7 +99,7 @@ export class LeaveService extends BaseService {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('api/LeaveDetails',body,options).map((res => res.json()));
+        return this.http.post(this.baseUrl+'LeaveDetails',body,options).map((res => res.json()));
 
        // return this.post$(leavePayload).map(res => res.status === 201 ? true : false);
     }
@@ -134,6 +134,6 @@ export class LeaveService extends BaseService {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this.http.put('api/LeaveDetails/cancel',body,options).map((res => res.json()));
+        return this.http.post(this.baseUrl+'Leave/cancel',body,options).map((res => res.json()));
     }
 }

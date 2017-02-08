@@ -10,33 +10,33 @@ const CONTEXT = 'auth';
 @Injectable()
 export class AuthService extends BaseService {
     public currentUser: any;
-    onAuthStatusChanged$ = this.authStatusChangeSource.asObservable();
+    //onAuthStatusChanged$ = this.authStatusChangeSource.asObservable();
     private authenticated = false;
-    private authStatusChangeSource = new Subject<string>();
+    //private authStatusChangeSource = new Subject<string>();
 
     constructor(httpService: Http, private http: Http) {
         super(httpService, CONTEXT);
     }
 
-    onAuthenticate(isAuthenticated: string) {
-        this.authStatusChangeSource.next(isAuthenticated);
-    }
+    // onAuthenticate(isAuthenticated: string) {
+    //     this.authStatusChangeSource.next(isAuthenticated);
+    // }
 
     isAuthenticated() {
         if (localStorage.getItem('accessToken')) {
             this.authenticated = true;
-            this.authStatusChangeSource.next('true');
+           // this.authStatusChangeSource.next('true');
             return true;
         } else {
             this.authenticated = false;
-            this.authStatusChangeSource.next('false');
+           // this.authStatusChangeSource.next('false');
             return false;
         }
     }
     logout() {
         localStorage.clear();
         this.authenticated = false;
-        this.authStatusChangeSource.next('false');
+        //this.authStatusChangeSource.next('false');
     }
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('loggedInUserDetails'));
@@ -47,7 +47,7 @@ export class AuthService extends BaseService {
         let credentialString: string = 'grant_type=password&UserName=' + credentials.UserName + '&Password=' + credentials.Password;
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/auth/Token', credentialString, options)
+        return this.http.post(this.baseUrl+'auth/Token', credentialString, options)
             .map((res: Response) => { this.setToken(res); })
             .catch(this.handleError);
     }
@@ -58,7 +58,7 @@ export class AuthService extends BaseService {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get('api/Employee/currentuser',options).map((res: Response) => {
+        return this.http.get(this.baseUrl+'Employee/currentuser',options).map((res: Response) => {
             this.setLoggedInUserDetail(res);
         });
     }
@@ -69,7 +69,7 @@ export class AuthService extends BaseService {
         let body = res.json();
         localStorage.setItem('accessToken', body.access_token);
         this.authenticated = true;
-        this.authStatusChangeSource.next('true');
+       // this.authStatusChangeSource.next('true');
     }
     private setLoggedInUserPermission(res: Response) {
         if (res.status < 200 || res.status >= 300) {

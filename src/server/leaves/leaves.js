@@ -80,18 +80,8 @@ module.exports = function(app) {
         }
     });
 
-    app.delete('/api/Leave/:id', function(req, res) {
-        var leaveParamID = parseInt(req.params.id);
-        if (leaveParamID > -1) {
-            var index = _.findIndex(leave, {
-                ID: leaveParamID
-            });
-            leave.splice(index, 1);
-            res.sendStatus(200);
-        }
-        else {
-            res.sendStatus(500).end('Bad Request');
-        }
+    app.delete('/api/Leave/cancel', function(req, res) {
+        res.sendStatus(200);
     });
 
     app.get('/api/EmployeeLeaves/GetMyLeaveDetails', function(req, res) {

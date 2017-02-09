@@ -113,7 +113,7 @@
                   <div class="form-group">
                     <label class="control-label">End Date<span class="warning">*</span> </label>
                     <div>
-                      <p-calendar [disabled]="!isEndDtEnable" id="end" required dateFormat="dd/mm/yy" [(minDate)]="model.start" [showIcon]="true"
+                      <p-calendar  id="end" required dateFormat="dd/mm/yy" [(minDate)]="model.start" [showIcon]="true"
                         (onSelect)="endChanged()" formControlName="end" [(ngModel)]="model.end">
                         </p-calendar>
                         <div class="alert alert-danger" *ngIf="applyLeaveForm.get('end').hasError('required') && applyLeaveForm.get('end').touched">

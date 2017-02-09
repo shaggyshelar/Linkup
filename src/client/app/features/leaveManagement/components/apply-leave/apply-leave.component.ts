@@ -65,8 +65,8 @@ export class ApplyLeaveComponent implements OnInit {
             },
             numDays: 1,
             leaveType: null,
-            end: new Date(),
-            start: new Date(),
+            end: moment(moment().format('MM/DD/YYYY')).toDate(),
+            start: moment(moment().format('MM/DD/YYYY')).toDate(),
             reason: ''
         };
 
@@ -83,7 +83,9 @@ export class ApplyLeaveComponent implements OnInit {
        this.leaveTypeService.getLeaveTypes().subscribe((res:any) => {
             this.leaves.push({ label: 'Select', value: null });
             for (var index in res) {
-                this.leaves.push({ label: res[index].Type, value: res[index] });
+                if(res[index].Applicable==='Yes') {
+                  this.leaves.push({ label: res[index].Type, value: res[index] });
+                }
             }
         });
         this.leaveService.getActiveProjects().subscribe(res => {
@@ -151,6 +153,7 @@ export class ApplyLeaveComponent implements OnInit {
     startChanged() {
         this.model.end = this.model.start;
         this.minDate = this.model.start;
+        this.dayDiffCalc();
     }
 
     endChanged() {
@@ -164,29 +167,27 @@ export class ApplyLeaveComponent implements OnInit {
             switch (this.model.leaveType.ID) {
             case 1:
                 this.leaveTypeValid = true;
-                this.isEndDtEnable = true;
                 this.leaveID = 1;
                 this.model.numDays = 1;
+                this.dayDiffCalc();
                 return;
 
             case 2:
                 this.leaveTypeValid = true;
-                this.model.numDays = 0.5;
-                this.isEndDtEnable = false;
+                this.model.numDays = 0.5*this.dayDiffCalc();
                 this.leaveID = 2;
                 return;
 
             case 3:
                 this.leaveTypeValid = true;
-                this.isEndDtEnable = true;
                 this.leaveID = 3;
                 this.model.numDays = 1;
+                this.dayDiffCalc();
                 return;
 
             case 4:
                 this.leaveTypeValid = true;
-                this.model.numDays = 0.5;
-                this.isEndDtEnable = false;
+                this.model.numDays = 0.5*this.dayDiffCalc();
                 this.leaveID = 4;
                 return;
 
@@ -204,7 +205,11 @@ export class ApplyLeaveComponent implements OnInit {
 
     dayDiffCalc() { // input given as Date objects
         let dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
-        this.model.numDays = dayCount;
+        if(this.model.leaveType!==null) {
+            this.model.numDays=dayCount*parseFloat(this.model.leaveType.Value);
+        } else {
+            this.model.numDays = dayCount;
+        }
         return dayCount;
     }
 

@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 
 /** Module Level Dependencies */
 import { LeaveService } from '../../services/leave.service';
-import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { Select } from '../../models/select';
 import { ApplyLeaveValidation } from '../../models/applyLeaveValidation';
@@ -32,19 +31,17 @@ import { SelectItem } from 'primeng/primeng';
 })
 
 export class ApplyLeaveComponent implements OnInit {
-    leaveTypesObs: Observable<Select>;
-    leaveObs: Observable<boolean>;
     applyLeaveForm: FormGroup;
     addLeaveArr: any[];
     leaveTypeValid: boolean = true;
     leaveID: number;
-    strtDt: any;
-    endDt: any;
+    //strtDt: any;
+    //endDt: any;
     minDate: Date;
     charsLeft: number = 600;
     isLeaveAdded: boolean = false;
     isEndDtEnable: boolean = true;
-    dayCount: any;
+    //dayCount: any;
     leaves: SelectItem[];
     model: ApplyLeaveValidation;
     finalLeaveData:any;
@@ -53,19 +50,12 @@ export class ApplyLeaveComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private router: Router,
-        private userService: UserService,
         private leaveService: LeaveService,
         private leaveTypeService: LeaveTypeMasterService,
         private formBuilder: FormBuilder,
         private authService: AuthService
     ) {
-        this.leaves = [
-            // { label: 'Submit', value: null },
-            // { label: 'Leave', value: { id: 1, name: 'Leave' } },
-            // { label: 'Half-day Leave', value: { id: 2, name: 'Half-day Leave' } },
-            // { label: 'Absent', value: { id: 3, name: 'Absent' } },
-            // { label: 'Half-day Absent', value: { id: 4, name: 'Half-day Absent' } }
-        ];
+        this.leaves = [];
         this.addLeaveArr = [];
 
         this.model = {
@@ -164,8 +154,8 @@ export class ApplyLeaveComponent implements OnInit {
     }
 
     endChanged() {
-        this.strtDt = this.model.start;
-        this.endDt = this.model.end;
+        //this.strtDt = this.model.start;
+        //this.endDt = this.model.end;
         this.dayDiffCalc();
     }
 
@@ -213,9 +203,9 @@ export class ApplyLeaveComponent implements OnInit {
     }
 
     dayDiffCalc() { // input given as Date objects
-        this.dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
-        this.model.numDays = this.dayCount;
-        return this.dayCount;
+        let dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
+        this.model.numDays = dayCount;
+        return dayCount;
     }
 
     cancelClick() {

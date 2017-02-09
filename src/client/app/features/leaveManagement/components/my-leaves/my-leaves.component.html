@@ -90,7 +90,11 @@
                 </template>
               </p-column>
               <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>
-              <p-column field="Status" header="Status" [sortable]="true"></p-column>
+              <p-column field="Status" header="Status" [sortable]="true">
+                <template let-col let-rowData="rowData" pTemplate="body">
+                  <span [ngClass]="getLeaveStatusClass(rowData.Status)" >{{rowData.Status}}</span>
+                </template>
+              </p-column>
               <p-column styleClass="col-button" header="Edit" field="color">
                 <template let-leave="rowData" pTemplate type="body">
                   <button id="actionUpdate" type="button" pButton (click)="updateBtnClicked(leave)" icon="fa fa-edit"></button>

@@ -44,8 +44,8 @@ export class MyLeavesComponent implements OnInit {
 
   ngOnInit() {
     this.leaveObs = this.leaveService.getMyLeaves();
-    this.leaveService.getLeaveDetails().subscribe((res:any) => {
-        this.leaveDetail= res[0];
+    this.leaveService.getLeaveDetails().subscribe((res: any) => {
+      this.leaveDetail = res[0];
     });
   }
 
@@ -53,12 +53,25 @@ export class MyLeavesComponent implements OnInit {
     this.router.navigate(['/leave/apply-leave']);
   }
 
-  updateBtnClicked(leave:any) {
+  updateBtnClicked(leave: any) {
     this.leaveService.setEditableLeave(leave);
     this.router.navigate(['/leave/update-leave', leave.LeaveRequestMasterId]);
   }
 
-  arrangeData(leaveParam:any) {
+  getLeaveStatusClass(status: string) {
+    if (status === 'Pending') {
+      return "my-leaves-pending-leave";
+    }
+    if (status === 'Approved') {
+      return "my-leaves-approved-leave";
+    }
+    if (status === 'Rejected') {
+      return "my-leaves-rejected-leave";
+    }
+    return "";
+  }
+
+  arrangeData(leaveParam: any) {
     // TODO : Convert response into flat object
   }
 }

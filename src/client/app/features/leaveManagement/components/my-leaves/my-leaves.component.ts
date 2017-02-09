@@ -58,17 +58,17 @@ export class MyLeavesComponent implements OnInit {
     this.router.navigate(['/leave/update-leave', leave.LeaveRequestMasterId]);
   }
 
-  getLeaveStatusClass(status: string) {
-    if (status === 'Pending') {
-      return "my-leaves-pending-leave";
+  getLeaveStatusClass(leave: any) {
+    if (leave.Status === 'Pending') {
+      return 'my-leaves-pending-leave';
     }
-    if (status === 'Approved') {
-      return "my-leaves-approved-leave";
+    if (leave.Status === 'Approved') {
+      return 'my-leaves-approved-leave';
     }
-    if (status === 'Rejected') {
-      return "my-leaves-rejected-leave";
+    if (leave.Status === 'Rejected') {
+      return 'my-leaves-rejected-leave';
     }
-    return "";
+    return '';
   }
 
   arrangeData(leaveParam: any) {

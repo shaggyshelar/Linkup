@@ -28,6 +28,16 @@ export class LeaveTypeMasterService extends BaseService {
      * Gets array of Holiday objects
      */
     getLeaveTypes(): Observable<Select> {
-        return this.getList$(0,0,true).map(res=> res.json());
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.getList$(0,0,true)
+        .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
 }

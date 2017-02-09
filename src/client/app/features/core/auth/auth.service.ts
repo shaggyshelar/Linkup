@@ -47,9 +47,17 @@ export class AuthService extends BaseService {
         let credentialString: string = 'grant_type=password&UserName=' + credentials.UserName + '&Password=' + credentials.Password;
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = new RequestOptions({ headers: headers });
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
         return this.http.post(this.baseUrl+'auth/Token', credentialString, options)
-            .map((res: Response) => { this.setToken(res); })
-            .catch(this.handleError);
+        .map((res: Response) => {
+            windowRef['App'].unblockUI();
+            this.setToken(res);
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
     getLoggedInUserPermission() {
         return this.getChildList$('permissions',0, 0, true).map((res: Response) => { this.setLoggedInUserPermission(res); });
@@ -58,8 +66,16 @@ export class AuthService extends BaseService {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.baseUrl+'Employee/currentuser',options).map((res: Response) => {
-            this.setLoggedInUserDetail(res);
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.get(this.baseUrl+'Employee/currentuser',options)
+         .map((res: Response) => {
+            windowRef['App'].unblockUI();
+           this.setLoggedInUserDetail(res);
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
         });
     }
     private setToken(res: Response) {

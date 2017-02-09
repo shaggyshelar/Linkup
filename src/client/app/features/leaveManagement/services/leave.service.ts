@@ -48,31 +48,81 @@ export class LeaveService extends BaseService {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.baseUrl+'LeaveDetails/'+refId,options).map((res => res.json()));
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.get(this.baseUrl+'LeaveDetails/'+refId,options)
+        .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
     getApproverListByRefID(refId:any): Observable<any> {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.baseUrl+'LeaveApprovers/'+refId,options).map((res => res.json()));
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.get(this.baseUrl+'LeaveApprovers/'+refId,options)
+        .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
     getLeaveDetails(): Observable<any> {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.baseUrl+'EmployeeLeaves/GetMyLeaveDetails',options).map((res => res.json()));
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.get(this.baseUrl+'EmployeeLeaves/GetMyLeaveDetails',options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
      getActiveProjects(): Observable<any> {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.baseUrl+'Project/GetMyActiveProjects',options).map((res => res.json()));
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.get(this.baseUrl+'Project/GetMyActiveProjects',options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
     getEmployeeDetail(Id:any): Observable<any> {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.baseUrl+'Employee/'+Id,options).map((res => res.json()));
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.get(this.baseUrl+'Employee/'+Id,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
     setEditableLeave(leave:any) {
         this.editableLeave=leave;
@@ -98,8 +148,18 @@ export class LeaveService extends BaseService {
         let body=JSON.stringify(leavePayload);
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.baseUrl+'LeaveDetails',body,options).map((res => res.json()));
+        return this.http.post(this.baseUrl+'LeaveDetails',body,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
     singleLeaveApprove(payload:any) {
         let headers = new Headers();
@@ -107,7 +167,17 @@ export class LeaveService extends BaseService {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this.http.put(this.baseUrl+'LeaveApprovers/ApproveByManager',body,options).map((res => res.json()));
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.put(this.baseUrl+'LeaveApprovers/ApproveByManager',body,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
     bulkLeaveApproval(payload:any) {
         let headers = new Headers();
@@ -115,7 +185,17 @@ export class LeaveService extends BaseService {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this.http.put(this.baseUrl+'LeaveApprovers/BulkLeaveApproval',body,options).map((res => res.json()));
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.put(this.baseUrl+'LeaveApprovers/BulkLeaveApproval',body,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
     /**
      * getChildRecord method
@@ -147,6 +227,16 @@ export class LeaveService extends BaseService {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.baseUrl+'Leave/cancel',body,options).map((res => res.json()));
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.post(this.baseUrl+'Leave/cancel',body,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
     }
 }

@@ -77,7 +77,7 @@
             </div>
           </div>
           <div class="portlet-body" style="display: none;">
-            <p-dataTable [value]="leaveObs | async" [paginator]="true" [rows]=(servRows) [responsive]="true">
+            <p-dataTable [value]="leaveObs | async" [paginator]="true" [rowStyleClass]="getLeaveStatusClass" [rows]=(servRows) [responsive]="true">
               <p-column styleClass="hidden-xs" field="Employee.Name" header="Employee" [sortable]="true"></p-column>
               <p-column header="Start Date" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
@@ -90,7 +90,7 @@
                 </template>
               </p-column>
               <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>
-              <p-column field="Status" header="Status" [sortable]="true">
+              <p-column  styleClass="hidden-xs" field="Status" header="Status" [sortable]="true">
                 <template let-col let-rowData="rowData" pTemplate="body">
                   <span [ngClass]="getLeaveStatusClass(rowData.Status)" >{{rowData.Status}}</span>
                 </template>

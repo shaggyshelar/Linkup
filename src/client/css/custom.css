@@ -17,16 +17,16 @@
 }
 
 .my-leaves-rejected-leave {
-  border-left: 2px solid #FE4C52 !important;
+  border-left: 3px solid #FE4C52 !important;
   padding-left: 10px !important;
 }
 
 .my-leaves-pending-leave {
-  border-left: 2px solid #FED035 !important;
+  border-left: 3px solid #FED035 !important;
   padding-left: 10px !important;
 }
 
 .my-leaves-approved-leave {
-  border-left: 2px solid #69BB7B !important;
+  border-left: 3px solid #69BB7B !important;
   padding-left: 10px !important;
 }

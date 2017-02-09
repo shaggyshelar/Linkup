@@ -54,7 +54,7 @@ export class BulkApproveComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.leaveObs = this.leaveService.getApproverLeaves();
+    this.leaveObs = this.leaveService.getLeaveByStatus('Pending');
   }
 
   approveClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
@@ -67,7 +67,7 @@ export class BulkApproveComponent implements OnInit {
                this.rejected = true;
                this.approved = false;
                this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves approved!' });
-               this.leaveObs = this.leaveService.getApproverLeaves();
+               this.leaveObs = this.leaveService.getLeaveByStatus('Pending');
                this.bulkApprovalForm.reset();
                this.selectedEmployees = [];
          } else {
@@ -82,46 +82,39 @@ export class BulkApproveComponent implements OnInit {
     if (valid) {
       this.model.comments = value.comments;
       if (this.selectedEmployees.length > 0) {
-        //    BACKEND CALL HERE
-        this.sendRequest('Rejected');
+        this.leaveService.bulkLeaveApproval(this.assembleReqPayload('Rejected')).subscribe(res => {
+            if (res) {
+               this.rejected = false;
+               this.approved = true;
+               this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves rejected!' });
+               this.leaveObs = this.leaveService.getLeaveByStatus('Pending');
+               this.bulkApprovalForm.reset();
+               this.selectedEmployees = [];
+         } else {
+            this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: 'Failed to process your request.' });
+         }
+      });
       }
     }
   }
 
   assembleReqPayload(status: string) {
-    var payload:any = [];
+    var payload:any = {
+          LeaveRequestIDs:[],
+          StatusAndComments:{
+            Comments: this.model.comments.trim(),
+            Status: status
+          }
+        };
     for (var index in this.selectedEmployees) {
-      payload.push(
+      payload.LeaveRequestIDs.push(
         {
           LeaveRequestRefId: this.selectedEmployees[index].LeaveRequestMasterId,
-          Comments: this.model.comments.trim(),
-          Status: status
         });
     }
-
     return payload;
   }
 
-  sendRequest(status:any) {
-    return this.leaveService.updateLeaveRecord(1, this.assembleReqPayload(status)).subscribe(res => {
-      if (res) {
-        if (status === 'Rejected') {
-          this.rejected = false;
-          this.approved = true;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves rejected!' });
-        } else {
-          this.rejected = true;
-          this.approved = false;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves approved!' });
-        }
-        this.leaveObs = this.leaveService.getApproverLeaves();
-        this.bulkApprovalForm.reset();
-        this.selectedEmployees = [];
-      } else {
-        this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: 'Failed to process your request.' });
-      }
-    });
-  }
   selectAllRecord() {
    this.leaveObs.subscribe(res=> {
        this.selectedEmployees= res;

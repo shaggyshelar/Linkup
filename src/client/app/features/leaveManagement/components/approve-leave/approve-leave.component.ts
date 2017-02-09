@@ -60,7 +60,19 @@ export class ApproveLeaveComponent implements OnInit {
   }
 
   rejectLeave(id: string) {
-    console.log('Reject ID=' + id);
+      var params = {
+        Comments: 'Rejected!!',
+        Status: 'Rejected',
+        LeaveRequestRefId:id
+      };
+      this.leaveService.singleLeaveReject(params).subscribe(res => {
+        if (res) {
+            this.leaveObs = this.leaveService.getApproverLeaves();
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave approved!' });
+        } else {
+            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
+        }
+      });
   }
   getLeaveStatusClass(leave: any) {
     if (leave.Status === 'Pending') {

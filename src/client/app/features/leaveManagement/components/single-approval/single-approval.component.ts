@@ -112,20 +112,19 @@ export class SingleApprovalComponent implements OnInit {
         if (valid) {
         //    BACKEND CALL HERE
             this.model.comments = value.comments;
-            var params = [{
+            var params = {
                 Comments: this.model.comments.trim(),
                 Status: 'Rejected',
                 LeaveRequestRefId:this.leaveID
-            }];
+            };
 
-            this.leaveService.updateLeaveRecord(this.leaveID, params)
+            this.leaveService.singleLeaveReject(params)
                 .subscribe(res => {
                     if (res) {
                         this.rejected = true;
                         this.approved = false;
                         this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave rejected!' });
                         this.closeClicked();
-                        this.singleApprovalForm.reset();
                     } else {
                         this.rejected = false;
                         this.approved = true;

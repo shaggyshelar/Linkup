@@ -12,10 +12,16 @@ module.exports = function(app) {
     app.get('/api/Leave/ApproverLeaves', function(req, res) {
         res.json(leave);
     });
-    app.put('/api/LeaveApprovers/ApproveByManage', function(req, res) {
-        res.json(req.body);
+    app.get('/api/Leave/ByStatus/:status', function(req, res) {
+        res.json(leave);
     });
     app.put('/api/LeaveApprovers/BulkLeaveApproval', function(req, res) {
+        res.json(req.body);
+    });
+    app.put('/api/LeaveApprovers/ApproveByManager', function(req, res) {
+        res.json(req.body);
+    });
+    app.put('/api/LeaveApprovers/RejectLeave', function(req, res) {
         res.json(req.body);
     });
     app.get('/api/Leave/:id', function(req, res) {

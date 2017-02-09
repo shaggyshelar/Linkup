@@ -62,4 +62,16 @@ export class ApproveLeaveComponent implements OnInit {
   rejectLeave(id: string) {
     console.log('Reject ID=' + id);
   }
+  getLeaveStatusClass(leave: any) {
+    if (leave.Status === 'Pending') {
+      return 'my-leaves-pending-leave';
+    }
+    if (leave.Status === 'Approved') {
+      return 'my-leaves-approved-leave';
+    }
+    if (leave.Status === 'Rejected') {
+      return 'my-leaves-rejected-leave';
+    }
+    return '';
+  }
 }

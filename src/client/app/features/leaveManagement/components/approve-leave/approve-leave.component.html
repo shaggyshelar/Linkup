@@ -18,7 +18,7 @@
       <div class="col-md-12 col-sm-12">
         <div class="portlet light ">
           <div class="portlet-body">
-            <p-dataTable [value]="leaveObs | async" [paginator]="true" [rows]=(servRows) [responsive]="true">
+            <p-dataTable [value]="leaveObs | async" [paginator]="true"  [rowStyleClass]="getLeaveStatusClass"  [rows]=(servRows) [responsive]="true">
               <p-column styleClass="col-button" styleClass="visible-xs"  header="Action">
                 <template let-leave="rowData" pTemplate type="body">
                   <!--<button id="actionEdit" type="button" (click)="editBtnClicked(leave.LeaveRequestMasterId)" pButton icon="fa-edit"></button>-->

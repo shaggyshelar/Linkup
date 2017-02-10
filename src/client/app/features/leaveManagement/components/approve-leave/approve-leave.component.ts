@@ -84,6 +84,9 @@ export class ApproveLeaveComponent implements OnInit {
     if (leave.Status === 'Rejected') {
       return 'my-leaves-rejected-leave';
     }
+    if (leave.Status === 'Cancelled') {
+      return 'my-leaves-cancelled-leave';
+    }
     return '';
   }
 }

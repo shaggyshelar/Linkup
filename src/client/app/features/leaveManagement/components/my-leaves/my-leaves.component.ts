@@ -45,7 +45,7 @@ export class MyLeavesComponent implements OnInit {
   ngOnInit() {
     this.leaveObs = this.leaveService.getMyLeaves();
     this.leaveService.getLeaveDetails().subscribe((res: any) => {
-      this.leaveDetail = res[0];
+      this.leaveDetail = res;
     });
   }
 
@@ -67,6 +67,9 @@ export class MyLeavesComponent implements OnInit {
     }
     if (leave.Status === 'Rejected') {
       return 'my-leaves-rejected-leave';
+    }
+    if (leave.Status === 'Cancelled') {
+      return 'my-leaves-cancelled-leave';
     }
     return '';
   }

@@ -39,7 +39,7 @@
                   <tr>
                     <td> Leave </td>
                     <td> {{ leaveDetail ? leaveDetail.LeaveTaken:'' }} </td>
-                    <td> {{ leaveDetail ? leaveDetail.LeaveBalance:'' }} </td>
+                    <td> {{ leaveDetail ?  (leaveDetail.ActualBalance| number : '1.2-3')  :'' }} </td>
                   </tr>
                   <tr>
                     <td> Half Day Leave </td>

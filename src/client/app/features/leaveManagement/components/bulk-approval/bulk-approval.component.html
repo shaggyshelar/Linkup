@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="portlet-body">
-            <p-dataTable [value]="leaveObs | async" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows)>
+            <p-dataTable [value]="leaveList" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows)>
               <p-column selectionMode="multiple" header="Select" [sortable]="true"></p-column>
               <p-column field="EmpID" header="Employee ID" styleClass="hidden-xs" [sortable]="true"></p-column>
               <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>

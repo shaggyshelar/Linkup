@@ -24,7 +24,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
 })
 export class ApproveLeaveComponent implements OnInit {
 
-  leaveObs: Observable<Leave[]>;
+  leaveList: Leave[];
   approvalRecords: any[];
   servRows = 10;
 
@@ -35,9 +35,15 @@ export class ApproveLeaveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.leaveObs = this.leaveService.getApproverLeaves();
+    this.getApproverLeave();
   }
-
+  getApproverLeave() {
+    this.leaveService.getApproverLeaves().subscribe((res: any) => {
+      if(res.length>0) {
+        this.leaveList = res.reverse();
+      }
+    });
+  }
 
   editBtnClicked(id: string) {
     this.router.navigate(['/leave/single-approval', id]);
@@ -51,7 +57,7 @@ export class ApproveLeaveComponent implements OnInit {
     };
     this.leaveService.singleLeaveApprove(params).subscribe(res => {
         if (res) {
-            this.leaveObs = this.leaveService.getApproverLeaves();
+            this.getApproverLeave();
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave approved!' });
         } else {
             this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
@@ -67,7 +73,7 @@ export class ApproveLeaveComponent implements OnInit {
       };
       this.leaveService.singleLeaveReject(params).subscribe(res => {
         if (res) {
-            this.leaveObs = this.leaveService.getApproverLeaves();
+            this.getApproverLeave();
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave approved!' });
         } else {
             this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });

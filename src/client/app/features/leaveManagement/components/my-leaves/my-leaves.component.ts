@@ -16,7 +16,7 @@ import { LeaveDetail } from '../../models/leaveDetail';
 
 /** Other Module Dependencies */
 import { MessageService } from '../../../core/shared/services/message.service';
-
+import * as moment from 'moment/moment';
 /** Component Declaration */
 
 
@@ -26,7 +26,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
   templateUrl: 'my-leaves.component.html'
 })
 export class MyLeavesComponent implements OnInit {
-  public leaveObs: Observable<Leave>;
+  public myLeaveList: Leave[];
   public leaveDetObs: Observable<LeaveDetail>;
   public leaveDetail: any;
   servRows = 5;
@@ -43,7 +43,11 @@ export class MyLeavesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.leaveObs = this.leaveService.getMyLeaves();
+    this.leaveService.getMyLeaves().subscribe((res: any) => {
+      if(res.length>0) {
+        this.myLeaveList = res.reverse();
+      }
+    });
     this.leaveService.getLeaveDetails().subscribe((res: any) => {
       this.leaveDetail = res;
     });

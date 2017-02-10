@@ -34,3 +34,12 @@
 .my-leaves-cancelled-leave{
      border-left: 3px solid #2f353b !important;
 }
+.fc-time {
+   display:none;
+}
+.dropdown-action-btn {
+  margin-left:50px;
+}
+.ul-list-table {
+      padding-left: 14px;
+}

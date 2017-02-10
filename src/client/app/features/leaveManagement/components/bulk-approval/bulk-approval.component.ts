@@ -28,7 +28,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
 })
 export class BulkApproveComponent implements OnInit {
 
-  leaveObs: Observable<Leave[]>;
+  leaveList: Leave[];
 
   servRows = 20;
   selectedEmployees: any[];
@@ -54,9 +54,16 @@ export class BulkApproveComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.leaveObs = this.leaveService.getLeaveByStatus('Pending');
+    this.getApproverLeaves();
   }
 
+ getApproverLeaves() {
+    this.leaveService.getLeaveByStatus('Pending').subscribe((res: any) => {
+      if(res.length>0) {
+        this.leaveList = res.reverse();
+      }
+    });
+  }
   approveClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
     if (valid) {
       this.model.comments = value.comments;
@@ -67,7 +74,7 @@ export class BulkApproveComponent implements OnInit {
                this.rejected = true;
                this.approved = false;
                this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves approved!' });
-               this.leaveObs = this.leaveService.getLeaveByStatus('Pending');
+               this.getApproverLeaves();
                this.bulkApprovalForm.reset();
                this.selectedEmployees = [];
          } else {
@@ -87,7 +94,7 @@ export class BulkApproveComponent implements OnInit {
                this.rejected = false;
                this.approved = true;
                this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves rejected!' });
-               this.leaveObs = this.leaveService.getLeaveByStatus('Pending');
+               this.getApproverLeaves();
                this.bulkApprovalForm.reset();
                this.selectedEmployees = [];
          } else {
@@ -116,10 +123,8 @@ export class BulkApproveComponent implements OnInit {
   }
 
   selectAllRecord() {
-   this.leaveObs.subscribe(res=> {
-       this.selectedEmployees= res;
+       this.selectedEmployees= this.leaveList;
        this.selectAllBtn=false;
-    });
   }
   unSelectAllRecord() {
     this.selectedEmployees=[];

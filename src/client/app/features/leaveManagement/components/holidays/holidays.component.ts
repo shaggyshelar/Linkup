@@ -61,9 +61,10 @@ export class HolidaysComponent implements OnDestroy,OnInit {
         this.pendingHoliday=[];
         for(let i=0;i<res.length;i++) {
           res[i].title=res[i].Title;
-          res[i].start=res[i].HolidayDate;
+          res[i].start=moment(res[i].HolidayDate);
+          res[i].color='#288054';
           this.holidayList.push(res[i]);
-          if((moment(res[i].HolidayDate).diff(moment(), 'days')) > -1) {
+          if((moment(res[i].start).diff(moment(), 'days')) > -1) {
             this.pendingHoliday.push(res[i]);
           }
         }

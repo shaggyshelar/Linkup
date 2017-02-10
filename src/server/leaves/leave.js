@@ -96,16 +96,16 @@ var leave = [
         Reason: 'Birthday',
         Approvers: [
             {
-                Name: 'Sagar Shelar',
+                Name: 'Sagar Shelar Shelar',
                 Project: 'HRMS',
-                Manager: 'Sagar Shelar',
+                Manager: 'Sagar Shelar Shelar Shelar',
                 Status: 'Approved',
                 Comment: 'Approved'
             },
             {
                 Name: 'Kunal Adhikari',
                 Project: 'EBS',
-                Manager: 'Kunal Adhikari',
+                Manager: 'Kunal Kiran Adhikari',
                 Status: 'Approved',
                 Comment: 'Approved'
             },
@@ -138,7 +138,7 @@ var leave = [
               {
                 Name: 'Sagar Shelar',
                 Project: 'HRMS',
-                Manager: 'Sagar Shelar',
+                Manager: 'Sagar Shelar Shelar',
                 Status: 'Approved',
                 Comment: 'Approved'
             },

@@ -51,16 +51,16 @@
               </p-column>
               <p-column header="Approvers"   styleClass="hidden-xs" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
-                  <div class="wrap-text-inline" *ngFor="let item of rowData.Approvers">
-                    {{item.Name}}
-                  </div>
+                    <ul class="ul-list-table">
+                      <li *ngFor="let item of rowData.Approvers">{{item.Name}}</li>
+                  </ul>
                 </template>
               </p-column>
               <p-column header="Pending Approvers"   styleClass="hidden-xs" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
-                  <div class="wrap-text-inline" *ngFor="let item of rowData.PendingApprovers">
-                    {{item.Name}}
-                  </div>
+                   <ul class="ul-list-table">
+                      <li *ngFor="let item of rowData.PendingApprovers">{{item.Name}}</li>
+                  </ul>
                 </template>
               </p-column>
             </p-dataTable>

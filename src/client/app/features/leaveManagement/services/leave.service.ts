@@ -124,6 +124,22 @@ export class LeaveService extends BaseService {
             return this.handleError(err);
         });
     }
+    getCurrentUserPendingLeaveCount() {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        let options = new RequestOptions({ headers: headers });
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.get(this.baseUrl+'LeaveDetails/GetCurrentUserPendingLeaveCount',options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
+    }
     setEditableLeave(leave:any) {
         this.editableLeave=leave;
     }

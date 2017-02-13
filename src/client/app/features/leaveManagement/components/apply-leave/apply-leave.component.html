@@ -72,6 +72,9 @@
                 <h4>Apply Leave</h4>
               </div>
             </div>
+            <div class="alert alert-danger" *ngIf="isValidationMessage">
+                  {{validationMessage}}
+            </div>
             <form novalidate [formGroup]="applyLeaveForm">
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">

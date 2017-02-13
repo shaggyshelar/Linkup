@@ -48,6 +48,10 @@ export class ApplyLeaveComponent implements OnInit {
     userDetail:any;
     activeProjects:any;
     holidayList:any;
+    pendingLeaveCount:any;
+    currentUserLeaveDetail:any;
+    isValidationMessage:boolean=false;
+    validationMessage:string='';
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -96,6 +100,12 @@ export class ApplyLeaveComponent implements OnInit {
         this.userDetail=this.authService.getCurrentUser();
         this.holidayService.getHolidayByFinancialYear('2016').subscribe(res => {
             this.holidayList=res;
+        });
+        this.leaveService.getCurrentUserPendingLeaveCount().subscribe(res => {
+            this.pendingLeaveCount=res;
+        });
+        this.leaveService.getLeaveDetails().subscribe((res: any) => {
+             this.currentUserLeaveDetail = res;
         });
     }
 
@@ -167,12 +177,15 @@ export class ApplyLeaveComponent implements OnInit {
     }
 
     dayDiffCalc() {
+        this.isValidationMessage=false;
+        this.validationMessage='';
         let dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
         if(this.model.leaveType!==null) {
             let weekendCount=0;
             let holidayCount=0;
             if(this.model.leaveType.Type==='Leave' || this.model.leaveType.Type==='Half Day Leave') {
                  weekendCount= this.getWeekEndCount(dayCount);
+                 this.checkPending((dayCount-weekendCount)*parseFloat(this.model.leaveType.Value));
             }
             this.model.numDays=(dayCount-weekendCount)*parseFloat(this.model.leaveType.Value);
         } else {
@@ -197,6 +210,12 @@ export class ApplyLeaveComponent implements OnInit {
             }
         }
         return false;
+    }
+    checkPending(totalLeaveApplied:number) {
+        if(this.currentUserLeaveDetail.ActualBalance-this.pendingLeaveCount.LeaveTotal < totalLeaveApplied ) {
+            this.validationMessage='No more leaves available. There are already pending leaves';
+            this.isValidationMessage=true;
+        }
     }
     cancelClick() {
         this.router.navigate(['/leave/my-leaves']);

@@ -19,7 +19,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
 import { SelectItem } from 'primeng/primeng';
-
+import { HolidayService } from '../../services/holiday.service';
 /** Component Declaration */
 
 
@@ -47,13 +47,15 @@ export class ApplyLeaveComponent implements OnInit {
     finalLeaveData:any;
     userDetail:any;
     activeProjects:any;
+    holidayList:any;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private leaveService: LeaveService,
         private leaveTypeService: LeaveTypeMasterService,
         private formBuilder: FormBuilder,
-        private authService: AuthService
+        private authService: AuthService,
+        private holidayService: HolidayService
     ) {
         this.leaves = [];
         this.addLeaveArr = [];
@@ -92,27 +94,20 @@ export class ApplyLeaveComponent implements OnInit {
             this.activeProjects=res;
         });
         this.userDetail=this.authService.getCurrentUser();
+        this.holidayService.getHolidayByFinancialYear('2016').subscribe(res => {
+            this.holidayList=res;
+        });
     }
 
 
     submitForm(form: NgForm) {
-        let leaveDetails:any=[];
         if(this.addLeaveArr.length===0) {
             this.validateLeaveType();
             if (!this.leaveTypeValid)
                 return;
-             let leave = {
-                 NumberOfDays: this.model.numDays,
-                 StartDate: this.model.start,
-                 EndDate: this.model.end,
-                 Reason: this.model.reason,
-                 LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name }
-            };
-            leaveDetails.push(leave);
-        } else {
-            leaveDetails=this.addLeaveArr;
+            this.onAddLeave();
         }
-        this.leaveService.submitLeaveRecord(leaveDetails).subscribe(res => {
+        this.leaveService.submitLeaveRecord(this.addLeaveArr).subscribe(res => {
             if (res) {
                 this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave applied!' });
                 this.cancelClick();
@@ -123,29 +118,26 @@ export class ApplyLeaveComponent implements OnInit {
     }
 
     onAddLeave() {
-      if(this.model.numDays===0.5) {
+        let totalNoOfdays=moment(this.model.end).diff(this.model.start, 'days')+1;
+         for(let i=0;i<totalNoOfdays;i++) {
+            if(this.model.leaveType.Type==='Half Day Leave' || this.model.leaveType.Type==='Leave') {
+                if(moment(this.model.start).add(i, 'days').day()===6 ||
+                   moment(this.model.start).add(i, 'days').day()===0 ||
+                   this.checkHoliday(moment(this.model.start).add(i, 'days'))
+                   ) {
+                    continue;
+                 }
+            }
             let leave = {
-            NumberOfLeaves: this.model.numDays,
-            NumberOfDays: 1,
-            StartDate: this.model.start,
-            EndDate: this.model.start,
-            Reason: this.model.reason,
-            LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name }
-         };
-            this.addLeaveArr.push(leave);
-      } else {
-        for(let i=0;i<this.model.numDays;i++) {
-         let leave = {
-            NumberOfLeaves: 1,
-            NumberOfDays: 1,
-            StartDate: moment(this.model.start).add(i, 'days'),
-            EndDate: moment(this.model.start).add(i, 'days'),
-            Reason: this.model.reason,
-            LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name }
-         };
+                NumberOfLeaves:this.model.leaveType.Value==='0.5'?0.5:1,
+                NumberOfDays: 1,
+                StartDate: moment(this.model.start).add(i, 'days'),
+                EndDate: moment(this.model.start).add(i, 'days'),
+                Reason: this.model.reason,
+                LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name }
+            };
             this.addLeaveArr.push(leave);
         }
-      }
     }
     deleteLeave(index:number) {
         this.addLeaveArr.splice(index,1);
@@ -164,38 +156,9 @@ export class ApplyLeaveComponent implements OnInit {
 
     validateLeaveType() {
         if(this.model.leaveType!==null) {
-            switch (this.model.leaveType.ID) {
-            case 1:
-                this.leaveTypeValid = true;
-                this.leaveID = 1;
-                this.model.numDays = 1;
-                this.dayDiffCalc();
-                return;
-
-            case 2:
-                this.leaveTypeValid = true;
-                this.model.numDays = 0.5*this.dayDiffCalc();
-                this.leaveID = 2;
-                return;
-
-            case 3:
-                this.leaveTypeValid = true;
-                this.leaveID = 3;
-                this.model.numDays = 1;
-                this.dayDiffCalc();
-                return;
-
-            case 4:
-                this.leaveTypeValid = true;
-                this.model.numDays = 0.5*this.dayDiffCalc();
-                this.leaveID = 4;
-                return;
-
-            default:
-                this.leaveTypeValid = false;
-                this.model.numDays = 0;
-                return;
-        }
+           this.leaveTypeValid = true;
+           this.dayDiffCalc();
+           return;
       }
     }
 
@@ -203,16 +166,38 @@ export class ApplyLeaveComponent implements OnInit {
         this.charsLeft = 600 - this.model.reason.length;
     }
 
-    dayDiffCalc() { // input given as Date objects
+    dayDiffCalc() {
         let dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
         if(this.model.leaveType!==null) {
-            this.model.numDays=dayCount*parseFloat(this.model.leaveType.Value);
+            let weekendCount=0;
+            let holidayCount=0;
+            if(this.model.leaveType.Type==='Leave' || this.model.leaveType.Type==='Half Day Leave') {
+                 weekendCount= this.getWeekEndCount(dayCount);
+            }
+            this.model.numDays=(dayCount-weekendCount)*parseFloat(this.model.leaveType.Value);
         } else {
             this.model.numDays = dayCount;
         }
-        return dayCount;
     }
-
+    getWeekEndCount(dayCount:number) {
+       let weekendCount=0;
+        for(let i=0;i<dayCount;i++) {
+            if( moment(this.model.start).add(i, 'days').day()===6 ||
+                moment(this.model.start).add(i, 'days').day()===0 ||
+                this.checkHoliday(moment(this.model.start).add(i, 'days'))) {
+                weekendCount= weekendCount+1;
+            }
+        }
+        return weekendCount;
+    }
+    checkHoliday(date:any) {
+        for(let  i=0;i<this.holidayList.length;i++ ) {
+            if(moment(this.holidayList[i].HolidayDate).diff(date, 'days')===0) {
+                return true;
+            }
+        }
+        return false;
+    }
     cancelClick() {
         this.router.navigate(['/leave/my-leaves']);
     }

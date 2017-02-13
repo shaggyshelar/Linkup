@@ -41,4 +41,9 @@ export class HolidayService extends BaseService {
             return res.json();
         });
     }
+    getHolidayByFinancialYear(id:string) {
+        return this
+            .get$(id,true)
+            .map(res => res.json());
+    }
 }

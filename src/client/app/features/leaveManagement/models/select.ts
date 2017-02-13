@@ -3,4 +3,5 @@ export interface Select {
     ID: number;
     Name: string;
     Value:string;
+    Type:string;
 }

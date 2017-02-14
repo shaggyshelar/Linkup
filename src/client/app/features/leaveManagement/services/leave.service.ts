@@ -140,6 +140,24 @@ export class LeaveService extends BaseService {
             return this.handleError(err);
         });
     }
+    checkIfAlreadyApplied(payload:any) {
+        let headers = new Headers();
+        let body=JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl+'LeaveDetails/GetAppliedLeaveForSameDate',body,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
+    }
     setEditableLeave(leave:any) {
         this.editableLeave=leave;
     }

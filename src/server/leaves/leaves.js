@@ -16,6 +16,12 @@ app.get('/api/LeaveDetails/GetCurrentUserPendingLeaveCount', function (req, res)
         }
         res.json(pendingLeaves);
     });
+    app.post('/api/LeaveDetails/GetAppliedLeaveForSameDate', function (req, res) {
+        var leave = {
+            "StartDate": null,
+        }
+        res.json(leave);
+    });
     app.get('/api/Leave/myleaves', function (req, res) {
             res.json(leave);
         });

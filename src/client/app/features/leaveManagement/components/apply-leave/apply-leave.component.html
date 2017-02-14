@@ -76,13 +76,14 @@
                   {{validationMessage}}
             </div>
             <form novalidate [formGroup]="applyLeaveForm">
+              <fieldset [disabled]="formDisabled">
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="form-group">
                     <label class="control-label">Leave Type<span class="warning">*</span></label>
                     <div>
                       <p-dropdown [options]="leaves" [style]="{'width':'100%'}" formControlName="leaveType" id="leaveType" [(ngModel)]="model.leaveType"
-                        (onChange)="validateLeaveType()"></p-dropdown>
+                        (onChange)="validateLeaveType()" [disabled]="formDisabled"></p-dropdown>
                         <div class="alert alert-danger" *ngIf="applyLeaveForm.get('leaveType').hasError('required') && applyLeaveForm.get('leaveType').touched">
                           Leave Type is required
                         </div>
@@ -105,7 +106,7 @@
                     <label class="control-label">Start Date<span class="warning">*</span> </label>
                     <div>
                       <p-calendar id="start" required dateFormat="dd/mm/yy" [showIcon]="true" (onSelect)="startChanged()" formControlName="start"
-                        [(ngModel)]="model.start"></p-calendar>
+                        [(ngModel)]="model.start"  [disabled]="formDisabled"></p-calendar>
                         <div class="alert alert-danger" *ngIf="applyLeaveForm.get('start').hasError('required') && applyLeaveForm.get('start').touched">
                           Start Date is required
                         </div>
@@ -117,7 +118,7 @@
                     <label class="control-label">End Date<span class="warning">*</span> </label>
                     <div>
                       <p-calendar  id="end" required dateFormat="dd/mm/yy" [(minDate)]="model.start" [showIcon]="true"
-                        (onSelect)="endChanged()" formControlName="end" [(ngModel)]="model.end">
+                        (onSelect)="endChanged()" formControlName="end" [(ngModel)]="model.end"  [disabled]="formDisabled">
                         </p-calendar>
                         <div class="alert alert-danger" *ngIf="applyLeaveForm.get('end').hasError('required') && applyLeaveForm.get('end').touched">
                           End Date is required
@@ -140,7 +141,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="!hideLeaveList">
                     <div class="table-responsive" *ngIf="addLeaveArr.length>0">
                       <table class="table table-bordered">
                         <thead>
@@ -170,12 +171,13 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="pull-right">
-                    <button id="addLeave" [disabled]="applyLeaveForm.invalid" (click)="onAddLeave()" class="btn btn-outline">Add Leave</button>
-                    <button id="submit" [disabled]="applyLeaveForm.invalid" type="submit" class="btn btn-outline" (click)="submitForm(applyLeaveForm)">Submit</button>
+                    <button id="addLeave" [disabled]="applyLeaveForm.invalid || this.isValidationMessage" (click)="onAddLeave()" class="btn btn-outline">Add Leave</button>
+                    <button id="submit" [disabled]="applyLeaveForm.invalid || this.isValidationMessage" type="submit" class="btn btn-outline" (click)="submitForm(applyLeaveForm)">Submit</button>
                     <button id="cancel" type="reset" (click)="cancelClick()" class="btn btn-outline">Cancel</button>
                   </div>
                 </div>
               </div>
+              </fieldset>
             </form>
           </div>
         </div>

@@ -51,6 +51,8 @@ export class ApplyLeaveComponent implements OnInit {
     pendingLeaveCount:any;
     currentUserLeaveDetail:any;
     isValidationMessage:boolean=false;
+    formDisabled:boolean=false;
+    hideLeaveList:boolean=false;
     validationMessage:string='';
     constructor(
         private messageService: MessageService,
@@ -105,7 +107,13 @@ export class ApplyLeaveComponent implements OnInit {
             this.pendingLeaveCount=res;
         });
         this.leaveService.getLeaveDetails().subscribe((res: any) => {
-             this.currentUserLeaveDetail = res;
+            if(res===null) {
+                this.validationMessage='Your leave comes in between the financial year process. You cant proceed';
+                this.isValidationMessage=true;
+                this.formDisabled=true;
+            } else {
+               this.currentUserLeaveDetail = res;
+            }
         });
     }
 
@@ -116,6 +124,7 @@ export class ApplyLeaveComponent implements OnInit {
             if (!this.leaveTypeValid)
                 return;
             this.onAddLeave();
+            this.hideLeaveList=true;
         }
         this.leaveService.submitLeaveRecord(this.addLeaveArr).subscribe(res => {
             if (res) {
@@ -191,6 +200,7 @@ export class ApplyLeaveComponent implements OnInit {
         } else {
             this.model.numDays = dayCount;
         }
+        this.checkIfAlreadyApplied();
     }
     getWeekEndCount(dayCount:number) {
        let weekendCount=0;
@@ -216,6 +226,22 @@ export class ApplyLeaveComponent implements OnInit {
             this.validationMessage='No more leaves available. There are already pending leaves';
             this.isValidationMessage=true;
         }
+    }
+    checkIfAlreadyApplied() {
+        if(this.model.leaveType!==null && !this.isValidationMessage) {
+             let param = {
+                LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name },
+                StartDate:this.model.start,
+                EndDate :this.model.end
+            };
+            this.leaveService.checkIfAlreadyApplied(param).subscribe(res => {
+            if(res.StartDate!==null && !this.isValidationMessage) {
+                 this.validationMessage='You have already applied a leave from '
+                                        +moment(res.StartDate).format('DD/MM/YYYY')+' to '+moment(res.EndDate).format('DD/MM/YYYY');
+                 this.isValidationMessage=true;
+              }
+            });
+      }
     }
     cancelClick() {
         this.router.navigate(['/leave/my-leaves']);

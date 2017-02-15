@@ -33,8 +33,8 @@ export class BaseService implements HttpServices {
     }
 
     /**
-     * Get Single object using get$ method. 
-     * @input id :  of the object for which you need a data 
+     * Get Single object using get$ method.
+     * @input id :  of the object for which you need a data
      * @input isSecured : Optional Parameter : Parameter to tell base service if security headers needs to be included
      */
     get$(id: string, isSecured?: boolean): Observable<Response> {
@@ -55,7 +55,7 @@ export class BaseService implements HttpServices {
      * Get List of Objects using getList$ method.
      * @input pageNum : Optional parameter,
      * @input pageSize : Optional Parameter,
-     * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included 
+     * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included
      */
     getList$(pageNum?: number, pageSize?: number, isSecured?: boolean): Observable<Response> {
         this.getHeaders(isSecured);
@@ -76,7 +76,7 @@ export class BaseService implements HttpServices {
      * @input : childName : string
      * @input pageNum : Optional parameter,
      * @input pageSize : Optional Parameter,
-     * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included   
+     * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included
      */
     getChildList$(childName: string, pageNum?: number, pageSize?: number, isSecured?: boolean) {
         this.getHeaders(isSecured);
@@ -96,7 +96,7 @@ export class BaseService implements HttpServices {
 
     /**
      * Send data to server using post$ method
-     * @input payload : data to be sent, 
+     * @input payload : data to be sent,
      * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included
      */
     post$(payload: string, isSecured?: boolean): Observable<Response> {
@@ -116,7 +116,7 @@ export class BaseService implements HttpServices {
     /**
     * Send data to server for updating existing object using post$ method
     * @input id : ID of the object to be updated
-    * @input payload : data to be sent, 
+    * @input payload : data to be sent,
     * @isSecured : Optional Parameter : Parameter to tell base service if security headers nedds to be included
     */
     put$(id: string, payload: any, isSecured?: boolean) {
@@ -169,8 +169,8 @@ export class BaseService implements HttpServices {
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
-    /** 
-     * Method for Including Headers 
+    /**
+     * Method for Including Headers
      */
     private getHeaders(isSecured?: boolean): void {
         let headers = new Headers({});

@@ -109,7 +109,7 @@ export class ApplyLeaveComponent implements OnInit {
         });
         this.leaveService.getLeaveDetails().subscribe((res: any) => {
             if(res===null) {
-                this.validationMessage='Your leave comes in between the financial year process. You cant proceed';
+                this.validationMessage=MessageService.APPLY_LEAVE_1;
                 this.isValidationMessage=true;
                 this.formDisabled=true;
             } else {
@@ -129,10 +129,10 @@ export class ApplyLeaveComponent implements OnInit {
         }
         this.leaveService.submitLeaveRecord(this.addLeaveArr).subscribe(res => {
             if (res) {
-                this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave applied!' });
+                this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.APPLY_LEAVE_2 });
                 this.cancelClick();
             } else {
-                this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: 'Failed to process your request.' });
+                this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail:  MessageService.REQUEST_FAILED });
             }
         });
     }
@@ -246,9 +246,9 @@ export class ApplyLeaveComponent implements OnInit {
     checkPending(totalLeaveApplied:number) {
         if(this.currentUserLeaveDetail.ActualBalance-this.pendingLeaveCount.LeaveTotal < totalLeaveApplied ) {
             if(this.pendingLeaveCount.LeaveTotal==0) {
-                this.validationMessage='No more leaves available.';
+                this.validationMessage=MessageService.APPLY_LEAVE_3;
             } else {
-                this.validationMessage='No more leaves available. There are already pending leaves';
+                this.validationMessage=MessageService.APPLY_LEAVE_4;
             }
             this.isValidationMessage=true;
         }
@@ -259,9 +259,9 @@ export class ApplyLeaveComponent implements OnInit {
         let pendingMarriageLeave=this.pendingLeaveCount.MarriageLeaveTotal;
         if(totalMarriageLeave-takenMarriageLeave-pendingMarriageLeave < totalLeaveApplied ) {
             if(pendingMarriageLeave==0) {
-                this.validationMessage='No more marriage leaves available.';
+                this.validationMessage=MessageService.APPLY_LEAVE_5;
             } else {
-                this.validationMessage='No more marriage leaves available. There are already pending Marriage leaves';
+                this.validationMessage=MessageService.APPLY_LEAVE_6;
             }
             this.isValidationMessage=true;
         }
@@ -272,9 +272,9 @@ export class ApplyLeaveComponent implements OnInit {
         let pendingPaternityLeave=this.pendingLeaveCount.PaternityLeaveTotal;
         if(totalPaternityLeave-takenPaternityLeave-pendingPaternityLeave < totalLeaveApplied ) {
             if(pendingPaternityLeave==0) {
-                this.validationMessage='No more paternity leaves available.';
+                this.validationMessage=MessageService.APPLY_LEAVE_7;
             } else {
-                this.validationMessage='No more paternity leaves available. There are already pending paternity leaves';
+                this.validationMessage=MessageService.APPLY_LEAVE_8;
             }
             this.isValidationMessage=true;
         }
@@ -285,9 +285,9 @@ export class ApplyLeaveComponent implements OnInit {
         let pendingMaternityLeave=this.pendingLeaveCount.MaternityLeaveTotal;
         if(totalMaternityLeave-takenMaternityLeave-pendingMaternityLeave < totalLeaveApplied ) {
             if(pendingMaternityLeave==0) {
-                this.validationMessage='No more maternity leaves available.';
+                this.validationMessage=MessageService.APPLY_LEAVE_9;
             } else {
-                this.validationMessage='No more maternity leaves available. There are already maternity paternity leaves';
+                this.validationMessage=MessageService.APPLY_LEAVE_10;
             }
             this.isValidationMessage=true;
         }
@@ -321,10 +321,10 @@ export class ApplyLeaveComponent implements OnInit {
                this.leaveService.checkIfAlreadyAppliedForTrainee(param).subscribe(res => {
                  if(res!==null) {
                     if(parseInt(res.LeaveTotal)>=1 || this.model.numDays>1 ) {
-                         this.validationMessage= 'You can take only one leave in this month! No more leaves available';
+                         this.validationMessage= MessageService.APPLY_LEAVE_11;
                          this.isValidationMessage=true;
                     } else if(parseInt(res.HalfdayLeaveTotal)>=1 || this.model.numDays>1 ) {
-                        this.validationMessage= 'You can take only one half day leave in this month! No more leaves available';
+                        this.validationMessage= MessageService.APPLY_LEAVE_12;
                         this.isValidationMessage=true;
                     }
                  }

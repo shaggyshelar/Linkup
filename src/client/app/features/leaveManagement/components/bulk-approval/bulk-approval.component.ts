@@ -28,13 +28,13 @@ import { MessageService } from '../../../core/shared/services/message.service';
 })
 export class BulkApproveComponent implements OnInit {
 
-  leaveObs: Observable<Leave[]>;
+  leaveList: Leave[];
 
   servRows = 20;
   selectedEmployees: any[];
   bulkApprovalForm: FormGroup;
   model: any;
-
+  selectAllBtn: boolean = true;
   approved: boolean = false;
   rejected: boolean = false;
 
@@ -54,15 +54,33 @@ export class BulkApproveComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.leaveObs = this.leaveService.getApproverLeaves();
+    this.getApproverLeaves();
   }
 
+ getApproverLeaves() {
+    this.leaveService.getLeaveByStatus('Pending').subscribe((res: any) => {
+      if(res.length>0) {
+        this.leaveList = res.reverse();
+      }
+    });
+  }
   approveClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
     if (valid) {
       this.model.comments = value.comments;
       if (this.selectedEmployees.length > 0) {
         //    BACKEND CALL HERE
-        this.sendRequest('Approved');
+         this.leaveService.bulkLeaveApproval(this.assembleReqPayload('Approved')).subscribe(res => {
+            if (res) {
+               this.rejected = true;
+               this.approved = false;
+               this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_APPROVED  });
+               this.getApproverLeaves();
+               this.bulkApprovalForm.reset();
+               this.selectedEmployees = [];
+         } else {
+            this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: MessageService.REQUEST_FAILED  });
+         }
+      });
       }
     }
   }
@@ -71,45 +89,45 @@ export class BulkApproveComponent implements OnInit {
     if (valid) {
       this.model.comments = value.comments;
       if (this.selectedEmployees.length > 0) {
-        //    BACKEND CALL HERE
-        this.sendRequest('Rejected');
+        this.leaveService.bulkLeaveApproval(this.assembleReqPayload('Rejected')).subscribe(res => {
+            if (res) {
+               this.rejected = false;
+               this.approved = true;
+               this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_REJECTED });
+               this.getApproverLeaves();
+               this.bulkApprovalForm.reset();
+               this.selectedEmployees = [];
+         } else {
+            this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: MessageService.REQUEST_FAILED  });
+         }
+      });
       }
     }
   }
 
   assembleReqPayload(status: string) {
-    var payload:any = [];
+    var payload:any = {
+          LeaveRequestIDs:[],
+          StatusAndComments:{
+            Comments: this.model.comments.trim(),
+            Status: status
+          }
+        };
     for (var index in this.selectedEmployees) {
-      payload.push(
+      payload.LeaveRequestIDs.push(
         {
-          ID: this.selectedEmployees[index].ID,
-          Comment: this.model.comments,
-          Status: status
+          LeaveRequestRefId: this.selectedEmployees[index].LeaveRequestMasterId,
         });
     }
-
     return payload;
   }
 
-  sendRequest(status:any) {
-    return this.leaveService.updateLeaveRecord(1, this.assembleReqPayload(status)).subscribe(res => {
-      if (res) {
-        if (status === 'Rejected') {
-          this.rejected = false;
-          this.approved = true;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves rejected!' });
-        } else {
-          this.rejected = true;
-          this.approved = false;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves approved!' });
-        }
-        this.leaveObs = this.leaveService.getApproverLeaves();
-        this.bulkApprovalForm.reset();
-        this.selectedEmployees = [];
-      } else {
-        this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: 'Failed to process your request.' });
-      }
-    });
+  selectAllRecord() {
+       this.selectedEmployees= this.leaveList;
+       this.selectAllBtn=false;
   }
-
+  unSelectAllRecord() {
+    this.selectedEmployees=[];
+    this.selectAllBtn=true;
+  }
 }

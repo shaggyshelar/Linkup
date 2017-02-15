@@ -38,11 +38,13 @@ export class SingleApprovalComponent implements OnInit {
     servRows = 6;
     singleApprovalForm: FormGroup;
     model: any;
-
+    approverList:any;
     validationMessage: string = '';
     approved: boolean = false;
     rejected: boolean = false;
-
+    leaveList:any;
+    userDetail:any;
+    isPending: boolean=false;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -62,33 +64,45 @@ export class SingleApprovalComponent implements OnInit {
     ngOnInit() {
 
         this.route.params.subscribe(params => {
-            this.leaveID = +params['id'];
+            this.leaveID = params['id'];
         });
-        this.leaveObs = this.leaveService.getLeave(this.leaveID);
+        this.leaveService.getLeaveDetailByRefID(this.leaveID).subscribe(res => {
+            this.leaveList=res;
+            this.getEmployeeDetails(this.leaveList[0].EmpID);
+            if(this.leaveList[0].Status==='Pending') {
+                this.isPending=true;
+            }
+        });
+        this.leaveService.getApproverListByRefID(this.leaveID).subscribe(res => {
+            this.approverList=res;
+        });
 
     }
-
+    getEmployeeDetails(id:any) {
+        this.leaveService.getEmployeeDetail(id).subscribe(res => {
+            this.userDetail=res;
+        });
+    }
     approveClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
         if (valid) {
-        //    BACKEND CALL HERE
             this.model.comments = value.comments;
-            var params = [{
-                ID: this.leaveID,
-                Comment: this.model.comments.trim(),
-                Status: 'Approved'
-            }];
+            var params = {
+                Comments: this.model.comments.trim(),
+                Status: 'Approved',
+                LeaveRequestRefId:this.leaveID
+            };
 
-            this.leaveService.updateLeaveRecord(this.leaveID, params)
+            this.leaveService.singleLeaveApprove(params)
                 .subscribe(res => {
                     if (res) {
                         this.rejected = false;
                         this.approved = true;
-                        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave approved!' });
+                        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_APPROVED });
                         this.closeClicked();
                     } else {
                         this.rejected = true;
                         this.approved = false;
-                        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
+                        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
                     }
                 });
         }
@@ -97,26 +111,24 @@ export class SingleApprovalComponent implements OnInit {
     rejectClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
         if (valid) {
         //    BACKEND CALL HERE
-
             this.model.comments = value.comments;
-            var params = [{
-                ID: this.leaveID,
-                Comment: this.model.comments.trim(),
-                Status: 'Rejected'
-            }];
+            var params = {
+                Comments: this.model.comments.trim(),
+                Status: 'Rejected',
+                LeaveRequestRefId:this.leaveID
+            };
 
-            this.leaveService.updateLeaveRecord(this.leaveID, params)
+            this.leaveService.singleLeaveReject(params)
                 .subscribe(res => {
                     if (res) {
                         this.rejected = true;
                         this.approved = false;
-                        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave rejected!' });
+                        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_REJECTED });
                         this.closeClicked();
-                        this.singleApprovalForm.reset();
                     } else {
                         this.rejected = false;
                         this.approved = true;
-                        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
+                        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
                     }
                 });
         }

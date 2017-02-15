@@ -18,11 +18,23 @@
       <div class="col-md-12 col-sm-12">
         <div class="portlet light ">
           <div class="portlet-body">
-            <p-dataTable [value]="leaveObs | async" [paginator]="true" [rows]=(servRows) [responsive]="true">
+            <p-dataTable [value]="leaveList" [paginator]="true"  [rowStyleClass]="getLeaveStatusClass"  [rows]=(servRows) [responsive]="true">
+              <p-column styleClass="col-button" styleClass="visible-xs"  header="Action">
+                <template let-leave="rowData" pTemplate type="body">
+                  <!--<button id="actionEdit" type="button" (click)="editBtnClicked(leave.LeaveRequestMasterId)" pButton icon="fa-edit"></button>-->
+                  <div class="dropdown pull-right hand-cursor">
+                    <i class="fa fa-ellipsis-v dropdown-toggle action-icon" data-toggle="dropdown" aria-hidden="true"></i>
+                    <ul class="dropdown-menu pull-right " style="font-size: large">
+                      <li *ngIf="leave.Status==='Pending'" (click)="approveLeave(leave.LeaveRequestMasterId)"><a ><i class="fa fa-check" aria-hidden="true"></i>Approve</a ></li>
+                      <li *ngIf="leave.Status==='Pending'" (click)="rejectLeave(leave.LeaveRequestMasterId)"><a ><i class="fa fa-times" aria-hidden="true"></i>Reject</a ></li>
+                      <li (click)="editBtnClicked(leave.LeaveRequestMasterId)"><a ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a ></li>
+                    </ul>
+                  </div>
+                </template>
+              </p-column>
               <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
-              <p-column field="EmpID" header="Employee ID" [sortable]="true"></p-column>
               <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>
-              <p-column field="Status" header="Status" [sortable]="true"></p-column>
+              <p-column field="Status" header="Status"  [sortable]="true"></p-column>
               <p-column header="Start Date" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
                   {{rowData.StartDate | date:'dd/MM/y'}}
@@ -33,23 +45,31 @@
                   {{rowData.EndDate | date:'dd/MM/y'}}
                 </template>
               </p-column>
-              <p-column header="Approvers" [sortable]="true">
+              <p-column header="Approvers" styleClass="hidden-xs" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
-                    <div *ngFor="let item of rowData.Approvers" >
-                        {{item.Name}}
-                    </div>
+                   <ul class="ul-list-table">
+                      <li *ngFor="let item of rowData.Approvers">{{item.Name}}</li>
+                  </ul>
                 </template>
               </p-column>
-              <p-column  header="Pending Approvers" [sortable]="true">
-                  <template let-rowData="rowData" pTemplate="body">
-                    <div *ngFor="let item of rowData.PendingApprovers" >
-                        {{item.Name}}
-                    </div>
+              <p-column header="Pending Approvers"  styleClass="hidden-xs"  [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                   <ul class="ul-list-table">
+                      <li *ngFor="let item of rowData.PendingApprovers">{{item.Name}}</li>
+                  </ul>
                 </template>
               </p-column>
-              <p-column styleClass="col-button" header="Edit">
-                <template let-leave="rowData" pTemplate type="body">
-                  <button id="actionEdit" type="button" (click)="editBtnClicked(leave.ID)" pButton icon="fa-edit"></button>
+              <p-column styleClass="col-button" styleClass="hidden-xs"  header="Action">
+                <template let-leave="rowData"  pTemplate type="body">
+                  <!--<button id="actionEdit" type="button" (click)="editBtnClicked(leave.LeaveRequestMasterId)" pButton icon="fa-edit"></button>-->
+                  <div class="dropdown dropdown-action-btn  hand-cursor">
+                    <i class="fa fa-ellipsis-v dropdown-toggle action-icon" data-toggle="dropdown" aria-hidden="true"></i>
+                    <ul class="dropdown-menu pull-right" style="font-size: large">
+                      <li *ngIf="leave.Status==='Pending'" (click)="approveLeave(leave.LeaveRequestMasterId)"><a ><i class="fa fa-check" aria-hidden="true"></i>Approve</a ></li>
+                      <li *ngIf="leave.Status==='Pending'" (click)="rejectLeave(leave.LeaveRequestMasterId)"><a ><i class="fa fa-times" aria-hidden="true"></i>Reject</a ></li>
+                      <li (click)="editBtnClicked(leave.LeaveRequestMasterId)"><a ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a ></li>
+                    </ul>
+                  </div>
                 </template>
               </p-column>
             </p-dataTable>

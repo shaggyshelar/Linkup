@@ -2,10 +2,12 @@
 var leave = require('./leave');
 var leaveDetails = {
     LeaveList: leave,
-    NumberOfLeave: 5,
-    HalfDayLeave: 10,
-    Absent: 0,
-    HalfDayAbsent: 0
+    LeaveTaken:5,
+    LeaveBalance:10,
+    HalfdayLeaveTaken:2,
+    AbsentTaken:1,
+    HalfdayAbsentTaken:1,
+    ActualBalance:7
 };
 
 module.exports = leaveDetails;

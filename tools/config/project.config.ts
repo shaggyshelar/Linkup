@@ -51,9 +51,9 @@ export class ProjectConfig extends SeedConfig {
 
       //TODO: Check if we can use it from npm packages
       // { src: `${this.APP_SRC}/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js`, inject: true, vendor: false },
-      // { src: `${this.APP_SRC}/assets/global/plugins/jquery.blockui.min.js`, inject: true, vendor: false },
-
+      { src: `${this.APP_SRC}/assets/global/plugins/jquery.blockui.min.js`, inject: true, vendor: false },
       { src: `${this.APP_SRC}/assets/layouts/app.js`, inject: true, vendor: false },
+      { src: `${this.APP_SRC}/assets/global/plugins/ui-blockui.min.js`, inject: true, vendor: false },
       { src: `${this.APP_SRC}/assets/layouts/layout.js`, inject: true, vendor: false },
       { src: `${this.APP_SRC}/assets/layouts/demo.js`, inject: true, vendor: false },
       { src: `${this.APP_SRC}/assets/layouts/quick-sidebar.min.js`, inject: true, vendor: false },

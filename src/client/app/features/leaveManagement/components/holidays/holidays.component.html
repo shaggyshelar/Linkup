@@ -1,84 +1,65 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
-    <!-- BEGIN CONTENT BODY -->
-    <div class="page-content">
-        <div class="page-head">
-            <!-- BEGIN PAGE TITLE -->
-            <!-- END PAGE TITLE -->
-        </div>
-        <div class="hidden-xs">
-            <ul class="page-breadcrumb breadcrumb">
-                <li>
-                    <span>LINK UP</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-                <li>
-                    <span>Holidays</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-            </ul>
-        </div>
-        <div class="row">
-            <!-- START HOLIDAY CALENDER COMPONENT BY PRIMENG -->
-            <div class="col-lg-6 col-xs-12 col-sm-12">
-                <div class="portlet light bordered h2FontSize">
-                    <p-schedule [events]="holidaysObs | async" [editable]="false" (onEventClick)="handleEventClicked($event)"></p-schedule>
-
-                    <p-dialog header="Holiday Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true">
-                        <div class="ui-grid ui-grid-responsive ui-fluid">
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-4"><label for="title">Title</label></div>
-                                <div class="ui-grid-col-8"><label id="title">{{holiday.Title}}</label></div>
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-4"><label for="date">Date</label></div>
-                                <div class="ui-grid-col-8"><label id="title">{{holiday.HolidayDate}}</label></div>
-                            </div>
-                        </div>
-                    </p-dialog>
-                </div>
-            </div>
-            <!-- END HOLIDAY CALENDER COMPONENT BY PRIMENG -->
-
-            <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
-            <div class="col-lg-6 col-xs-12 col-sm-12">
-                <div class="portlet light bordered">
-                    <p-dataTable [value]="holidaysObs | async" [paginator]="true" [rows]=(servRows) [responsive]="true">
-                        <p-column field="title" header="Title" [sortable]="true"></p-column>
-                        <p-column field="start" header="Date" [sortable]="true"></p-column>
-                        <p-column field="WeekDay" header="Day" [sortable]="true"></p-column>
-                        <p-column header="Type" [sortable]="true">
-                            <template let-holiday="rowData" pTemplate type="body">
-                                <span> <a class="anchorTag" (click)="typeClicked(holiday)" >{{ holiday.HolidayType }}</a></span>
-                            </template>
-                        </p-column>
-                    </p-dataTable>
-                    <p-dialog header="Holiday Details" [(visible)]="holidayDetails" [modal]="true" showEffect="fade">
-                        <div class="ui-grid ui-grid-responsive ui-fluid">
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-4"><label for="titleHoliday">Title</label></div>
-                                <div class="ui-grid-col-8"><label id="titleHoliday"> {{holiday.Title}} </label></div>
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-4"><label for="dateHoliday">Date</label></div>
-                                <div class="ui-grid-col-8"><label id="dateHoliday">{{holiday.HolidayDate}}</label></div>
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-4"><label for="dayHoliday">Day</label></div>
-                                <div class="ui-grid-col-8"><label id="dayHoliday">{{holiday.WeekDay}}</label></div>
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-4"><label for="typeHoliday">Type </label></div>
-                                <div class="ui-grid-col-8"><label id="typeHoliday">{{holiday.HolidayType}}</label></div>
-                            </div>
-                        </div>
-                    </p-dialog>
-
-                </div>
-            </div>
-            <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
-        </div>
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="page-head">
+      <!-- BEGIN PAGE TITLE -->
+      <!-- END PAGE TITLE -->
     </div>
-    <!-- END CONTENT BODY -->
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Holidays</span>
+          <i class="fa fa-circle"></i>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <!-- START HOLIDAY CALENDER COMPONENT BY PRIMENG -->
+      <div class="col-lg-6 col-xs-12 col-sm-12">
+        <div class="portlet light bordered h2FontSize">
+          <p-schedule [events]="holidayList"  [editable]="false" (onEventClick)="handleEventClicked($event)"></p-schedule>
+          <p-dialog header="Holiday Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true">
+            <div class="ui-grid ui-grid-responsive ui-fluid">
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="title">Title</label></div>
+                <div class="ui-grid-col-8"><label id="title">{{holiday.Title}}</label></div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="date">Date</label></div>
+                <div class="ui-grid-col-8"><label id="title">{{holiday.HolidayDate  | date:'dd/MM/y'}}</label></div>
+              </div>
+            </div>
+          </p-dialog>
+        </div>
+      </div>
+      <!-- END HOLIDAY CALENDER COMPONENT BY PRIMENG -->
+      <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
+      <div class="col-lg-6 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <p-dataTable [value]="pendingHoliday" [paginator]="true" [rows]=(servRows) [responsive]="true">
+            <p-column field="title" header="Title" [sortable]="true"></p-column>
+            <p-column field="start" header="Date" [sortable]="true">
+              <template let-rowData="rowData" pTemplate="body">
+                {{rowData.start | date:'dd/MM/y'}}
+              </template>
+            </p-column>
+            <p-column field="WeekDay" header="Day" [sortable]="true"></p-column>
+            <p-column header="Type" [sortable]="true">
+              <template let-holiday="rowData" pTemplate type="body">
+                <span> <a class="anchorTag" (click)="typeClicked(holiday)" >{{ holiday.HolidayType.Value }}</a></span>
+              </template>
+            </p-column>
+          </p-dataTable>
+        </div>
+      </div>
+      <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
 </div>
 <!-- END CONTENT -->

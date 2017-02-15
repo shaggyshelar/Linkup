@@ -14,6 +14,7 @@ import { Holiday } from '../../models/holiday';
 
 /** Other Module Dependencies */
 import { MessageService } from '../../../core/shared/services/message.service';
+import * as moment from 'moment/moment';
 
 /** Component Declaration */
 
@@ -32,8 +33,6 @@ export class MyEvent {
 })
 
 export class HolidaysComponent implements OnDestroy,OnInit {
-
-  holidaysObs: Observable<Holiday>;
   servRows = 7;
 
   holidays: any;
@@ -44,7 +43,8 @@ export class HolidaysComponent implements OnDestroy,OnInit {
 
   holidayDetails: boolean = false;
   holiday: Holiday;
-
+  holidayList:any;
+  pendingHoliday:any;
   constructor(
     private messageService: MessageService,
     private router: Router,
@@ -56,8 +56,20 @@ export class HolidaysComponent implements OnDestroy,OnInit {
 
 
   ngOnInit() {
-    this.holidaysObs = this.holidayService.getHolidays();
-    this.holidaysObs.subscribe();
+    this.holidayService.getHolidays().subscribe((res:any) => {
+        this.holidayList=[];
+        this.pendingHoliday=[];
+        for(let i=0;i<res.length;i++) {
+          res[i].title=res[i].Title;
+          res[i].start=moment(res[i].HolidayDate);
+          res[i].color='#288054';
+          this.holidayList.push(res[i]);
+          if((moment(res[i].start).diff(moment(), 'days')) > -1) {
+            this.pendingHoliday.push(res[i]);
+          }
+        }
+        this.holidayList= res;
+    });
   }
   ngOnDestroy() {
     // this.subscription.unsubscribe();

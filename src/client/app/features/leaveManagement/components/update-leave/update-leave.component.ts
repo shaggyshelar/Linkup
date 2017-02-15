@@ -15,7 +15,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
 /** Module Level Dependencies */
 import { LeaveService } from '../../services/leave.service';
 import { Leave } from '../../models/leave';
-
+import { AuthService } from '../../../core/auth/auth.service';
 /** Component Declaration */
 
 @Component({
@@ -30,32 +30,47 @@ export class UpdateLeaveComponent implements OnInit {
     isCancellable: boolean;
     errorMsg: string;
     today: Date;
-
+    leaveList:any;
+    approverList:any;
+    activeProjects:any;
+    userDetail:any;
+    selectedLeave:any;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private route: ActivatedRoute,
+        private authService: AuthService,
         private leaveService: LeaveService
     ) {
-        this.isCancellable = true;
+        this.isCancellable = false;
         this.errorMsg = '';
         this.today = new Date();
     }
 
     ngOnInit() {
+        this.userDetail=this.authService.getCurrentUser();
         this.route.params.subscribe(params => {
-            this.leaveID = +params['id'];
+            this.leaveID = params['id'];
             console.log('param ID: ' + this.leaveID);
         });
 
-        this.leaveObs = this.leaveService.getLeave(this.leaveID);
-        this.leaveObs.subscribe(res => {
-            res.Status === 'Approved' ? this.isCancellable = true : this.isCancellable = false;
+        this.leaveService.getLeaveDetailByRefID(this.leaveID).subscribe(res => {
+            this.leaveList=res;
         });
+        this.leaveService.getApproverListByRefID(this.leaveID).subscribe(res => {
+            this.approverList=res;
+        });
+        this.leaveService.getActiveProjects().subscribe(res => {
+            this.activeProjects=res;
+        });
+        this.selectedLeave=this.leaveService.getEditableLeave();
+        this.checkIfApproved();
     }
 
-    setCancellable(param:any) {
-        this.isCancellable = param;
+    checkIfApproved() {
+        if(this.selectedLeave.Status==='Pending') {
+            this.isCancellable = true;
+        }
     }
 
     closeClicked() {
@@ -63,7 +78,12 @@ export class UpdateLeaveComponent implements OnInit {
     }
 
     cancelClicked() {
-        this.leaveService.deleteLeaveRecord(this.leaveID).subscribe(res => {
+        let leaveTobeCancelled= {
+            Status: 'Cancelled',
+            LeaveRequestMasterId: this.leaveID,
+            ID: this.selectedLeave.ID
+        };
+        this.leaveService.deleteLeaveRecord(leaveTobeCancelled).subscribe(res => {
             if (res) {
                 this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave application deleted!' });
                 this.closeClicked();

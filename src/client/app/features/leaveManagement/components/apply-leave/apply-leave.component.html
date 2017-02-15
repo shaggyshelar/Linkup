@@ -1,176 +1,190 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
-    <!-- BEGIN CONTENT BODY -->
-    <div class="page-content">
-        <div class="page-head">
-            <!-- BEGIN PAGE TITLE -->
-            <!-- END PAGE TITLE -->
-        </div>
-        <div class="hidden-xs">
-            <ul class="page-breadcrumb breadcrumb ">
-                <li>
-                    <span>LINK UP</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-                <li>
-                    <span>Apply Leaves</span>
-                    <i class="fa fa-circle"></i>
-                </li>
-            </ul>
-        </div>
-        <div class="row">
-            <!-- START HOLIDAY PARTICULARS COMPONENT -->
-            <div class="col-lg-4 col-xs-12 col-sm-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-body">
-                        <h4>Requestor Details</h4>
-                        <div class="table-responsive">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td> Employee ID </td>
-                                        <td class="empInfo">{{(userObs | async)?.ID}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Employee Name </td>
-                                        <td class="empInfo">{{(userObs | async)?.Name}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Department </td>
-                                        <td class="empInfo">{{(userObs | async)?.Department}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <h4>Active on Projects</h4>
-                        <div class="table-responsive">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Project</th>
-                                        <th>Manager</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let prjctDet of (userObs | async)?.Project">
-                                        <td>{{prjctDet.Title}}</td>
-                                        <td><span class="empInfo">{{prjctDet.Manager}}</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END HOLIDAY PARTICULARS COMPONENT  -->
-
-            <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
-            <div class="col-lg-8 col-xs-12 col-sm-12">
-                <div class="col-md-12 col-sm-12">
-                    <div class="portlet light">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h4>Apply Leave</h4>
-                            </div>
-                        </div>
-                        <form novalidate [formGroup]="applyLeaveForm">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Leave Type<span class="warning">*</span></label>
-                                        <div>
-                                            <p-dropdown [options]="leaves" [style]="{'width':'100%'}" formControlName="leaveType" id="leaveType" [(ngModel)]="model.leaveType"
-                                                (onChange)="validateLeaveType()"></p-dropdown>
-                                            <div class="alert alert-danger" *ngIf="applyLeaveForm.get('leaveType').hasError('required') && applyLeaveForm.get('leaveType').touched">
-                                                Leave Type is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Number of Leaves<span class="warning">*</span> </label>
-                                        <div>
-                                            <input id="numLeaves" type="text" disabled="disabled" class="form-control" required formControlName="numDays" [ngModel]="model.numDays"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Start Date<span class="warning">*</span> </label>
-                                        <div>
-                                            <p-calendar id="start"  required dateFormat="dd/mm/yy" [showIcon]="true" (onSelect)="startChanged()"
-                                                formControlName="start" [(ngModel)]="model.start"></p-calendar>
-                                            <div class="alert alert-danger" *ngIf="applyLeaveForm.get('start').hasError('required') && applyLeaveForm.get('start').touched">
-                                                Start Date is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label class="control-label">End Date<span class="warning">*</span> </label>
-                                        <div>
-                                            <p-calendar [disabled]="!isEndDtEnable" id="end" required dateFormat="dd/mm/yy" [(minDate)]="model.start"
-                                                [showIcon]="true" (onSelect)="endChanged()" formControlName="end" [(ngModel)]="model.end">
-                                            </p-calendar>
-                                            <div class="alert alert-danger" *ngIf="applyLeaveForm.get('end').hasError('required') && applyLeaveForm.get('end').touched">
-                                                End Date is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Reason<span class="warning">*</span> 
-                                        </label>
-                                        <div>
-                                            <textarea id="reason" required formControlName="reason" (keyup)="reasonTextChanged()" class="fullWidth" [(ngModel)]="model.reason"></textarea>
-                                            <div class="charsLeft pull-right">{{charsLeft}} characters left</div>
-                                            <div class="alert alert-danger" *ngIf="applyLeaveForm.get('reason').hasError('required') && applyLeaveForm.get('reason').touched">
-                                                Reason is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <p-dataTable [value]="finalLeaveData" [responsive]="true" [hidden]="true" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-                                            <p-column field="leave.name" header="Leave Type" [sortable]="false"></p-column>
-                                            <p-column field="numDays" header="No. of Leaves" [sortable]="false"></p-column>
-                                            <p-column field="reason" header="Reason" [sortable]="false"></p-column>
-                                            <p-column field="start" header="Start Date" [sortable]="false"></p-column>
-                                            <p-column field="end" header="End Date" [sortable]="false"></p-column>
-                                            <p-column header="Delete" styleClass="col-button" field="color">
-                                                <template let-day="rowData" pTemplate type="body">
-                                                    <button type="button"  pButton icon="fa fa-trash"></button>
-                                                </template>
-                                            </p-column>
-                                        </p-dataTable>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <button id="addLeave" [disabled]="applyLeaveForm.invalid" class="btn btn-outline" >Add Leave</button>
-                                        <button id="submit" [disabled]="applyLeaveForm.invalid" type="submit" class="btn btn-outline" (click)="submitForm(applyLeaveForm)">Submit</button>
-                                        <button id="cancel" type="reset" (click)="cancelClick()" class="btn btn-outline">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
-        </div>
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="page-head">
+      <!-- BEGIN PAGE TITLE -->
+      <!-- END PAGE TITLE -->
     </div>
-    <!-- END CONTENT BODY -->
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb ">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Apply Leaves</span>
+          <i class="fa fa-circle"></i>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <!-- START HOLIDAY PARTICULARS COMPONENT -->
+      <div class="col-lg-4 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-body">
+            <h4>Requestor Details</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td> Employee ID </td>
+                    <td> {{ userDetail.EmpID}} </td>
+                  </tr>
+                  <tr>
+                    <td> Employee Name </td>
+                    <td> {{ userDetail.Employee.Name }} </td>
+                  </tr>
+                  <tr>
+                    <td> Department </td>
+                    <td> {{ userDetail.Department.Value }} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h4>Active on Projects</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Project</th>
+                    <th>Manager</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let project of activeProjects">
+                    <td> {{ project.Title }} </td>
+                    <td> {{ project.ProjectManager.Name }} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END HOLIDAY PARTICULARS COMPONENT  -->
+      <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
+      <div class="col-lg-8 col-xs-12 col-sm-12">
+        <div class="col-md-12 col-sm-12">
+          <div class="portlet light">
+            <div class="row">
+              <div class="col-md-12">
+                <h4>Apply Leave</h4>
+              </div>
+            </div>
+            <div class="alert alert-danger" *ngIf="isValidationMessage">
+                  {{validationMessage}}
+            </div>
+            <form novalidate [formGroup]="applyLeaveForm">
+              <fieldset [disabled]="formDisabled">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label">Leave Type<span class="warning">*</span></label>
+                    <div>
+                      <p-dropdown [options]="leaves" [style]="{'width':'100%'}" formControlName="leaveType" id="leaveType" [(ngModel)]="model.leaveType"
+                        (onChange)="validateLeaveType()" [disabled]="formDisabled"></p-dropdown>
+                        <div class="alert alert-danger" *ngIf="applyLeaveForm.get('leaveType').hasError('required') && applyLeaveForm.get('leaveType').touched">
+                          Leave Type is required
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label">Number of Leaves<span class="warning">*</span> </label>
+                    <div>
+                      <input id="numLeaves" type="text" disabled="disabled" class="form-control" required formControlName="numDays" [ngModel]="model.numDays"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label">Start Date<span class="warning">*</span> </label>
+                    <div>
+                      <p-calendar id="start" required dateFormat="dd/mm/yy" [showIcon]="true" (onSelect)="startChanged()" formControlName="start"
+                        [(ngModel)]="model.start"  [disabled]="formDisabled"></p-calendar>
+                        <div class="alert alert-danger" *ngIf="applyLeaveForm.get('start').hasError('required') && applyLeaveForm.get('start').touched">
+                          Start Date is required
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label">End Date<span class="warning">*</span> </label>
+                    <div>
+                      <p-calendar  id="end" required dateFormat="dd/mm/yy" [(minDate)]="model.start" [showIcon]="true"
+                        (onSelect)="endChanged()" formControlName="end" [(ngModel)]="model.end"  [disabled]="formDisabled">
+                        </p-calendar>
+                        <div class="alert alert-danger" *ngIf="applyLeaveForm.get('end').hasError('required') && applyLeaveForm.get('end').touched">
+                          End Date is required
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label">Reason<span class="warning">*</span> 
+                                        </label>
+                    <div>
+                      <textarea id="reason" required formControlName="reason" (keyup)="reasonTextChanged()" class="fullWidth" [(ngModel)]="model.reason"></textarea>
+                      <div class="charsLeft pull-right">{{charsLeft}} characters left</div>
+                      <div class="alert alert-danger" *ngIf="applyLeaveForm.get('reason').hasError('required') && applyLeaveForm.get('reason').touched">
+                        Reason is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="!hideLeaveList">
+                    <div class="table-responsive" *ngIf="addLeaveArr.length>0">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Leave Type</th>
+                            <th>No. of Leaves</th>
+                            <th>Reason</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Delete</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of addLeaveArr; let index = index; trackBy: trackByFn">
+                            <td> {{ item.LeaveType.Value }} </td>
+                            <td> {{ item.NumberOfLeaves }} </td>
+                            <td> {{item.Reason }} </td>
+                            <td> {{item.StartDate | date:'dd/MM/y'}} </td>
+                            <td> {{item.EndDate | date:'dd/MM/y'}} </td>
+                            <td> <button type="button" pButton icon="fa fa-trash" (click)="deleteLeave(index)"></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    <button id="addLeave" [disabled]="applyLeaveForm.invalid || this.isValidationMessage" (click)="onAddLeave()" class="btn btn-outline">Add Leave</button>
+                    <button id="submit" [disabled]="applyLeaveForm.invalid || this.isValidationMessage" type="submit" class="btn btn-outline" (click)="submitForm(applyLeaveForm)">Submit</button>
+                    <button id="cancel" type="reset" (click)="cancelClick()" class="btn btn-outline">Cancel</button>
+                  </div>
+                </div>
+              </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
 </div>
 <!-- END CONTENT -->

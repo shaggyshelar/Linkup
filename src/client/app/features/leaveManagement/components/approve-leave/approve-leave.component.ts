@@ -24,7 +24,7 @@ import { MessageService } from '../../../core/shared/services/message.service';
 })
 export class ApproveLeaveComponent implements OnInit {
 
-  leaveObs: Observable<Leave[]>;
+  leaveList: Leave[];
   approvalRecords: any[];
   servRows = 10;
 
@@ -35,12 +35,64 @@ export class ApproveLeaveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    this.leaveObs = this.leaveService.getApproverLeaves();
+    this.getApproverLeave();
+  }
+  getApproverLeave() {
+    this.leaveService.getApproverLeaves().subscribe((res: any) => {
+      if(res.length>0) {
+        this.leaveList = res.reverse();
+      }
+    });
   }
 
-
-  editBtnClicked(id:string) {
+  editBtnClicked(id: string) {
     this.router.navigate(['/leave/single-approval', id]);
+  }
+
+  approveLeave(id: string) {
+    var params = {
+        Comments: 'Approved!!',
+        Status: 'Approved',
+        LeaveRequestRefId:id
+    };
+    this.leaveService.singleLeaveApprove(params).subscribe(res => {
+        if (res) {
+            this.getApproverLeave();
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_APPROVED });
+        } else {
+            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
+        }
+    });
+  }
+
+  rejectLeave(id: string) {
+      var params = {
+        Comments: 'Rejected!!',
+        Status: 'Rejected',
+        LeaveRequestRefId:id
+      };
+      this.leaveService.singleLeaveReject(params).subscribe(res => {
+        if (res) {
+            this.getApproverLeave();
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_REJECTED  });
+        } else {
+            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
+        }
+      });
+  }
+  getLeaveStatusClass(leave: any) {
+    if (leave.Status === 'Pending') {
+      return 'my-leaves-pending-leave';
+    }
+    if (leave.Status === 'Approved') {
+      return 'my-leaves-approved-leave';
+    }
+    if (leave.Status === 'Rejected') {
+      return 'my-leaves-rejected-leave';
+    }
+    if (leave.Status === 'Cancelled') {
+      return 'my-leaves-cancelled-leave';
+    }
+    return '';
   }
 }

@@ -8,7 +8,7 @@
     />
     <button type="submit" id="loginBtn" class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" [disabled]="authForm.form.invalid">Login</button>
     <div class="alert alert-danger" [hidden]="!showError">
-      "Invalid UserName or Password"
+      {{errorMessage}}
     </div>
   </form>
 </div>

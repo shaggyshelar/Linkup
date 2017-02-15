@@ -97,12 +97,12 @@ export class SingleApprovalComponent implements OnInit {
                     if (res) {
                         this.rejected = false;
                         this.approved = true;
-                        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave approved!' });
+                        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_APPROVED });
                         this.closeClicked();
                     } else {
                         this.rejected = true;
                         this.approved = false;
-                        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
+                        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
                     }
                 });
         }
@@ -123,12 +123,12 @@ export class SingleApprovalComponent implements OnInit {
                     if (res) {
                         this.rejected = true;
                         this.approved = false;
-                        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave rejected!' });
+                        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_REJECTED });
                         this.closeClicked();
                     } else {
                         this.rejected = false;
                         this.approved = true;
-                        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
+                        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
                     }
                 });
         }

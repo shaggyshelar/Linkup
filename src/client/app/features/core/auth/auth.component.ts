@@ -32,7 +32,7 @@ export class AuthComponent implements OnInit {
             },
             error => {
                 this.showError = true;
-                this.errorMessage = error.message;
+                this.errorMessage = error;
             });
     }
     getLoggedInUserPermission(): void {

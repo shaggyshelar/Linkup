@@ -58,9 +58,9 @@ export class ApproveLeaveComponent implements OnInit {
     this.leaveService.singleLeaveApprove(params).subscribe(res => {
         if (res) {
             this.getApproverLeave();
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave approved!' });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_APPROVED });
         } else {
-            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
+            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
         }
     });
   }
@@ -74,9 +74,9 @@ export class ApproveLeaveComponent implements OnInit {
       this.leaveService.singleLeaveReject(params).subscribe(res => {
         if (res) {
             this.getApproverLeave();
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave approved!' });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_REJECTED  });
         } else {
-            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
+            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
         }
       });
   }

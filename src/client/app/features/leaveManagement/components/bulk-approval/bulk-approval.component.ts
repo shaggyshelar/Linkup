@@ -73,12 +73,12 @@ export class BulkApproveComponent implements OnInit {
             if (res) {
                this.rejected = true;
                this.approved = false;
-               this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves approved!' });
+               this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_APPROVED  });
                this.getApproverLeaves();
                this.bulkApprovalForm.reset();
                this.selectedEmployees = [];
          } else {
-            this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: 'Failed to process your request.' });
+            this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: MessageService.REQUEST_FAILED  });
          }
       });
       }
@@ -93,12 +93,12 @@ export class BulkApproveComponent implements OnInit {
             if (res) {
                this.rejected = false;
                this.approved = true;
-               this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leaves rejected!' });
+               this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_REJECTED });
                this.getApproverLeaves();
                this.bulkApprovalForm.reset();
                this.selectedEmployees = [];
          } else {
-            this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: 'Failed to process your request.' });
+            this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: MessageService.REQUEST_FAILED  });
          }
       });
       }

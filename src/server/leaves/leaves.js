@@ -7,8 +7,19 @@ var _ = require('lodash');
 module.exports = function (app) {
 app.get('/api/LeaveDetails/GetCurrentUserPendingLeaveCount', function (req, res) {
         var pendingLeaves = {
-            "LeaveTotal": 5,
+            "LeaveTotal": 1,
             "HalfdayLeaveTotal": 5,
+            "FloatingHolidayTotal": 0,
+            "MarriageLeaveTotal": 0,
+            "PaternityLeaveTotal": 0,
+            "MaternityLeaveTotal": 0
+        }
+        res.json(pendingLeaves);
+    });
+    app.post('/api/LeaveDetails/GetCurrentUserCurrentMonthLeaveCount', function (req, res) {
+        var pendingLeaves = {
+            "LeaveTotal": 0,
+            "HalfdayLeaveTotal": 0,
             "FloatingHolidayTotal": 0,
             "MarriageLeaveTotal": 0,
             "PaternityLeaveTotal": 0,

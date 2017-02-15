@@ -53,6 +53,7 @@ export class ApplyLeaveComponent implements OnInit {
     isValidationMessage:boolean=false;
     formDisabled:boolean=false;
     hideLeaveList:boolean=false;
+    itsWeekend:boolean=false;
     validationMessage:string='';
     constructor(
         private messageService: MessageService,
@@ -186,17 +187,35 @@ export class ApplyLeaveComponent implements OnInit {
     }
 
     dayDiffCalc() {
+        this.itsWeekend=false;
         this.isValidationMessage=false;
         this.validationMessage='';
+        let leavevalue=1;
         let dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
         if(this.model.leaveType!==null) {
             let weekendCount=0;
             let holidayCount=0;
+            if(this.model.leaveType.Type==='Half Day Absent (LWP)' || this.model.leaveType.Type==='Half Day Leave') {
+                leavevalue=0.5;
+            }
             if(this.model.leaveType.Type==='Leave' || this.model.leaveType.Type==='Half Day Leave') {
                  weekendCount= this.getWeekEndCount(dayCount);
-                 this.checkPending((dayCount-weekendCount)*parseFloat(this.model.leaveType.Value));
+                 this.checkPending((dayCount-weekendCount)*leavevalue);
+            } else if(this.model.leaveType.Type==='Marriage Leave') {
+                 weekendCount= this.getWeekEndCount(dayCount);
+                 this.checkMarriagePending((dayCount-weekendCount)*leavevalue);
+            } else if(this.model.leaveType.Type==='Paternity Leave') {
+                weekendCount= this.getWeekEndCount(dayCount);
+                this.checkPaternityPending((dayCount-weekendCount)*leavevalue);
+            } else if(this.model.leaveType.Type==='Maternity Leave') {
+                this.checkMaternityPending((dayCount-weekendCount)*leavevalue);
             }
-            this.model.numDays=(dayCount-weekendCount)*parseFloat(this.model.leaveType.Value);
+            this.model.numDays=(dayCount-weekendCount)*leavevalue;
+            if(this.model.leaveType.Type==='Half Day Absent (LWP)') {
+               let weekendCountLWP = this.getWeekEndCount(dayCount);
+               this.model.numDays=this.model.numDays+weekendCountLWP/2;
+            }
+            this.checkForTraineeAndResigned();
         } else {
             this.model.numDays = dayCount;
         }
@@ -211,6 +230,9 @@ export class ApplyLeaveComponent implements OnInit {
                 weekendCount= weekendCount+1;
             }
         }
+        if(weekendCount===dayCount && this.model.leaveType.Type!=='Half Day Absent (LWP)') {
+            this.itsWeekend=true;
+        }
         return weekendCount;
     }
     checkHoliday(date:any) {
@@ -223,7 +245,50 @@ export class ApplyLeaveComponent implements OnInit {
     }
     checkPending(totalLeaveApplied:number) {
         if(this.currentUserLeaveDetail.ActualBalance-this.pendingLeaveCount.LeaveTotal < totalLeaveApplied ) {
-            this.validationMessage='No more leaves available. There are already pending leaves';
+            if(this.pendingLeaveCount.LeaveTotal==0) {
+                this.validationMessage='No more leaves available.';
+            } else {
+                this.validationMessage='No more leaves available. There are already pending leaves';
+            }
+            this.isValidationMessage=true;
+        }
+    }
+    checkMarriagePending(totalLeaveApplied:number) {
+        let totalMarriageLeave=parseInt(this.model.leaveType.Value);
+        let takenMarriageLeave=this.currentUserLeaveDetail.MarriageLeaveTaken;
+        let pendingMarriageLeave=this.pendingLeaveCount.MarriageLeaveTotal;
+        if(totalMarriageLeave-takenMarriageLeave-pendingMarriageLeave < totalLeaveApplied ) {
+            if(pendingMarriageLeave==0) {
+                this.validationMessage='No more marriage leaves available.';
+            } else {
+                this.validationMessage='No more marriage leaves available. There are already pending Marriage leaves';
+            }
+            this.isValidationMessage=true;
+        }
+    }
+    checkPaternityPending(totalLeaveApplied:number) {
+        let totalPaternityLeave=parseInt(this.model.leaveType.Value);
+        let takenPaternityLeave=this.currentUserLeaveDetail.PaternityLeaveTaken;
+        let pendingPaternityLeave=this.pendingLeaveCount.PaternityLeaveTotal;
+        if(totalPaternityLeave-takenPaternityLeave-pendingPaternityLeave < totalLeaveApplied ) {
+            if(pendingPaternityLeave==0) {
+                this.validationMessage='No more paternity leaves available.';
+            } else {
+                this.validationMessage='No more paternity leaves available. There are already pending paternity leaves';
+            }
+            this.isValidationMessage=true;
+        }
+    }
+    checkMaternityPending(totalLeaveApplied:number) {
+        let totalMaternityLeave=parseInt(this.model.leaveType.Value);
+        let takenMaternityLeave=this.currentUserLeaveDetail.MaternityLeaveTaken;
+        let pendingMaternityLeave=this.pendingLeaveCount.MaternityLeaveTotal;
+        if(totalMaternityLeave-takenMaternityLeave-pendingMaternityLeave < totalLeaveApplied ) {
+            if(pendingMaternityLeave==0) {
+                this.validationMessage='No more maternity leaves available.';
+            } else {
+                this.validationMessage='No more maternity leaves available. There are already maternity paternity leaves';
+            }
             this.isValidationMessage=true;
         }
     }
@@ -235,16 +300,39 @@ export class ApplyLeaveComponent implements OnInit {
                 EndDate :this.model.end
             };
             this.leaveService.checkIfAlreadyApplied(param).subscribe(res => {
-            if(res.StartDate!==null && !this.isValidationMessage) {
-                 this.validationMessage='You have already applied a leave from '
-                                        +moment(res.StartDate).format('DD/MM/YYYY')+' to '+moment(res.EndDate).format('DD/MM/YYYY');
-                 this.isValidationMessage=true;
-              }
+                 if(res.StartDate!==null && !this.isValidationMessage) {
+                     this.validationMessage='You have already applied a leave from '
+                                            +moment(res.StartDate).format('DD/MM/YYYY')+' to '+moment(res.EndDate).format('DD/MM/YYYY');
+                    this.isValidationMessage=true;
+                 }
             });
       }
+    }
+    checkForTraineeAndResigned() {
+        if(this.model.leaveType.Type==='Leave' || this.model.leaveType.Type==='Half Day Leave') {
+            if((this.userDetail.Designation.Value==='Trainee' ||
+                this.userDetail.Status.Value==='Resigned') && !this.isValidationMessage) {
+                let param = {
+                    LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name },
+                    StartDate:this.model.start,
+                    EndDate :this.model.end,
+                    NumberOfDays:this.model.numDays
+                 };
+               this.leaveService.checkIfAlreadyAppliedForTrainee(param).subscribe(res => {
+                 if(res!==null) {
+                    if(parseInt(res.LeaveTotal)>=1 || this.model.numDays>1 ) {
+                         this.validationMessage= 'You can take only one leave in this month! No more leaves available';
+                         this.isValidationMessage=true;
+                    } else if(parseInt(res.HalfdayLeaveTotal)>=1 || this.model.numDays>1 ) {
+                        this.validationMessage= 'You can take only one half day leave in this month! No more leaves available';
+                        this.isValidationMessage=true;
+                    }
+                 }
+            });
+        }
+        }
     }
     cancelClick() {
         this.router.navigate(['/leave/my-leaves']);
     }
-
 }

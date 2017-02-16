@@ -13,23 +13,29 @@ import { Router } from '@angular/router';
 })
 export class MyProfileComponent implements OnInit {
   isEdit: boolean;
+  profileInfo: any;
 
   constructor(
     private router: Router) {
     this.isEdit = false;
+    this.profileInfo = {};
   }
 
   ngOnInit(): void {
-    //
+    this.profileInfo = this.getCurrentUser();
   }
 
-  edit () {
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('loggedInUserDetails'));
+  }
+
+  edit() {
     this.isEdit = true;
   }
-  upload () {
+  upload() {
     this.isEdit = false;
   }
-  cancel () {
+  cancel() {
     this.isEdit = false;
   }
 }

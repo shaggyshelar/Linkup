@@ -10,10 +10,6 @@ import { AuthGuard } from '../core/index';
 export const ProfileRoutes: Route[] = [
   {
     path: '',
-    component: MyProfileComponent,
-    canActivate: [AuthGuard],
-    data: {
-      permissions: ['PROFILE.READ', 'PROFILE.UPDATE']
-    }
+    component: MyProfileComponent
   }
 ];

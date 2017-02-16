@@ -45,7 +45,6 @@ export class HolidaysComponent implements OnDestroy, OnInit {
   holiday: Holiday;
   holidayList: any;
   pendingHoliday: any;
-  header: any;
   constructor(
     private messageService: MessageService,
     private router: Router,
@@ -57,11 +56,6 @@ export class HolidaysComponent implements OnDestroy, OnInit {
 
 
   ngOnInit() {
-    this.header = {
-      left: 'title',
-      center: '',
-      right: 'today prev,next'
-    };
     this.holidayService.getHolidays().subscribe((res: any) => {
       this.holidayList = [];
       this.pendingHoliday = [];

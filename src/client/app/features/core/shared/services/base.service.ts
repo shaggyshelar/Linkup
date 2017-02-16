@@ -173,7 +173,7 @@ export class BaseService implements HttpServices {
             const err = body.error || body.Message || JSON.stringify(body);
             //errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
             errMsg=err;
-            if(error.status!==401){
+            if(error.status!==401) {
                 this.messageService.addMessage({ severity: 'error', summary: 'Failed', detail: errMsg  });
             }
         } else {
@@ -196,7 +196,7 @@ export class BaseService implements HttpServices {
         localStorage.clear();
         if(location.pathname!=='/login') {
             this.router.navigate(['/login'],{queryParams:{url:location.pathname}});
+             this.messageService.setSessionTimeOutMessage(true);
         }
-        this.messageService.addMessage({ severity: 'error', summary: 'Failed',life:6000, detail: 'Session Timeout.Please Login'  });
      }
 }

@@ -30,11 +30,11 @@ export class AuthComponent implements OnInit {
         if (localStorage.getItem('accessToken') !== null) {
             this._router.navigate(['/']);
         }
-        this.messageService.getMessages()
-            .subscribe((value: Object) => {
-                this.msgs = [];
-                this.msgs.push(value);
-        });
+      if(this.messageService.isSessionTimeout) {
+            this.msgs = [];
+            this.msgs.push({ severity: 'error', summary: 'Failed', detail: MessageService.SESSION_TIMEOUT  });
+            this.messageService.setSessionTimeOutMessage(false);
+       }
        this.route.queryParams.subscribe(params => {
                  if(params['url']) {
                     this.queryUrl=params['url'];

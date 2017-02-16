@@ -5,6 +5,7 @@ export class MessageService {
     public static LEAVE_APPROVED='Leave approved';
     public static REQUEST_FAILED='Request not completed';
     public static LEAVE_REJECTED='Leave Rejected';
+    public static SESSION_TIMEOUT='Session TimeOut. Please Login';
     public static APPLY_LEAVE_1='Your leave comes in between the financial year process. You cant proceed';
     public static APPLY_LEAVE_2='Leave applied';
     public static APPLY_LEAVE_3='No more leaves available.';
@@ -18,6 +19,8 @@ export class MessageService {
     public static APPLY_LEAVE_11= 'You can take only one leave in this month! No more leaves available';
     public static APPLY_LEAVE_12= 'You can take only one half day leave in this month! No more leaves available';
 
+    isSessionTimeout:boolean=false;
+
     onMessageAdd: EventEmitter<Object> = new EventEmitter<Object>();
 
     getMessages() {
@@ -26,5 +29,8 @@ export class MessageService {
 
     addMessage(value: Object) {
         this.onMessageAdd.emit(value);
+    }
+    setSessionTimeOutMessage(value:boolean) {
+        this.isSessionTimeout = value;
     }
 }

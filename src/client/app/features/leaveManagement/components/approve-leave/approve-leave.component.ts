@@ -14,6 +14,7 @@ import { Leave } from '../../models/leave';
 
 /** Other Module Dependencies */
 import { MessageService } from '../../../core/shared/services/message.service';
+import { AuthService } from '../../../core/auth/auth.service';
 
 /** Component Declaration */
 
@@ -27,14 +28,17 @@ export class ApproveLeaveComponent implements OnInit {
   leaveList: Leave[];
   approvalRecords: any[];
   servRows = 10;
+  userDetail:any;
 
   constructor(
     private messageService: MessageService,
     private router: Router,
-    private leaveService: LeaveService
+    private leaveService: LeaveService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
+    this.userDetail=this.authService.getCurrentUser();
     this.getApproverLeave();
   }
   getApproverLeave() {
@@ -43,6 +47,14 @@ export class ApproveLeaveComponent implements OnInit {
         this.leaveList = res.reverse();
       }
     });
+  }
+  checkIfApproverPresent(leave:any) {
+    for(let i=0;i<leave.PendingApprovers.length;i++) {
+      if(leave.PendingApprovers[i].ID===this.userDetail.Employee.ID) {
+         return true;
+      }
+    }
+    return false;
   }
 
   editBtnClicked(id: string) {

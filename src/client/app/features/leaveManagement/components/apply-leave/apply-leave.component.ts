@@ -138,7 +138,9 @@ export class ApplyLeaveComponent implements OnInit {
     }
 
     onAddLeave() {
-        let totalNoOfdays=moment(this.model.end).diff(this.model.start, 'days')+1;
+        this.checkIfAlreadyAdded();
+        if(!this.isValidationMessage) {
+            let totalNoOfdays=moment(this.model.end).diff(this.model.start, 'days')+1;
          for(let i=0;i<totalNoOfdays;i++) {
             if(this.model.leaveType.Type==='Half Day Leave' || this.model.leaveType.Type==='Leave') {
                 if(moment(this.model.start).add(i, 'days').day()===6 ||
@@ -158,6 +160,7 @@ export class ApplyLeaveComponent implements OnInit {
             };
             this.addLeaveArr.push(leave);
         }
+     }
     }
     deleteLeave(index:number) {
         this.addLeaveArr.splice(index,1);
@@ -191,6 +194,7 @@ export class ApplyLeaveComponent implements OnInit {
         this.isValidationMessage=false;
         this.validationMessage='';
         let leavevalue=1;
+        this.checkIfAlreadyAdded();
         let dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
         if(this.model.leaveType!==null) {
             let weekendCount=0;
@@ -220,6 +224,18 @@ export class ApplyLeaveComponent implements OnInit {
             this.model.numDays = dayCount;
         }
         this.checkIfAlreadyApplied();
+    }
+    checkIfAlreadyAdded() {
+        let totalNoOfdays=moment(this.model.end).diff(this.model.start, 'days')+1;
+        for(let i=0;i<this.addLeaveArr.length;i++) {
+             for(let j=0;j<totalNoOfdays;j++) {
+                 if(moment((this.model.start)).add(j, 'days').diff(this.addLeaveArr[i].StartDate)===0) {
+                      this.isValidationMessage=true;
+                      this.validationMessage=MessageService.APPLY_LEAVE_13;
+                      break;
+                 }
+             }
+        }
     }
     getWeekEndCount(dayCount:number) {
        let weekendCount=0;

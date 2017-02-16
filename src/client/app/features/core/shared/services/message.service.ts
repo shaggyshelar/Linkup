@@ -18,6 +18,7 @@ export class MessageService {
     public static APPLY_LEAVE_10='No more maternity leaves available. There are already pending maternity leaves';
     public static APPLY_LEAVE_11= 'You can take only one leave in this month! No more leaves available';
     public static APPLY_LEAVE_12= 'You can take only one half day leave in this month! No more leaves available';
+    public static APPLY_LEAVE_13= 'You have already applied Leave for selected date';
 
     isSessionTimeout:boolean=false;
 

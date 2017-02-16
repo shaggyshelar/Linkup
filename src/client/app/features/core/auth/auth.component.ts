@@ -1,7 +1,11 @@
 import { OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Component } from '@angular/core';
+import { Message } from 'primeng/primeng';
+import { MessageService } from '../shared/services/message.service';
+import { Observable }         from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
     moduleId: module.id,
@@ -10,10 +14,15 @@ import { Component } from '@angular/core';
     styleUrls: ['auth.component.css']
 })
 export class AuthComponent implements OnInit {
+    msgs: Message[] = [];
     public errorMessage: string;
     showError: boolean = false;
     public model: User;
-    constructor(private _router: Router, private authService: AuthService) {
+    queryUrl:'';
+    constructor(private _router: Router,
+            private route: ActivatedRoute,
+            private authService: AuthService,
+            private messageService: MessageService) {
         this.model = new User('', '');
     }
 
@@ -21,6 +30,16 @@ export class AuthComponent implements OnInit {
         if (localStorage.getItem('accessToken') !== null) {
             this._router.navigate(['/']);
         }
+        this.messageService.getMessages()
+            .subscribe((value: Object) => {
+                this.msgs = [];
+                this.msgs.push(value);
+        });
+       this.route.queryParams.subscribe(params => {
+                 if(params['url']) {
+                    this.queryUrl=params['url'];
+                 }
+             } );
     }
 
     login() {
@@ -46,7 +65,11 @@ export class AuthComponent implements OnInit {
         this.authService.getCurrentUserDetails()
             .subscribe(
             results => {
-                this._router.navigate(['/']);
+                if(this.queryUrl) {
+                    this._router.navigate([this.queryUrl]);
+                } else {
+                  this._router.navigate(['/']);
+                }
             });
     };
 }

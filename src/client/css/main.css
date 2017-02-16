@@ -58,3 +58,7 @@
 .hand-cursor{
   cursor: pointer;
 }
+
+.breadcrumb {
+    color :black !important
+}

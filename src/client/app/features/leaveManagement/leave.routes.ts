@@ -54,7 +54,7 @@ export const LeaveRoutes: Route[] = [
     component: BulkApproveComponent,
     canActivate: [AuthGuard],
     data: {
-      permissions: ['LEAVE.APPROVAL.MANAGE']
+      permissions: ['LEAVE.BULK_APPROVAL.MANAGE']
     }
   },
   {
@@ -62,7 +62,7 @@ export const LeaveRoutes: Route[] = [
     component: UpdateLeaveComponent,
     canActivate: [AuthGuard],
     data: {
-      permissions: ['LEAVE.UPDATE', 'LEAVE.READ']
+      permissions: ['LEAVE.MY_LEAVE.MANAGE']
     }
   },
   {
@@ -70,7 +70,7 @@ export const LeaveRoutes: Route[] = [
     component: SingleApprovalComponent,
     canActivate: [AuthGuard],
     data: {
-      permissions: ['LEAVE.UPDATE', 'LEAVE.READ']
+      permissions: ['LEAVE.APPROVAL.MANAGE']
     }
   }
 ];

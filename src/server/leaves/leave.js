@@ -3,9 +3,10 @@ var leaveType = require('./leaveType');
 var leave = [
     {
         ID: 6527,
+        LeaveRequestMasterId:1,
         Employee: {
             ID: 12345,
-            Name: 'FName Lname',
+            Name: 'Sagar Shelar',
             Department: 'EBS'
         },
         Type: leaveType[2],
@@ -13,7 +14,7 @@ var leave = [
         EndDate: new Date('12/12/2016 00:00:00'),
         NumberOfDays: 1,
         Comment: 'Granted',
-        Status: 'Approved',
+        Status: 'Rejected',
         Reason: 'Going home',
         EmpID:1023,
         Approvers: [
@@ -38,10 +39,11 @@ var leave = [
         ]
     },
     {
+        LeaveRequestMasterId:2,
         ID: 6137,
         Employee: {
             ID: 12345,
-            Name: 'FName Lname',
+            Name: 'Ajit More',
             Department: 'EBS'
         },
         EmpID:1025,
@@ -50,7 +52,7 @@ var leave = [
         EndDate: new Date('3/1/2017 00:00:00'),
         NumberOfDays: 2,
         Comment: 'Granted',
-        Status: 'Partially Approved',
+        Status: 'Approved',
         Reason: 'holiday',
         Approvers: [
             {
@@ -77,10 +79,11 @@ var leave = [
         ]
     },
     {
+        LeaveRequestMasterId:3,
         ID: 6522,
         Employee: {
             ID: 12345,
-            Name: 'FName Lname',
+            Name: 'Salauddin Shaikh',
             Department: 'EBS'
         },
         Type: leaveType[0],
@@ -89,20 +92,20 @@ var leave = [
         EndDate: new Date('12/09/2016 00:00:00'),
         NumberOfDays: 1,
         Comment: 'Granted',
-        Status: 'Approved',
+        Status: 'Rejected',
         Reason: 'Birthday',
         Approvers: [
             {
-                Name: 'Sagar Shelar',
+                Name: 'Sagar Shelar Shelar',
                 Project: 'HRMS',
-                Manager: 'Sagar Shelar',
+                Manager: 'Sagar Shelar Shelar Shelar',
                 Status: 'Approved',
                 Comment: 'Approved'
             },
             {
                 Name: 'Kunal Adhikari',
                 Project: 'EBS',
-                Manager: 'Kunal Adhikari',
+                Manager: 'Kunal Kiran Adhikari',
                 Status: 'Approved',
                 Comment: 'Approved'
             },
@@ -117,9 +120,10 @@ var leave = [
     },
     {
         ID: 6524,
+        LeaveRequestMasterId:4,
         Employee: {
             ID: 12345,
-            Name: 'FName Lname',
+            Name: 'Mahesh Nikate',
             Department: 'EBS'
         },
         EmpID:1020,
@@ -128,13 +132,13 @@ var leave = [
         EndDate: new Date('12/12/2016 00:00:00'),
         NumberOfDays: 0.5,
         Comment: '',
-        Status: '',
+        Status: 'Pending',
         Reason: 'Personal',
         Approvers: [
               {
                 Name: 'Sagar Shelar',
                 Project: 'HRMS',
-                Manager: 'Sagar Shelar',
+                Manager: 'Sagar Shelar Shelar',
                 Status: 'Approved',
                 Comment: 'Approved'
             },
@@ -164,9 +168,10 @@ var leave = [
     },
     {
         ID: 6000,
+        LeaveRequestMasterId:5,
         Employee: {
             ID: 12345,
-            Name: 'FName Lname',
+            Name: 'Sachin Sarse',
             Department: 'EBS'
         },
         EmpID:10222,
@@ -208,7 +213,7 @@ var leave = [
                 Name: 'Pooja Merchant',
             }
         ]
-    }
+    },
 ];
 
 module.exports = leave;

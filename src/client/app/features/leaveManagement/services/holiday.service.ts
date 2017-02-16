@@ -19,7 +19,7 @@ export const CONTEXT = 'Holiday';
 export class HolidayService extends BaseService {
 
     constructor(public http: Http) {
-        super( http, CONTEXT);
+        super(http, CONTEXT);
     }
 
     /**
@@ -27,6 +27,23 @@ export class HolidayService extends BaseService {
      * Gets array of Holiday objects
      */
     getHolidays(): Observable<Holiday> {
-        return this.getList$().map(res=> res.json());
+        let currentYear = new Date().getFullYear().toString();
+        let items = localStorage.getItem(currentYear);
+
+        if (items === null) {
+            console.log('Get Data from server');
+        } else {
+            console.log('Found Holidays in LocalStorage', JSON.parse(items));
+        }
+
+        return this.getList$(0, 0, true).map(res => {
+            localStorage.setItem(currentYear, JSON.stringify(res.json()));
+            return res.json();
+        });
+    }
+    getHolidayByFinancialYear(id:string) {
+        return this
+            .get$(id,true)
+            .map(res => res.json());
     }
 }

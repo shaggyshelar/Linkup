@@ -104,17 +104,17 @@
     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
     <li class="dropdown dropdown-user dropdown-dark  hidden-xs">
       <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-        <span class="username username-hide-on-mobile"> {{userDetail.Name}} </span>
+        <span class="username username-hide-on-mobile"> {{userDetail.Employee.Name}} </span>
         <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->        
             <i class="fa fa-user icon-size"></i>
         </a>
       <ul class="dropdown-menu dropdown-menu-default">
         <li>
-          <a routerLink="/profile" routerLinkActive="active">
+          <a routerLink="/profile" style="display:none" routerLinkActive="active">
             <i class="icon-user"></i>My Profile
           </a>
         </li>
-        <li>
+        <li style="display:none">
           <a routerLink="/change-password" routerLinkActive="active">
             <i class="icon-wrench"></i>Change Password
           </a>

@@ -20,7 +20,7 @@ module.exports = function (app) {
     });
     app.get('/api/auth/currentusername', utils.EnsureAuthenticated, function (req, res) {
         var user= {    
-              "Id": 85,
+              "ID": 85,
               "Name": "Kunal Adhikari"
             };
         res.json(user);

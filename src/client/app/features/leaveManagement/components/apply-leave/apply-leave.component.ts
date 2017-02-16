@@ -1,13 +1,12 @@
 /** Angular Dependencies */
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { OnInit, OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 
 /** Module Level Dependencies */
 import { LeaveService } from '../../services/leave.service';
-import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { Select } from '../../models/select';
 import { ApplyLeaveValidation } from '../../models/applyLeaveValidation';
@@ -16,11 +15,11 @@ import { ApplyLeaveValidation } from '../../models/applyLeaveValidation';
 import { MessageService } from '../../../core/shared/services/message.service';
 import { LeaveTypeMasterService } from '../../../core/shared/services/master/leaveTypeMaster.service';
 import * as moment from 'moment/moment';
-
+import { AuthService } from '../../../core/auth/auth.service';
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
 import { SelectItem } from 'primeng/primeng';
-
+import { HolidayService } from '../../services/holiday.service';
 /** Component Declaration */
 
 
@@ -31,40 +30,40 @@ import { SelectItem } from 'primeng/primeng';
     styleUrls: ['apply-leave.component.css']
 })
 
-export class ApplyLeaveComponent implements OnInit,OnDestroy {
-    leaveTypesObs: Observable<Select>;
-    leaveObs: Observable<boolean>;
-    userObs: Observable<User>;
+export class ApplyLeaveComponent implements OnInit {
     applyLeaveForm: FormGroup;
     addLeaveArr: any[];
     leaveTypeValid: boolean = true;
     leaveID: number;
-    strtDt: any;
-    endDt: any;
+    //strtDt: any;
+    //endDt: any;
     minDate: Date;
     charsLeft: number = 600;
     isLeaveAdded: boolean = false;
     isEndDtEnable: boolean = true;
-    dayCount: any;
+    //dayCount: any;
     leaves: SelectItem[];
     model: ApplyLeaveValidation;
-    subLeaveType: any;
     finalLeaveData:any;
+    userDetail:any;
+    activeProjects:any;
+    holidayList:any;
+    pendingLeaveCount:any;
+    currentUserLeaveDetail:any;
+    isValidationMessage:boolean=false;
+    formDisabled:boolean=false;
+    hideLeaveList:boolean=false;
+    validationMessage:string='';
     constructor(
         private messageService: MessageService,
         private router: Router,
-        private userService: UserService,
         private leaveService: LeaveService,
         private leaveTypeService: LeaveTypeMasterService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private authService: AuthService,
+        private holidayService: HolidayService
     ) {
-        this.leaves = [
-            // { label: 'Submit', value: null },
-            // { label: 'Leave', value: { id: 1, name: 'Leave' } },
-            // { label: 'Half-day Leave', value: { id: 2, name: 'Half-day Leave' } },
-            // { label: 'Absent', value: { id: 3, name: 'Absent' } },
-            // { label: 'Half-day Absent', value: { id: 4, name: 'Half-day Absent' } }
-        ];
+        this.leaves = [];
         this.addLeaveArr = [];
 
         this.model = {
@@ -74,8 +73,8 @@ export class ApplyLeaveComponent implements OnInit,OnDestroy {
             },
             numDays: 1,
             leaveType: null,
-            end: new Date(),
-            start: new Date(),
+            end: moment(moment().format('MM/DD/YYYY')).toDate(),
+            start: moment(moment().format('MM/DD/YYYY')).toDate(),
             reason: ''
         };
 
@@ -89,58 +88,45 @@ export class ApplyLeaveComponent implements OnInit,OnDestroy {
     }
 
     ngOnInit() {
-
-        this.userObs = this.userService.getUserDetails();
-        this.subLeaveType = this.leaveTypeService.getLeaveTypes().subscribe((res:any) => {
+       this.leaveTypeService.getLeaveTypes().subscribe((res:any) => {
             this.leaves.push({ label: 'Select', value: null });
             for (var index in res) {
-                this.leaves.push({ label: res[index].name, value: res[index] });
+                if(res[index].Applicable==='Yes') {
+                  this.leaves.push({ label: res[index].Type, value: res[index] });
+                }
+            }
+        });
+        this.leaveService.getActiveProjects().subscribe(res => {
+            this.activeProjects=res;
+        });
+        this.userDetail=this.authService.getCurrentUser();
+        this.holidayService.getHolidayByFinancialYear('2016').subscribe(res => {
+            this.holidayList=res;
+        });
+        this.leaveService.getCurrentUserPendingLeaveCount().subscribe(res => {
+            this.pendingLeaveCount=res;
+        });
+        this.leaveService.getLeaveDetails().subscribe((res: any) => {
+            if(res===null) {
+                this.validationMessage='Your leave comes in between the financial year process. You cant proceed';
+                this.isValidationMessage=true;
+                this.formDisabled=true;
+            } else {
+               this.currentUserLeaveDetail = res;
             }
         });
     }
 
-    ngOnDestroy() {
-        this.subLeaveType.unsubscribe();
-    }
 
     submitForm(form: NgForm) {
-        this.validateLeaveType();
-        if (!this.leaveTypeValid)
-            return;
-
-        //call to backend submit
-        let params = {
-            User: this.model.User,
-            NumberOfLeave: this.model.numDays,
-            StartDate: this.model.start,
-            EndDate: this.model.end,
-            Comment: '',
-            Status: '',
-            Reason: this.model.reason,
-            Approvers: [
-                {
-                    Project: 'HRMS',
-                    Manager: 'Sagar Shelar',
-                    Status: 'Approved',
-                    Comment: 'Approved'
-                },
-                {
-                    Project: 'EBS',
-                    Manager: 'Kunal Adhikari',
-                    Status: 'Approved',
-                    Comment: 'Approved'
-                },
-                {
-                    Project: 'HR',
-                    Manager: 'Pooja Merchant',
-                    Status: 'Approved',
-                    Comment: 'Approved'
-                }
-            ],
-            Type: { ID: this.model.leaveType.id, Title: this.model.leaveType.name }
-        };
-        console.log('mode : ' + JSON.stringify(this.model));
-        this.leaveService.addLeaveRecord(params).subscribe(res => {
+        if(this.addLeaveArr.length===0) {
+            this.validateLeaveType();
+            if (!this.leaveTypeValid)
+                return;
+            this.onAddLeave();
+            this.hideLeaveList=true;
+        }
+        this.leaveService.submitLeaveRecord(this.addLeaveArr).subscribe(res => {
             if (res) {
                 this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave applied!' });
                 this.cancelClick();
@@ -150,64 +136,113 @@ export class ApplyLeaveComponent implements OnInit,OnDestroy {
         });
     }
 
+    onAddLeave() {
+        let totalNoOfdays=moment(this.model.end).diff(this.model.start, 'days')+1;
+         for(let i=0;i<totalNoOfdays;i++) {
+            if(this.model.leaveType.Type==='Half Day Leave' || this.model.leaveType.Type==='Leave') {
+                if(moment(this.model.start).add(i, 'days').day()===6 ||
+                   moment(this.model.start).add(i, 'days').day()===0 ||
+                   this.checkHoliday(moment(this.model.start).add(i, 'days'))
+                   ) {
+                    continue;
+                 }
+            }
+            let leave = {
+                NumberOfLeaves:this.model.leaveType.Value==='0.5'?0.5:1,
+                NumberOfDays: 1,
+                StartDate: moment(this.model.start).add(i, 'days'),
+                EndDate: moment(this.model.start).add(i, 'days'),
+                Reason: this.model.reason,
+                LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name }
+            };
+            this.addLeaveArr.push(leave);
+        }
+    }
+    deleteLeave(index:number) {
+        this.addLeaveArr.splice(index,1);
+    }
     startChanged() {
         this.model.end = this.model.start;
         this.minDate = this.model.start;
+        this.dayDiffCalc();
     }
 
     endChanged() {
-        this.strtDt = this.model.start;
-        this.endDt = this.model.end;
+        //this.strtDt = this.model.start;
+        //this.endDt = this.model.end;
         this.dayDiffCalc();
     }
 
     validateLeaveType() {
-        switch (this.model.leaveType.id) {
-            case 1:
-                this.leaveTypeValid = true;
-                this.isEndDtEnable = true;
-                this.leaveID = 1;
-                this.model.numDays = 1;
-                return;
-
-            case 2:
-                this.leaveTypeValid = true;
-                this.model.numDays = 0.5;
-                this.isEndDtEnable = false;
-                this.leaveID = 2;
-                return;
-
-            case 3:
-                this.leaveTypeValid = true;
-                this.isEndDtEnable = true;
-                this.leaveID = 3;
-                this.model.numDays = 1;
-                return;
-
-            case 4:
-                this.leaveTypeValid = true;
-                this.model.numDays = 0.5;
-                this.isEndDtEnable = false;
-                this.leaveID = 4;
-                return;
-
-            default:
-                this.leaveTypeValid = false;
-                this.model.numDays = 0;
-                return;
-        }
+        if(this.model.leaveType!==null) {
+           this.leaveTypeValid = true;
+           this.dayDiffCalc();
+           return;
+      }
     }
 
     reasonTextChanged() {
         this.charsLeft = 600 - this.model.reason.length;
     }
 
-    dayDiffCalc() { // input given as Date objects
-        this.dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
-        this.model.numDays = this.dayCount;
-        return this.dayCount;
+    dayDiffCalc() {
+        this.isValidationMessage=false;
+        this.validationMessage='';
+        let dayCount =  (moment(this.model.end).diff(this.model.start, 'days')+1);
+        if(this.model.leaveType!==null) {
+            let weekendCount=0;
+            let holidayCount=0;
+            if(this.model.leaveType.Type==='Leave' || this.model.leaveType.Type==='Half Day Leave') {
+                 weekendCount= this.getWeekEndCount(dayCount);
+                 this.checkPending((dayCount-weekendCount)*parseFloat(this.model.leaveType.Value));
+            }
+            this.model.numDays=(dayCount-weekendCount)*parseFloat(this.model.leaveType.Value);
+        } else {
+            this.model.numDays = dayCount;
+        }
+        this.checkIfAlreadyApplied();
     }
-
+    getWeekEndCount(dayCount:number) {
+       let weekendCount=0;
+        for(let i=0;i<dayCount;i++) {
+            if( moment(this.model.start).add(i, 'days').day()===6 ||
+                moment(this.model.start).add(i, 'days').day()===0 ||
+                this.checkHoliday(moment(this.model.start).add(i, 'days'))) {
+                weekendCount= weekendCount+1;
+            }
+        }
+        return weekendCount;
+    }
+    checkHoliday(date:any) {
+        for(let  i=0;i<this.holidayList.length;i++ ) {
+            if(moment(this.holidayList[i].HolidayDate).diff(date, 'days')===0) {
+                return true;
+            }
+        }
+        return false;
+    }
+    checkPending(totalLeaveApplied:number) {
+        if(this.currentUserLeaveDetail.ActualBalance-this.pendingLeaveCount.LeaveTotal < totalLeaveApplied ) {
+            this.validationMessage='No more leaves available. There are already pending leaves';
+            this.isValidationMessage=true;
+        }
+    }
+    checkIfAlreadyApplied() {
+        if(this.model.leaveType!==null && !this.isValidationMessage) {
+             let param = {
+                LeaveType: { ID: this.model.leaveType.ID, Value: this.model.leaveType.Name },
+                StartDate:this.model.start,
+                EndDate :this.model.end
+            };
+            this.leaveService.checkIfAlreadyApplied(param).subscribe(res => {
+            if(res.StartDate!==null && !this.isValidationMessage) {
+                 this.validationMessage='You have already applied a leave from '
+                                        +moment(res.StartDate).format('DD/MM/YYYY')+' to '+moment(res.EndDate).format('DD/MM/YYYY');
+                 this.isValidationMessage=true;
+              }
+            });
+      }
+    }
     cancelClick() {
         this.router.navigate(['/leave/my-leaves']);
     }

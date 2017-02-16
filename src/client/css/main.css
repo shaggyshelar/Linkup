@@ -49,3 +49,10 @@
   margin: 1em;
   right: 0px;
 }
+.wrap-text-inline{
+  white-space: nowrap;
+}
+
+.hand-cursor{
+  cursor: pointer;
+}

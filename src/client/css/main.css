@@ -3,6 +3,8 @@
      border: none !important;
      border-top: 1px solid #ddd !important;
      font-weight: bold;
+     color: #2399e5 !important;
+     border-left: 2px solid #ddd !important;
  } 
 
 .page-header.navbar .page-logo .logo-default {

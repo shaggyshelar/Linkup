@@ -32,7 +32,7 @@ export class MyEvent {
   templateUrl: 'holidays.component.html'
 })
 
-export class HolidaysComponent implements OnDestroy,OnInit {
+export class HolidaysComponent implements OnDestroy, OnInit {
   servRows = 7;
 
   holidays: any;
@@ -43,8 +43,9 @@ export class HolidaysComponent implements OnDestroy,OnInit {
 
   holidayDetails: boolean = false;
   holiday: Holiday;
-  holidayList:any;
-  pendingHoliday:any;
+  holidayList: any;
+  pendingHoliday: any;
+  header: any;
   constructor(
     private messageService: MessageService,
     private router: Router,
@@ -56,25 +57,30 @@ export class HolidaysComponent implements OnDestroy,OnInit {
 
 
   ngOnInit() {
-    this.holidayService.getHolidays().subscribe((res:any) => {
-        this.holidayList=[];
-        this.pendingHoliday=[];
-        for(let i=0;i<res.length;i++) {
-          res[i].title=res[i].Title;
-          res[i].start=moment(res[i].HolidayDate);
-          res[i].color='#288054';
-          this.holidayList.push(res[i]);
-          if((moment(res[i].start).diff(moment(), 'days')) > -1) {
-            this.pendingHoliday.push(res[i]);
-          }
+    this.header = {
+      left: 'title',
+      center: '',
+      right: 'today prev,next'
+    };
+    this.holidayService.getHolidays().subscribe((res: any) => {
+      this.holidayList = [];
+      this.pendingHoliday = [];
+      for (let i = 0; i < res.length; i++) {
+        res[i].title = res[i].Title;
+        res[i].start = moment(res[i].HolidayDate);
+        res[i].color = '#288054';
+        this.holidayList.push(res[i]);
+        if ((moment(res[i].start).diff(moment(), 'days')) > -1) {
+          this.pendingHoliday.push(res[i]);
         }
-        this.holidayList= res;
+      }
+      this.holidayList = res;
     });
   }
   ngOnDestroy() {
     // this.subscription.unsubscribe();
   }
-  handleEventClicked(event:any) {
+  handleEventClicked(event: any) {
     let start = event.calEvent.start;
     start.stripTime();
     this.holiday.Title = event.calEvent.title;
@@ -82,7 +88,7 @@ export class HolidaysComponent implements OnDestroy,OnInit {
     this.dialogVisible = true;
   }
 
-  typeClicked(holiday:any) {
+  typeClicked(holiday: any) {
     this.holiday = {
       ID: null,
       HolidayDate: holiday.start,
@@ -94,7 +100,7 @@ export class HolidaysComponent implements OnDestroy,OnInit {
 
   }
 
-  arrangeData(params:any) {
+  arrangeData(params: any) {
     // TODO : Code For Arrange Leave
   }
 

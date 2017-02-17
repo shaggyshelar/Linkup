@@ -132,7 +132,7 @@
                     <label class="control-label">Reason<span class="warning">*</span> 
                                         </label>
                     <div>
-                      <textarea id="reason" required formControlName="reason" (keyup)="reasonTextChanged()" class="fullWidth" [(ngModel)]="model.reason"></textarea>
+                      <textarea id="reason" required formControlName="reason" (keyup)="reasonTextChanged()" class="fullWidth" [(ngModel)]="model.reason" [attr.maxLength]="textareaLength"></textarea>
                       <div class="charsLeft pull-right">{{charsLeft}} characters left</div>
                       <div class="alert alert-danger" *ngIf="applyLeaveForm.get('reason').hasError('required') && applyLeaveForm.get('reason').touched">
                         Reason is required

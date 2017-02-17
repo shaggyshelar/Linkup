@@ -38,6 +38,7 @@ export class ApplyLeaveComponent implements OnInit {
     //strtDt: any;
     //endDt: any;
     minDate: Date;
+    textareaLength :number=600;
     charsLeft: number = 600;
     isLeaveAdded: boolean = false;
     isEndDtEnable: boolean = true;

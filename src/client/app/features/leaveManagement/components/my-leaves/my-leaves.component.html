@@ -39,7 +39,7 @@
                   <tr>
                     <td> Leave </td>
                     <td> {{ leaveDetail ? leaveDetail.LeaveTaken:'' }} </td>
-                    <td> {{ leaveDetail ?  (leaveDetail.ActualBalance| number : '1.2-3')  :'' }} </td>
+                    <td> {{ leaveDetail ? (leaveDetail.ActualBalance| number : '1.2-3') :'' }} </td>
                   </tr>
                   <tr>
                     <td> Half Day Leave </td>
@@ -73,12 +73,15 @@
               <span class="caption-subject font-dark bold uppercase">My Leaves</span>
             </div>
             <div class="tools">
-              <a href="" class="expand" data-original-title="" title=""> </a>
+              <a>
+                <span *ngIf="showLeaves" class="glyphicon glyphicon-chevron-down" (click)="showMyLeaves()"></span>
+                <span *ngIf="!showLeaves" class="glyphicon glyphicon-chevron-up" (click)="showMyLeaves()"></span>
+              </a>
             </div>
           </div>
-          <div class="portlet-body" [hidden]="true">
+          <div class="portlet-body" [hidden]="!showLeaves">
             <p-dataTable [value]="myLeaveList" [paginator]="true" [rowStyleClass]="getLeaveStatusClass" [rows]=(servRows) [responsive]="true">
-              <p-column styleClass="hidden-xs" field="Employee.Name" header="Employee" ></p-column>
+              <p-column styleClass="hidden-xs" field="Employee.Name" header="Employee"></p-column>
               <p-column header="Start Date" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
                   {{rowData.StartDate | date:'dd/MM/y'}}
@@ -90,9 +93,9 @@
                 </template>
               </p-column>
               <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>
-              <p-column  styleClass="hidden-xs" field="Status" header="Status" [sortable]="true">
+              <p-column styleClass="hidden-xs" field="Status" header="Status" [sortable]="true">
                 <template let-col let-rowData="rowData" pTemplate="body">
-                  <span [ngClass]="getLeaveStatusClass(rowData.Status)" >{{rowData.Status}}</span>
+                  <span [ngClass]="getLeaveStatusClass(rowData.Status)">{{rowData.Status}}</span>
                 </template>
               </p-column>
               <p-column styleClass="col-button" header="Edit" field="color">

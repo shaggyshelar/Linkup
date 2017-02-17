@@ -29,6 +29,7 @@ export class MyLeavesComponent implements OnInit {
   public myLeaveList: Leave[];
   public leaveDetObs: Observable<LeaveDetail>;
   public leaveDetail: any;
+  showLeaves: any;
   servRows = 5;
   leaves: {};
   leave: any;
@@ -40,11 +41,12 @@ export class MyLeavesComponent implements OnInit {
     private userService: UserService
   ) {
     this.leaves = [];
+    this.showLeaves = false;
   }
 
   ngOnInit() {
     this.leaveService.getMyLeaves().subscribe((res: any) => {
-      if(res.length>0) {
+      if (res.length > 0) {
         this.myLeaveList = res.reverse();
       }
     });
@@ -55,6 +57,10 @@ export class MyLeavesComponent implements OnInit {
 
   applyLeaveClicked() {
     this.router.navigate(['/leave/apply-leave']);
+  }
+  
+  showMyLeaves() {   
+    this.showLeaves = !this.showLeaves;
   }
 
   updateBtnClicked(leave: any) {

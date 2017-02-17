@@ -13,7 +13,7 @@
           <i class="fa fa-circle"></i>
         </li>
         <li>
-          <span>Dashboard</span>
+          <span>Home</span>
           <i class="fa fa-circle"></i>
         </li>
       </ul>
@@ -43,7 +43,7 @@
             <div id="ctl00_ctl53_g_707d6c1c_d6e3_43f3_8791_afd96be4529e_MyBalanceLeaves" class="number" style="font-size: 15px;padding-top: 0px;">
               &nbsp;My Leaves
             </div>
-            <div id="ctl00_ctl53_g_707d6c1c_d6e3_43f3_8791_afd96be4529e_BalanceLeavesCnt" class="desc" style="font-size: 15px;">Balance : 6.906</div>
+            <div id="ctl00_ctl53_g_707d6c1c_d6e3_43f3_8791_afd96be4529e_BalanceLeavesCnt" class="desc" style="font-size: 15px;">Balance : {{ leaveDetail ?  (leaveDetail.ActualBalance| number : '1.2-3')  :'' }}</div>
           </div>
         </a>
       </div>

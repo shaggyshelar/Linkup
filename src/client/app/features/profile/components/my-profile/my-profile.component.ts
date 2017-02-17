@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class MyProfileComponent implements OnInit {
   isEdit: boolean;
   profileInfo: any;
+  src: any;
 
   constructor(
     private router: Router) {
@@ -23,6 +24,11 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileInfo = this.getCurrentUser();
+    if (this.profileInfo.ProfilePictureName) {
+      this.src = "http://espld168:202//ProfilePictureLibrary/" + this.profileInfo.ProfilePictureName + ".JPG"
+    } else {
+      this.src = "../assets/images/default-user.jpg"
+    }
   }
 
   getCurrentUser() {

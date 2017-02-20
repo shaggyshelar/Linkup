@@ -173,7 +173,7 @@
                 <div class="col-md-12">
                   <div class="pull-right">
                     <button id="addLeave" [disabled]="applyLeaveForm.invalid || this.isValidationMessage || this.itsWeekend" (click)="onAddLeave()" class="btn btn-outline">Add Leave</button>
-                    <button id="submit" [disabled]="applyLeaveForm.invalid || this.isValidationMessage || this.itsWeekend || addLeaveArr.length === 0" type="submit" class="btn btn-outline" (click)="submitForm(applyLeaveForm)">Submit</button>
+                    <button id="submit" [disabled]=" addLeaveArr.length === 0" type="submit" class="btn btn-outline" (click)="submitForm(applyLeaveForm)">Submit</button>
                     <button id="cancel" type="reset" (click)="cancelClick()" class="btn btn-outline">Cancel</button>
                   </div>
                 </div>

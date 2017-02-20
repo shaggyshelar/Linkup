@@ -25,7 +25,7 @@ export class MyProfileComponent implements OnInit {
   ngOnInit(): void {
     this.profileInfo = this.getCurrentUser();
     if (this.profileInfo.ProfilePictureName) {
-      this.src = 'http://espld168:202/Profile%20Picture%20Library/' + this.profileInfo.ProfilePictureName + '.JPG';
+      this.src = 'http://192.168.100.153:202/Profile%20Picture%20Library/' + this.profileInfo.ProfilePictureName + '.JPG';
     } else {
       this.src = '../assets/images/default-user.jpg';
     }

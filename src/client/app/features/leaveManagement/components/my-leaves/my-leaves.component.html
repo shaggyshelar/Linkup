@@ -67,15 +67,15 @@
       <!-- START HOLIDAY LIST COMPONENT BY PRIMENG -->
       <div class="col-lg-9 col-xs-12 col-sm-12">
         <div class="portlet light bordered">
-          <div class="portlet-title">
+          <div class="portlet-title hand-cursor"  (click)="showMyLeaves()">
             <div class="caption">
               <i class="icon-equalizer font-dark hide"></i>
               <span class="caption-subject font-dark bold uppercase">My Leaves</span>
             </div>
             <div class="tools">
               <a>
-                <span *ngIf="showLeaves" class="glyphicon glyphicon-chevron-down" (click)="showMyLeaves()"></span>
-                <span *ngIf="!showLeaves" class="glyphicon glyphicon-chevron-up" (click)="showMyLeaves()"></span>
+                <i *ngIf="!showLeaves" class="fa fa-chevron-up" aria-hidden="true"></i>
+			        	<i *ngIf="showLeaves" class="fa fa-chevron-down" aria-hidden="true"></i>
               </a>
             </div>
           </div>

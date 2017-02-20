@@ -19,6 +19,7 @@ import { ApprovalForm } from '../../models/leaveApprovalValidation';
 
 /** Other Module Dependencies */
 import { MessageService } from '../../../core/shared/services/message.service';
+import { AuthService } from '../../../core/auth/auth.service';
 
 /** Component Declaration */
 
@@ -45,12 +46,14 @@ export class SingleApprovalComponent implements OnInit {
     leaveList:any;
     userDetail:any;
     isPending: boolean=false;
+    currentUser:any;
     constructor(
         private messageService: MessageService,
         private router: Router,
         private leaveService: LeaveService,
         private route: ActivatedRoute,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private authService: AuthService,
     ) {
 
         this.model = {
@@ -62,21 +65,30 @@ export class SingleApprovalComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.currentUser=this.authService.getCurrentUser();
         this.route.params.subscribe(params => {
             this.leaveID = params['id'];
         });
         this.leaveService.getLeaveDetailByRefID(this.leaveID).subscribe(res => {
             this.leaveList=res;
             this.getEmployeeDetails(this.leaveList[0].EmpID);
-            if(this.leaveList[0].Status==='Pending') {
-                this.isPending=true;
-            }
         });
         this.leaveService.getApproverListByRefID(this.leaveID).subscribe(res => {
             this.approverList=res;
+            this.checkIfPending();
         });
 
+    }
+
+  checkIfPending() {
+     for(let i=0;i<this.approverList.length;i++) {
+        if(this.approverList[i].Approver.ID===this.currentUser.Employee.ID) {
+          if(this.approverList[i].Status==='Pending') {
+             this.isPending=true;
+          }
+        }
+      }
+      this.isPending=false;
     }
     getEmployeeDetails(id:any) {
         this.leaveService.getEmployeeDetail(id).subscribe(res => {

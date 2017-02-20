@@ -102,7 +102,11 @@ export class ApplyLeaveComponent implements OnInit {
             this.activeProjects=res;
         });
         this.userDetail=this.authService.getCurrentUser();
-        this.holidayService.getHolidayByFinancialYear('2016').subscribe(res => {
+        let financialYear = moment().year();
+        if(moment().month()<=2 ) {
+            financialYear=financialYear-1;
+        }
+        this.holidayService.getHolidayByFinancialYear(financialYear.toString()).subscribe(res => {
             this.holidayList=res;
         });
         this.leaveService.getCurrentUserPendingLeaveCount().subscribe(res => {

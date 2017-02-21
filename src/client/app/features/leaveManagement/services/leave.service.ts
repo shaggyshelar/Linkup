@@ -236,6 +236,24 @@ export class LeaveService extends BaseService {
             return this.handleError(err);
         });
     }
+    hrLeaveApprove(payload:any) {
+        let headers = new Headers();
+        let body=JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.put(this.baseUrl+'LeaveApprovers/ApproveByHR',body,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
+    }
     singleLeaveReject(payload:any) {
         let headers = new Headers();
         let body=JSON.stringify(payload);

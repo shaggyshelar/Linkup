@@ -47,6 +47,9 @@ export class SingleApprovalComponent implements OnInit {
     userDetail:any;
     isPending: boolean=false;
     currentUser:any;
+    isHRUser:boolean=false;
+    isHRApprove: boolean=false;
+    isHRReject:boolean=false;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -72,14 +75,26 @@ export class SingleApprovalComponent implements OnInit {
         this.leaveService.getLeaveDetailByRefID(this.leaveID).subscribe(res => {
             this.leaveList=res;
             this.getEmployeeDetails(this.leaveList[0].EmpID);
+            if(this.leaveList[0].Status==='Rejected' || this.leaveList[0].Status==='Pending') {
+                this.isHRApprove=true;
+            }
+            if(this.leaveList[0].Status==='Approved' || this.leaveList[0].Status==='Pending') {
+                this.isHRReject=true;
+            }
         });
         this.leaveService.getApproverListByRefID(this.leaveID).subscribe(res => {
             this.approverList=res;
             this.checkIfPending();
         });
-
+        this.checkIfHR();
     }
 
+    checkIfHR() {
+        let loggedInUserPermission = JSON.parse(localStorage.getItem('loggedInUserPermission'));
+        if (loggedInUserPermission.indexOf('LEAVE.HRAPPROVAL.UPDATE') !== -1) {
+             this.isHRUser=true;
+        }
+    }
   checkIfPending() {
      for(let i=0;i<this.approverList.length;i++) {
         if(this.approverList[i].Approver.ID===this.currentUser.Employee.ID) {
@@ -120,6 +135,29 @@ export class SingleApprovalComponent implements OnInit {
         }
     }
 
+    hrLeaveApprove({ value, valid }: { value: ApprovalForm, valid: boolean }) {
+        if (valid) {
+            this.model.comments = value.comments;
+            var params = {
+                Comments: this.model.comments.trim(),
+                Status: 'Approved',
+                LeaveRequestRefId:this.leaveID
+            };
+            this.leaveService.hrLeaveApprove(params)
+                .subscribe(res => {
+                    if (res) {
+                        this.rejected = false;
+                        this.approved = true;
+                        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_APPROVED });
+                        this.closeClicked();
+                    } else {
+                        this.rejected = true;
+                        this.approved = false;
+                        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
+                    }
+                });
+        }
+    }
     rejectClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
         if (valid) {
         //    BACKEND CALL HERE

@@ -13,7 +13,7 @@
 		<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 		<div class="profile hidden-lg hidden-sm hidden-md">
 			<div>
-				<i class="fa fa-user icon-size"></i>
+				<img alt="" class="img-circle sidebar-profile-image" [src]="profileImageSrc">
 			</div>
 			<a id="profile-options" (click)="toggleUserMenu()">
 				<span class="profile-name">{{userDetail.Employee.Name}} </span>

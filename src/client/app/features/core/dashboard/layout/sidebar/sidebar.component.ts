@@ -15,11 +15,17 @@ declare var $: any;
 export class SidebarComponent implements OnInit  {
   isUserMenuOpen: boolean;
   userDetail:any;
+  profileImageSrc:any;
   constructor(private authService: AuthService, private router: Router) {
     this.isUserMenuOpen = false;
   }
   ngOnInit(): void {
    this.userDetail=this.authService.getCurrentUser();
+    if (this.userDetail.ProfilePictureName) {
+      this.profileImageSrc = 'http://192.168.100.153:202/Profile%20Picture%20Library/' + this.userDetail.ProfilePictureName + '.JPG';
+    } else {
+      this.profileImageSrc = '../assets/images/default-user.jpg';
+    }
   }
   logout() {
     this.authService.logout();

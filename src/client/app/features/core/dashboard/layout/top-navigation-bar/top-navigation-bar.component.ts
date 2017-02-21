@@ -11,11 +11,17 @@ import { AuthService } from '../../../auth/auth.service';
 })
 export class TopNavigationBarComponent implements OnInit  {
   userDetail:any;
+  profileImageSrc:any;
   constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
    this.userDetail=this.authService.getCurrentUser();
+    if (this.userDetail.ProfilePictureName) {
+      this.profileImageSrc = 'http://192.168.100.153:202/Profile%20Picture%20Library/' + this.userDetail.ProfilePictureName + '.JPG';
+    } else {
+      this.profileImageSrc = '../assets/images/default-user.jpg';
+    }
   }
 
   logout() {

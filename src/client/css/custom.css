@@ -43,3 +43,10 @@
 .ul-list-table {
       padding-left: 14px;
 }
+
+.sidebar-profile-image{
+    margin-left: 5px;
+    margin-top: -8px;
+    height: 47px;
+    display: inline-block;
+}

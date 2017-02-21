@@ -23,7 +23,7 @@
 		</div>
 		<ul class="user-menu" style="display:none">
 			<br/>
-			<li style="display:none">
+			<li>
 				<a routerLink="/profile" routerLinkActive="active">
 					<i class="icon-user"></i> &nbsp;&nbsp; My Profile
 				</a>
@@ -44,7 +44,7 @@
 			<li class="nav-item start ">
 				<a routerLink="/" class="nav-link">
 					<i class="icon-home"></i>
-					<span class="title">Dashboard</span>
+					<span class="title">Home</span>
 				</a>
 			</li>
 			<li class="nav-item" [ifAuthorize]="['ADMIN.MANAGE']">

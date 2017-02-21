@@ -94,8 +94,9 @@
                   <div class="form-group">
                     <label class="control-label">Number of Leaves<span class="warning">*</span> </label>
                     <div>
-                      <input id="numLeaves" type="text" disabled="disabled" class="form-control" required formControlName="numDays" [ngModel]="model.numDays"
+                      <input id="numLeaves" type="text" disabled="disabled" class="form-control" *ngIf='!itsWeekend' required formControlName="numDays" [ngModel]="model.numDays"
                       />
+                      <input id="weekend" type="text" disabled="disabled" value='Its Weekend' class="form-control" *ngIf='itsWeekend'/>
                     </div>
                   </div>
                 </div>
@@ -131,7 +132,7 @@
                     <label class="control-label">Reason<span class="warning">*</span> 
                                         </label>
                     <div>
-                      <textarea id="reason" required formControlName="reason" (keyup)="reasonTextChanged()" class="fullWidth" [(ngModel)]="model.reason"></textarea>
+                      <textarea id="reason" required formControlName="reason" (keyup)="reasonTextChanged()" class="fullWidth" [(ngModel)]="model.reason" [attr.maxLength]="textareaLength"></textarea>
                       <div class="charsLeft pull-right">{{charsLeft}} characters left</div>
                       <div class="alert alert-danger" *ngIf="applyLeaveForm.get('reason').hasError('required') && applyLeaveForm.get('reason').touched">
                         Reason is required
@@ -171,8 +172,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="pull-right">
-                    <button id="addLeave" [disabled]="applyLeaveForm.invalid || this.isValidationMessage" (click)="onAddLeave()" class="btn btn-outline">Add Leave</button>
-                    <button id="submit" [disabled]="applyLeaveForm.invalid || this.isValidationMessage" type="submit" class="btn btn-outline" (click)="submitForm(applyLeaveForm)">Submit</button>
+                    <button id="addLeave" [disabled]="applyLeaveForm.invalid || this.isValidationMessage || this.itsWeekend" (click)="onAddLeave()" class="btn btn-outline">Add Leave</button>
+                    <button id="submit" [disabled]=" addLeaveArr.length === 0" type="submit" class="btn btn-outline" (click)="submitForm(applyLeaveForm)">Submit</button>
                     <button id="cancel" type="reset" (click)="cancelClick()" class="btn btn-outline">Cancel</button>
                   </div>
                 </div>

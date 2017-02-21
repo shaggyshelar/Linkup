@@ -1,6 +1,7 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
@@ -9,6 +10,7 @@ import 'rxjs/add/operator/map';
 /** Module Level Dependencies */
 import { BaseService } from '../../core/index';
 import { Holiday } from '../models/holiday';
+import { MessageService } from '../../core/shared/services/message.service';
 // import { Employee } from '../models/employee';
 
 /** Context for service calls */
@@ -18,8 +20,8 @@ export const CONTEXT = 'Holiday';
 @Injectable()
 export class HolidayService extends BaseService {
 
-    constructor(public http: Http) {
-        super(http, CONTEXT);
+    constructor(public http: Http,messageService:MessageService,router:Router) {
+        super(http, CONTEXT,messageService,router);
     }
 
     /**

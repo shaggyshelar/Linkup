@@ -2,7 +2,7 @@
 <div class="page-content-wrapper">
   <!-- BEGIN CONTENT BODY -->
   <div class="page-content">
-     <div class="page-head">
+    <div class="page-head">
       <!-- BEGIN PAGE TITLE -->
       <!-- END PAGE TITLE -->
     </div>
@@ -13,14 +13,14 @@
           <i class="fa fa-circle"></i>
         </li>
         <li>
-          <span>Dashboard</span>
+          <span>Home</span>
           <i class="fa fa-circle"></i>
         </li>
       </ul>
     </div>
     <div class="row">
       <div id="ctl00_ctl53_g_707d6c1c_d6e3_43f3_8791_afd96be4529e_dvMyTimesheet" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <a class="dashboard-stat dashboard-stat-light blue-soft" href="/Lists/Employee%20Timesheet/MyTimesheet.aspx">
+        <a class="dashboard-stat dashboard-stat-light blue-soft" href="">
           <div class="visual">
             <i class="icon-folder"></i>
           </div>
@@ -43,7 +43,7 @@
             <div id="ctl00_ctl53_g_707d6c1c_d6e3_43f3_8791_afd96be4529e_MyBalanceLeaves" class="number" style="font-size: 15px;padding-top: 0px;">
               &nbsp;My Leaves
             </div>
-            <div id="ctl00_ctl53_g_707d6c1c_d6e3_43f3_8791_afd96be4529e_BalanceLeavesCnt" class="desc"  style="font-size: 15px;">Balance : 6.906</div>
+            <div id="ctl00_ctl53_g_707d6c1c_d6e3_43f3_8791_afd96be4529e_BalanceLeavesCnt" class="desc" style="font-size: 15px;">Balance : {{ leaveDetail ?  (leaveDetail.ActualBalance| number : '1.2-3')  :'' }}</div>
           </div>
         </a>
       </div>
@@ -58,18 +58,115 @@
           </div>
         </div>
         <div class="portlet-body">
-            <table>
-            <tbody><tr class=""><td style="width: 79px" class="ms-vb2"><img src="http://linkup.eternussolutions.com/SiteAssets/LinkupMobileApplogo.png" alt="" width="80" height="80"></td><td class="ms-vb2"><strong><span class="AnnouncementTitle"><a href="http://linkup.eternussolutions.com/Lists/ESPL Announcement/DispForm.aspx?ID=17">Linkup Mobile App </a></span></strong><br><span class="AnnouncementDes">Linkup Mobile App</span><br><span class="AnnouncementDes">08-01-2016</span>&nbsp; <span class="AnnouncementDes">NA</span></td></tr><tr class="ms-alternating"><td style="width: 79px" class="ms-vb2"><img src="http://linkup.eternussolutions.com//SiteAssets/JA.png" alt="" width="80" height="80"></td><td class="ms-vb2"><strong><span class="AnnouncementTitle"><a href="http://linkup.eternussolutions.com/Lists/ESPL Announcement/DispForm.aspx?ID=15">JUSTAarogyam Mobile App</a></span></strong><br><span class="AnnouncementDes">JUSTAarogyam Mobile App</span><br><span class="AnnouncementDes">16-07-2015</span>&nbsp; <span class="AnnouncementDes">NA</span></td></tr></tbody>
+          <table>
+            <tbody>
+              <tr class="">
+                <td style="width: 79px" class="ms-vb2"><img src="http://linkup.eternussolutions.com/SiteAssets/LinkupMobileApplogo.png" alt="" width="80" height="80"></td>
+                <td
+                  class="ms-vb2"><strong><span class="AnnouncementTitle"><a href="http://linkup.eternussolutions.com/Lists/ESPL Announcement/DispForm.aspx?ID=17">Linkup Mobile App </a></span></strong><br>
+                  <span
+                    class="AnnouncementDes">Linkup Mobile App</span><br><span class="AnnouncementDes">08-01-2016</span>&nbsp; <span class="AnnouncementDes">NA</span></td>
+              </tr>
+              <tr class="ms-alternating">
+                <td style="width: 79px" class="ms-vb2"><img src="http://linkup.eternussolutions.com//SiteAssets/JA.png" alt="" width="80" height="80"></td>
+                <td class="ms-vb2"><strong><span class="AnnouncementTitle"><a href="http://linkup.eternussolutions.com/Lists/ESPL Announcement/DispForm.aspx?ID=15">JUSTAarogyam Mobile App</a></span></strong><br>
+                  <span
+                    class="AnnouncementDes">JUSTAarogyam Mobile App</span><br><span class="AnnouncementDes">16-07-2015</span>&nbsp; <span class="AnnouncementDes">NA</span></td>
+              </tr>
+            </tbody>
           </table>
           <div class="task-footer">
             <div class="btn-arrow-link pull-right">
-              <a href="/SitePages/ShowAllAnnouncements.aspx" class="news-block-btn">
+              <a href="http://linkup.eternussolutions.com/SitePages/ShowAllAnnouncements.aspx" class="news-block-btn">
 										Read more... 										<i class="m-icon-swapright m-icon-black">
 										</i></a></div>
           </div>
           <div class="clearfix">
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style=" left: 0px; top: 0px;">
+      <div class="portlet light">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-cursor font-purple-intense hide"></i>
+            <a href="http://linkup.eternussolutions.com/SitePages/ShowAllAnnouncements.aspx">
+              <span class="caption-subject font-purple-intense bold uppercase">
+									Blogs</span></a>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <div class="scroller" style="height: 185px; " data-always-visible="1" data-rail-visible="0" data-initialized="1">
+            <div class="ms-webpart-zone ms-fullWidth">
+              <div id="MSOZoneCell_WebPartctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e" class="s4-wpcell-plain ms-webpartzone-cell ms-webpart-cell-vertical ms-fullWidth">
+                <div class="ms-webpart-chrome ms-webpart-chrome-vertical ms-webpart-chrome-fullWidth">
+                  <div webpartid="a8f1ff5b-674e-4696-8c06-2a210afa649e" haspers="false" id="WebPartctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e"
+                    width="100%" class="ms-WPBody noindex" allowdelete="false" allowexport="false" style="">
+                    <div id="ctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e">
+                      <div id="ctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e_upnl1">
+                        <div id="ctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e_UpdateProgress2" style="display:none;" role="status" aria-hidden="true">
+                          <div id="ctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e_Panel3" class="overlayload1">
+                            <div id="ctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e_Panel4" class="loaders1">
+                              Loading...
+                              <!--<img src="/_LAYOUTS/IMAGES/loadingcirclests16.gif">-->
+                            </div>
+                          </div>
+                        </div>
+                        <table style="width: 100%;">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <table>
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                        <a href="http://eternussolutions.blogspot.com/2016/11/10-things-i-love-about-wave-analytics.html" title="10 Things I love About Wave Analytics"
+                                          xmlns="http://www.w3.org/2005/Atom" id="ctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e_ListView1_ctrl0_blogTitle"
+                                          target="_blank" class="blogHeading">10 Things I love About Wave Analytics
+                                        </a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <span id="ctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e_ListView1_ctrl0_blogText" class="blogcontent"><div dir="ltr" style="text-align: left;" trbidi="on">If your company has huge amount of data and your top management needs actionable reports for turnover, growth, revenue etc., you would need a robust and scalable BI tool or provide these answers quickly. This is where Salesforce Wave Analytics has emerged as a crucial player. Sample Wave Dashboard (Image source: elibrumbaugh.com) Built on the Wave platform...
+                                    </div></span></td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>  
+                      </div>
+                      <table style="width: 100%;">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="task-footer">
+                                <div class="btn-arrow-link pull-right">
+                                  <a href="http://eternussolutions.blogspot.in/" id="ctl00_ctl53_g_a8f1ff5b_674e_4696_8c06_2a210afa649e_linkBlogSite" style="float: right;"
+                                    class="news-block-btn">Read more... <i class="m-icon-swapright m-icon-black"></i></a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="ms-clear"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-footer">
+        </div>
+        <div class="clearfix"></div>
       </div>
     </div>
   </div>

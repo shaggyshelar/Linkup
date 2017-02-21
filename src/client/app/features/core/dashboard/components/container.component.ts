@@ -17,8 +17,10 @@ export class DashboardContainerComponent implements OnInit {
     }
     ngOnInit() {
         let windowRef= this._window();
-        windowRef['App'].init();
-        windowRef['Layout'].init();
+        (<any>window)['App'].init();
+        (<any>window)['Layout'].init();
+        // windowRef['App'].init();
+        // windowRef['Layout'].init();
         this.messageService.getMessages()
             .subscribe((value: Object) => {
                 this.msgs = [];

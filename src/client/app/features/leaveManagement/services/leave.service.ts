@@ -1,6 +1,7 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
 import { Http,Headers,RequestOptions } from '@angular/http';
+import { Router } from '@angular/router';
 
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
@@ -11,6 +12,7 @@ import { BaseService } from '../../core/index';
 import { Leave } from '../models/leave';
 // import { Employee } from '../models/employee';
 import { LeaveDetail } from '../models/leaveDetail';
+import { MessageService } from '../../core/shared/services/message.service';
 
 /** Context for service calls */
 export const CONTEXT = 'Leave';
@@ -19,8 +21,8 @@ export const CONTEXT = 'Leave';
 @Injectable()
 export class LeaveService extends BaseService {
     editableLeave:any;
-    constructor( public http: Http) {
-        super( http, CONTEXT);
+    constructor( public http: Http,messageService:MessageService,router:Router ) {
+        super( http, CONTEXT,messageService,router);
     }
 
     /**
@@ -149,6 +151,24 @@ export class LeaveService extends BaseService {
         windowRef['App'].blockUI();
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.baseUrl+'LeaveDetails/GetAppliedLeaveForSameDate',body,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
+    }
+    checkIfAlreadyAppliedForTrainee(payload:any) {
+        let headers = new Headers();
+        let body=JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl+'LeaveDetails/GetCurrentUserCurrentMonthLeaveCount',body,options)
          .map(res => {
             windowRef['App'].unblockUI();
             return res.json();

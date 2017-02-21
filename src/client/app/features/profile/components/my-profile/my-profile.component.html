@@ -19,8 +19,8 @@
 						<div class="row div-margin-bottom">
 							<div class="col-md-4 col-sm-4 col-xs-12 icon-align">
 								<div class="profile-userpic">
-									<img alt="" class="profile-img" src="../assets/images/default-user.jpg">
-									<div class="div-margin">
+									<img alt="" class="profile-img" [src]="src">
+									<!--<div class="div-margin">
 										<a (click)="edit()" *ngIf="!isEdit" class="btn-margin btn_font"><i class="fa fa-pencil"></i>Edit</a>
 										<a *ngIf="!isEdit" class="btn_font"><i class="fa fa-download"></i>Download</a>
 										<div *ngIf="isEdit">
@@ -32,22 +32,24 @@
 												<button pButton type="text" label="Cancel" (click)="cancel()"></button>
 											</div>
 										</div>
-									</div>
+									</div>-->
 								</div>
 							</div>
 							<div class="col-md-4 col-sm-4 col-xs-12">
-								<h2 class="user-profile-name">Nick</h2>
-								<h4 class="user-profile-emp-id">Employee ID : 10000</h4>
-								<div>
+								<h2 class="user-profile-name"> {{  profileInfo.Employee ? profileInfo.Employee.Name : ''}} </h2>
+								<h4 class="user-profile-emp-id"> {{ profileInfo.Designation ? profileInfo.Designation.Value : '' }}</h4>
+								<h4 class="user-profile-status"> {{ profileInfo.Status ? profileInfo.Status.Value : '' }}</h4>
+								
+								<!--<div>
 									<button pButton type="button" label="Download Profile"></button>
-								</div>
+								</div>-->
 							</div>
-							<div class="col-md-4 col-sm-4 col-xs-12 div-margin">
+							<!--<div class="col-md-4 col-sm-4 col-xs-12 div-margin">
 								<span class="profile-completness-label">Profile Completeness</span>
 								<div class="div-margin">
 									<p-progressBar [value]="50"></p-progressBar>
 								</div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 					<div class="portlet-body">
@@ -55,7 +57,7 @@
 							<li class="active">
 								<a href="#tab_personalInfo" data-toggle="tab">Personal Info </a>
 							</li>
-							<li class="dropdown">
+							<!--<li class="dropdown">
 								<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> Dropdown
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
@@ -82,13 +84,13 @@
 										<a href="#tab_achievements" tabindex="-1" data-toggle="tab"> Achievement </a>
 									</li>
 								</ul>
-							</li>
+							</li>-->
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="tab_personalInfo">
 								<personal-info></personal-info>
 							</div>
-							<div class="tab-pane fade" id="tab_details">
+							<!--<div class="tab-pane fade" id="tab_details">
 								<profile-details></profile-details>
 							</div>
 							<div class="tab-pane fade" id="tab_employmentHistory">
@@ -108,7 +110,7 @@
 							</div>
 							<div class="tab-pane fade" id="tab_experience">
 								<profile-experience></profile-experience>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>

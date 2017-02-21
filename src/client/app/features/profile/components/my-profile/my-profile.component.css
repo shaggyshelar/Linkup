@@ -68,3 +68,10 @@
 .btn_font {
     font-size: 12px !important;
 }
+
+.user-profile-status {
+    color: cornflowerblue !important;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: left !important;
+}

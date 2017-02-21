@@ -1,0 +1,137 @@
+<div class="portlet-body">
+    <div class="row">
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_employeeID">Employee ID : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.EmpID }} </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_employeeName">Employee Name : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.Employee ? profileInfo.Employee.Name : '' }} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_careerStartDate">Department : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.Department ? profileInfo.Department.Value : '' }} </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_employeeEmail">Official Email: </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.EmailIDOfficial }} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_contactNo">Contact No : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span>  {{ profileInfo.PersonalContactNumber }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_employeeEmail">Personal Email: </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.EmailIDPersonal }} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_careerStartDate">Date of Joining : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.DOJ }} </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_careerStartDate">PassportNumber : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.PassportNumber }} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_dateOfBirth">Date of Birth : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.DOB }} </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_careerStartDate">Marital Status : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.MaritalStatus ? profileInfo.MaritalStatus.Value : '' }} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_careerStartDate">Gender : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span> {{ profileInfo.Gender }} </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-margin">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <span class="personal-info-label" id="personalInfo_skypeID">Status : </span>
+                </div>
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <span>{{ profileInfo.Status ? profileInfo.Status.Value : '' }} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

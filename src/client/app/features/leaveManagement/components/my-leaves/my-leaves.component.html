@@ -80,7 +80,7 @@
             </div>
           </div>
           <div class="portlet-body" [hidden]="!showLeaves">
-            <p-dataTable [value]="myLeaveList" [paginator]="true" [rowStyleClass]="getLeaveStatusClass" [rows]=(servRows) [responsive]="true">
+            <p-dataTable [value]="myLeaveList" [paginator]="true" [rowStyleClass]="getLeaveStatusClass" [rows]='10' [responsive]="true">
               <p-column styleClass="hidden-xs" field="Employee.Name" header="Employee"></p-column>
               <p-column header="Start Date" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">

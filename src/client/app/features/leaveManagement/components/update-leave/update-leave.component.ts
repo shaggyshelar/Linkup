@@ -85,10 +85,10 @@ export class UpdateLeaveComponent implements OnInit {
         };
         this.leaveService.deleteLeaveRecord(leaveTobeCancelled).subscribe(res => {
             if (res) {
-                this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Leave application deleted!' });
+                this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.APPLY_LEAVE_14  });
                 this.closeClicked();
             } else {
-                this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: 'Request not completed.' });
+                this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
             }
         });
     }

@@ -142,6 +142,20 @@
 					</li>
 				</ul>
 			</li>
+			<li class="nav-item  " [ifAuthorize]="['HR.RESIGNEDEMPLOYEELEAVE.MANAGE']" >
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="icon-user"></i>
+					<span class="title">HR</span>
+					<span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li class="nav-item" [ifAuthorize]="['HR.RESIGNEDEMPLOYEELEAVE.MANAGE']">
+						<a routerLink="/leave/resigned-employee-leaves" routerLinkActive="active">
+							<span class="title">Resigned Employee Leaves</span>
+						</a>
+					</li>
+				</ul>
+			</li>
 			<li class="nav-item"  [ifAuthorize]="['CORPORATE.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-briefcase"></i>

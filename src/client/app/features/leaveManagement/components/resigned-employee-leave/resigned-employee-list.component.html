@@ -31,19 +31,19 @@
               <p-column field="Status.Value" header="Status" [sortable]="true"></p-column>
               <p-column header="Resignation Date" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
-                  {{rowData.StartDate | date:'dd/MM/y'}}
+                  {{rowData.ResignationDate }}
                 </template>
               </p-column>
-              <p-column field="LeaveTaken" header="L Taken" [sortable]="true"></p-column>
-              <p-column field="LeaveBalance" header="L Balance" [sortable]="true"></p-column>
-              <p-column  header="Actual Balance" [sortable]="true">
+              <p-column field="LeaveDetails.LeaveTaken" header="L Taken" ></p-column>
+              <p-column field="LeaveDetails.LeaveBalance" header="L Balance" ></p-column>
+              <p-column  header="Actual Balance" >
                  <template let-leave="rowData" pTemplate type="body">
-                    {{leave.ActualBalance | number : '1.2-3'}}
+                    {{leave.LeaveDetails.ActualBalance | number : '1.2-3'}}
                   </template>
               </p-column>
-              <p-column field="FloatingHolidayBalance" header="FH Balance" [sortable]="true"></p-column>
-              <p-column field="ActualFHBalance" header="Actual FH Balance" [sortable]="true"></p-column>
-              <p-column styleClass="col-button" header="Edit" field="color" [sortable]="true">
+              <p-column field="LeaveDetails.FloatingHolidayBalance" header="FH Balance" ></p-column>
+              <p-column field="LeaveDetails.ActualFHBalance" header="Actual FH Balance"></p-column>
+              <p-column styleClass="col-button" header="Edit" field="color">
                 <template let-leave="rowData" pTemplate type="body">
                   <button id="actionUpdate" type="button" pButton (click)="oneEditClicked(leave)" icon="fa fa-edit"></button>
                 </template>

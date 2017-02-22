@@ -78,17 +78,17 @@ export const LeaveRoutes: Route[] = [
   {
     path: 'resigned-employee-leaves',
     component: ResignedEmployeeComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
-    //  permissions: ['LEAVE.APPROVAL.MANAGE']
+       permissions: ['HR.RESIGNEDEMPLOYEELEAVE.MANAGE']
     }
   },
   {
     path: 'resigned-employee/:id',
     component: UpdateResignedEmployeeComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
-     // permissions: ['LEAVE.APPROVAL.MANAGE']
+      permissions: ['HR.RESIGNEDEMPLOYEELEAVE.UPDATE']
     }
   }
 ];

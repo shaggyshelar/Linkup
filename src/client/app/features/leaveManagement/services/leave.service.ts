@@ -338,7 +338,41 @@ export class LeaveService extends BaseService {
         let options = new RequestOptions({ headers: headers });
         let windowRef = this._window();
         windowRef['App'].blockUI();
-        return this.http.get(this.baseUrl+'EmployeeLeaves/GetCurrentYearResignedEmpLeaveDetails',options)
+        return this.http.get(this.baseUrl+'Employee/GetResignedEmployeesLeaveBalance',options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
+    }
+    getResignedEmpLeaveDetails(id:string): Observable<any> {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        let options = new RequestOptions({ headers: headers });
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.get(this.baseUrl+'Employee/GetResignedEmployeesLeaveBalance/'+id,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
+    }
+    updateResignedEmpLeave(payload:any) {
+        let headers = new Headers();
+        let body=JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.post(this.baseUrl+'EmployeeLeaves/UpdateResignedEmployeeLeaves',body,options)
          .map(res => {
             windowRef['App'].unblockUI();
             return res.json();

@@ -332,4 +332,20 @@ export class LeaveService extends BaseService {
             return this.handleError(err);
         });
     }
+    getResignedEmployeeLeave(): Observable<any> {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        let options = new RequestOptions({ headers: headers });
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.get(this.baseUrl+'Employee/',options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
+    }
 }

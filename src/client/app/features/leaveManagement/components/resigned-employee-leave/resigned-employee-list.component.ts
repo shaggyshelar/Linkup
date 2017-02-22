@@ -15,23 +15,23 @@ import { Leave } from '../../models/leave';
   templateUrl: 'resigned-employee-list.component.html'
 })
 export class ResignedEmployeeComponent implements OnInit {
-  public leaveList: Leave[];
+  public employeeLeaveList: Leave[];
 
   constructor(
     private router: Router,
     private leaveService: LeaveService,
   ) {
-    this.leaveList = [];
+    this.employeeLeaveList = [];
   }
 
   ngOnInit() {
-    //this.leaveService.getResignedEmployeeLeave().subscribe((res: any) => {
-      this.leaveList = [];
-    //});
+    this.leaveService.getResignedEmployeeLeave().subscribe((res: any) => {
+      this.employeeLeaveList = res;
+    });
   }
 
-  oneEditClicked() {
-    this.router.navigate(['/leave/apply-leave']);
+  oneEditClicked(leave:any) {
+    this.router.navigate(['/leave/resigned-employee',leave.ID]);
   }
 
 }

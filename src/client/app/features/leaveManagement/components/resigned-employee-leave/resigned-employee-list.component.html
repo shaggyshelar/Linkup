@@ -26,20 +26,24 @@
         <div class="portlet light bordered">
           <div class="portlet-body">
             <p-dataTable [value]="employeeLeaveList" [paginator]="true" [rowStyleClass]="getLeaveStatusClass" [rows]='10' [responsive]="true">
-              <p-column field="Employee.ID" header="Employee ID"></p-column>
-              <p-column field="Employee.Name" header="Employee"></p-column>
-              <p-column field="Status.Value" header="Status"></p-column>
+              <p-column field="EmpID" header="Employee ID"  [sortable]="true"></p-column>
+              <p-column field="Employee.Name" header="Employee"  [sortable]="true"></p-column>
+              <p-column field="Status.Value" header="Status" [sortable]="true"></p-column>
               <p-column header="Resignation Date" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
                   {{rowData.StartDate | date:'dd/MM/y'}}
                 </template>
               </p-column>
-              <p-column field="LeaveTaken" header="L Taken"></p-column>
-              <p-column field="LeaveBalance" header="L Balance"></p-column>
-              <p-column field="ActualBalance" header="Actual Balance"></p-column>
-              <p-column field="FloatingHolidayBalance" header="FH Balance"></p-column>
-              <p-column field="ActualFHBalance" header="Actual FH Balance"></p-column>
-              <p-column styleClass="col-button" header="Edit" field="color">
+              <p-column field="LeaveTaken" header="L Taken" [sortable]="true"></p-column>
+              <p-column field="LeaveBalance" header="L Balance" [sortable]="true"></p-column>
+              <p-column  header="Actual Balance" [sortable]="true">
+                 <template let-leave="rowData" pTemplate type="body">
+                    {{leave.ActualBalance | number : '1.2-3'}}
+                  </template>
+              </p-column>
+              <p-column field="FloatingHolidayBalance" header="FH Balance" [sortable]="true"></p-column>
+              <p-column field="ActualFHBalance" header="Actual FH Balance" [sortable]="true"></p-column>
+              <p-column styleClass="col-button" header="Edit" field="color" [sortable]="true">
                 <template let-leave="rowData" pTemplate type="body">
                   <button id="actionUpdate" type="button" pButton (click)="oneEditClicked(leave)" icon="fa fa-edit"></button>
                 </template>

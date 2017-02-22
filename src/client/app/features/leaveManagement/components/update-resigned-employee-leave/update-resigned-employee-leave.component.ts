@@ -31,7 +31,7 @@ export class UpdateResignedEmployeeComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/leave/apply-leave']);
+    this.router.navigate(['/leave/resigned-employee-leaves']);
   }
 
 }

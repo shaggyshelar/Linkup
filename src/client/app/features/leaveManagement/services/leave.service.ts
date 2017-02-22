@@ -338,7 +338,7 @@ export class LeaveService extends BaseService {
         let options = new RequestOptions({ headers: headers });
         let windowRef = this._window();
         windowRef['App'].blockUI();
-        return this.http.get(this.baseUrl+'Employee/',options)
+        return this.http.get(this.baseUrl+'EmployeeLeaves/GetCurrentYearResignedEmpLeaveDetails',options)
          .map(res => {
             windowRef['App'].unblockUI();
             return res.json();

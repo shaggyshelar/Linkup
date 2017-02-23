@@ -6,8 +6,8 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 
 /** Module Level Dependencies */
-import { LeaveService } from '../../services/leave.service';
-import { Leave } from '../../models/leave';
+import { LeaveService } from '../../../services/leave.service';
+import { Leave } from '../../../models/leave';
 
 @Component({
   moduleId: module.id,

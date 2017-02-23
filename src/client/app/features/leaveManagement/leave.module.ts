@@ -14,8 +14,8 @@ import { HolidaysComponent } from './components/holidays/holidays.component';
 import { MyLeavesComponent } from './components/my-leaves/my-leaves.component';
 import { SingleApprovalComponent } from './components/single-approval/single-approval.component';
 import { UpdateLeaveComponent } from './components/update-leave/update-leave.component';
-import { ResignedEmployeeComponent } from './components/resigned-employee-leave/resigned-employee-list.component';
-import { UpdateResignedEmployeeComponent } from './components/update-resigned-employee-leave/update-resigned-employee-leave.component';
+import { ResignedEmployeeComponent } from './components/resigned-employee-leave/resigned-employee-list/resigned-employee-list.component';
+import { UpdateResignedEmployeeComponent } from './components/resigned-employee-leave/update-resigned-employee-leave/update-resigned-employee-leave.component';
 
 // Service Declarations
 import { LeaveService } from './services/leave.service';

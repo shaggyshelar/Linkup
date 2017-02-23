@@ -108,13 +108,13 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item  " [ifAuthorize]="['LEAVE.MANAGE']" >
+			<li class="nav-item open" [ifAuthorize]="['LEAVE.MANAGE']" >
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="icon-calendar"></i>
 					<span class="title">Leave Management</span>
 					<span class="arrow"></span>
 				</a>
-				<ul class="sub-menu">
+				<ul class="sub-menu" style="display:block">
 					<li class="nav-item  " [ifAuthorize]="['LEAVE.HOLIDAY.MANAGE']">
 						<a routerLink="/leave/holidays" routerLinkActive="active">
 							<span class="title">Holidays</span>

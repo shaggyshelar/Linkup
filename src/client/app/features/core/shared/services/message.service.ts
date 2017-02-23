@@ -19,7 +19,7 @@ export class MessageService {
     public static APPLY_LEAVE_11= 'You can take only one leave in this month! No more leaves available';
     public static APPLY_LEAVE_12= 'You can take only one half day leave in this month! No more leaves available';
     public static APPLY_LEAVE_13= 'You have already applied Leave for selected date';
-
+    public static APPLY_LEAVE_14= 'Leave request cancelled';
     isSessionTimeout:boolean=false;
 
     onMessageAdd: EventEmitter<Object> = new EventEmitter<Object>();

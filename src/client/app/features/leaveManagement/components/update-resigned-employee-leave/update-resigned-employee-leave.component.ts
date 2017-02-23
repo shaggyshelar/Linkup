@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 /** Module Level Dependencies */
 import { LeaveService } from '../../services/leave.service';
 import { Leave } from '../../models/leave';
+import * as moment from 'moment/moment';
 
 @Component({
   moduleId: module.id,
@@ -29,7 +30,7 @@ export class UpdateResignedEmployeeComponent implements OnInit {
            Name: ''
        },
       EmpID: '',
-      ResignationDate: new Date(),
+      ResignationDate: moment(moment().format('MM/DD/YYYY')).toDate(),
       LeaveDetails: {
       LeaveTaken: '',
       LeaveBalance: '',
@@ -43,6 +44,7 @@ export class UpdateResignedEmployeeComponent implements OnInit {
     });
     this.leaveService.getResignedEmpLeaveDetails(this.param).subscribe((res: any) => {
       this.leave = res;
+      this.leave.ResignationDate=moment(moment(this.leave.ResignationDate, "DD-MM-YYYY").format('MM/DD/YYYY')).toDate() ;
     });
   }
 

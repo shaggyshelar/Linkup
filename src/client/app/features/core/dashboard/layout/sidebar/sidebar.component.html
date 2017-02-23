@@ -142,7 +142,7 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item  " [ifAuthorize]="['HR.RESIGNEDEMPLOYEELEAVE.MANAGE']" >
+			<li class="nav-item" [ifAuthorize]="['HR.MANAGE']" >
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="icon-user"></i>
 					<span class="title">HR</span>
@@ -152,6 +152,11 @@
 					<li class="nav-item" [ifAuthorize]="['HR.RESIGNEDEMPLOYEELEAVE.MANAGE']">
 						<a routerLink="/leave/resigned-employee-leaves" routerLinkActive="active">
 							<span class="title">Resigned Employee Leaves</span>
+						</a>
+					</li>
+					<li class="nav-item" [ifAuthorize]="['HR.EMPLOYEELEAVEBALANCE.MANAGE']">
+						<a routerLink="/leave/employee-leave-balance" routerLinkActive="active">
+							<span class="title">Employee Leave Balance</span>
 						</a>
 					</li>
 				</ul>

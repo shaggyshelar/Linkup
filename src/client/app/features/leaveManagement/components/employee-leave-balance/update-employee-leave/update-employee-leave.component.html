@@ -1,0 +1,123 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb hidden-xs">
+            <li>
+                <span>LINK UP</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span class="active">Update Employee Leave</span>
+            </li>
+        </ul>
+        <div class="portlet light bordered legends-portlet">
+            <div class="portlet-body">
+                <form class="form-horizontal" #leaveForm="ngForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label bold col-sm-3">Current Year :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">2016</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-sm-3">Employee ID:</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.EmpID}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-sm-3">Employee :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.Employee.Name}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-sm-3">Previous Leave Balance :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.PLB}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-sm-3">Accured Leaves :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.AccruedLeave}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label bold col-sm-3">Adjustment Entry Type :</label>
+                        <div class="col-sm-9">
+                            <p-dropdown [options]="leaveType" [style]="{'width':'100%'}"  id="leaveType" required name="leaveTypess" #leaveTypess="ngModel" [(ngModel)]="model.leaveType" ></p-dropdown>
+                            <div *ngIf="leaveTypess.errors && (leaveTypess.dirty || leaveTypess.touched)"  class="alert alert-danger">
+                                Leave Type is required
+                            </div>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-3 bold">Adjustment Entry :</label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="model.adjustmentEntry"  name='adjustmentEntry' #adjustmentEntry='ngModel' required class="form-control" />
+                            <div *ngIf="adjustmentEntry.errors && (adjustmentEntry.dirty || adjustmentEntry.touched)" class="alert alert-danger">
+                                Adjustment Entry Balance is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3 bold">Paternity Adjustment Entry :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.PaternityAdjustmentEntry}}</p>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-3 bold">Marriage Adjustment Entry :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.MarriageAdjustmentEntry}}</p>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-3 bold">Maternity Adjustment Entry :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.MaternityAdjustmentEntry}}</p>
+                        </div>
+                    </div>
+                   <div class="form-group">
+                        <label class="control-label bold col-sm-3">Leave Taken :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.LeaveTaken}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3 bold">Half Day Leave Taken :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.HalfdayLeaveTaken}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3 bold">Actual leave balance :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.ActualBalance}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3 bold">Absent Leave Taken :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.AbsentTaken}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3 bold">Half Day Absent  :</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">{{leave.HalfdayAbsentTaken}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button pButton type="button" label="Submit" [disabled]="!leaveForm.form.valid" (click)="onSubmit()"></button>
+                            <button pButton type="button" label="Cancel" (click)="cancel()"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

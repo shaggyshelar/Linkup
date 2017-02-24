@@ -26,10 +26,10 @@
         <div class="portlet light bordered">
           <div class="portlet-body">
             <p-dataTable [value]="employeeLeaveList" [paginator]="true" [rowStyleClass]="getLeaveStatusClass" [rows]='10' [responsive]="true">
-              <p-column field="EmpID" header="Employee ID" [style]="{'width':'50px'}" [sortable]="true"  frozen="true"></p-column>
-              <p-column field="Employee.Name" header="Employee" [style]="{'width':'100px'}"  frozen="true"></p-column>
-              <p-column field="Status.Value" header="Status" [style]="{'width':'50px'}"  frozen="true"></p-column>
-              <p-column field="PLB" header="PLB" [style]="{'width':'50px'}"  frozen="true"></p-column>
+              <p-column field="EmpID" header="Employee ID"  [sortable]="true"  frozen="true"></p-column>
+              <p-column field="Employee.Name" header="Employee"   frozen="true"></p-column>
+              <p-column field="Status.Value" header="Status"   frozen="true"></p-column>
+              <p-column field="PLB" header="PLB"   frozen="true"></p-column>
               <p-column field="AccruedLeave" header="Accured Leave" ></p-column>
               <p-column field="AdjustmentEntry" header="Adjustment Entry" ></p-column>
               <p-column field="LeaveTaken" header="L Taken" ></p-column>

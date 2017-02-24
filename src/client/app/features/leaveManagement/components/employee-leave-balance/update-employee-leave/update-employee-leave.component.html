@@ -15,32 +15,32 @@
             <div class="portlet-body">
                 <form class="form-horizontal" #leaveForm="ngForm" novalidate>
                     <div class="form-group">
-                        <label class="control-label bold col-sm-3">Current Year :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label bold col-sm-3  col-xs-6">Current Year :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">2016</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label bold col-sm-3">Employee ID:</label>
-                        <div class="col-sm-9">
+                        <label class="control-label bold col-sm-3 col-xs-6">Employee ID:</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.EmpID}}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label bold col-sm-3">Employee :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label bold col-sm-3 col-xs-6">Employee :</label>
+                        <div class="col-sm-9 col-xs-6">
                             <p class="form-control-static">{{leave.Employee.Name}}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label bold col-sm-3">Previous Leave Balance :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label bold col-sm-3  col-xs-6">Previous Leave Balance :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.PLB}}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label bold col-sm-3">Accured Leaves :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label bold col-sm-3  col-xs-6">Accured Leaves :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.AccruedLeave}}</p>
                         </div>
                     </div>
@@ -56,57 +56,57 @@
                      <div class="form-group">
                         <label class="control-label col-sm-3 bold">Adjustment Entry :</label>
                         <div class="col-sm-9">
-                            <input type="text" [(ngModel)]="model.adjustmentEntry"  name='adjustmentEntry' #adjustmentEntry='ngModel' required class="form-control" />
-                            <div *ngIf="adjustmentEntry.errors && (adjustmentEntry.dirty || adjustmentEntry.touched)" class="alert alert-danger">
+                            <input type="text"  (keypress)="isNumberKey($event)" [(ngModel)]="model.adjustmentEntry"  name='adjustmentEntry' #adjustmentEntry='ngModel' required class="form-control" />
+                            <div *ngIf="adjustmentEntry.errors && adjustmentEntry.errors.required && (adjustmentEntry.dirty || adjustmentEntry.touched)" class="alert alert-danger">
                                 Adjustment Entry Balance is required
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3 bold">Paternity Adjustment Entry :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label col-sm-3 bold  col-xs-6">Paternity Adjustment Entry :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.PaternityAdjustmentEntry}}</p>
                         </div>
                     </div>
                      <div class="form-group">
-                        <label class="control-label col-sm-3 bold">Marriage Adjustment Entry :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label col-sm-3 bold  col-xs-6">Marriage Adjustment Entry :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.MarriageAdjustmentEntry}}</p>
                         </div>
                     </div>
                      <div class="form-group">
-                        <label class="control-label col-sm-3 bold">Maternity Adjustment Entry :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label col-sm-3 bold  col-xs-6">Maternity Adjustment Entry :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.MaternityAdjustmentEntry}}</p>
                         </div>
                     </div>
                    <div class="form-group">
-                        <label class="control-label bold col-sm-3">Leave Taken :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label bold col-sm-3  col-xs-6">Leave Taken :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.LeaveTaken}}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3 bold">Half Day Leave Taken :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label col-sm-3 bold  col-xs-6">Half Day Leave Taken :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.HalfdayLeaveTaken}}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3 bold">Actual leave balance :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label col-sm-3 bold  col-xs-6">Actual leave balance :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.ActualBalance}}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3 bold">Absent Leave Taken :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label col-sm-3 bold  col-xs-6">Absent Leave Taken&nbsp:</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.AbsentTaken}}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3 bold">Half Day Absent  :</label>
-                        <div class="col-sm-9">
+                        <label class="control-label col-sm-3 bold  col-xs-6">Half Day Absent  :</label>
+                        <div class="col-sm-9 col-xs-4">
                             <p class="form-control-static">{{leave.HalfdayAbsentTaken}}</p>
                         </div>
                     </div>

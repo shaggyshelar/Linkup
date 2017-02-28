@@ -15,6 +15,9 @@ import { PermissionService } from './services/permission.service';
 import { UserService } from './services/user.service';
 import { UserRoleService } from './services/user-role.service';
 import { UserRoleComponent } from './components/user/user-role/user-role.component';
+import { LeaveTypeListComponent } from './components/masters/leave-type/leave-type-list/leave-type-list.component';
+import { LeaveTypeAddEditComponent } from './components/masters/leave-type/leave-type-add-edit/leave-type-add-edit.component';
+
 
 /** Module Definition */
 @NgModule({
@@ -27,7 +30,9 @@ import { UserRoleComponent } from './components/user/user-role/user-role.compone
         RoleListComponent,
         RoleAddEditComponent,
         UserListComponent,
-        UserRoleComponent
+        UserRoleComponent,
+        LeaveTypeListComponent,
+        LeaveTypeAddEditComponent
     ],
     providers: [FeatureService, RoleService, PermissionService,UserService,UserRoleService],
 })

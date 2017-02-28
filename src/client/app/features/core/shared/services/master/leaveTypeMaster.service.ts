@@ -40,4 +40,17 @@ export class LeaveTypeMasterService extends BaseService {
             return this.handleError(err);
         });
     }
+    getById(id:string) {
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.get$(id,true)
+        .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
+    }
 }

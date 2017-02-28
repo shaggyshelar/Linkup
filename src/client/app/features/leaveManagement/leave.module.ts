@@ -17,6 +17,7 @@ import { UpdateLeaveComponent } from './components/update-leave/update-leave.com
 import { ResignedEmployeeComponent } from './components/resigned-employee-leave/resigned-employee-list/resigned-employee-list.component';
 import { UpdateResignedEmployeeComponent } from './components/resigned-employee-leave/update-resigned-employee-leave/update-resigned-employee-leave.component';
 import { EmployeeLeaveListComponent } from './components/employee-leave-balance/employee-leave-balance-list/employee-leave-balance-list.component';
+import { BulkLeaveUploadComponent } from './components/bulk-leave-upload/bulk-leave-upload.component';
 import { UpdateEmployeeLeaveComponent } from './components/employee-leave-balance/update-employee-leave/update-employee-leave.component';
 
 // Service Declarations
@@ -42,7 +43,8 @@ import { LeaveTypeMasterService } from '../core/shared/services/master/leaveType
         ResignedEmployeeComponent,
         UpdateResignedEmployeeComponent,
         EmployeeLeaveListComponent,
-        UpdateEmployeeLeaveComponent
+        UpdateEmployeeLeaveComponent,
+        BulkLeaveUploadComponent
     ],
     providers: [LeaveService, HolidayService, UserService, LeaveTypeMasterService],
 })

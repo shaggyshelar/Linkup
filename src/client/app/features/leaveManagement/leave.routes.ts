@@ -13,6 +13,7 @@ import { ResignedEmployeeComponent } from './components/resigned-employee-leave/
 import { UpdateResignedEmployeeComponent } from './components/resigned-employee-leave/update-resigned-employee-leave/update-resigned-employee-leave.component';
 import { EmployeeLeaveListComponent } from './components/employee-leave-balance/employee-leave-balance-list/employee-leave-balance-list.component';
 import { UpdateEmployeeLeaveComponent } from './components/employee-leave-balance/update-employee-leave/update-employee-leave.component';
+import { BulkLeaveUploadComponent } from './components/bulk-leave-upload/bulk-leave-upload.component';
 import { AuthGuard } from '../core/index';
 
 export const LeaveRoutes: Route[] = [
@@ -107,6 +108,14 @@ export const LeaveRoutes: Route[] = [
     canActivate: [AuthGuard],
     data: {
       permissions: ['HR.EMPLOYEELEAVEBALANCE.UPDATE']
+    }
+  },
+  {
+    path: 'bulk-leave-update',
+    component: BulkLeaveUploadComponent,
+   // canActivate: [AuthGuard],
+    data: {
+     // permissions: ['HR.EMPLOYEELEAVEBALANCE.UPDATE']
     }
   },
 ];

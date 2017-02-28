@@ -5,6 +5,8 @@ import { RoleAddEditComponent } from './components/roles/role-add-edit/role-add-
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserRoleComponent } from './components/user/user-role/user-role.component';
 import { AuthGuard } from '../core/index';
+import { LeaveTypeListComponent } from './components/masters/leave-type/leave-type-list/leave-type-list.component';
+import { LeaveTypeAddEditComponent } from './components/masters/leave-type/leave-type-add-edit/leave-type-add-edit.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -64,5 +66,33 @@ export const AdminRoutes: Routes = [
         }
       },
     ]
-  },
+  },{
+    path: 'masters/leave-type',
+    children: [
+      {
+        path: '',
+        component: LeaveTypeListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          permissions: ['ADMIN.LEAVETYPE.MANAGE']
+        }
+      },
+      {
+        path: 'add',
+        component: LeaveTypeAddEditComponent,
+        canActivate: [AuthGuard],
+        data: {
+          permissions: ['ADMIN.LEAVETYPE.MANAGE']
+        }
+      },
+      {
+        path: 'edit/:id',
+        component: LeaveTypeAddEditComponent,
+        canActivate: [AuthGuard],
+        data: {
+          permissions: ['ADMIN.LEAVETYPE.MANAGE']
+        }
+      },
+    ]
+  }
 ];

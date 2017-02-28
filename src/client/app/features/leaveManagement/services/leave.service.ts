@@ -432,4 +432,23 @@ export class LeaveService extends BaseService {
             return this.handleError(err);
         });
     }
+    bulkUpdateLeave(payload:any) {
+        let headers = new Headers();
+        let formData:FormData = new FormData();
+        formData.append('file', payload, payload.name);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+       // headers.append('Content-Type', 'multipart/form-data');
+        let options = new RequestOptions({ headers: headers });
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        return this.http.post(this.baseUrl+'EmployeeLeaves/BulkUpdateEmployeeLeaveBalance',formData,options)
+         .map(res => {
+            windowRef['App'].unblockUI();
+            return res.json();
+        })
+        .catch(err => {
+            windowRef['App'].unblockUI();
+            return this.handleError(err);
+        });
+    }
 }

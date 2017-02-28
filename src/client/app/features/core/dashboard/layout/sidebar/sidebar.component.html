@@ -47,14 +47,24 @@
 					<span class="title">Home</span>
 				</a>
 			</li>
-			<li class="nav-item" [ifAuthorize]="['ADMIN.MANAGE']">
+			<li class="nav-item"  [ifAuthorize]="['ADMIN.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-briefcase"></i>
 					<span class="title">ADMIN</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item" >
+					<li class="nav-item" [ifAuthorize]="['ADMIN.BULKLEAVEUPDATE.MANAGE']" >
+						<a routerLink="/leave/bulk-leave-update"  routerLinkActive="active">
+							<span class="title">Bulk Leave Update</span>
+						</a>
+					</li>
+					<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']" >
+						<a routerLink="/admin/masters/leave-type"  routerLinkActive="active">
+							<span class="title">Leave Master</span>
+						</a>
+					</li>
+					<li class="nav-item" [ifAuthorize]="['USER.READ']" >
 						<a  routerLink="/admin/users"  routerLinkActive="active">
 							<span class="title">User</span>
 						</a>
@@ -65,7 +75,7 @@
 						</a>
 					</li>
 					<li class="nav-item" >
-						<a routerLink="/admin/role" routerLinkActive="active">
+						<a routerLink="/admin/role"  [ifAuthorize]="['FEATURE.READ']" routerLinkActive="active">
 							<span class="title">Role</span>
 						</a>
 					</li>

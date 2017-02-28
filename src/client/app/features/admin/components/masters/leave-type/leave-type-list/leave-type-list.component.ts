@@ -34,7 +34,7 @@ export class LeaveTypeListComponent implements OnInit {
   onEditClicked(leave:any) {
     this.router.navigate(['/admin/masters/leave-type/edit',leave.ID]);
   }
- onAddClicked() {
-    this.router.navigate(['/admin/masters/leave-type/new']);
+  goToAdd() {
+    this.router.navigate(['/admin/masters/leave-type/add']);
   }
 }

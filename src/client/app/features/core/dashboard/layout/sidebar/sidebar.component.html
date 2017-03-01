@@ -47,25 +47,54 @@
 					<span class="title">Home</span>
 				</a>
 			</li>
-			<li class="nav-item"  [ifAuthorize]="['ADMIN.MANAGE']">
+			<li class="nav-item" [ifAuthorize]="['ADMIN.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-briefcase"></i>
 					<span class="title">ADMIN</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item" [ifAuthorize]="['ADMIN.BULKLEAVEUPDATE.MANAGE']" >
-						<a routerLink="/leave/bulk-leave-update"  routerLinkActive="active">
+					<li class="nav-item" [ifAuthorize]="['ADMIN.BULKLEAVEUPDATE.MANAGE']">
+						<a routerLink="/leave/bulk-leave-update" routerLinkActive="active">
 							<span class="title">Bulk Leave Update</span>
 						</a>
 					</li>
-					<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']" >
-						<a routerLink="/admin/masters/leave-type"  routerLinkActive="active">
-							<span class="title">Leave Master</span>
+					<li class="nav-item " [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+						<a href="javascript:;" class="nav-link nav-toggle">
+							<span class="title">Masters</span>
+							<span class="arrow"></span>
 						</a>
+						<ul class="sub-menu">
+							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+								<a routerLink="/admin/masters/leave-type" routerLinkActive="active">
+									<span class="title">Leave Type</span>
+								</a>
+							</li>
+							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+								<a routerLink="/admin/masters/delivery-model" routerLinkActive="active">
+									<span class="title">Delivery Model</span>
+								</a>
+							</li>
+							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+								<a routerLink="/admin/masters/delivery-unit" routerLinkActive="active">
+									<span class="title">Delivery Unit</span>
+								</a>
+							</li>
+							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+								<a routerLink="/admin/masters/project-category" routerLinkActive="active">
+									<span class="title">Project Category</span>
+								</a>
+							</li>
+							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+								<a routerLink="/admin/masters/client-type" routerLinkActive="active">
+									<span class="title">Client Types</span>
+								</a>
+							</li>
+						</ul>
 					</li>
-					<li class="nav-item" [ifAuthorize]="['USER.READ']" >
-						<a  routerLink="/admin/users"  routerLinkActive="active">
+
+					<li class="nav-item" [ifAuthorize]="['USER.READ']">
+						<a routerLink="/admin/users" routerLinkActive="active">
 							<span class="title">User</span>
 						</a>
 					</li>
@@ -74,8 +103,8 @@
 							<span class="title">Feature</span>
 						</a>
 					</li>
-					<li class="nav-item" >
-						<a routerLink="/admin/role"  [ifAuthorize]="['FEATURE.READ']" routerLinkActive="active">
+					<li class="nav-item">
+						<a routerLink="/admin/role" [ifAuthorize]="['FEATURE.READ']" routerLinkActive="active">
 							<span class="title">Role</span>
 						</a>
 					</li>
@@ -118,7 +147,7 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item open" [ifAuthorize]="['LEAVE.MANAGE']" >
+			<li class="nav-item open" [ifAuthorize]="['LEAVE.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="icon-calendar"></i>
 					<span class="title">Leave Management</span>
@@ -152,7 +181,7 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item" [ifAuthorize]="['HR.MANAGE']" >
+			<li class="nav-item" [ifAuthorize]="['HR.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="icon-user"></i>
 					<span class="title">HR</span>
@@ -171,33 +200,33 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item"  [ifAuthorize]="['CORPORATE.MANAGE']">
+			<li class="nav-item" [ifAuthorize]="['CORPORATE.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-briefcase"></i>
 					<span class="title">Corporate</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item"  [ifAuthorize]="['CONFERENCE_BOOK.READ']">
+					<li class="nav-item" [ifAuthorize]="['CONFERENCE_BOOK.READ']">
 						<a routerLink="/corporate/conferenceBooking" routerLinkActive="active">
 							<span class="title">Conference Booking</span>
 						</a>
 					</li>
-					<li class="nav-item  "  [ifAuthorize]="['TICKET.READ']">
+					<li class="nav-item  " [ifAuthorize]="['TICKET.READ']">
 						<a routerLink="/corporate/log-ticket" routerLinkActive="active">
 							<span class="title">Log Ticket</span>
 						</a>
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item"  [ifAuthorize]="['PROJECT.MANAGE']">
+			<li class="nav-item" [ifAuthorize]="['PROJECT.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-briefcase"></i>
 					<span class="title">Projects</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item"  [ifAuthorize]="['PROJECT.READ']">
+					<li class="nav-item" [ifAuthorize]="['PROJECT.READ']">
 						<a routerLink="/project/manage" routerLinkActive="active">
 							<span class="title">Manage My Project</span>
 						</a>

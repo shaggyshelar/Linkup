@@ -17,7 +17,11 @@ import { UserRoleService } from './services/user-role.service';
 import { UserRoleComponent } from './components/user/user-role/user-role.component';
 import { LeaveTypeListComponent } from './components/masters/leave-type/leave-type-list/leave-type-list.component';
 import { LeaveTypeAddEditComponent } from './components/masters/leave-type/leave-type-add-edit/leave-type-add-edit.component';
-
+import { DeliveryModelComponent } from './components/masters/delivery-model/delivery-model.component';
+import { DeliveryUnitComponent } from './components/masters/delivery-unit/delivery-unit.component';
+import { ProjectCategoryComponent } from './components/masters/project-category/project-category.component';
+import { ClientTypeComponent } from './components/masters/client-type/client-type.component';
+import { ClientTypeService } from '../core/shared/index';
 
 /** Module Definition */
 @NgModule({
@@ -32,9 +36,13 @@ import { LeaveTypeAddEditComponent } from './components/masters/leave-type/leave
         UserListComponent,
         UserRoleComponent,
         LeaveTypeListComponent,
-        LeaveTypeAddEditComponent
+        LeaveTypeAddEditComponent,
+        DeliveryModelComponent,
+        DeliveryUnitComponent,
+        ProjectCategoryComponent,
+        ClientTypeComponent
     ],
-    providers: [FeatureService, RoleService, PermissionService,UserService,UserRoleService],
+    providers: [FeatureService, RoleService, PermissionService, UserService, UserRoleService, ClientTypeService],
 })
 export class AdminModule {
 }

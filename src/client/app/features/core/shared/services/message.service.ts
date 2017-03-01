@@ -21,6 +21,8 @@ export class MessageService {
     public static APPLY_LEAVE_13 = 'You have already applied Leave for selected date';
     public static APPLY_LEAVE_14 = 'Leave request cancelled';
     public static BULK_LEAVE_1 = 'Please upload document of type .csv';
+    public static RECORD_SAVED = 'Record Saved';
+    public static RECORD_UPDATED = 'Record Updated';
 
     isSessionTimeout: boolean = false;
 

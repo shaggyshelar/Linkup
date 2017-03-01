@@ -1,20 +1,20 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';
+import { Http, RequestOptions, Headers  } from '@angular/http';
 
 /** Module Level Dependencies */
 import { BaseService } from '../../index';
 
 /** Context for service calls */
-const CONTEXT = 'deliverymodel';
+const CONTEXT = 'ClientType';
 
 /** Service Definition */
 @Injectable()
-export class DeliveryModelService extends BaseService {
+export class ClientTypeService extends BaseService {
     constructor( public http: Http) {
         super(http, CONTEXT);
     }
-    getDeliveryModelList() {
+    getClientTypes() {
         let windowRef = this._window();
         windowRef['App'].blockUI();
         return this.getList$(0,0,true)
@@ -48,7 +48,7 @@ export class DeliveryModelService extends BaseService {
         let options = new RequestOptions({ headers: headers });
         let windowRef = this._window();
         windowRef['App'].blockUI();
-        return this.http.post(this.baseUrl+'deliverymodel/Update',body,options)
+        return this.http.post(this.baseUrl+'ClientType/Update',body,options)
          .map(res => {
             windowRef['App'].unblockUI();
             return res.json();

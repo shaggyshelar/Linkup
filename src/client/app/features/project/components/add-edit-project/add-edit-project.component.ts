@@ -62,7 +62,7 @@ export class AddEditProjectComponent implements OnInit {
         this.deliverUnits=[];
         this.priceType=[];
         this.projectCategory=[];
-        this.DeliveryModelService.getDeliveryModel().subscribe(result => {
+        this.DeliveryModelService.getDeliveryModelList().subscribe(result => {
             this.deliverModels.push({ label: 'Select Delivery Model', value: null });
             _.forEach(result, (element:any) => {
                 this.deliverModels.push({
@@ -71,7 +71,7 @@ export class AddEditProjectComponent implements OnInit {
                 });
             });
         });
-        this.DeliveryUnitService.getDeliveryUnit().subscribe(result => {
+        this.DeliveryUnitService.getDeliveryUnitList().subscribe(result => {
             this.deliverUnits.push({ label: 'Select Delivery Unit', value: null });
             _.forEach(result, (element:any) => {
                 this.deliverUnits.push({
@@ -89,7 +89,7 @@ export class AddEditProjectComponent implements OnInit {
                 });
             });
         });
-        this.ProjectCategoryService.getProjectCategory().subscribe(result => {
+        this.ProjectCategoryService.getProjectCategories().subscribe(result => {
             this.clients.push({ label: 'Select Project Category', value: null });
             _.forEach(result, (element:any) => {
                 this.projectCategory.push({

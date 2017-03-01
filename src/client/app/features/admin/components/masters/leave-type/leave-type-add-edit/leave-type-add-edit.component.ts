@@ -69,14 +69,14 @@ export class LeaveTypeAddEditComponent implements OnInit {
         if (this.param) {
             this.leaveTypeService.update(value).subscribe(result => {
                 if (result) {
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Updated Successfully' });
+                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.RECORD_UPDATED });
                     this.onCancel();
                 }
             });
         } else {
             this.leaveTypeService.save(value).subscribe(result => {
                 if (result) {
-                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Saved Successfully' });
+                    this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.RECORD_SAVED });
                     this.onCancel();
                 }
             });

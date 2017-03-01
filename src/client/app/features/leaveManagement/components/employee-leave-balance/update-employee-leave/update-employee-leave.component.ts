@@ -6,8 +6,8 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 
 /** Module Level Dependencies */
-import { LeaveTypeMasterService } from '../../../../core/shared/services/master/leaveTypeMaster.service';
-import { LeaveService } from '../../../services/leave.service';
+import { LeaveTypeMasterService } from '../../../../core/shared/index';
+import { LeaveService } from '../../../services/index';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -17,52 +17,52 @@ import * as moment from 'moment/moment';
 })
 export class UpdateEmployeeLeaveComponent implements OnInit {
   public leave: any;
-  param:string;
-  leaveType:any;
-  model:any;
+  param: string;
+  leaveType: any;
+  model: any;
   constructor(
     private router: Router,
     private leaveService: LeaveService,
     private route: ActivatedRoute,
     private leaveTypeService: LeaveTypeMasterService,
-  ) {}
+  ) { }
 
   ngOnInit() {
-      this.model= {
-          leaveType:{},
-          adjustmentEntry:''
-      };
-    this.leave =  {
+    this.model = {
+      leaveType: {},
+      adjustmentEntry: ''
+    };
+    this.leave = {
       Employee: {
-           Name: ''
+        Name: ''
       },
       EmpID: '',
-      PLB:'',
-      AccruedLeave:'',
-      PaternityAdjustmentEntry:'',
-      MarriageAdjustmentEntry:'',
-      MaternityAdjustmentEntry:'',
+      PLB: '',
+      AccruedLeave: '',
+      PaternityAdjustmentEntry: '',
+      MarriageAdjustmentEntry: '',
+      MaternityAdjustmentEntry: '',
       LeaveTaken: '',
       LeaveBalance: '',
       ActualBalance: '',
       HalfdayLeaveTaken: '',
-      AbsentTaken:'',
-      HalfdayAbsentTaken:''
+      AbsentTaken: '',
+      HalfdayAbsentTaken: ''
     };
-    this.leaveType=[];
+    this.leaveType = [];
     this.route.params.subscribe(params => {
       this.param = params['id'];
     });
     this.leaveService.getEmpLeaveBalanceById(this.param).subscribe((res: any) => {
       this.leave = res;
     });
-    this.leaveTypeService.getLeaveTypes().subscribe((res:any) => {
-        this.leaveType.push({ label: 'Select', value: null });
-        for (var index in res) {
-            if(res[index].AdjustmentEntryApplicable==='Yes') {
-                this.leaveType.push({ label: res[index].Type, value: res[index] });
-            }
+    this.leaveTypeService.getLeaveTypes().subscribe((res: any) => {
+      this.leaveType.push({ label: 'Select', value: null });
+      for (var index in res) {
+        if (res[index].AdjustmentEntryApplicable === 'Yes') {
+          this.leaveType.push({ label: res[index].Type, value: res[index] });
         }
+      }
     });
   }
 
@@ -70,27 +70,27 @@ export class UpdateEmployeeLeaveComponent implements OnInit {
     this.router.navigate(['/leave/employee-leave-balance']);
   }
   onSubmit() {
-    let leaveType='';
-    switch(this.model.leaveType.Type) {
-          case 'Marriage Leave':  leaveType='MarriageAdjustmentEntry';
-                                  break;
-          case 'Paternity Leave': leaveType='PaternityAdjustmentEntry';
-                                  break;
-          case 'Maternity Leave': leaveType='MaternityAdjustmentEntry';
-                                  break;
+    let leaveType = '';
+    switch (this.model.leaveType.Type) {
+      case 'Marriage Leave': leaveType = 'MarriageAdjustmentEntry';
+        break;
+      case 'Paternity Leave': leaveType = 'PaternityAdjustmentEntry';
+        break;
+      case 'Maternity Leave': leaveType = 'MaternityAdjustmentEntry';
+        break;
     }
-    let payload:any = {ID:this.param};
-    payload[leaveType]=this.model.adjustmentEntry;
+    let payload: any = { ID: this.param };
+    payload[leaveType] = this.model.adjustmentEntry;
     this.leaveService.updateEmpLeaveBalance(payload).subscribe((res: any) => {
-       this.cancel();
+      this.cancel();
     });
   }
-  isNumberKey(event:any) {
-      var charCode = (event.which) ? event.which : event.keyCode;
-          if (charCode !== 46 && charCode > 31
-            && (charCode < 48 || charCode > 57))
-             return false;
+  isNumberKey(event: any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode !== 46 && charCode > 31
+      && (charCode < 48 || charCode > 57))
+      return false;
 
-          return true;
+    return true;
   }
 }

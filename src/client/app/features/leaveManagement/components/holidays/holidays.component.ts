@@ -9,11 +9,11 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 /** Module Level Dependencies */
-import { HolidayService } from '../../services/holiday.service';
+import { HolidayService } from '../../services/index';
 import { Holiday } from '../../models/holiday';
 
 /** Other Module Dependencies */
-import { MessageService } from '../../../core/shared/services/message.service';
+import { MessageService } from '../../../core/shared/index';
 import * as moment from 'moment/moment';
 
 /** Component Declaration */

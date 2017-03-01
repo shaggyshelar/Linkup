@@ -1,6 +1,6 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
-import { Http,RequestOptions,Headers } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 
 
 /** Module Level Dependencies */
-import { Select } from '../../../../leaveManagement/models/select';
 import { BaseService } from '../../../index';
 // import { Employee } from '../models/employee';
 
@@ -27,7 +26,7 @@ export class LeaveTypeMasterService extends BaseService {
      * getHolidays method
      * Gets array of Holiday objects
      */
-    getLeaveTypes(): Observable<Select> {
+    getLeaveTypes() {
         let windowRef = this._window();
         windowRef['App'].blockUI();
         return this.getList$(0,0,true)

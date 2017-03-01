@@ -12,14 +12,14 @@ import { Message } from 'primeng/primeng';
 
 
 /** Module Level Dependencies */
-import { LeaveService } from '../../services/leave.service';
+import { LeaveService } from '../../services/index';
 import { Leave } from '../../models/leave';
 import { User } from '../../models/user';
 import { ApprovalForm } from '../../models/leaveApprovalValidation';
 
 /** Other Module Dependencies */
-import { MessageService } from '../../../core/shared/services/message.service';
-import { AuthService } from '../../../core/auth/auth.service';
+import { MessageService } from '../../../core/shared/index';
+import { AuthService } from '../../../core/index';
 
 /** Component Declaration */
 
@@ -39,17 +39,17 @@ export class SingleApprovalComponent implements OnInit {
     servRows = 6;
     singleApprovalForm: FormGroup;
     model: any;
-    approverList:any;
+    approverList: any;
     validationMessage: string = '';
     approved: boolean = false;
     rejected: boolean = false;
-    leaveList:any;
-    userDetail:any;
-    isPending: boolean=false;
-    currentUser:any;
-    isHRUser:boolean=false;
-    isHRApprove: boolean=false;
-    isHRReject:boolean=false;
+    leaveList: any;
+    userDetail: any;
+    isPending: boolean = false;
+    currentUser: any;
+    isHRUser: boolean = false;
+    isHRApprove: boolean = false;
+    isHRReject: boolean = false;
     constructor(
         private messageService: MessageService,
         private router: Router,
@@ -68,22 +68,22 @@ export class SingleApprovalComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentUser=this.authService.getCurrentUser();
+        this.currentUser = this.authService.getCurrentUser();
         this.route.params.subscribe(params => {
             this.leaveID = params['id'];
         });
         this.leaveService.getLeaveDetailByRefID(this.leaveID).subscribe(res => {
-            this.leaveList=res;
+            this.leaveList = res;
             this.getEmployeeDetails(this.leaveList[0].EmpID);
-            if(this.leaveList[0].Status==='Rejected' || this.leaveList[0].Status==='Pending') {
-                this.isHRApprove=true;
+            if (this.leaveList[0].Status === 'Rejected' || this.leaveList[0].Status === 'Pending') {
+                this.isHRApprove = true;
             }
-            if(this.leaveList[0].Status==='Approved' || this.leaveList[0].Status==='Pending') {
-                this.isHRReject=true;
+            if (this.leaveList[0].Status === 'Approved' || this.leaveList[0].Status === 'Pending') {
+                this.isHRReject = true;
             }
         });
         this.leaveService.getApproverListByRefID(this.leaveID).subscribe(res => {
-            this.approverList=res;
+            this.approverList = res;
             this.checkIfPending();
         });
         this.checkIfHR();
@@ -92,22 +92,22 @@ export class SingleApprovalComponent implements OnInit {
     checkIfHR() {
         let loggedInUserPermission = JSON.parse(localStorage.getItem('loggedInUserPermission'));
         if (loggedInUserPermission.indexOf('LEAVE.HRAPPROVAL.UPDATE') !== -1) {
-             this.isHRUser=true;
+            this.isHRUser = true;
         }
     }
-  checkIfPending() {
-     for(let i=0;i<this.approverList.length;i++) {
-        if(this.approverList[i].Approver.ID===this.currentUser.Employee.ID) {
-          if(this.approverList[i].Status==='Pending') {
-             this.isPending=true;
-          }
+    checkIfPending() {
+        for (let i = 0; i < this.approverList.length; i++) {
+            if (this.approverList[i].Approver.ID === this.currentUser.Employee.ID) {
+                if (this.approverList[i].Status === 'Pending') {
+                    this.isPending = true;
+                }
+            }
         }
-      }
-      this.isPending=false;
+        this.isPending = false;
     }
-    getEmployeeDetails(id:any) {
+    getEmployeeDetails(id: any) {
         this.leaveService.getEmployeeDetail(id).subscribe(res => {
-            this.userDetail=res;
+            this.userDetail = res;
         });
     }
     approveClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
@@ -116,7 +116,7 @@ export class SingleApprovalComponent implements OnInit {
             var params = {
                 Comments: this.model.comments.trim(),
                 Status: 'Approved',
-                LeaveRequestRefId:this.leaveID
+                LeaveRequestRefId: this.leaveID
             };
 
             this.leaveService.singleLeaveApprove(params)
@@ -141,7 +141,7 @@ export class SingleApprovalComponent implements OnInit {
             var params = {
                 Comments: this.model.comments.trim(),
                 Status: 'Approved',
-                LeaveRequestRefId:this.leaveID
+                LeaveRequestRefId: this.leaveID
             };
             this.leaveService.hrLeaveApprove(params)
                 .subscribe(res => {
@@ -160,12 +160,12 @@ export class SingleApprovalComponent implements OnInit {
     }
     rejectClicked({ value, valid }: { value: ApprovalForm, valid: boolean }) {
         if (valid) {
-        //    BACKEND CALL HERE
+            //    BACKEND CALL HERE
             this.model.comments = value.comments;
             var params = {
                 Comments: this.model.comments.trim(),
                 Status: 'Rejected',
-                LeaveRequestRefId:this.leaveID
+                LeaveRequestRefId: this.leaveID
             };
 
             this.leaveService.singleLeaveReject(params)

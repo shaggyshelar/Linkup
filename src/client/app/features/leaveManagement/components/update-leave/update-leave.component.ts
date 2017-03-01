@@ -10,12 +10,12 @@ import { Observable } from 'rxjs/Rx';
 import { Message } from 'primeng/primeng';
 
 /** Other Module Dependencies */
-import { MessageService } from '../../../core/shared/services/message.service';
+import { MessageService } from '../../../core/shared/index';
 
 /** Module Level Dependencies */
-import { LeaveService } from '../../services/leave.service';
+import { LeaveService } from '../../services/index';
 import { Leave } from '../../models/leave';
-import { AuthService } from '../../../core/auth/auth.service';
+import { AuthService } from '../../../core/index';
 /** Component Declaration */
 
 @Component({

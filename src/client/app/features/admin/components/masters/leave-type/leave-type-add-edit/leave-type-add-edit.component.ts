@@ -3,13 +3,10 @@ import { Router, ActivatedRoute  } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SelectItem } from 'primeng/primeng';
-import { MessageService } from '../../../../../core/shared/services/message.service';
+import { MessageService, LeaveTypeMasterService } from '../../../../../core/shared/index';
 
 /** Framework Dependencies */
 import { Component } from '@angular/core';
-
-/** Module Level Dependencies */
-import { LeaveTypeMasterService } from '../../../../../core/shared/services/master/leaveTypeMaster.service';
 
 import * as moment from 'moment/moment';
 

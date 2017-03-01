@@ -6,7 +6,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 
 /** Module Level Dependencies */
-import { LeaveService } from '../../../services/leave.service';
+import { LeaveService } from '../../../services/index';
 import { Leave } from '../../../models/leave';
 
 @Component({
@@ -30,8 +30,8 @@ export class ResignedEmployeeComponent implements OnInit {
     });
   }
 
-  oneEditClicked(leave:any) {
-    this.router.navigate(['/leave/resigned-employee',leave.ID]);
+  oneEditClicked(leave: any) {
+    this.router.navigate(['/leave/resigned-employee', leave.ID]);
   }
 
 }

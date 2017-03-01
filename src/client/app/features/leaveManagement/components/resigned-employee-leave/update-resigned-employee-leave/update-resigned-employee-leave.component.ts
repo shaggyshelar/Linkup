@@ -6,7 +6,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 
 /** Module Level Dependencies */
-import { LeaveService } from '../../../services/leave.service';
+import { LeaveService } from '../../../services/index';
 import * as moment from 'moment/moment';
 
 @Component({

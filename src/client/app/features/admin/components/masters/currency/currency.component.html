@@ -1,0 +1,77 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <div class="hidden-xs">
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <span>LINK UP</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Masters</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Currency</span>
+                </li>
+            </ul>
+        </div>
+        <div class="portlet light bordered" *ngIf="isAddEdit">
+            <div class="portlet-title">
+                <div class="caption">
+                    Add New
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-horizontal" role="form" novalidate (ngSubmit)="onSubmit(currencyForm)" [formGroup]="currencyForm">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Name</label>
+                        <div class="col-md-4">
+                            <input type="text" formControlName="Name" name="Name" class="form-control" required="">
+                            <div class="alert alert-danger" *ngIf="currencyForm.get('Name').hasError('required') && currencyForm.get('Name').touched">
+                                Please enter Name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Code</label>
+                        <div class="col-md-4">
+                            <input type="text" formControlName="Code" name="Code" class="form-control" required="">
+                            <div class="alert alert-danger" *ngIf="currencyForm.get('Code').hasError('required') && currencyForm.get('Code').touched">
+                                Please enter Code
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-4">
+                            <button pButton type="submit" label="Save" [disabled]="currencyForm.invalid"></button>
+                            <button pButton type="button" label="Cancel" (click)="onCancel()"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="portlet light bordered">
+            <nav class="mobile-addBtn hidden-sm hidden-md hidden-lg">
+                <a class="buttons" (click)="onAdd()" tooltip="New Leave Type"><i class="fa fa-plus-circle fa-4x" aria-hidden="true"></i></a>
+            </nav>
+            <div class="portlet-title hidden-xs">
+                <div class="actions">
+                    <a class="btn green hidden-xs" (click)="onAdd()"><i class="fa fa-plus"></i> New</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <p-dataTable [value]="currencyList" [paginator]="true" [rows]='10' [responsive]="true">
+                    <p-column field="Name" header="Name"></p-column>
+                    <p-column field="Code" header="Code"></p-column>
+                    <p-column styleClass="col-button" header="Edit">
+                        <template let-rowData="rowData" pTemplate type="body">
+                            <button id="actionUpdate" type="button" pButton (click)="onEditClicked(rowData)" icon="fa fa-edit"></button>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </div>
+    </div>
+</div>

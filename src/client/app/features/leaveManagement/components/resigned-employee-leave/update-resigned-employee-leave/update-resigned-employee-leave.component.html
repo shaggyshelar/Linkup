@@ -1,0 +1,85 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <ul class="page-breadcrumb breadcrumb hidden-xs">
+      <li>
+        <span>LINK UP</span>
+        <i class="fa fa-circle"></i>
+      </li>
+      <li>
+        <span class="active">Update Resigned Employee Leave</span>
+      </li>
+    </ul>
+    <div class="portlet light bordered legends-portlet">
+      <div class="portlet-body">
+        <form class="form-horizontal" #leaveForm="ngForm" novalidate>
+          <div class="form-group">
+            <label class="control-label bold col-sm-3  col-xs-6">Employee :</label>
+            <div class="col-sm-9 col-xs-6">
+              <p class="form-control-static">{{leave.Employee.Name}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 col-xs-6 bold">Leave Balance :</label>
+            <div class="col-sm-9 col-xs-6">
+              <input type="text"  (keypress)="isNumberKey($event)"  [(ngModel)]="leave.LeaveDetails.LeaveBalance" name='leaveBalance' #leaveBalance="ngModel" required class="form-control"
+              />
+              <div *ngIf="leaveBalance.errors && (leaveBalance.dirty || leaveBalance.touched)" class="alert alert-danger">
+                LeaveBalance is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 col-xs-6 bold">Actual Leave Balance :</label>
+            <div class="col-sm-9 col-xs-6">
+              <p class="form-control-static">{{leave.LeaveDetails.ActualBalance}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 bold">FH Balance :</label>
+            <div class="col-sm-9">
+              <input type="text"  (keypress)="isNumberKey($event)"  [(ngModel)]="leave.LeaveDetails.FloatingHolidayBalance" name='fhBalance' required #fhBalance='ngModel' class="form-control"
+              />
+              <div *ngIf="fhBalance.errors && (fhBalance.dirty || fhBalance.touched)" class="alert alert-danger">
+                FH Balance is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 bold col-xs-6">Actual FH Balance :</label>
+            <div class="col-sm-9 col-xs-6">
+              <p class="form-control-static">{{leave.LeaveDetails.ActualFHBalance}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 bold col-xs-6">L Taken :</label>
+            <div class="col-sm-9 col-xs-6">
+              <input type="text"  (keypress)="isNumberKey($event)"  [(ngModel)]="leave.LeaveDetails.LeaveTaken" name='leaveTaken'  required #leaveTaken='ngModel' class="form-control"
+              />
+              <div *ngIf="leaveTaken.errors && (leaveTaken.dirty || leaveTaken.touched)" class="alert alert-danger">
+                Leave Taken is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 bold ">Registration Date :</label>
+            <div class="col-sm-9">
+              <p-calendar id="start" required dateFormat="dd/mm/yy" [showIcon]="true"  required [(ngModel)]="leave.ResignationDate" name='resignationDate'
+                #resignationDate="ngModel"></p-calendar>
+              <div *ngIf="resignationDate.errors && (resignationDate.dirty || resignationDate.touched)" class="alert alert-danger">
+                Resignation Date is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button pButton type="button" label="Submit" [disabled]="!leaveForm.form.valid" (click)="onSubmit()"></button>
+              <button pButton type="button" label="Cancel" (click)="cancel()"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

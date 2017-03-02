@@ -1,0 +1,88 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Leave</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Leave Types</span>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-body">
+            <form class="form-horizontal" novalidate (ngSubmit)="onSubmit(leaveTypeForm)" [formGroup]="leaveTypeForm">
+              <div class="form-group">
+                <label class="control-label col-sm-2">Name</label>
+                <div class="col-sm-10">
+                  <input type="text" id="title" class="form-control" formControlName="Name" name="Name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Code</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" formControlName="Code" name="Code">
+                  <div class="alert alert-danger" *ngIf="leaveTypeForm.get('Code').hasError('required') && leaveTypeForm.get('Code').touched">
+                    Please Enter Code
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Value</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" formControlName="Value" name="Value">
+                  <div class="alert alert-danger" *ngIf="leaveTypeForm.get('Value').hasError('required') && leaveTypeForm.get('Value').touched">
+                    Please Enter Value
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Type</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" formControlName="Type" name="Type">
+                  <div class="alert alert-danger" *ngIf="leaveTypeForm.get('Type').hasError('required') && leaveTypeForm.get('Type').touched">
+                    Please select Type
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Is Adjustment Entry Applicable</label>
+                <div class="col-sm-10">
+                  <p-dropdown [options]="selectOptions" [style]="{'width':'100%'}" formControlName="AdjustmentEntryApplicable" name="AdjustmentEntryApplicable"></p-dropdown>
+                  <div class="alert alert-danger" *ngIf="leaveTypeForm.get('AdjustmentEntryApplicable').hasError('required') && leaveTypeForm.get('AdjustmentEntryApplicable').touched">
+                    Please select AdjustmentEntryApplicable
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2">Is Applicable</label>
+                <div class="col-sm-10">
+                  <p-dropdown [options]="selectOptions" [style]="{'width':'100%'}" formControlName="Applicable" name="Applicable"></p-dropdown>
+                  <div class="alert alert-danger" *ngIf="leaveTypeForm.get('Applicable').hasError('required') && leaveTypeForm.get('Applicable').touched">
+                    Please select Applicable
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button pButton type="submit" label="Save" [disabled]="leaveTypeForm.invalid"></button>
+                  <button pButton type="button" label="Cancel" (click)="onCancel()"></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

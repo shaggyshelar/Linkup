@@ -13,8 +13,8 @@ import { LeaveService } from '../../services/leave.service';
 import { Leave } from '../../models/leave';
 
 /** Other Module Dependencies */
-import { MessageService } from '../../../core/shared/services/message.service';
-import { AuthService } from '../../../core/auth/auth.service';
+import { MessageService } from '../../../core/shared/index';
+import { AuthService } from '../../../core/index';
 
 /** Component Declaration */
 
@@ -28,7 +28,7 @@ export class ApproveLeaveComponent implements OnInit {
   leaveList: Leave[];
   approvalRecords: any[];
   servRows = 10;
-  userDetail:any;
+  userDetail: any;
 
   constructor(
     private messageService: MessageService,
@@ -38,20 +38,20 @@ export class ApproveLeaveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userDetail=this.authService.getCurrentUser();
+    this.userDetail = this.authService.getCurrentUser();
     this.getApproverLeave();
   }
   getApproverLeave() {
     this.leaveService.getApproverLeaves().subscribe((res: any) => {
-      if(res.length>0) {
+      if (res.length > 0) {
         this.leaveList = res.reverse();
       }
     });
   }
-  checkIfApproverPresent(leave:any) {
-    for(let i=0;i<leave.PendingApprovers.length;i++) {
-      if(leave.PendingApprovers[i].ID===this.userDetail.Employee.ID) {
-         return true;
+  checkIfApproverPresent(leave: any) {
+    for (let i = 0; i < leave.PendingApprovers.length; i++) {
+      if (leave.PendingApprovers[i].ID === this.userDetail.Employee.ID) {
+        return true;
       }
     }
     return false;
@@ -63,34 +63,34 @@ export class ApproveLeaveComponent implements OnInit {
 
   approveLeave(id: string) {
     var params = {
-        Comments: 'Approved!!',
-        Status: 'Approved',
-        LeaveRequestRefId:id
+      Comments: 'Approved!!',
+      Status: 'Approved',
+      LeaveRequestRefId: id
     };
     this.leaveService.singleLeaveApprove(params).subscribe(res => {
-        if (res) {
-            this.getApproverLeave();
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_APPROVED });
-        } else {
-            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
-        }
+      if (res) {
+        this.getApproverLeave();
+        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_APPROVED });
+      } else {
+        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
+      }
     });
   }
 
   rejectLeave(id: string) {
-      var params = {
-        Comments: 'Rejected!!',
-        Status: 'Rejected',
-        LeaveRequestRefId:id
-      };
-      this.leaveService.singleLeaveReject(params).subscribe(res => {
-        if (res) {
-            this.getApproverLeave();
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_REJECTED  });
-        } else {
-            this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
-        }
-      });
+    var params = {
+      Comments: 'Rejected!!',
+      Status: 'Rejected',
+      LeaveRequestRefId: id
+    };
+    this.leaveService.singleLeaveReject(params).subscribe(res => {
+      if (res) {
+        this.getApproverLeave();
+        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.LEAVE_REJECTED });
+      } else {
+        this.messageService.addMessage({ severity: 'error', summary: 'Fail', detail: MessageService.REQUEST_FAILED });
+      }
+    });
   }
   getLeaveStatusClass(leave: any) {
     if (leave.Status === 'Pending') {

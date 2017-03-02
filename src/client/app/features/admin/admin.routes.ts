@@ -5,6 +5,12 @@ import { RoleAddEditComponent } from './components/roles/role-add-edit/role-add-
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserRoleComponent } from './components/user/user-role/user-role.component';
 import { AuthGuard } from '../core/index';
+import { LeaveTypeListComponent } from './components/masters/leave-type/leave-type-list/leave-type-list.component';
+import { LeaveTypeAddEditComponent } from './components/masters/leave-type/leave-type-add-edit/leave-type-add-edit.component';
+import { DeliveryModelComponent } from './components/masters/delivery-model/delivery-model.component';
+import { DeliveryUnitComponent } from './components/masters/delivery-unit/delivery-unit.component';
+import { ProjectCategoryComponent } from './components/masters/project-category/project-category.component';
+import { ClientTypeComponent } from './components/masters/client-type/client-type.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -31,9 +37,9 @@ export const AdminRoutes: Routes = [
         component: UserRoleComponent,
         canActivate: [AuthGuard],
         data: {
-           permissions: ['USER.READ']
-         }
-       },
+          permissions: ['USER.READ']
+        }
+      },
     ]
   },
   {
@@ -64,5 +70,62 @@ export const AdminRoutes: Routes = [
         }
       },
     ]
+  }, {
+    path: 'masters/leave-type',
+    children: [
+      {
+        path: '',
+        component: LeaveTypeListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          permissions: ['ADMIN.LEAVETYPE.MANAGE']
+        }
+      },
+      {
+        path: 'add',
+        component: LeaveTypeAddEditComponent,
+        canActivate: [AuthGuard],
+        data: {
+          permissions: ['ADMIN.LEAVETYPE.MANAGE']
+        }
+      },
+      {
+        path: 'edit/:id',
+        component: LeaveTypeAddEditComponent,
+        canActivate: [AuthGuard],
+        data: {
+          permissions: ['ADMIN.LEAVETYPE.MANAGE']
+        }
+      },
+    ]
+  }, {
+    path: 'masters/delivery-model',
+    component: DeliveryModelComponent,
+    // canActivate: [AuthGuard],
+    data: {
+      // permissions: ['ROLE.UPDATE']
+    }
+  }, {
+    path: 'masters/delivery-unit',
+    component: DeliveryUnitComponent,
+    // canActivate: [AuthGuard],
+    data: {
+      // permissions: ['ROLE.UPDATE']
+    }
   },
+  {
+    path: 'masters/project-category',
+    component: ProjectCategoryComponent,
+    // canActivate: [AuthGuard],
+    data: {
+      // permissions: ['ROLE.UPDATE']
+    }
+  }, {
+    path: 'masters/client-type',
+    component: ClientTypeComponent,
+    // canActivate: [AuthGuard],
+    data: {
+      // permissions: ['ROLE.UPDATE']
+    }
+  }
 ];

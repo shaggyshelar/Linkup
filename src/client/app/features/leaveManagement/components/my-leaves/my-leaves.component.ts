@@ -9,13 +9,12 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 /** Module Level Dependencies */
-import { LeaveService } from '../../services/leave.service';
-import { UserService } from '../../services/user.service';
+import { LeaveService, UserService } from '../../services/index';
 import { Leave } from '../../models/leave';
 import { LeaveDetail } from '../../models/leaveDetail';
 
 /** Other Module Dependencies */
-import { MessageService } from '../../../core/shared/services/message.service';
+import { MessageService } from '../../../core/shared/index';
 import * as moment from 'moment/moment';
 /** Component Declaration */
 
@@ -58,8 +57,8 @@ export class MyLeavesComponent implements OnInit {
   applyLeaveClicked() {
     this.router.navigate(['/leave/apply-leave']);
   }
-  
-  showMyLeaves() {   
+
+  showMyLeaves() {
     this.showLeaves = !this.showLeaves;
   }
 

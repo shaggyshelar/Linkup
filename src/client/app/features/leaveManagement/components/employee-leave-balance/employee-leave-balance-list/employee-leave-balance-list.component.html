@@ -1,0 +1,66 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="page-head">
+      <!-- BEGIN PAGE TITLE -->
+      <!-- END PAGE TITLE -->
+    </div>
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Leave</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Employee Leaves Master</span>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-body">
+            <p-dataTable [value]="employeeLeaveList" [paginator]="true" [rowStyleClass]="getLeaveStatusClass" [rows]='10' [responsive]="true">
+              <p-column field="EmpID" header="Employee ID"  [sortable]="true"  frozen="true"></p-column>
+              <p-column field="Employee.Name" header="Employee"   frozen="true"></p-column>
+              <p-column field="Status.Value" header="Status"   frozen="true"></p-column>
+              <p-column field="PLB" header="PLB"   frozen="true"></p-column>
+              <p-column field="AccruedLeave" header="Accured Leave" ></p-column>
+              <p-column field="AdjustmentEntry" header="Adjustment Entry" ></p-column>
+              <p-column field="LeaveTaken" header="L Taken" ></p-column>
+              <p-column field="HalfdayLeaveTaken" header="HL Taken" ></p-column>
+              <p-column  header="Actual Balance" >
+                 <template let-leave="rowData" pTemplate type="body">
+                    {{leave.ActualBalance | number : '1.2-3'}}
+                  </template>
+              </p-column>
+              <p-column field="MarriageAdjustmentEntry" header="Marriage Adjustment Entry" ></p-column>
+              <p-column field="MaternityAdjustmentEntry" header="Maternity Adjustment Entry" ></p-column>
+              <p-column field="PaternityAdjustmentEntry" header="Paternity Adjustment Entry" ></p-column>
+
+              <p-column field="AbsentTaken" header="A Taken" ></p-column>
+              <p-column field="HalfdayAbsentTaken" header="HA Taken" ></p-column>
+              <p-column field="MarriageLeaveTaken" header="MRL Taken" ></p-column>
+              <p-column field="MaternityLeaveTaken" header="MTL Taken" ></p-column>
+              <p-column field="PaternityLeaveTaken" header="PTL Taken" ></p-column>
+              
+              <p-column styleClass="col-button" header="Edit" field="color">
+                <template let-leave="rowData" pTemplate type="body">
+                  <button id="actionUpdate" type="button" pButton (click)="oneEditClicked(leave)" icon="fa fa-edit"></button>
+                </template>
+              </p-column>
+            </p-dataTable>
+          </div>
+        </div>
+      </div>
+      <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

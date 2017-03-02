@@ -14,6 +14,11 @@ import { HolidaysComponent } from './components/holidays/holidays.component';
 import { MyLeavesComponent } from './components/my-leaves/my-leaves.component';
 import { SingleApprovalComponent } from './components/single-approval/single-approval.component';
 import { UpdateLeaveComponent } from './components/update-leave/update-leave.component';
+import { ResignedEmployeeComponent } from './components/resigned-employee-leave/resigned-employee-list/resigned-employee-list.component';
+import { UpdateResignedEmployeeComponent } from './components/resigned-employee-leave/update-resigned-employee-leave/update-resigned-employee-leave.component';
+import { EmployeeLeaveListComponent } from './components/employee-leave-balance/employee-leave-balance-list/employee-leave-balance-list.component';
+import { BulkLeaveUploadComponent } from './components/bulk-leave-upload/bulk-leave-upload.component';
+import { UpdateEmployeeLeaveComponent } from './components/employee-leave-balance/update-employee-leave/update-employee-leave.component';
 
 // Service Declarations
 import { LeaveService } from './services/leave.service';
@@ -34,7 +39,12 @@ import { LeaveTypeMasterService } from '../core/shared/services/master/leaveType
         HolidaysComponent,
         MyLeavesComponent,
         SingleApprovalComponent,
-        UpdateLeaveComponent
+        UpdateLeaveComponent,
+        ResignedEmployeeComponent,
+        UpdateResignedEmployeeComponent,
+        EmployeeLeaveListComponent,
+        UpdateEmployeeLeaveComponent,
+        BulkLeaveUploadComponent
     ],
     providers: [LeaveService, HolidayService, UserService, LeaveTypeMasterService],
 })

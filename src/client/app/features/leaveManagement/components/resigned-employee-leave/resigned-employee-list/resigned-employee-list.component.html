@@ -1,0 +1,60 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="page-head">
+      <!-- BEGIN PAGE TITLE -->
+      <!-- END PAGE TITLE -->
+    </div>
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Leave</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Resigned Employee Leave List</span>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-body">
+            <p-dataTable [value]="employeeLeaveList" [paginator]="true" [rowStyleClass]="getLeaveStatusClass" [rows]='10' [responsive]="true">
+              <p-column field="EmpID" header="Employee ID"  [sortable]="true"></p-column>
+              <p-column field="Employee.Name" header="Employee"  [sortable]="true"></p-column>
+              <p-column field="Status.Value" header="Status" [sortable]="true"></p-column>
+              <p-column header="Resignation Date" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                  {{rowData.ResignationDate }}
+                </template>
+              </p-column>
+              <p-column field="LeaveDetails.LeaveTaken" header="L Taken" ></p-column>
+              <p-column field="LeaveDetails.LeaveBalance" header="L Balance" ></p-column>
+              <p-column  header="Actual Balance" >
+                 <template let-leave="rowData" pTemplate type="body">
+                    {{leave.LeaveDetails.ActualBalance | number : '1.2-3'}}
+                  </template>
+              </p-column>
+              <p-column field="LeaveDetails.FloatingHolidayBalance" header="FH Balance" ></p-column>
+              <p-column field="LeaveDetails.ActualFHBalance" header="Actual FH Balance"></p-column>
+              <p-column styleClass="col-button" header="Edit" field="color">
+                <template let-leave="rowData" pTemplate type="body">
+                  <button id="actionUpdate" type="button" pButton (click)="oneEditClicked(leave)" icon="fa fa-edit"></button>
+                </template>
+              </p-column>
+            </p-dataTable>
+          </div>
+        </div>
+      </div>
+      <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

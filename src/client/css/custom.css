@@ -50,3 +50,10 @@
     height: 47px;
     display: inline-block;
 }
+
+.mobile-addBtn {
+  bottom: 0;
+  position: fixed;
+  margin: 1em;
+  right: 0px;
+}

@@ -1,0 +1,45 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="page-head">
+      <!-- BEGIN PAGE TITLE -->
+      <!-- END PAGE TITLE -->
+    </div>
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Bulk Leave Update</span>
+          <i class="fa fa-circle"></i>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="icon-equalizer font-dark hide"></i>
+              <span class="caption-subject font-dark bold uppercase">Bulk Leave Update</span>
+            </div>
+          </div>
+          <div class="portlet-body">
+            <div class="row">
+              <input type="file" class="btn" (change)="postFile($event)" />
+            </div>
+            <div class="row">
+              <button pButton type="button" class="btn pull-right" (click)="onUploadClicked()" label="Upload"></button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

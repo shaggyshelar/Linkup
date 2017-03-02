@@ -1,0 +1,49 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <div class="hidden-xs">
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <span>LINK UP</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Leave</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Leave Types</span>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <nav class="mobile-addBtn hidden-sm hidden-md hidden-lg">
+                        <a class="buttons" (click)="goToAdd()" tooltip="New Leave Type"><i class="fa fa-plus-circle fa-4x" aria-hidden="true"></i></a>
+                    </nav>
+                    <div class="portlet-title hidden-xs">
+                        <div class="actions">
+                            <a class="btn green hidden-xs" (click)="goToAdd()"><i class="fa fa-plus"></i> New</a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <p-dataTable [value]="leaveTypes" [paginator]="true" [rows]='10' [responsive]="true">
+                            <p-column field="Name" header="Name"></p-column>
+                            <p-column field="Code" header="Code"></p-column>
+                            <p-column field="Type" header="Type"></p-column>
+                            <p-column field="Applicable" header="Applicable"></p-column>
+                            <p-column field="Value" header="Value"></p-column>
+                            <p-column field="AdjustmentEntryApplicable" header="Adjustment Entry Applicable"></p-column>
+                            <p-column styleClass="col-button" header="Edit" field="color">
+                                <template let-leave="rowData" pTemplate type="body">
+                                    <button id="actionUpdate" type="button" pButton (click)="onEditClicked(leave)" icon="fa fa-edit"></button>
+                                </template>
+                            </p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

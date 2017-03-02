@@ -30,7 +30,7 @@
             <div class="table-responsive">
               <table class="table table-bordered">
                 <tbody>
-                 <tr>
+                  <tr>
                     <td> Employee ID </td>
                     <td> {{userDetail? userDetail.EmpID:""  }} </td>
                   </tr>
@@ -79,7 +79,7 @@
               <p-column field="Comments" header="Comments"></p-column>
             </p-dataTable>
             <form novalidate [formGroup]="singleApprovalForm">
-              <div class="form-group"  [hidden]="!isPending">
+              <div class="form-group" [hidden]="!isPending"  [ifAuthorize]="['LEAVE.HRAPPROVAL.UPDATE']" >
                 <label class="control-label">Comments</label>
                 <div class="div-margin">
                   <textarea id="comments" autoresize="autoResize" cols="30" rows="3" class="form-control" formControlName="comments" required>
@@ -105,22 +105,28 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-2">
+                    <button id="approve" *ngIf='isHRApprove && isHRUser' [disabled]="singleApprovalForm.invalid"  type="submit" name="hrapprove"
+                      (click)="hrLeaveApprove(singleApprovalForm)" class="btn">HR Approve</button>
+                </div>
+                <div class="col-md-offset-4 col-md-6">
                   <div class="pull-right">
                     <button id="approve" *ngIf="isPending" [disabled]="singleApprovalForm.invalid" type="submit" name="approve" (click)="approveClicked(singleApprovalForm)"
                       class="btn">Approve</button>
-                      <button id="reject"  *ngIf="isPending" [disabled]="singleApprovalForm.invalid" type="submit" name="reject" (click)="rejectClicked(singleApprovalForm)"
+                      <button id="reject" *ngIf="isHRUser && isHRReject" [disabled]="singleApprovalForm.invalid" type="submit" name="reject" (click)="rejectClicked(singleApprovalForm)"
+                        class="btn">Reject</button>
+                      <button id="reject" *ngIf="isPending && !isHRUser" [disabled]="singleApprovalForm.invalid" type="submit" name="reject" (click)="rejectClicked(singleApprovalForm)"
                         class="btn">Reject</button>
                         <button id="close" type="reset" (click)=" closeClicked()" class="btn">Close</button>
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
+          </form>
         </div>
       </div>
-      <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
     </div>
-    <!-- END CONTENT BODY -->
+    <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->
   </div>
-  <!-- END CONTENT -->
+  <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

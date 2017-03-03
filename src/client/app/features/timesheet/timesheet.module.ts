@@ -11,7 +11,7 @@ import { ApprovedTimesheetComponent } from './components/approved-timesheet/appr
 import { ReportTimesheetComponent } from './components/report-timesheet/report-timesheet.component';
 import { ViewApproveTimesheetComponent } from './components/approve-timesheet/view-approve-timesheet.component';
 // Services Delarations
-import { TimesheetService } from './services/timesheet.service';
+import { TimesheetService, EmployeeTimesheetService } from './services/index';
 
 /** Module Definition */
 @NgModule({
@@ -27,7 +27,7 @@ import { TimesheetService } from './services/timesheet.service';
         ReportTimesheetComponent,
         ViewApproveTimesheetComponent
     ],
-    providers: [TimesheetService],
+    providers: [TimesheetService,EmployeeTimesheetService],
 })
 export class TimesheetModule {
 }

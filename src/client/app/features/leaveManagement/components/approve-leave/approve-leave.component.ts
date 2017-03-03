@@ -49,9 +49,11 @@ export class ApproveLeaveComponent implements OnInit {
     });
   }
   checkIfApproverPresent(leave: any) {
-    for (let i = 0; i < leave.PendingApprovers.length; i++) {
-      if (leave.PendingApprovers[i].ID === this.userDetail.Employee.ID) {
-        return true;
+    if (leave.PendingApprovers !== null) {
+      for (let i = 0; i < leave.PendingApprovers.length; i++) {
+        if (leave.PendingApprovers[i].ID === this.userDetail.Employee.ID) {
+          return true;
+        }
       }
     }
     return false;

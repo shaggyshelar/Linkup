@@ -70,27 +70,27 @@
 									<span class="title">Leave Type</span>
 								</a>
 							</li>
-							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+							<li class="nav-item" [ifAuthorize]="['ADMIN.DELIVERYMODEL.MANAGE']">
 								<a routerLink="/admin/masters/delivery-model" routerLinkActive="active">
 									<span class="title">Delivery Model</span>
 								</a>
 							</li>
-							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+							<li class="nav-item" [ifAuthorize]="['ADMIN.DELIVERYUNIT.MANAGE']">
 								<a routerLink="/admin/masters/delivery-unit" routerLinkActive="active">
 									<span class="title">Delivery Unit</span>
 								</a>
 							</li>
-							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+							<li class="nav-item" [ifAuthorize]="['ADMIN.PROJECTCATEGORY.MANAGE']">
 								<a routerLink="/admin/masters/project-category" routerLinkActive="active">
 									<span class="title">Project Category</span>
 								</a>
 							</li>
-							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+							<li class="nav-item" [ifAuthorize]="['ADMIN.CLIENTTYPE.MANAGE']">
 								<a routerLink="/admin/masters/client-type" routerLinkActive="active">
 									<span class="title">Client Types</span>
 								</a>
 							</li>
-							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+							<li class="nav-item" [ifAuthorize]="['ADMIN.CURRENCY.MANAGE']">
 								<a routerLink="/admin/masters/currency" routerLinkActive="active">
 									<span class="title">Currency</span>
 								</a>
@@ -118,14 +118,14 @@
 			<li class="heading">
 				<h3 class="uppercase">Features</h3>
 			</li>
-			<li class="nav-item " [ifAuthorize]="['Timesheet.READ']">
+			<li class="nav-item " [ifAuthorize]="['TIMESHEET.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-clock-o"></i>
 					<span class="title">Timesheet</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item  " [ifAuthorize]="['Timesheet.READ']">
+					<li class="nav-item  " [ifAuthorize]="['TIMESHEET.MYTIMESHEET.MANAGE']">
 						<a routerLink="/timesheet/my" routerLinkActive="active">
 							<span class="title">My Timesheets</span>
 						</a>
@@ -135,12 +135,12 @@
 							<span class="title">Enter Timesheets</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['Timesheet.UPDATE','Timesheet.READ']">
+					<li class="nav-item  " [ifAuthorize]="['TIMESHEET.APPROVETIMESHEETS.MANAGE']">
 						<a routerLink="/timesheet/approve" routerLinkActive="active">
 							<span class="title">Approve Timesheets</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['Timesheet.READ']">
+					<li class="nav-item  " [ifAuthorize]="['TIMESHEET.APPROVEDTIMESHEETS.MANAGE']">
 						<a routerLink="/timesheet/approved" routerLinkActive="active">
 							<span class="title">Approved Timesheets</span>
 						</a>
@@ -158,7 +158,7 @@
 					<span class="title">Leave Management</span>
 					<span class="arrow"></span>
 				</a>
-				<ul class="sub-menu" style="display:block">
+				<ul class="sub-menu">
 					<li class="nav-item  " [ifAuthorize]="['LEAVE.HOLIDAY.MANAGE']">
 						<a routerLink="/leave/holidays" routerLinkActive="active">
 							<span class="title">Holidays</span>
@@ -217,21 +217,21 @@
 							<span class="title">Conference Booking</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['TICKET.READ']">
+					<li class="nav-item" [ifAuthorize]="['TICKET.READ']">
 						<a routerLink="/corporate/log-ticket" routerLinkActive="active">
 							<span class="title">Log Ticket</span>
 						</a>
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item" [ifAuthorize]="['PROJECT.MANAGE']">
+			<li class="nav-item">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-briefcase"></i>
 					<span class="title">Projects</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item" [ifAuthorize]="['PROJECT.READ']">
+					<li class="nav-item" >
 						<a routerLink="/project/manage" routerLinkActive="active">
 							<span class="title">Manage My Project</span>
 						</a>

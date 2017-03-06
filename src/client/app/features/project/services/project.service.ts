@@ -1,33 +1,34 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-
+import { MessageService } from '../../core/shared/index';
 
 /** Module Level Dependencies */
 import { BaseService } from '../../core/index';
 import { Project } from '../models/project';
 
 /** Context for service calls */
-export const CONTEXT = 'Project';
+const CONTEXT = 'Project';
 
 /** Service Definition */
 @Injectable()
 export class ProjectService extends BaseService {
-    constructor( public http: Http) {
+    constructor( public http: Http, messageService: MessageService, router: Router) {
         super( http, CONTEXT);
     }
     getProjectList() : Observable < Project[] > {
         return this
-            .getList$(0,0,true)
+            .getChildList$('GetMyActiveProjects',0,0,true)
             .map(res => res.json());
     }
     getProjectById(id:string) : Observable < Project > {
         return this
-            .get$(id)
+            .get$(id,true)
             .map(res => res.json());
     }
     saveProject(project:any) : Observable < any > {

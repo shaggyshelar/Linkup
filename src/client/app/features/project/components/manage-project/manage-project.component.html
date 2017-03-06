@@ -34,20 +34,28 @@
 					</div>
 					<div class="portlet-body">
 						<p-dataTable [value]="projectList | async" [responsive]="true" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-							<p-column field="ProjectName" header="Project Name" [sortable]="true"></p-column>
+							<p-column field="Title" header="Project Name" [sortable]="true"></p-column>
 							<p-column field="ProjectType" header="Project Type" [sortable]="true"></p-column>
-							<p-column field="DeliveryUnit" header="Delivery Unit" [sortable]="true"></p-column>
-							<p-column field="ProjectCategory" header="Project Category" [sortable]="true"></p-column>
-							<p-column field="ClientName" header="Client Name" [sortable]="true"></p-column>
-							<p-column field="ProjectStartDate" header="Project Start Date" [sortable]="true"></p-column>
-							<p-column field="ProjectEndDate" header="Project End Date" [sortable]="true"></p-column>
-							<p-column field="ProjectManager" header="Project Manager" [sortable]="true"></p-column>
-							<p-column field="AccountManager" header="Account Manager" [sortable]="true"></p-column>
-							<p-column field="DeliveryManager" header="Delivery Manager" [sortable]="true"></p-column>
+							<p-column field="DeliveryUnit.Value" header="Delivery Unit" [sortable]="true"></p-column>
+							<p-column field="ProjectCategory.Value" header="Project Category" [sortable]="true"></p-column>
+							<p-column field="ClientName.Value" header="Client Name" [sortable]="true"></p-column>
+							 <p-column header="Start Date" [sortable]="true">
+                                <template let-rowData="rowData" pTemplate="body">
+                                    {{rowData.EndDate | date:'dd/MM/y'}}
+                                </template>
+                            </p-column>
+                            <p-column header="End Date" [sortable]="true">
+                                <template let-rowData="rowData" pTemplate="body">
+                                    {{rowData.EndDate | date:'dd/MM/y'}}
+                                </template>
+                            </p-column>
+							<p-column field="ProjectManager.Name" header="Project Manager" [sortable]="true"></p-column>
+							<p-column field="AccountManager.Name" header="Account Manager" [sortable]="true"></p-column>
+							<p-column field="DeliveryManager.Name" header="Delivery Manager" [sortable]="true"></p-column>
 							<p-column field="Isglobal" header="Isglobal" [sortable]="true"></p-column>
 							<p-column header="Action">
 								<template let-currentProject="rowData" pTemplate>
-									  <button id="actionUpdate" type="button" pButton (click)="onEdit(currentProject.Id)" icon="fa fa-edit"></button>
+									  <button id="actionUpdate" type="button" pButton (click)="onEdit(currentProject.ProjectMasterID)" icon="fa fa-edit"></button>
 								</template>
 							</p-column>
 						</p-dataTable>

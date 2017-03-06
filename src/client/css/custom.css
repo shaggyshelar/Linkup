@@ -57,3 +57,12 @@
   margin: 1em;
   right: 0px;
 }
+.form-control{
+    font-size: 1em;
+    font-weight: normal;
+    color: #222222;
+}
+.project-team-member{
+    height: 200px !important;
+    overflow-y: scroll;
+}

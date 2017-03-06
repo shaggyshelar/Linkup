@@ -159,7 +159,7 @@
           </div>
           <div class="form-group">
             <label class="col-sm-2"></label>
-            <div class="col-sm-10">
+            <div class="col-sm-8 project-team-member">
               <table class="table table-bordered" *ngIf="teamMember.length > 0">
                 <thead>
                   <tr>
@@ -171,7 +171,7 @@
                 <tbody>
                   <tr *ngFor='let member of teamMember;let i = index; trackBy: trackByFn'>
                     <td>{{i+1}}</td>
-                    <td>{{member.Name}}</td>
+                    <td>{{member.TeamMember.Name}}</td>
                     <td><a (click)="onDeleteMember(i)">Delete</a></td>
                   </tr>
                 </tbody>

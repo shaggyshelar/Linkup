@@ -1,7 +1,7 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
     <!-- BEGIN CONTENT BODY -->
-    <div class="page-content" [ifAuthorize]="['Timesheet.READ']">
+    <div class="page-content">
         <ul class="page-breadcrumb breadcrumb hidden-xs">
             <li>
                 <span>LINK UP</span>
@@ -69,13 +69,13 @@
                     <div class="portlet-body">
                         <p-dataTable [value]="timesheetReport" [responsive]="true" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
                             <p-column field="date" header="Date" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="employeeName" header="Employee Name" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="project" header="Project" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="Employee.Name" header="Employee Name" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="Project" header="Project" [sortable]="true" [filter]="true"></p-column>
                             <p-column field="task" header="Task" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="billableHours" header="Billable Hours" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="nonBillableHours" header="Non-Billable Hours" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="BillableHours" header="Billable Hours" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="NonBillableHours" header="Non-Billable Hours" [sortable]="true" [filter]="true"></p-column>
                             <p-column field="totalHours" header="Total <Hours></Hours>" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="status" header="Status" [sortable]="true" [filter]="true"></p-column>
+                            <p-column field="Status" header="Status" [sortable]="true" [filter]="true"></p-column>
                         </p-dataTable>
                     </div>
                 </div>

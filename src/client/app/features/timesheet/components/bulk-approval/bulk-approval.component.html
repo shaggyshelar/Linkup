@@ -1,0 +1,85 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <!-- BEGIN CONTENT BODY -->
+  <div class="page-content">
+    <div class="page-head">
+      <!-- BEGIN PAGE TITLE -->
+      <!-- END PAGE TITLE -->
+    </div>
+    <div class="hidden-xs">
+      <ul class="page-breadcrumb breadcrumb">
+        <li>
+          <span>LINK UP</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Bulk Timesheet Approval</span>
+          <i class="fa fa-circle"></i>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <!-- START BULK APPROVAL LIST COMPONENT BY PRIMENG -->
+      <div class="col-lg-12 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+          <div class="portlet-title visible-xs hide-bottom-xs">
+            <div class="caption">
+              <i class="icon-directions font-green hide"></i>
+              <span class="caption-subject bold font-dark uppercase">Bulk Timesheet Approval</span>
+            </div>
+            <div class="actions">
+              <a *ngIf="selectAllBtn" (click)="selectAllRecord()" class="btn green "> Select All</a>
+              <a *ngIf="!selectAllBtn" (click)="unSelectAllRecord()" class="btn green "> UnSelect All</a>
+            </div>
+          </div>
+          <div class="portlet-body">
+            <p-dataTable [value]="leaveList" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows)>
+              <p-column selectionMode="multiple" header="Select" [sortable]="true"></p-column>
+              <p-column field="Employee.Name" header="Employee" [sortable]="true" ></p-column>
+              <p-column header="Start Date" [sortable]="true" >
+                <template let-rowData="rowData" pTemplate="body">
+                  {{rowData.EndDate | date:'dd/MM/y'}}
+                </template>
+              </p-column>
+              <p-column header="End Date" [sortable]="true" >
+                <template let-rowData="rowData" pTemplate="body">
+                  {{rowData.EndDate | date:'dd/MM/y'}}
+                </template>
+              </p-column>
+              <p-column field="BillableHours" header="Billable Hours" [sortable]="true" ></p-column>
+              <p-column field="NonBillableHours" header="Non-Billable Hours" [sortable]="true" ></p-column>
+              <p-column header="Approver User" [sortable]="true" >
+                <template let-rowData="rowData" pTemplate="body">
+                  <ul class="ul-list-table">
+                    <li *ngFor="let item of rowData.ApproverUser">{{item.Name}}</li>
+                  </ul>
+                </template>
+              </p-column>
+              <p-column field="SubmittedStatus" header="Status" [sortable]="true" ></p-column>
+              <p-column header="Pending Approver" [sortable]="true" >
+                <template let-rowData="rowData" pTemplate="body">
+                  <ul class="ul-list-table">
+                    <li *ngFor="let item of rowData.PendingApprover">{{item.Name}}</li>
+                  </ul>
+                </template>
+              </p-column>
+              <p-column field="EmployeeDepartment" header="Department" [sortable]="true" ></p-column>
+            </p-dataTable>
+            <form novalidate>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    <button id="approve" (click)="approveClicked(bulkApprovalForm)" class="btn ">Approve</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- END BULK APPROVAL LIST COMPONENT BY PRIMENG -->
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->

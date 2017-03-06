@@ -10,7 +10,7 @@ import * as moment from 'moment/moment';
 import * as _ from 'lodash/index';
 /** Module Level Dependencies */
 import { Project } from '../../models/project';
-import { ProjectService } from '../../services/project.service';
+import { ProjectService, TeamMemberService } from '../../services/index';
 import { MessageService } from '../../../core/shared/services/message.service';
 import { ClientService } from '../../../core/shared/services/master/client.service';
 import { ProjectTypeService } from '../../../core/shared/services/master/projectType.service';
@@ -41,6 +41,7 @@ export class AddEditProjectComponent implements OnInit {
     selectedTeamMember:Object;
     constructor(
         private projectService: ProjectService,
+        private teamMemberService: TeamMemberService,
         private route: ActivatedRoute,
         private router: Router,
         private formBuilder: FormBuilder,
@@ -66,8 +67,8 @@ export class AddEditProjectComponent implements OnInit {
             this.deliverModels.push({ label: 'Select Delivery Model', value: null });
             _.forEach(result, (element:any) => {
                 this.deliverModels.push({
-                    label: element.Name,
-                    value: element.Name
+                    label: element.Title,
+                    value: element.Title
                 });
             });
         });
@@ -75,48 +76,48 @@ export class AddEditProjectComponent implements OnInit {
             this.deliverUnits.push({ label: 'Select Delivery Unit', value: null });
             _.forEach(result, (element:any) => {
                 this.deliverUnits.push({
-                    label: element.Name,
-                    value: element.Name
+                    label: element.Title,
+                    value: element.Title
                 });
             });
         });
-        this.PriceTypeService.getPriceType().subscribe(result => {
-            this.priceType.push({ label: 'Select Price Type', value: null });
-            _.forEach(result, (element:any) => {
-                this.priceType.push({
-                    label: element.Name,
-                    value: element.Name
-                });
-            });
-        });
+        // this.PriceTypeService.getPriceType().subscribe(result => {
+        //     this.priceType.push({ label: 'Select Price Type', value: null });
+        //     _.forEach(result, (element:any) => {
+        //         this.priceType.push({
+        //             label: element.Title,
+        //             value: element.Title
+        //         });
+        //     });
+        // });
         this.ProjectCategoryService.getProjectCategories().subscribe(result => {
             this.clients.push({ label: 'Select Project Category', value: null });
             _.forEach(result, (element:any) => {
                 this.projectCategory.push({
-                    label: element.Name,
-                    value: element.Name
+                    label: element.Category,
+                    value: element.Category
                 });
             });
         });
-        this.clientService.getClients().subscribe(result => {
-            this.clients.push({ label: 'Select Client', value: null });
-            _.forEach(result, (element:any) => {
-                this.clients.push({
-                    label: element.Name,
-                    value: element.Name
-                });
-            });
-        });
-        this.projectTypeService.getProjectTypes().subscribe(result => {
-            this.projectType = [];
-            this.projectType.push({ label: 'Select Project Type', value: null });
-            _.forEach(result, (element:any) => {
-                this.projectType.push({
-                    label: element.Name,
-                    value: element.Name
-                });
-            });
-        });
+        // this.clientService.getClients().subscribe(result => {
+        //     this.clients.push({ label: 'Select Client', value: null });
+        //     _.forEach(result, (element:any) => {
+        //         this.clients.push({
+        //             label: element.Name,
+        //             value: element.Name
+        //         });
+        //     });
+        // });
+        // this.projectTypeService.getProjectTypes().subscribe(result => {
+        //     this.projectType = [];
+        //     this.projectType.push({ label: 'Select Project Type', value: null });
+        //     _.forEach(result, (element:any) => {
+        //         this.projectType.push({
+        //             label: element.Name,
+        //             value: element.Name
+        //         });
+        //     });
+        // });
         this.billTypes=[{ label: 'Select ', value: null },{
                     label:'Billable',
                     value: 'Billable'
@@ -149,26 +150,29 @@ export class AddEditProjectComponent implements OnInit {
                 this.params = params['id'];
                 this.projectService.getProjectById(this.params.toString()).subscribe((result:any) => {
                     if (result) {
-                        this.teamMember = result.TeamMembers;
+                        this.teamMember = [];
                         this.projectForm.setValue({
-                            Id: result.Id,
-                            ProjectName: result.ProjectName,
+                            Id: result.ID,
+                            ProjectName: result.Title,
                             ProjectType: result.ProjectType,
-                            DeliveryUnit: result.DeliveryUnit,
-                            ProjectCategory: result.ProjectCategory,
-                            ClientName: result.ClientName,
-                            ProjectStartDate: result.ProjectStartDate,
-                            ProjectEndDate:result.ProjectEndDate,
-                            ProjectManager: result.ProjectManager,
-                            AccountManager: result.AccountManager,
-                            DeliveryManager:result.DeliveryManager,
-                            BillType:result.BillType,
+                            DeliveryUnit: result.DeliveryUnit.Value,
+                            ProjectCategory: result.ProjectCategory.Value,
+                            ClientName: result.ClientName.Value,
+                            ProjectStartDate: new Date(result.StartDate),
+                            ProjectEndDate:new Date(result.EndDate),
+                            ProjectManager: result.ProjectManager.Name,
+                            AccountManager: result.AccountManager.Name,
+                            DeliveryManager:result.DeliveryManager.Name,
+                            BillType:result.BillableNonBillable,
                             ProjectSummary:result.ProjectSummary,
-                            DeliveryModel:result.DeliveryModel,
+                            DeliveryModel:result.DeliveryModel.Value,
                             PriceType:result.PriceType,
                             TeamSize: result.TeamSize,
-                            IsActive: result.IsActive,
-                            IsGlobal: result.IsGlobal
+                            IsActive: result.Active,
+                            IsGlobal: result.Isglobal
+                        });
+                        this.teamMemberService.getTeamByProject(result.ProjectMasterID).subscribe((result:any) => {
+                           this.teamMember = result;
                         });
                     }
                 });

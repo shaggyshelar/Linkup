@@ -8,7 +8,7 @@ import { ManageProjectComponent } from './components/manage-project/manage-proje
 import { AddEditProjectComponent } from './components/add-edit-project/add-edit-project.component';
 
 /** Service Declarations */
-import { ProjectService } from './services/project.service';
+import { ProjectService, TeamMemberService } from './services/index';
 import { ClientService } from '../core/shared/services/master/client.service';
 import { ProjectTypeService } from '../core/shared/services/master/projectType.service';
 import { ProjectCategoryService } from '../core/shared/services/master/projectCategory.service';
@@ -27,7 +27,7 @@ import { DeliveryUnitService } from '../core/shared/services/master/deliveryUnit
         AddEditProjectComponent
     ],
     providers: [
-        ProjectService,ClientService,ProjectTypeService,
+        ProjectService,ClientService,ProjectTypeService,TeamMemberService,
         ProjectCategoryService,PriceTypeService,DeliveryModelService,DeliveryUnitService
         ]
 })

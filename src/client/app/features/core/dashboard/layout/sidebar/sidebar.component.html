@@ -90,6 +90,11 @@
 									<span class="title">Client Types</span>
 								</a>
 							</li>
+							<li class="nav-item" [ifAuthorize]="['ADMIN.LEAVETYPE.MANAGE']">
+								<a routerLink="/admin/masters/currency" routerLinkActive="active">
+									<span class="title">Currency</span>
+								</a>
+							</li>
 						</ul>
 					</li>
 

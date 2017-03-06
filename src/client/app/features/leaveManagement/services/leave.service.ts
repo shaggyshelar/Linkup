@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
+import { CacheService } from 'ng2-cache/ng2-cache';
 import 'rxjs/add/operator/map';
 
 /** Module Level Dependencies */
@@ -21,7 +22,7 @@ export const CONTEXT = 'Leave';
 @Injectable()
 export class LeaveService extends BaseService {
     editableLeave: any;
-    constructor(public http: Http, messageService: MessageService, router: Router) {
+    constructor(public http: Http, messageService: MessageService, router: Router, private _cacheService: CacheService) {
         super(http, CONTEXT, messageService, router);
     }
 
@@ -333,20 +334,27 @@ export class LeaveService extends BaseService {
             });
     }
     getResignedEmployeeLeave(): Observable<any> {
-        let headers = new Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
-        let options = new RequestOptions({ headers: headers });
-        let windowRef = this._window();
-        windowRef['App'].blockUI();
-        return this.http.get(this.baseUrl + 'Employee/GetResignedEmployeesLeaveBalance', options)
-            .map(res => {
-                windowRef['App'].unblockUI();
-                return res.json();
-            })
-            .catch(err => {
-                windowRef['App'].unblockUI();
-                return this.handleError(err);
+        if (this._cacheService.exists('resignedEmployeeLeaves')) {
+            return new Observable<any>((observer: any) => {
+                observer.next(this._cacheService.get('resignedEmployeeLeaves'));
             });
+        } else {
+            let headers = new Headers();
+            headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+            let options = new RequestOptions({ headers: headers });
+            let windowRef = this._window();
+            windowRef['App'].blockUI();
+            return this.http.get(this.baseUrl + 'Employee/GetResignedEmployeesLeaveBalance', options)
+                .map(res => {
+                    this._cacheService.set('resignedEmployeeLeaves', res.json(), { maxAge: 60 * 60 });
+                    windowRef['App'].unblockUI();
+                    return res.json();
+                })
+                .catch(err => {
+                    windowRef['App'].unblockUI();
+                    return this.handleError(err);
+                });
+        }
     }
     getResignedEmpLeaveDetails(id: string): Observable<any> {
         let headers = new Headers();
@@ -374,6 +382,7 @@ export class LeaveService extends BaseService {
         windowRef['App'].blockUI();
         return this.http.post(this.baseUrl + 'EmployeeLeaves/UpdateResignedEmployeeLeaves', body, options)
             .map(res => {
+                this._cacheService.remove('resignedEmployeeLeaves');
                 windowRef['App'].unblockUI();
                 return res.json();
             })
@@ -383,20 +392,27 @@ export class LeaveService extends BaseService {
             });
     }
     getEmployeeLeaveBalance(year: string) {
-        let headers = new Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
-        let options = new RequestOptions({ headers: headers });
-        let windowRef = this._window();
-        windowRef['App'].blockUI();
-        return this.http.get(this.baseUrl + 'EmployeeLeaves/' + year, options)
-            .map(res => {
-                windowRef['App'].unblockUI();
-                return res.json();
-            })
-            .catch(err => {
-                windowRef['App'].unblockUI();
-                return this.handleError(err);
+        if (this._cacheService.exists('employeeLeaves')) {
+            return new Observable<any>((observer: any) => {
+                observer.next(this._cacheService.get('employeeLeaves'));
             });
+        } else {
+            let headers = new Headers();
+            headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+            let options = new RequestOptions({ headers: headers });
+            let windowRef = this._window();
+            windowRef['App'].blockUI();
+            return this.http.get(this.baseUrl + 'EmployeeLeaves/' + year, options)
+                .map(res => {
+                    this._cacheService.set('employeeLeaves', res.json(), { maxAge: 60 * 60 });
+                    windowRef['App'].unblockUI();
+                    return res.json();
+                })
+                .catch(err => {
+                    windowRef['App'].unblockUI();
+                    return this.handleError(err);
+                });
+        }
     }
     getEmpLeaveBalanceById(id: string) {
         let headers = new Headers();
@@ -424,6 +440,7 @@ export class LeaveService extends BaseService {
         windowRef['App'].blockUI();
         return this.http.post(this.baseUrl + 'EmployeeLeaves/Update', body, options)
             .map(res => {
+                this._cacheService.remove('employeeLeaves');
                 windowRef['App'].unblockUI();
                 return res.json();
             })
@@ -443,6 +460,7 @@ export class LeaveService extends BaseService {
         windowRef['App'].blockUI();
         return this.http.post(this.baseUrl + 'EmployeeLeaves/BulkUpdateEmployeeLeaveBalance', formData, options)
             .map(res => {
+                this._cacheService.remove('employeeLeaves');
                 windowRef['App'].unblockUI();
                 return res.json();
             })

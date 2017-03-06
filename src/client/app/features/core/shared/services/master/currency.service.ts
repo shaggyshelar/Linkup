@@ -8,25 +8,25 @@ import { Observable } from 'rxjs/Rx';
 import { BaseService } from '../../index';
 
 /** Context for service calls */
-const CONTEXT = 'deliveryunit';
+const CONTEXT = 'Currency';
 
 /** Service Definition */
 @Injectable()
-export class DeliveryUnitService extends BaseService {
+export class CurrencyService extends BaseService {
     constructor(public http: Http, private _cacheService: CacheService) {
         super(http, CONTEXT);
     }
-    getDeliveryUnitList() {
-        if (this._cacheService.exists('deliveryUnit')) {
+    getCurrencyList() {
+        if (this._cacheService.exists('currency')) {
             return new Observable<any>((observer: any) => {
-                observer.next(this._cacheService.get('deliveryUnit'));
+                observer.next(this._cacheService.get('currency'));
             });
         } else {
             let windowRef = this._window();
             windowRef['App'].blockUI();
             return this.getList$(0, 0, true)
                 .map(res => {
-                    this._cacheService.set('deliveryUnit', res.json(), { maxAge: 60 * 60 });
+                    this._cacheService.set('currency', res.json(), { maxAge: 60 * 60 });
                     windowRef['App'].unblockUI();
                     return res.json();
                 })
@@ -41,7 +41,7 @@ export class DeliveryUnitService extends BaseService {
         windowRef['App'].blockUI();
         return this.post$(payload, true)
             .map(res => {
-                this._cacheService.remove('deliveryUnit');
+                this._cacheService.remove('currency');
                 windowRef['App'].unblockUI();
                 return res.json();
             })
@@ -58,9 +58,9 @@ export class DeliveryUnitService extends BaseService {
         let options = new RequestOptions({ headers: headers });
         let windowRef = this._window();
         windowRef['App'].blockUI();
-        return this.http.post(this.baseUrl + 'deliveryunit/Update', body, options)
+        return this.http.post(this.baseUrl + 'Currency/Update', body, options)
             .map(res => {
-                this._cacheService.remove('deliveryUnit');
+                this._cacheService.remove('currency');
                 windowRef['App'].unblockUI();
                 return res.json();
             })

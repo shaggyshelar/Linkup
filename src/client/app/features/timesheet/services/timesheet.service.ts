@@ -12,7 +12,7 @@ import { Timesheet } from '../models/timesheet';
 import { Employee } from '../models/employee';
 
 /** Context for service calls */
-export const CONTEXT = 'timesheet';
+const CONTEXT = 'timesheet';
 
 /** Service Definition */
 @Injectable()

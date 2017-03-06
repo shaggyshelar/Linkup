@@ -11,6 +11,7 @@ import { DeliveryModelComponent } from './components/masters/delivery-model/deli
 import { DeliveryUnitComponent } from './components/masters/delivery-unit/delivery-unit.component';
 import { ProjectCategoryComponent } from './components/masters/project-category/project-category.component';
 import { ClientTypeComponent } from './components/masters/client-type/client-type.component';
+import { CurrencyComponent } from './components/masters/currency/currency.component';
 
 export const AdminRoutes: Routes = [
   {
@@ -123,6 +124,13 @@ export const AdminRoutes: Routes = [
   }, {
     path: 'masters/client-type',
     component: ClientTypeComponent,
+    // canActivate: [AuthGuard],
+    data: {
+      // permissions: ['ROLE.UPDATE']
+    }
+  }, {
+    path: 'masters/currency',
+    component: CurrencyComponent,
     // canActivate: [AuthGuard],
     data: {
       // permissions: ['ROLE.UPDATE']

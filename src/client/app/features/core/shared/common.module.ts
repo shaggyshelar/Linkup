@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule as AngularCommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { CacheService, CacheStorageAbstract, CacheLocalStorage } from 'ng2-cache/ng2-cache';
 import {
     ScheduleModule, DataTableModule, SharedModule, ButtonModule, InputTextareaModule, CalendarModule,
     DropdownModule, DialogModule, ConfirmDialogModule, GrowlModule, ConfirmationService,
@@ -62,7 +63,11 @@ let declarations = [
 /**
  * Providers Declaration
  */
-let providers = [ ConfirmationService, MessageService];
+let providers = [
+    ConfirmationService,
+    MessageService,
+    CacheService,
+    { provide: CacheStorageAbstract, useClass: CacheLocalStorage }];
 
 /** Module Definition */
 @NgModule({

@@ -21,7 +21,8 @@ import { DeliveryModelComponent } from './components/masters/delivery-model/deli
 import { DeliveryUnitComponent } from './components/masters/delivery-unit/delivery-unit.component';
 import { ProjectCategoryComponent } from './components/masters/project-category/project-category.component';
 import { ClientTypeComponent } from './components/masters/client-type/client-type.component';
-import { ClientTypeService } from '../core/shared/index';
+import { CurrencyComponent } from './components/masters/currency/currency.component';
+import { ClientTypeService, CurrencyService } from '../core/shared/index';
 
 /** Module Definition */
 @NgModule({
@@ -40,9 +41,10 @@ import { ClientTypeService } from '../core/shared/index';
         DeliveryModelComponent,
         DeliveryUnitComponent,
         ProjectCategoryComponent,
-        ClientTypeComponent
+        ClientTypeComponent,
+        CurrencyComponent
     ],
-    providers: [FeatureService, RoleService, PermissionService, UserService, UserRoleService, ClientTypeService],
+    providers: [FeatureService, RoleService, PermissionService, UserService, UserRoleService, ClientTypeService, CurrencyService],
 })
 export class AdminModule {
 }

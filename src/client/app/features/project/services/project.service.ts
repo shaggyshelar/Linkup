@@ -1,6 +1,6 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 
 /** Third Party Dependencies */
@@ -18,27 +18,45 @@ const CONTEXT = 'Project';
 /** Service Definition */
 @Injectable()
 export class ProjectService extends BaseService {
-    constructor( public http: Http, messageService: MessageService, router: Router) {
-        super( http, CONTEXT);
+    constructor(public http: Http, messageService: MessageService, router: Router) {
+        super(http, CONTEXT, messageService, router);
     }
-    getProjectList() : Observable < Project[] > {
+    getProjectList(): Observable<Project[]> {
         return this
-            .getChildList$('GetMyActiveProjects',0,0,true)
+            .getChildList$('GetMyActiveProjects', 0, 0, true)
             .map(res => res.json());
     }
-    getProjectById(id:string) : Observable < Project > {
+    getProjectById(id: string): Observable<Project> {
         return this
-            .get$(id,true)
+            .get$(id, true)
             .map(res => res.json());
     }
-    saveProject(project:any) : Observable < any > {
+    saveProject(project: any): Observable<any> {
         return this
             .post$(project)
             .map(res => res.json());
     }
-    editProject(project:any) : Observable < any > {
+    editProject(project: any): Observable<any> {
         return this
             .put$(project.Id, project)
             .map(res => res.json());
+    }
+    getMyProjectsForTimesheet(payload: any) {
+        let headers = new Headers();
+        let body = JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl + 'Project/GetMyProjectsForTimesheet', body, options)
+            .map(res => {
+                windowRef['App'].unblockUI();
+                return res.json();
+            })
+            .catch(err => {
+                windowRef['App'].unblockUI();
+                return this.handleError(err);
+            });
     }
 }

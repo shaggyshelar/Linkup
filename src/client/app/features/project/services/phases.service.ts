@@ -1,6 +1,6 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions  } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 
 /** Third Party Dependencies */
@@ -19,9 +19,9 @@ const CONTEXT = 'Phases';
 @Injectable()
 export class PhasesService extends BaseService {
     constructor(public http: Http, messageService: MessageService, router: Router) {
-        super(http, CONTEXT);
+        super(http, CONTEXT, messageService, router);
     }
-    getPhasesByProject(payload:any) {
+    getPhasesByProject(payload: any) {
         let headers = new Headers();
         let body = JSON.stringify(payload);
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));

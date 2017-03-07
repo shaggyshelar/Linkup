@@ -21,17 +21,19 @@ const CONTEXT = 'EmployeeTimesheet';
 export class EmployeeTimesheetService extends BaseService {
 
     constructor(public http: Http, messageService: MessageService, router: Router) {
-        super(http, CONTEXT);
+        super(http, CONTEXT, messageService, router);
     }
 
     getMyTimesheets(): Observable<Employee> {
-        return this.getChildList$('MyTimesheets',0,0,true).map(res => res.json());
+        return this.getChildList$('MyTimesheets', 0, 0, true).map(res => res.json());
     }
     getApproverPendingTimesheets(): Observable<Employee> {
-        return this.getChildList$('ApproverPendingTimesheets',0,0,true).map(res => res.json());
+        return this.getChildList$('ApproverPendingTimesheets', 0, 0, true).map(res => res.json());
     }
     getApproverApprovedTimesheets(): Observable<Employee> {
-        return this.getChildList$('ApproverApprovedTimesheets',0,0,true).map(res => res.json());
+        return this.getChildList$('ApproverApprovedTimesheets', 0, 0, true).map(res => res.json());
     }
-
+    getTimesheetApprovalData(id: any) {
+        return this.getChildList$('GetTimesheetApprovalData/' + id, 0, 0, true).map(res => res.json());
+    }
 }

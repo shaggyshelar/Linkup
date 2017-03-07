@@ -53,7 +53,7 @@ export const TimesheetRoutes: Route[] = [
       permissions: ['TIMESHEET.MYTIMESHEET.READ']
     }
   }, {
-    path: 'view-approve',
+    path: 'view-approve/:id',
     component: ViewApproveTimesheetComponent,
     canActivate: [AuthGuard],
     data: {

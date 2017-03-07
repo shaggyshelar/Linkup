@@ -18,21 +18,21 @@ const CONTEXT = 'timesheet';
 @Injectable()
 export class TimesheetService extends BaseService {
 
-    constructor( public http: Http, messageService: MessageService, router: Router) {
-        super(http, CONTEXT);
+    constructor(public http: Http, messageService: MessageService, router: Router) {
+        super(http, CONTEXT, messageService, router);
     }
 
     /**
      * getTimesheets method
      */
     getTimesheets(): Observable<Timesheet> {
-        return this.getList$(0,0,true) .map(res => res.json());
+        return this.getList$(0, 0, true).map(res => res.json());
     }
 
     /**
      * getEmployeesDefinition
      */
     getEmployees(): Observable<Employee> {
-        return this.getChildList$('employee',0,0,true).map(res => res.json());
+        return this.getChildList$('employee', 0, 0, true).map(res => res.json());
     }
 }

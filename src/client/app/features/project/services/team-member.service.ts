@@ -19,12 +19,12 @@ const CONTEXT = 'TeamMembers';
 /** Service Definition */
 @Injectable()
 export class TeamMemberService extends BaseService {
-    constructor( public http: Http, messageService: MessageService, router: Router) {
-        super( http, CONTEXT);
+    constructor(public http: Http, messageService: MessageService, router: Router) {
+        super(http, CONTEXT, messageService, router);
     }
-    getTeamByProject(id:string) {
+    getTeamByProject(id: string) {
         return this
-            .getChildList$(id,0,0,true)
+            .getChildList$(id, 0, 0, true)
             .map(res => res.json());
     }
 }

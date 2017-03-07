@@ -31,7 +31,7 @@ export class AddEditTimesheetComponent implements OnInit {
     this.weekStartDate = moment().add(0, 'weeks').isoWeekday(1);
     this.weekEndDate = moment().add(1, 'weeks').isoWeekday(0);
     this.projectList = [];
-    this.projectService.getProjectList().subscribe((res: any) => {
+    this.projectService.getMyProjectsForTimesheet({ Date: this.weekStartDate }).subscribe((res: any) => {
       this.projectList.push({ label: 'Select', value: null });
       for (var index in res) {
         this.projectList.push({ label: res[index].Title, value: res[index] });

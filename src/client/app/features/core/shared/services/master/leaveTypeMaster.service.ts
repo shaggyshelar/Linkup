@@ -5,8 +5,10 @@ import { CacheService } from 'ng2-cache/ng2-cache';
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { Router } from '@angular/router';
 
-/** Module Level Dependencies */
+/** Third Party Dependencies */
+import { MessageService } from '../message.service';
 import { BaseService } from '../../../index';
 // import { Employee } from '../models/employee';
 
@@ -17,8 +19,8 @@ const CONTEXT = 'LeaveType';
 @Injectable()
 export class LeaveTypeMasterService extends BaseService {
 
-    constructor(public http: Http, private _cacheService: CacheService) {
-        super(http, CONTEXT);
+    constructor(public http: Http, messageService: MessageService, router: Router, private _cacheService: CacheService) {
+        super(http, CONTEXT, messageService, router);
     }
 
     /**

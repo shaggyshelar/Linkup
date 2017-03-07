@@ -52,9 +52,9 @@ export const featureRoutes: Routes = [
     {
         path: 'project',
         children: [...ProjectRoutes],
-       // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: {
-           //permissions: ['PROJECT.MANAGE']
+           permissions: ['PROJECTS.MANAGE']
         }
     },
 ];

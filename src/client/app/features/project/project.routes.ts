@@ -16,25 +16,25 @@ export const ProjectRoutes: Routes = [
   {
     path: 'manage',
     component: ManageProjectComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
-     // permissions: ['TIMESHEET.MANAGE']
+      permissions: ['PROJECTS.MANAGEMYPROJECTS.MANAGE']
     }
   },
    {
     path: 'add',
     component: AddEditProjectComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
-     // permissions: ['PROJECT.CREATE']
+      permissions: ['PROJECTS.MANAGEMYPROJECTS..CREATE']
     }
   },
   {
     path: 'edit/:id',
     component: AddEditProjectComponent,
-   // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
-     // permissions: ['PROJECT.UPDATE']
+      permissions: ['PROJECTS.MANAGEMYPROJECTS.UPDATE']
     }
   },
 ];

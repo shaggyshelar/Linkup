@@ -130,8 +130,8 @@
 							<span class="title">My Timesheets</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['Timesheet.CREATE']">
-						<a routerLink="/timesheet/add-edit" routerLinkActive="active">
+					<li class="nav-item  " [ifAuthorize]="['TIMESHEET.MANAGE']">
+						<a routerLink="/timesheet/enter-timesheet" routerLinkActive="active">
 							<span class="title">Enter Timesheets</span>
 						</a>
 					</li>
@@ -224,14 +224,14 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item" [ifAuthorize]="['PROJECTS.MANAGE']">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-briefcase"></i>
 					<span class="title">Projects</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item" >
+					<li class="nav-item"  [ifAuthorize]="['PROJECTS.MANAGEMYPROJECTS.MANAGE']">
 						<a routerLink="/project/manage" routerLinkActive="active">
 							<span class="title">Manage My Project</span>
 						</a>

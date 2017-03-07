@@ -1,28 +1,183 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
     <!-- BEGIN CONTENT BODY -->
-    <div class="page-content" [ifAuthorize]="['Timesheet.UPDATE','Timesheet.CREATE']">
-    <ul class="page-breadcrumb breadcrumb hidden-xs">
-        <li>
-            <span >LINK UP</span>           
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>Employee Timesheet</span>
-             <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span class="active">New Items</span>          
-        </li>
-    </ul>
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <div class="portlet light ">
-                <div class="portlet-body">
-                     <h4>This is Enter Timesheet Component.</h4>
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb hidden-xs">
+            <li>
+                <span>LINK UP</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Employee Timesheet</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span class="active">Add</span>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="portlet light ">
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <span class="week-header">Week : {{weekStartDate | date:'dd/MM/y'}} to {{weekEndDate | date:'dd/MM/y'}}</span>
+                            </div>
+                            <div class="col-sm-2 ">
+                                <span class='status-header'>Status:New </span>
+                            </div>
+                            <div class="col-sm-offset-2 col-sm-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon" (click)="onPreviousWeek()"><i class="fa fa-caret-left fa-caret" aria-hidden="true"></i></span>
+                                    <p-calendar inputStyleClass="timsheet-date-picker-header" id="date" required dateFormat="dd/mm/yy" [showIcon]="true" (onSelect)="dateChanged()"
+                                        [(ngModel)]="selectedDate"></p-calendar>
+                                        <span class="input-group-addon" (click)="onNextWeek()"><i class="fa fa-caret-right fa-caret" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="portlet light ">
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th> Project </th>
+                                            <th> Task </th>
+                                            <th> <span>B/</span><br/><span>NB</span> </th>
+                                            <th> <span>Mon</span><br/><span>{{weekStartDate | date:'d/M'}}</span> </th>
+                                            <th> <span>Tue</span><br/><span>{{getDate(2) | date:'d/M'}}</span> </th>
+                                            <th> <span>Wed</span><br/><span>{{getDate(3) | date:'d/M'}}</span> </th>
+                                            <th> <span>Thur</span><br/><span>{{getDate(4) | date:'d/M'}}</span> </th>
+                                            <th> <span>Fri</span><br/><span>{{getDate(5) | date:'d/M'}}</span> </th>
+                                            <th> <span>Sat</span><br/><span>{{getDate(6) | date:'d/M'}}</span> </th>
+                                            <th> <span>Sun</span><br/><span>{{weekEndDate | date:'d/M'}}</span> </th>
+                                            <th> Status </th>
+                                            <th> Actions </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2">
+                                                <p-dropdown [options]="projectList" [(ngModel)]='selectedProject' (onChange)="onProjectChange(selectedProject)" [style]="{'width':'100px'}"></p-dropdown>
+                                            </td>
+                                            <td rowspan="2">
+                                                <p-dropdown [options]="tasksList" [style]="{'width':'100px'}"></p-dropdown>
+                                            </td>
+                                            <td> B </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr class="hide-td-border">
+                                            <td> NB </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <!--<tr>
+                                            <td rowspan="2"> Table cell </td>
+                                            <td rowspan="2"> Table cell </td>
+                                            <td> B </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                        </tr>
+                                        <tr class="hide-td-border">
+                                            <td> NB </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                            <td> Table cell </td>
+                                        </tr>-->
+                                        <tr>
+                                            <td rowspan="2" colspan="2"> <button class="btn">Add New</button> </td>
+                                            <td> TOTAL HRS: </td>
+                                            <td> 0 </td>
+                                            <td> 0 </td>
+                                            <td> 0 </td>
+                                            <td> 0 </td>
+                                            <td> 0 </td>
+                                            <td> 0 </td>
+                                            <td> 0 </td>
+                                            <td> GRAND TOTAL : </td>
+                                            <td> 0:0 </td>
+                                        </tr>
+                                        <tr class="target-row">
+                                            <td> TARGET: </td>
+                                            <td> 8 </td>
+                                            <td> 8 </td>
+                                            <td> 8 </td>
+                                            <td> 8 </td>
+                                            <td> 8 </td>
+                                            <td> 8 </td>
+                                            <td> 8 </td>
+                                            <td> </td>
+                                            <td> 40 </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-dialog header="Note:" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true">
+                        <textarea class="notes-text"></textarea>
+                        <hr/>
+                        <button class="btn" (click)="dialogVisible=false">Save & Close</button>
+                </p-dialog>
             </div>
         </div>
-    </div>
     </div>
 </div>

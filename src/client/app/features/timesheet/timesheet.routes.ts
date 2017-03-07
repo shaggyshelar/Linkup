@@ -8,6 +8,7 @@ import { ApproveTimesheetComponent } from './components/approve-timesheet/approv
 import { ApprovedTimesheetComponent } from './components/approved-timesheet/approved-timesheet.component';
 import { ReportTimesheetComponent } from './components/report-timesheet/report-timesheet.component';
 import { ViewApproveTimesheetComponent } from './components/approve-timesheet/view-approve-timesheet.component';
+import { AuthGuard } from '../core/index';
 
 /** TimesheetRoutes Definition */
 export const TimesheetRoutes: Route[] = [
@@ -18,21 +19,45 @@ export const TimesheetRoutes: Route[] = [
   },
   {
     path: 'my',
-    component: MyTimesheetComponent
+    component: MyTimesheetComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permissions: ['TIMESHEET.MYTIMESHEET.MANAGE']
+    }
   }, {
-    path: 'add-edit',
-    component: AddEditTimesheetComponent
+    path: 'enter-timesheet',
+    component: AddEditTimesheetComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permissions: ['TIMESHEET.MYTIMESHEET.READ']
+    }
   }, {
     path: 'approve',
-    component: ApproveTimesheetComponent
+    component: ApproveTimesheetComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permissions: ['TIMESHEET.APPROVETIMESHEETS.MANAGE']
+    }
   }, {
     path: 'approved',
-    component: ApprovedTimesheetComponent
+    component: ApprovedTimesheetComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permissions: ['TIMESHEET.APPROVEDTIMESHEETS.MANAGE']
+    }
   }, {
     path: 'report',
-    component: ReportTimesheetComponent
+    component: ReportTimesheetComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permissions: ['TIMESHEET.MYTIMESHEET.READ']
+    }
   }, {
     path: 'view-approve',
-    component: ViewApproveTimesheetComponent
+    component: ViewApproveTimesheetComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permissions: ['TIMESHEET.APPROVETIMESHEETS.MANAGE']
+    }
   }
 ];

@@ -6,15 +6,18 @@ import { Observable } from 'rxjs/Rx';
 
 /** Module Level Dependencies */
 import { BaseService } from '../../index';
+import { Router } from '@angular/router';
 
+/** Third Party Dependencies */
+import { MessageService } from '../../index';
 /** Context for service calls */
 const CONTEXT = 'deliveryunit';
 
 /** Service Definition */
 @Injectable()
 export class DeliveryUnitService extends BaseService {
-    constructor(public http: Http, private _cacheService: CacheService) {
-        super(http, CONTEXT);
+    constructor(public http: Http, messageService: MessageService, router: Router, private _cacheService: CacheService) {
+        super(http, CONTEXT, messageService, router);
     }
     getDeliveryUnitList() {
         if (this._cacheService.exists('deliveryUnit')) {

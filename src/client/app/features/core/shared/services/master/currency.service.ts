@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { CacheService } from 'ng2-cache/ng2-cache';
 import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
+/** Third Party Dependencies */
+import { MessageService } from '../../index';
 /** Module Level Dependencies */
 import { BaseService } from '../../index';
 
@@ -13,8 +16,8 @@ const CONTEXT = 'Currency';
 /** Service Definition */
 @Injectable()
 export class CurrencyService extends BaseService {
-    constructor(public http: Http, private _cacheService: CacheService) {
-        super(http, CONTEXT);
+    constructor(public http: Http, messageService: MessageService, router: Router, private _cacheService: CacheService) {
+        super(http, CONTEXT, messageService, router);
     }
     getCurrencyList() {
         if (this._cacheService.exists('currency')) {

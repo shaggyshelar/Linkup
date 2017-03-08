@@ -1,7 +1,7 @@
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
     <!-- BEGIN CONTENT BODY -->
-    <div class="page-content" [ifAuthorize]="['Timesheet.READ']">
+    <div class="page-content">
         <ul class="page-breadcrumb breadcrumb hidden-xs">
             <li>
                 <span>LINK UP </span>
@@ -16,21 +16,29 @@
                 <div class="portlet light ">
                     <div class="portlet-body">
                         <p-dataTable [value]="approvedEmployee" [responsive]="true" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-                            <p-column field="EmployeeName" header="Employee" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="startDate" header="Start Date" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="endDate" header="End Date" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="BillableHours" header="Billable Hours" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="NonBillableHours" header="Non-Billable Hours" [sortable]="true" [filter]="true"></p-column>
-                            <p-column header="Approver User" [sortable]="true" [filter]="true">
+                            <p-column field="Employee.Name" header="Employee" [sortable]="true" ></p-column>
+                            <p-column header="Start Date" [sortable]="true" >
+                                <template let-rowData="rowData" pTemplate="body">
+                                    {{rowData.EndDate | date:'dd/MM/y'}}
+                                </template>
+                            </p-column>
+                            <p-column header="End Date" [sortable]="true" >
+                                <template let-rowData="rowData" pTemplate="body">
+                                    {{rowData.EndDate | date:'dd/MM/y'}}
+                                </template>
+                            </p-column>
+                            <p-column field="BillableHours" header="Billable Hours" [sortable]="true" ></p-column>
+                            <p-column field="NonBillableHours" header="Non-Billable Hours" [sortable]="true" ></p-column>
+                            <p-column [style]="{'width':'200px'}"  header="Approver User" [sortable]="true" >
                                 <template let-rowData="rowData" pTemplate="body">
                                     <ul class="ul-list-table">
                                         <li *ngFor="let item of rowData.ApproverUser">{{item.Name}}</li>
                                     </ul>
                                 </template>
                             </p-column>
-                            <p-column field="SubmittedStatus" header="Status" [sortable]="true" [filter]="true"></p-column>
-                            <p-column header="Pending Approver" [sortable]="true" [filter]="true">
-                                 <template let-rowData="rowData" pTemplate="body">
+                            <p-column field="SubmittedStatus" header="Status" [sortable]="true" ></p-column>
+                            <p-column  [style]="{'width':'200px'}" header="Pending Approver" [sortable]="true" >
+                                <template let-rowData="rowData" pTemplate="body">
                                     <ul class="ul-list-table">
                                         <li *ngFor="let item of rowData.PendingApprover">{{item.Name}}</li>
                                     </ul>

@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { CacheService } from 'ng2-cache/ng2-cache';
 import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
+/** Third Party Dependencies */
+import { MessageService } from '../../index';
 /** Module Level Dependencies */
 import { BaseService } from '../../index';
 
@@ -13,7 +16,7 @@ const CONTEXT = 'ClientType';
 /** Service Definition */
 @Injectable()
 export class ClientTypeService extends BaseService {
-    constructor(public http: Http, private _cacheService: CacheService) {
+    constructor(public http: Http, private _cacheService: CacheService, messageService: MessageService, router: Router) {
         super(http, CONTEXT);
     }
     getClientTypes() {

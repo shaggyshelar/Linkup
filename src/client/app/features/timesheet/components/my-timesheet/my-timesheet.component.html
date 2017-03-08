@@ -15,35 +15,35 @@
             <div class="col-md-12 col-sm-12">
                 <div class="portlet light ">
                     <div class="portlet-body">
-                        <p-dataTable [value]="myTimeSheet" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-                            <p-column header="Edit">
-                                <template let-employeeData="rowData" pTemplate type="body">
-                                    <i class="fa fa-pencil-square-o icon-color" (click)="selectEmployee()"></i>
-                                </template>
-                            </p-column>
-                            <p-column header="Approver" [sortable]="true" [filter]="true">
+                        <p-dataTable  [value]="myTimeSheet" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+                            <p-column [style]="{'width':'200px'}"  header="Approver" [sortable]="true">
                                 <template let-rowData="rowData" pTemplate="body">
                                     <ul class="ul-list-table">
                                         <li *ngFor="let item of rowData.ApproverUser">{{item.Name}}</li>
                                     </ul>
                                 </template>
                             </p-column>
-                            <p-column header="Start Date" [sortable]="true" [filter]="true">
+                            <p-column  header="Start Date" [sortable]="true">
                                 <template let-rowData="rowData" pTemplate="body">
                                     {{rowData.EndDate | date:'dd/MM/y'}}
                                 </template>
                             </p-column>
-                            <p-column header="End Date" [sortable]="true" [filter]="true">
+                            <p-column header="End Date" [sortable]="true">
                                 <template let-rowData="rowData" pTemplate="body">
                                     {{rowData.EndDate | date:'dd/MM/y'}}
                                 </template>
                             </p-column>
-                            <p-column field="BillableHours" header="Billable Hours" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="NonBillableHours" header="Non-Billable Hours" [sortable]="true" [filter]="true"></p-column>
-                            <p-column field="SubmittedStatus" header="Status" [sortable]="true" [filter]="true"></p-column>
-                            <p-column  header="Submitted Date" [sortable]="true" [filter]="true">
+                            <p-column field="BillableHours" header="Billable Hours" [sortable]="true"></p-column>
+                            <p-column field="NonBillableHours" header="Non-Billable Hours" [sortable]="true"></p-column>
+                            <p-column field="SubmittedStatus" header="Status" [sortable]="true"></p-column>
+                            <p-column header="Submitted Date" [sortable]="true">
                                 <template let-rowData="rowData" pTemplate="body">
                                     {{rowData.TimesheetSubmittedDate | date:'dd/MM/y'}}
+                                </template>
+                            </p-column>
+                            <p-column header="Edit">
+                                <template let-employeeData="rowData" pTemplate type="body">
+                                    <i class="fa fa-pencil-square-o icon-color" (click)="selectEmployee()"></i>
                                 </template>
                             </p-column>
                         </p-dataTable>

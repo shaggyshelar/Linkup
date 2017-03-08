@@ -3,8 +3,11 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { CacheService } from 'ng2-cache/ng2-cache';
 import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
+
 /** Module Level Dependencies */
 import { BaseService } from '../../index';
+import { MessageService } from '../../index';
 
 /** Context for service calls */
 const CONTEXT = 'projectcategory';
@@ -12,8 +15,8 @@ const CONTEXT = 'projectcategory';
 /** Service Definition */
 @Injectable()
 export class ProjectCategoryService extends BaseService {
-    constructor(public http: Http, private _cacheService: CacheService) {
-        super(http, CONTEXT);
+    constructor(public http: Http, messageService: MessageService, router: Router, private _cacheService: CacheService) {
+        super(http, CONTEXT, messageService, router);
     }
     getProjectCategories() {
         if (this._cacheService.exists('projectCategory')) {

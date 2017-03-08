@@ -54,7 +54,7 @@ export const featureRoutes: Routes = [
         children: [...ProjectRoutes],
         canActivate: [AuthGuard],
         data: {
-           permissions: ['PROJECT.MANAGE']
+           permissions: ['PROJECTS.MANAGE']
         }
     },
 ];

@@ -19,6 +19,7 @@
             <div class="col-md-12 col-sm-12">
                 <div class="portlet light ">
                     <div class="portlet-body">
+
                         <div class="row">
                             <div class="col-sm-5">
                                 <span class="week-header">Week : {{weekStartDate | date:'dd/MM/y'}} to {{weekEndDate | date:'dd/MM/y'}}</span>
@@ -39,6 +40,9 @@
                 </div>
                 <div class="portlet light ">
                     <div class="portlet-body">
+                        <div class="alert alert-danger" *ngIf="isError">
+                            {{errorMessage}}
+                        </div>
                         <div class="row">
                             <div class="table-responsive">
                                 <table class="table">
@@ -58,101 +62,83 @@
                                             <th> Actions </th>
                                         </tr>
                                     </thead>
+                                    <tbody *ngFor="let timesheet of timesheetList;let index = index;">
+                                        <tr>
+                                            <td rowspan="2">
+                                                <p-dropdown [options]="projectList" [(ngModel)]='timesheet.Project' (onChange)="onProjectChange(timesheet.Project,index)"
+                                                    [style]="{'width':'100px'}"></p-dropdown>
+                                            </td>
+                                            <td rowspan="2">
+                                                <p-dropdown [options]="tasksList[index]" [style]="{'width':'100px'}" [(ngModel)]='timesheet.Task'></p-dropdown>
+                                            </td>
+                                            <td> B </td>
+                                            <td>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Mondayhrs" (keypress)='timeKeyPress($event)'  (blur)="setTimeFormat($event.target.value,index,'Mondayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Tuesdayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Tuesdayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Wednesdayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Wednesdayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Thursdayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Thursdayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Fridayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Fridayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Saturdayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Saturdayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Sundayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Sundayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-times" aria-hidden="true" (click)="onDelete(index)"></i>
+                                            </td>
+                                        </tr>
+                                        <tr class="hide-td-border">
+                                            <td> NB </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Mondaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Mondaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Tuesdaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Tuesdaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Wednesdaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Wednesdaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Thursdaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Thursdaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Fridaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Fridaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Saturdaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Saturdaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="timesheet.Sundaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Sundaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                     <tbody>
                                         <tr>
-                                            <td rowspan="2">
-                                                <p-dropdown [options]="projectList" [(ngModel)]='selectedProject' (onChange)="onProjectChange(selectedProject)" [style]="{'width':'100px'}"></p-dropdown>
-                                            </td>
-                                            <td rowspan="2">
-                                                <p-dropdown [options]="tasksList" [style]="{'width':'100px'}"></p-dropdown>
-                                            </td>
-                                            <td> B </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr class="hide-td-border">
-                                            <td> NB </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <!--<tr>
-                                            <td rowspan="2"> Table cell </td>
-                                            <td rowspan="2"> Table cell </td>
-                                            <td> B </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                        </tr>
-                                        <tr class="hide-td-border">
-                                            <td> NB </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                            <td> Table cell </td>
-                                        </tr>-->
-                                        <tr>
-                                            <td rowspan="2" colspan="2"> <button class="btn">Add New</button> </td>
+                                            <td rowspan="2" colspan="2"> <button class="btn" (click)="onAddTimeSheet()">Add New</button> </td>
                                             <td> TOTAL HRS: </td>
-                                            <td> 0 </td>
-                                            <td> 0 </td>
-                                            <td> 0 </td>
-                                            <td> 0 </td>
-                                            <td> 0 </td>
-                                            <td> 0 </td>
-                                            <td> 0 </td>
+                                            <td> {{totalhours.MonTotal}} </td>
+                                            <td> {{totalhours.TueTotal}} </td>
+                                            <td> {{totalhours.WedTotal}} </td>
+                                            <td> {{totalhours.ThurTotal}} </td>
+                                            <td> {{totalhours.FriTotal}} </td>
+                                            <td> {{totalhours.SatTotal}} </td>
+                                            <td> {{totalhours.SunTotal}} </td>
                                             <td> GRAND TOTAL : </td>
-                                            <td> 0:0 </td>
+                                            <td> {{totalhours.Total}} </td>
                                         </tr>
                                         <tr class="target-row">
                                             <td> TARGET: </td>
@@ -172,10 +158,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12 pull-right">
+                        <div class="pull-right">
+                            <button class="btn " type="button" label="Approve" (click)="saveTimsheet()">Save Timesheet</button>
+                            <button class="btn " type="button" label="Reject">Send For Approval</button>
+                            <button class="btn " type="button" label="Cancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
                 <p-dialog header="Note:" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true">
-                        <textarea class="notes-text"></textarea>
-                        <hr/>
-                        <button class="btn" (click)="dialogVisible=false">Save & Close</button>
+                    <textarea class="notes-text"></textarea>
+                    <hr/>
+                    <button class="btn" (click)="dialogVisible=false">Save & Close</button>
                 </p-dialog>
             </div>
         </div>

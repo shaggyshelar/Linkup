@@ -70,3 +70,7 @@
     height: 40px;
     width: 130px;
 }
+.view-approve-timesheet td{
+    font-size: 9pt;
+    vertical-align: text-top;
+}

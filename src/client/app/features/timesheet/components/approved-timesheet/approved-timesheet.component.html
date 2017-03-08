@@ -44,6 +44,11 @@
                                     </ul>
                                 </template>
                             </p-column>
+                            <p-column styleClass="col-button" header="Edit" field="color">
+                                <template let-rowItem="rowData" pTemplate type="body">
+                                    <button id="actionUpdate" type="button" pButton (click)="onEdit(rowItem.ID)" icon="fa fa-edit"></button>
+                                 </template>
+                            </p-column>
                         </p-dataTable>
                     </div>
                 </div>

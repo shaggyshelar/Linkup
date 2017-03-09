@@ -73,25 +73,60 @@
                                             </td>
                                             <td> B </td>
                                             <td>
-                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Mondayhrs" (keypress)='timeKeyPress($event)'  (blur)="setTimeFormat($event.target.value,index,'Mondayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Mondayhrs" (keypress)='timeKeyPress($event)' (blur)="setTimeFormat($event.target.value,index,'Mondayhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Mondaydesc')">
+                                                    <i *ngIf="!timesheet.Mondaydesc || timesheet.Mondaydesc=='' || timesheet.Mondaydesc==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Mondaydesc && timesheet.Mondaydesc!='' && timesheet.Mondaydesc!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Tuesdayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Tuesdayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Tuesdayhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Tuesdayhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Tuesdaydesc')">
+                                                     <i *ngIf="!timesheet.Tuesdaydesc || timesheet.Tuesdaydesc=='' || timesheet.Tuesdaydesc==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Tuesdaydesc && timesheet.Tuesdaydesc!='' && timesheet.Tuesdaydesc!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Wednesdayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Wednesdayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Wednesdayhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Wednesdayhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Wednesdaydesc')"> 
+                                                    <i *ngIf="!timesheet.Wednesdaydesc || timesheet.Wednesdaydesc=='' || timesheet.Wednesdaydesc==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Wednesdaydesc && timesheet.Wednesdaydesc!='' && timesheet.Wednesdaydesc!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Thursdayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Thursdayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Thursdayhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Thursdayhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Thursdaydesc')">
+                                                     <i *ngIf="!timesheet.Thursdaydesc || timesheet.Thursdaydesc=='' || timesheet.Thursdaydesc==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Thursdaydesc && timesheet.Thursdaydesc!='' && timesheet.Thursdaydesc!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Fridayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Fridayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Fridayhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Fridayhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Fridaydesc')">
+                                                      <i *ngIf="!timesheet.Fridaydesc || timesheet.Fridaydesc=='' || timesheet.Fridaydesc==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Fridaydesc && timesheet.Fridaydesc!='' && timesheet.Fridaydesc!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Saturdayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Saturdayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Saturdayhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Saturdayhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Saturdaydesc')">
+                                                      <i *ngIf="!timesheet.Saturdaydesc || timesheet.Saturdaydesc=='' || timesheet.Saturdaydesc==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Saturdaydesc && timesheet.Saturdaydesc!='' && timesheet.Saturdaydesc!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Sundayhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Sundayhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Sundayhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Sundayhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Sundaydesc')">
+                                                     <i *ngIf="!timesheet.Sundaydesc || timesheet.Sundaydesc=='' || timesheet.Sundaydesc==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Sundaydesc && timesheet.Sundaydesc!='' && timesheet.Sundaydesc!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
                                             </td>
@@ -102,25 +137,60 @@
                                         <tr class="hide-td-border">
                                             <td> NB </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Mondaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Mondaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Mondaynbhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Mondaynbhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Mondaydescnb')">
+                                                     <i *ngIf="!timesheet.Mondaydescnb || timesheet.Mondaydescnb=='' || timesheet.Mondaydescnb==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Mondaydescnb && timesheet.Mondaydescnb!='' && timesheet.Mondaydescnb!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Tuesdaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Tuesdaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Tuesdaynbhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Tuesdaynbhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Tuesdaydescnb')">
+                                                     <i *ngIf="!timesheet.Tuesdaydescnb || timesheet.Tuesdaydescnb=='' || timesheet.Tuesdaydescnb==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Tuesdaydescnb && timesheet.Tuesdaydescnb!='' && timesheet.Tuesdaydescnb!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Wednesdaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Wednesdaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Wednesdaynbhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Wednesdaynbhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Wednesdaydescnb')">
+                                                     <i *ngIf="!timesheet.Wednesdaydescnb || timesheet.Wednesdaydescnb=='' || timesheet.Wednesdaydescnb==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Wednesdaydescnb && timesheet.Wednesdaydescnb!='' && timesheet.Wednesdaydescnb!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Thursdaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Thursdaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Thursdaynbhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Thursdaynbhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Thursdaydescnb')">
+                                                     <i *ngIf="!timesheet.Thursdaydescnb || timesheet.Thursdaydescnb=='' || timesheet.Thursdaydescnb==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Thursdaydescnb && timesheet.Thursdaydescnb!='' && timesheet.Thursdaydescnb!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Fridaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Fridaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Fridaynbhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Fridaynbhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Fridaydescnb')">
+                                                     <i *ngIf="!timesheet.Fridaydescnb || timesheet.Fridaydescnb=='' || timesheet.Fridaydescnb==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Fridaydescnb && timesheet.Fridaydescnb!='' && timesheet.Fridaydescnb!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Saturdaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Saturdaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Saturdaynbhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Saturdaynbhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Saturdaydescnb')">
+                                                     <i *ngIf="!timesheet.Saturdaydescnb || timesheet.Saturdaydescnb=='' || timesheet.Saturdaydescnb==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Saturdaydescnb && timesheet.Saturdaydescnb!='' && timesheet.Saturdaydescnb!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
-                                                <input type="text" [(ngModel)]="timesheet.Sundaynbhrs" (keypress)="timeKeyPress($event)"  (blur)="setTimeFormat($event.target.value,index,'Sundaynbhrs')" class="hours-input" /> <span (click)="addNotes()"><i class="fa fa-edit edit-icon" aria-hidden="true"></i></span>
+                                                <input type="text" maxlength="5" [(ngModel)]="timesheet.Sundaynbhrs" (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Sundaynbhrs')"
+                                                    class="hours-input" />
+                                                <span (click)="addNotes(index,'Sundaydescnb')">
+                                                     <i *ngIf="!timesheet.Sundaydescnb || timesheet.Sundaydescnb=='' || timesheet.Sundaydescnb==null"  class="fa fa-edit edit-icon" aria-hidden="true"></i>
+                                                    <i *ngIf="timesheet.Sundaydescnb && timesheet.Sundaydescnb!='' && timesheet.Sundaydescnb!=null" class="fa fa-check-square-o edit-icon" aria-hidden="true"></i>
+                                                </span>
                                             </td>
                                             <td>
                                             </td>
@@ -161,16 +231,16 @@
                 <div class="row">
                     <div class="col-md-12 pull-right">
                         <div class="pull-right">
-                            <button class="btn " type="button" label="Approve" (click)="saveTimsheet()">Save Timesheet</button>
-                            <button class="btn " type="button" label="Reject">Send For Approval</button>
+                            <button class="btn " type="button" (click)="saveTimsheet()">Save Timesheet</button>
+                            <button class="btn " type="button" (click)="onSendForApproval()">Send For Approval</button>
                             <button class="btn " type="button" label="Cancel">Cancel</button>
                         </div>
                     </div>
                 </div>
                 <p-dialog header="Note:" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true">
-                    <textarea class="notes-text"></textarea>
+                    <textarea class="notes-text" [(ngModel)]="notes"></textarea>
                     <hr/>
-                    <button class="btn" (click)="dialogVisible=false">Save & Close</button>
+                    <button class="btn" (click)="saveNotes()">Save & Close</button>
                 </p-dialog>
             </div>
         </div>

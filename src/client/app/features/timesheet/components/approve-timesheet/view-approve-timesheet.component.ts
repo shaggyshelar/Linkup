@@ -35,7 +35,7 @@ export class ViewApproveTimesheetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.timesheetReport = []
+        this.timesheetReport = {};
         this.route.params.subscribe(params => {
             this.routeParam = params['id'];
         });
@@ -45,6 +45,9 @@ export class ViewApproveTimesheetComponent implements OnInit {
             this.endDate = this.timesheetReport.ApproverTimesheet[this.timesheetReport.ApproverTimesheet.length - 1].Date;
             this.employeeName = this.timesheetReport.Employee.Name;
             this.submittedStatus = this.timesheetReport.SubmittedStatus;
+            if (this.submittedStatus === 'Approved') {
+                this.comment = this.timesheetReport.Comments;
+            }
         });
     }
     reasonTextChanged() {
@@ -54,19 +57,21 @@ export class ViewApproveTimesheetComponent implements OnInit {
     onApprove() {
         this.CommentError = false;
         this.timesheetReport.Comments = this.comment;
-        //this.employeeTimesheetService.getTimesheetApprovalData(this.timesheetReport).subscribe((res: any) => {
-        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.TIMESHEET_APPROVE });
-        this.router.navigate(['/timesheet/approved']);
-        // });
+        this.timesheetReport.SubmittedStatus = 'Approved';
+        this.employeeTimesheetService.approveTimesheet(this.timesheetReport).subscribe((res: any) => {
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.TIMESHEET_APPROVE });
+            this.router.navigate(['/timesheet/approved']);
+        });
     }
     onReject() {
         this.CommentError = false;
-        if (this.comment.length !== 0) {
-            //this.timesheetReport.Comments = this.comment;
-            //this.employeeTimesheetService.getTimesheetApprovalData(this.timesheetReport).subscribe((res: any) => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.TIMESHEET_REJECT });
-            this.router.navigate(['/timesheet/approved']);
-            // });
+        if (this.comment !== null && this.comment.length !== 0) {
+            this.timesheetReport.Comments = this.comment;
+            this.timesheetReport.SubmittedStatus = 'Reject';
+            this.employeeTimesheetService.rejectTimesheet(this.timesheetReport).subscribe((res: any) => {
+                this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: MessageService.TIMESHEET_REJECT });
+                this.router.navigate(['/timesheet/approved']);
+            });
         } else {
             this.CommentError = true;
         }

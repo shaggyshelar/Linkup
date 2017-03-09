@@ -43,7 +43,7 @@
                                 <div class="col-md-10">
                                     <textarea [disabled]="submittedStatus=='Approved'" class="form-control" [(ngModel)]="comment" (keyup)="reasonTextChanged()" class="fullWidth" rows="2" id="approve_comments"
                                         [attr.maxLength]="textareaLength" autoResize="autoResize"></textarea>
-                                        <div class="charsLeft pull-right">{{charsLeft}} characters left</div>
+                                        <div *ngIf="submittedStatus!='Approved'" class="charsLeft pull-right">{{charsLeft}} characters left</div>
                                         <div class="alert alert-danger" *ngIf="CommentError">
                                             Please Enter Comment
                                         </div>

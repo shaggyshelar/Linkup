@@ -41,9 +41,9 @@
                                     {{rowData.TimesheetSubmittedDate | date:'dd/MM/y'}}
                                 </template>
                             </p-column>
-                            <p-column header="Edit">
-                                <template let-employeeData="rowData" pTemplate type="body">
-                                    <i class="fa fa-pencil-square-o icon-color" (click)="selectEmployee()"></i>
+                             <p-column styleClass="col-button" header="Edit" field="color"  >
+                                <template let-rowItem="rowData" pTemplate type="body">
+                                    <button id="actionUpdate" type="button" pButton (click)="onEdit(rowItem.ID)" icon="fa fa-edit"></button>
                                 </template>
                             </p-column>
                         </p-dataTable>

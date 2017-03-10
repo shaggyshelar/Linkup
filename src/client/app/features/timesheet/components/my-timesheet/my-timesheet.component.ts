@@ -17,7 +17,7 @@ export class MyTimesheetComponent implements OnInit {
   myTimeSheet: EmployeeTimeSheet[];
 
   constructor(
-    private employeeTimesheetService:  EmployeeTimesheetService,
+    private employeeTimesheetService: EmployeeTimesheetService,
     private router: Router) {
   }
 
@@ -30,7 +30,7 @@ export class MyTimesheetComponent implements OnInit {
     });
   }
 
-  selectEmployee() {
-    this.router.navigate(['/timesheet/add-edit']);
+  onEdit(id: any) {
+    this.router.navigate(['/timesheet/edit-timesheet', id]);
   }
 }

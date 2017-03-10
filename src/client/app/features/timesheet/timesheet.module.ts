@@ -10,6 +10,7 @@ import { ApproveTimesheetComponent } from './components/approve-timesheet/approv
 import { ApprovedTimesheetComponent } from './components/approved-timesheet/approved-timesheet.component';
 import { ReportTimesheetComponent } from './components/report-timesheet/report-timesheet.component';
 import { ViewApproveTimesheetComponent } from './components/approve-timesheet/view-approve-timesheet.component';
+import { BulkApproveComponent } from './components/bulk-approval/bulk-approval.component';
 
 // Services Delarations
 import { TimesheetService, EmployeeTimesheetService } from './services/index';
@@ -26,7 +27,8 @@ import { TimesheetService, EmployeeTimesheetService } from './services/index';
         ApproveTimesheetComponent,
         ApprovedTimesheetComponent,
         ReportTimesheetComponent,
-        ViewApproveTimesheetComponent
+        ViewApproveTimesheetComponent,
+        BulkApproveComponent
     ],
     providers: [TimesheetService,EmployeeTimesheetService],
 })

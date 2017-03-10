@@ -2,10 +2,15 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
-import { Timesheet } from '../../models/timesheet';
+import { Router, ActivatedRoute } from '@angular/router';
 
+import { Timesheet } from '../../models/timesheet';
+import { MessageService } from '../../../core/shared/index';
+import * as _ from 'lodash/index';
 import * as moment from 'moment/moment';
 import { ProjectService, PhasesService } from '../../../project/services/index';
+import { TimesheetService } from '../../services/index';
+
 /** Component Declaration */
 @Component({
   moduleId: module.id,
@@ -26,13 +31,19 @@ export class AddEditTimesheetComponent implements OnInit {
   isError: boolean;
   totalhours: any;
   notes: string = '';
+  routeParam: string;
   constructor(
     private projectService: ProjectService,
-    private phasesService: PhasesService
+    private phasesService: PhasesService,
+    private route: ActivatedRoute,
+    private messageService: MessageService,
+    private router: Router,
+    private timesheetService: TimesheetService
   ) {
   }
 
   ngOnInit() {
+    this.notes = '';
     this.initTotalHour();
     this.timesheetList = [];
     this.tasksList = [];
@@ -41,11 +52,33 @@ export class AddEditTimesheetComponent implements OnInit {
     this.weekStartDate = moment().add(0, 'weeks').isoWeekday(1);
     this.weekEndDate = moment().add(1, 'weeks').isoWeekday(0);
     this.projectList = [];
+    this.route.params.subscribe(params => {
+      this.routeParam = params['id'];
+    });
+    this.getProject();
+  }
+  getProject() {
     this.projectService.getMyProjectsForTimesheet({ Date: this.weekStartDate }).subscribe((res: any) => {
       this.projectList.push({ label: 'Select', value: null });
       for (var index in res) {
         this.projectList.push({ label: res[index].Title, value: res[index] });
       }
+      if (this.routeParam) {
+        this.getTimesheetForEdit();
+      }
+    });
+  }
+  getTimesheetForEdit() {
+    this.timesheetService.getTimesheetByID(this.routeParam).subscribe((res: any) => {
+      this.timesheetList = res.Timesheets;
+      for (let i = 0; i < this.timesheetList.length; i++) {
+        let project = _.find(this.projectList, function (item) {
+          return item.value !== null && item.value.ID === res.Timesheets[i].Project.ID;
+        });
+        this.timesheetList[i].Project = project.value;
+        this.onProjectChange(project.value, i)
+      }
+      console.log(res);
     });
   }
   initTotalHour() {
@@ -92,8 +125,9 @@ export class AddEditTimesheetComponent implements OnInit {
     this.dialogVisible = true;
   }
   saveNotes() {
-    this.timesheetList[this.dialog.index][this.dialog.property] = this.notes.trim();
-    this.notes = '';
+    if (this.notes && this.notes !== null) {
+      this.timesheetList[this.dialog.index][this.dialog.property] = this.notes.trim();
+    }
     this.dialogVisible = false;
   }
 

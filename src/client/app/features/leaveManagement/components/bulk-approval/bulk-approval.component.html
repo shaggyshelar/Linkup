@@ -34,7 +34,7 @@
           </div>
           <div class="portlet-body">
             <p-dataTable [value]="leaveList" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows)>
-              <p-column selectionMode="multiple" header="Select" [sortable]="true"></p-column>
+              <p-column selectionMode="multiple" header="Select"  [style]="{'width':'30px'}"></p-column>
               <p-column field="EmpID" header="Employee ID" styleClass="hidden-xs" [sortable]="true"></p-column>
               <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
               <p-column field="NumberOfDays" header="No. of Leaves" [sortable]="true"></p-column>

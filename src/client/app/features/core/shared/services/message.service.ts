@@ -23,6 +23,8 @@ export class MessageService {
     public static BULK_LEAVE_1 = 'Please upload document of type .csv';
     public static RECORD_SAVED = 'Record Saved';
     public static RECORD_UPDATED = 'Record Updated';
+    public static TIMESHEET_APPROVE = 'Timesheet Approved';
+    public static TIMESHEET_REJECT = 'Timesheet Rejected';
 
     isSessionTimeout: boolean = false;
 

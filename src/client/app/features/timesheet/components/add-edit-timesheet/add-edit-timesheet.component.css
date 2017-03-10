@@ -40,3 +40,14 @@
     max-width: 400px;
     max-height: 150px;
 }
+.fa-times{
+    font-size: 32px;
+    position: absolute;
+    color:red;
+    cursor:pointer;
+    margin-top: 21px;
+}
+
+.fa-check-square-o{
+    color: #2399e5;
+}

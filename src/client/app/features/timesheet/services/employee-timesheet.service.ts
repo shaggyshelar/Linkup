@@ -1,6 +1,6 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 
 /** Third Party Dependencies */
@@ -35,5 +35,41 @@ export class EmployeeTimesheetService extends BaseService {
     }
     getTimesheetApprovalData(id: any) {
         return this.getChildList$('GetTimesheetApprovalData/' + id, 0, 0, true).map(res => res.json());
+    }
+    approveTimesheet(payload: any) {
+        let headers = new Headers();
+        let body = JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl + '/EmployeeTimesheet/Approve ', body, options)
+            .map(res => {
+                windowRef['App'].unblockUI();
+                return res.json();
+            })
+            .catch(err => {
+                windowRef['App'].unblockUI();
+                return this.handleError(err);
+            });
+    }
+    rejectTimesheet(payload: any) {
+        let headers = new Headers();
+        let body = JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl + '/EmployeeTimesheet/Reject ', body, options)
+            .map(res => {
+                windowRef['App'].unblockUI();
+                return res.json();
+            })
+            .catch(err => {
+                windowRef['App'].unblockUI();
+                return this.handleError(err);
+            });
     }
 }

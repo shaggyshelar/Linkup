@@ -11,34 +11,51 @@
                 <span class="active">Employee Timesheet</span>
             </li>
         </ul>
-        <div class="row">
+        <div class="row view-approve-timesheet">
             <div class="col-md-12 col-sm-12">
                 <div class="portlet light ">
                     <div class="portlet-body">
-                        <p-dataTable [value]="timesheetReport" [responsive]="true">
-                            <p-column field="date" header="Date" [sortable]="true"></p-column>
-                            <p-column field="project" header="Project" [sortable]="true"></p-column>
-                            <p-column field="task" header="Task" [sortable]="true"></p-column>
-                            <p-column field="billableHours" header="Billable Hours" [sortable]="true"></p-column>
-                            <p-column field="nonBillableHours" header="Non-Billable Hours" [sortable]="true"></p-column>
-                            <p-column field="totalHours" header="Total Hours" [sortable]="true"></p-column>
-                            <p-column field="noteBillableHours" header="Note for Billable Hours"></p-column>
-                            <p-column field="noteNonBillableHours" header="Note for Non-Billable Hours"></p-column>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <span class="week-header">Week : {{startDate | date:'dd/MM/y'}} to {{endDate | date:'dd/MM/y'}}</span>
+                            </div>
+                            <div class="col-sm-3 ">
+                                <span class='status-header'>Status: {{submittedStatus}} </span>
+                            </div>
+                            <div class="col-sm-offset-1 col-sm-3">
+                                <span class="week-header">{{employeeName}}</span>
+                            </div>
+                        </div>
+                        <br/>
+                        <p-dataTable [value]="timesheetReport.ApproverTimesheet" [responsive]="true">
+                            <p-column  field="Date" header="Date" [sortable]="true"></p-column>
+                            <p-column field="Project.Value" header="Project" [sortable]="true"></p-column>
+                            <p-column field="Task" header="Task" [sortable]="true"></p-column>
+                            <p-column field="BillableHours" header="Billable Hours"></p-column>
+                            <p-column field="NonBillableHours" header="Non-Billable Hours"></p-column>
+                            <p-column field="TotalHours" header="Total Hours"></p-column>
+                            <p-column field="NoteForBillableHours" header="Note for Billable Hours"></p-column>
+                            <p-column field="NoteForNonBillableHours" header="Note for Non-Billable Hours"></p-column>
                         </p-dataTable>
                         <div class="row row-padding">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Comments</label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control" rows="2" id="approve_comments" autoResize="autoResize"></textarea>
+                                    <textarea [disabled]="submittedStatus=='Approved'" class="form-control" [(ngModel)]="comment" (keyup)="reasonTextChanged()" class="fullWidth" rows="2" id="approve_comments"
+                                        [attr.maxLength]="textareaLength" autoResize="autoResize"></textarea>
+                                        <div *ngIf="submittedStatus!='Approved'" class="charsLeft pull-right">{{charsLeft}} characters left</div>
+                                        <div class="alert alert-danger" *ngIf="CommentError">
+                                            Please Enter Comment
+                                        </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 pull-right">
                                 <div class="pull-right">
-                                    <button class="btn " type="button" label="Approve">Approve</button>
-                                    <button class="btn " type="button" label="Reject">Reject</button>
-                                    <button class="btn " type="button" label="Cancel">Cancel</button>
+                                    <button *ngIf="submittedStatus!='Approved'" class="btn " type="button" (click)="onApprove()" label="Approve">Approve</button>
+                                    <button *ngIf="submittedStatus!='Approved'" class="btn " type="button" (click)="onReject()" label="Reject">Reject</button>
+                                    <button class="btn " type="button" label="Cancel" (click)="onCancel()">Cancel</button>
                                 </div>
                             </div>
                         </div>

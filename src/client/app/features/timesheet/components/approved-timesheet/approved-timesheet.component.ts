@@ -1,5 +1,6 @@
 /** Angular Dependencies */
 import { OnInit, Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 /** Module Level Dependencies */
 import { EmployeeTimeSheet } from '../../models/employee-timesheet';
@@ -14,7 +15,7 @@ import { EmployeeTimesheetService } from '../../services/index';
 export class ApprovedTimesheetComponent implements OnInit {
   approvedEmployee: EmployeeTimeSheet[];
 
-  constructor(private employeeTimesheetService: EmployeeTimesheetService) { }
+  constructor(private employeeTimesheetService: EmployeeTimesheetService, private router: Router) { }
   ngOnInit(): void {
     this.approvedEmployee = [];
     this.employeeTimesheetService.getApproverApprovedTimesheets().subscribe((res: any) => {
@@ -22,5 +23,8 @@ export class ApprovedTimesheetComponent implements OnInit {
         this.approvedEmployee = res.reverse();
       }
     });
+  }
+  onEdit(id: any) {
+    this.router.navigate(['/timesheet/view-approve', id]);
   }
 }

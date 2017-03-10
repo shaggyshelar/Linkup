@@ -15,7 +15,7 @@
             <div class="col-md-12 col-sm-12">
                 <div class="portlet light ">
                     <div class="portlet-body">
-                        <p-dataTable [value]="approvedEmployee" [responsive]="true" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+                        <p-dataTable [value]="approvedEmployee" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
                             <p-column field="Employee.Name" header="Employee" [sortable]="true" ></p-column>
                             <p-column header="Start Date" [sortable]="true" >
                                 <template let-rowData="rowData" pTemplate="body">
@@ -43,6 +43,11 @@
                                         <li *ngFor="let item of rowData.PendingApprover">{{item.Name}}</li>
                                     </ul>
                                 </template>
+                            </p-column>
+                            <p-column styleClass="col-button" header="Edit" field="color">
+                                <template let-rowItem="rowData" pTemplate type="body">
+                                    <button id="actionUpdate" type="button" pButton (click)="onEdit(rowItem.ID)" icon="fa fa-edit"></button>
+                                 </template>
                             </p-column>
                         </p-dataTable>
                     </div>

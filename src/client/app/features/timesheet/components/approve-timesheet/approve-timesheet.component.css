@@ -8,3 +8,25 @@
 .icon-color {
     color :#3D79A2;
 }
+.week-header {
+    font-size: 25px;
+    font-weight: 100;
+    letter-spacing: -1px;
+    /*//font-family: 'Segoe UI'!important;*/
+}
+.status-header{
+    font-size: 18px;
+    font-weight: 400;
+    color: #207BCA!important;
+}
+.charsLeft{
+    margin: 0px 0px -5px;
+    background-color: #F8F3C9;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-left: 1px dotted #ababab;
+    border-top: 1px dotted #ababab;
+}
+.fullWidth{
+    width: 100%;
+}

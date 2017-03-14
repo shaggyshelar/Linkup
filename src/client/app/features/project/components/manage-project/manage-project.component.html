@@ -24,16 +24,16 @@
         <div class="row">
             <div class="col-md-12 col-sm-12">
 				<div class="portlet light ">
-					<nav class="floating-add-btn">
+					<nav class="floating-add-btn" *ngIf="false">
 						<a class="buttons hidden-sm hidden-md hidden-lg" [routerLink]="['../add']" tooltip="Add New Project" href="#"><i class="fa fa-plus-circle fa-4x" aria-hidden="true"></i></a>
 					</nav>
-					<div class="portlet-title">
+					<div class="portlet-title"  *ngIf="false">
 						<div class="actions">
 							<a [routerLink]="['../add']" id="newproject" class="btn green hidden-xs"><i class="fa fa-plus"></i> New Project</a>
 						</div>
 					</div>
 					<div class="portlet-body">
-						<p-dataTable [value]="projectList | async" [responsive]="true" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+						<p-dataTable [value]="projectList | async" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
 							<p-column field="Title" header="Project Name" [sortable]="true"></p-column>
 							<p-column field="ProjectType" header="Project Type" [sortable]="true"></p-column>
 							<p-column field="DeliveryUnit.Value" header="Delivery Unit" [sortable]="true"></p-column>

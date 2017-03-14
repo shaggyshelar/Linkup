@@ -88,14 +88,14 @@ export class AddEditTimesheetComponent implements OnInit {
   }
   setTotal(total: any) {
     this.totalhours = {
-      TotalhrsFriday: total.TotalhrsFriday,
-      TotalhrsMonday: total.TotalhrsMonday,
-      TotalhrsSaturday: total.TotalhrsSaturday,
-      TotalhrsSunday: total.TotalhrsSunday,
-      TotalhrsThursday: total.TotalhrsThursday,
-      TotalhrsTuesday: total.TotalhrsTuesday,
-      TotalhrsWednesday: total.TotalhrsWednesday,
-      TotalhrsTimesheet: total.TotalhrsTimesheet,
+      TotalhrsFriday: total.TotalhrsFriday===null?0:total.TotalhrsFriday,
+      TotalhrsMonday: total.TotalhrsMonday===null?0:total.TotalhrsMonday,
+      TotalhrsSaturday: total.TotalhrsSaturday===null?0:total.TotalhrsSaturday,
+      TotalhrsSunday: total.TotalhrsSunday===null?0:total.TotalhrsSunday,
+      TotalhrsThursday: total.TotalhrsThursday===null?0:total.TotalhrsThursday,
+      TotalhrsTuesday: total.TotalhrsTuesday===null?0:total.TotalhrsTuesday,
+      TotalhrsWednesday: total.TotalhrsWednesday===null?0:total.TotalhrsWednesday,
+      TotalhrsTimesheet: total.TotalhrsTimesheet===null?0:total.TotalhrsTimesheet,
     };
   }
   initTotalHour() {

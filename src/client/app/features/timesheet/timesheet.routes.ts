@@ -70,9 +70,9 @@ export const TimesheetRoutes: Route[] = [
   }, {
     path: 'bulk-approve',
     component: BulkApproveComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
-      // permissions: ['TIMESHEET.APPROVETIMESHEETS.MANAGE']
+       permissions: ['TIMESHEET.BULK_APPROVAL.MANAGE']
     }
   }
 

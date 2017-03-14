@@ -280,7 +280,7 @@
                 </div>
 
                 <p-dialog header="Note:" responsive='true' [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true">
-                    <textarea rows="8" cols="35" [(ngModel)]="notes"></textarea>
+                    <textarea rows="8" cols="35" [(ngModel)]="notes" disabled='true'></textarea>
                     <!--<hr/>-->
                     <!--<button class="btn" (click)="saveNotes()">Save & Close</button>-->
                 </p-dialog>

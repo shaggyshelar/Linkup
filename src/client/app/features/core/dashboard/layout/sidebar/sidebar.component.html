@@ -151,7 +151,7 @@
 						</a>
 					</li>
 					<li class="nav-item  " >
-						<a routerLink="/timesheet/bulk-approve" routerLinkActive="active">
+						<a routerLink="/timesheet/bulk-approve" [ifAuthorize]="['TIMESHEET.BULK_APPROVAL.MANAGE']" routerLinkActive="active">
 							<span class="title">Bulk Timesheet Approval</span>
 						</a>
 					</li>

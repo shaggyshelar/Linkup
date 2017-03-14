@@ -76,9 +76,11 @@ export class AddEditTimesheetComponent implements OnInit {
           return item.value !== null && item.value.ID === res.Timesheets[i].Project.ID;
         });
         this.timesheetList[i].Project = project.value;
-        this.onProjectChange(project.value, i)
+        this.onProjectChange(project.value, i);
       }
       console.log(res);
+      this.weekStartDate=res.StartDate;
+      this.weekEndDate=res.EndDate;
     });
   }
   initTotalHour() {

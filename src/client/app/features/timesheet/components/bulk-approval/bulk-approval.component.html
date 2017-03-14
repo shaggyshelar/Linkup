@@ -44,7 +44,7 @@
               <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
               <p-column header="Start Date" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
-                  {{rowData.EndDate | date:'dd/MM/y'}}
+                  {{rowData.StartDate | date:'dd/MM/y'}}
                 </template>
               </p-column>
               <p-column header="End Date" [sortable]="true">

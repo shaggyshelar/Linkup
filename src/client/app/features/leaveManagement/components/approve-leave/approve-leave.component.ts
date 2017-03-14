@@ -42,7 +42,7 @@ export class ApproveLeaveComponent implements OnInit {
     this.getApproverLeave();
   }
   getApproverLeave() {
-    this.leaveService.getApproverLeaves().subscribe((res: any) => {
+    this.leaveService.getApproverLeaves('Pending').subscribe((res: any) => {
       if (res.length > 0) {
         this.leaveList = res.reverse();
       }

@@ -44,8 +44,8 @@ export class LeaveService extends BaseService {
     getMyLeaves(): Observable<Leave> {
         return this.getChildList$('myleaves', 0, 0, true).map(res => res.json());
     }
-    getApproverLeaves(): Observable<Leave[]> {
-        return this.getChildList$('ApproverLeaves', 0, 0, true).map(res => res.json());
+    getApproverLeaves(status:string): Observable<Leave[]> {
+        return this.getChildList$('ApproverLeaves/'+status, 0, 0, true).map(res => res.json());
     }
     getLeaveDetailByRefID(refId: any): Observable<Leave[]> {
         let headers = new Headers();

@@ -9,6 +9,7 @@ import { ApprovedTimesheetComponent } from './components/approved-timesheet/appr
 import { ReportTimesheetComponent } from './components/report-timesheet/report-timesheet.component';
 import { ViewApproveTimesheetComponent } from './components/approve-timesheet/view-approve-timesheet.component';
 import { AuthGuard } from '../core/index';
+import { BulkApproveComponent } from './components/bulk-approval/bulk-approval.component';
 
 /** TimesheetRoutes Definition */
 export const TimesheetRoutes: Route[] = [
@@ -32,6 +33,13 @@ export const TimesheetRoutes: Route[] = [
       permissions: ['TIMESHEET.MYTIMESHEET.READ']
     }
   }, {
+    path: 'edit-timesheet/:id',
+    component: AddEditTimesheetComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permissions: ['TIMESHEET.MYTIMESHEET.READ']
+    }
+  },{
     path: 'approve',
     component: ApproveTimesheetComponent,
     canActivate: [AuthGuard],
@@ -59,5 +67,13 @@ export const TimesheetRoutes: Route[] = [
     data: {
       permissions: ['TIMESHEET.APPROVETIMESHEETS.MANAGE']
     }
+  }, {
+    path: 'bulk-approve',
+    component: BulkApproveComponent,
+    canActivate: [AuthGuard],
+    data: {
+       permissions: ['TIMESHEET.BULK_APPROVAL.MANAGE']
+    }
   }
+
 ];

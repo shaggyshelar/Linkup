@@ -12,7 +12,7 @@ import { Timesheet } from '../models/timesheet';
 import { Employee } from '../models/employee';
 
 /** Context for service calls */
-const CONTEXT = 'timesheet';
+const CONTEXT = 'Timesheets';
 
 /** Service Definition */
 @Injectable()
@@ -29,10 +29,7 @@ export class TimesheetService extends BaseService {
         return this.getList$(0, 0, true).map(res => res.json());
     }
 
-    /**
-     * getEmployeesDefinition
-     */
-    getEmployees(): Observable<Employee> {
-        return this.getChildList$('employee', 0, 0, true).map(res => res.json());
+    getTimesheetByID(id: string) {
+        return this.getChildList$('Edit/' + id, 0, 0, true).map(res => res.json());
     }
 }

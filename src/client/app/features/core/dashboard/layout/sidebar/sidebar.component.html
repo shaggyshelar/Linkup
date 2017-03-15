@@ -130,7 +130,7 @@
 							<span class="title">My Timesheets</span>
 						</a>
 					</li>
-					<li class="nav-item  " [ifAuthorize]="['TIMESHEET.MANAGE']">
+					<li class="nav-item  " [ifAuthorize]="['TIMESHEET.MANAGES']">
 						<a routerLink="/timesheet/enter-timesheet" routerLinkActive="active">
 							<span class="title">Enter Timesheets</span>
 						</a>
@@ -148,6 +148,11 @@
 					<li class="nav-item  " [ifAuthorize]="['Timesheet.READ']">
 						<a routerLink="/timesheet/report" routerLinkActive="active">
 							<span class="title">Timesheet Report</span>
+						</a>
+					</li>
+					<li class="nav-item  " >
+						<a routerLink="/timesheet/bulk-approve" [ifAuthorize]="['TIMESHEET.BULK_APPROVAL.MANAGE']" routerLinkActive="active">
+							<span class="title">Bulk Timesheet Approval</span>
 						</a>
 					</li>
 				</ul>

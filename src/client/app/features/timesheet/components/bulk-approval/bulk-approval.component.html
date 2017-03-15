@@ -27,53 +27,51 @@
               <i class="icon-directions font-green hide"></i>
               <span class="caption-subject bold font-dark uppercase">Bulk Timesheet Approval</span>
             </div>
-            <div class="actions">
-              <a *ngIf="selectAllBtn" (click)="selectAllRecord()" class="btn green "> Select All</a>
-              <a *ngIf="!selectAllBtn" (click)="unSelectAllRecord()" class="btn green "> UnSelect All</a>
-            </div>
           </div>
           <div class="portlet-body">
-            <p-dataTable [value]="leaveList" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]=(servRows)>
-              <p-column selectionMode="multiple" header="Select" [sortable]="true"></p-column>
-              <p-column field="Employee.Name" header="Employee" [sortable]="true" ></p-column>
-              <p-column header="Start Date" [sortable]="true" >
+            <div class="row">
+              <div class="col-xs-4">
+                <button id="approve" (click)="approveClicked()" class="btn ">Approve</button>
+              </div>
+              <div class="col-xs-6 visible-xs">
+                <button *ngIf="selectAllBtn" (click)="selectAllRecord()" class="btn green "> Select All</button>
+                <button *ngIf="!selectAllBtn" (click)="unSelectAllRecord()" class="btn green"> UnSelect All</button>
+              </div>
+            </div>
+            <br/>
+            <p-dataTable [value]="timesheetList" [(selection)]="selectedEmployees" [paginator]="true" [responsive]="true" [rows]='10'>
+              <p-column selectionMode="multiple" header="Select" [style]="{'width':'30px'}"></p-column>
+              <p-column field="Employee.Name" header="Employee" [sortable]="true"></p-column>
+              <p-column header="Start Date" [sortable]="true">
+                <template let-rowData="rowData" pTemplate="body">
+                  {{rowData.StartDate | date:'dd/MM/y'}}
+                </template>
+              </p-column>
+              <p-column header="End Date" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
                   {{rowData.EndDate | date:'dd/MM/y'}}
                 </template>
               </p-column>
-              <p-column header="End Date" [sortable]="true" >
-                <template let-rowData="rowData" pTemplate="body">
-                  {{rowData.EndDate | date:'dd/MM/y'}}
-                </template>
-              </p-column>
-              <p-column field="BillableHours" header="Billable Hours" [sortable]="true" ></p-column>
-              <p-column field="NonBillableHours" header="Non-Billable Hours" [sortable]="true" ></p-column>
-              <p-column header="Approver User" [sortable]="true" >
+              <p-column field="BillableHours" header="Billable Hours" [sortable]="true"></p-column>
+              <p-column field="NonBillableHours" header="Non-Billable Hours" [sortable]="true"></p-column>
+              <p-column header="Approver User" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
                   <ul class="ul-list-table">
                     <li *ngFor="let item of rowData.ApproverUser">{{item.Name}}</li>
                   </ul>
                 </template>
               </p-column>
-              <p-column field="SubmittedStatus" header="Status" [sortable]="true" ></p-column>
-              <p-column header="Pending Approver" [sortable]="true" >
+              <p-column field="SubmittedStatus" header="Status" [sortable]="true"></p-column>
+              <p-column header="Pending Approver" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
                   <ul class="ul-list-table">
                     <li *ngFor="let item of rowData.PendingApprover">{{item.Name}}</li>
                   </ul>
                 </template>
               </p-column>
-              <p-column field="EmployeeDepartment" header="Department" [sortable]="true" ></p-column>
+              <p-column field="EmployeeDepartment" header="Department" [sortable]="true"></p-column>
             </p-dataTable>
-            <form novalidate>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="pull-right">
-                    <button id="approve" (click)="approveClicked(bulkApprovalForm)" class="btn ">Approve</button>
-                  </div>
-                </div>
-              </div>
-            </form>
+
           </div>
         </div>
       </div>

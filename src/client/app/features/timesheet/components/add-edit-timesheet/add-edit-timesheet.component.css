@@ -5,8 +5,10 @@
     /*//font-family: 'Segoe UI'!important;*/
 }
 .status-header{
-    font-size: 18px;
+    /*font-size: 18px;*/
+    font-size: 25px;
     font-weight: 400;
+    white-space: nowrap;
     color: #207BCA!important;
 }
 .input-group-addon{

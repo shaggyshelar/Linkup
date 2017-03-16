@@ -43,6 +43,7 @@ export class ApproveLeaveComponent implements OnInit {
   }
   getApproverLeave() {
     this.leaveService.getApproverLeaves('Pending').subscribe((res: any) => {
+      this.leaveList=[];
       if (res.length > 0) {
         this.leaveList = res.reverse();
       }
@@ -79,11 +80,13 @@ export class ApproveLeaveComponent implements OnInit {
     });
   }
 
-  rejectLeave(id: string) {
+  rejectLeave(leave:any) {
     var params = {
       Comments: 'Rejected!!',
       Status: 'Rejected',
-      LeaveRequestRefId: id
+      LeaveRequestRefId: leave.LeaveRequestMasterId,
+      StartDate:leave.StartDate,
+      EndDate:leave.EndDate,
     };
     this.leaveService.singleLeaveReject(params).subscribe(res => {
       if (res) {

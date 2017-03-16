@@ -165,7 +165,9 @@ export class SingleApprovalComponent implements OnInit {
             var params = {
                 Comments: this.model.comments.trim(),
                 Status: 'Rejected',
-                LeaveRequestRefId: this.leaveID
+                LeaveRequestRefId: this.leaveID,
+                StartDate: this.leaveList[0].StartDate,
+                EndDate:this.leaveList[this.leaveList.length-1].EndDate,
             };
 
             this.leaveService.singleLeaveReject(params)

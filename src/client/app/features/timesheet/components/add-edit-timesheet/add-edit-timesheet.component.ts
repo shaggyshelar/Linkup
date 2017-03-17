@@ -307,13 +307,13 @@ export class AddEditTimesheetComponent implements OnInit {
         this.totalhours.TotalhrsSunday = moment(moment(this.totalhours.TotalhrsSunday, 'HH:mm').add(moment(this.timesheetList[i].Sundayhrs, 'HH:mm').hours() * 60 + moment(this.timesheetList[i].Sundayhrs, 'HH:mm').minutes(), 'minutes')).format('HH:mm');
       }
     }
-    this.totalhours.TotalhrsTimesheet = this.totalhours.TotalhrsFriday +
-      this.totalhours.TotalhrsMonday +
-      this.totalhours.TotalhrsSaturday +
-      this.totalhours.TotalhrsSunday +
-      this.totalhours.TotalhrsThursday +
-      this.totalhours.TotalhrsTuesday +
-      this.totalhours.TotalhrsWednesday +
-      this.totalhours.TotalhrsTimesheet;
-  }
+  //   this.totalhours.TotalhrsTimesheet = this.totalhours.TotalhrsFriday +
+  //     this.totalhours.TotalhrsMonday +
+  //     this.totalhours.TotalhrsSaturday +
+  //     this.totalhours.TotalhrsSunday +
+  //     this.totalhours.TotalhrsThursday +
+  //     this.totalhours.TotalhrsTuesday +
+  //     this.totalhours.TotalhrsWednesday +
+  //     this.totalhours.TotalhrsTimesheet;
+  // }
 }

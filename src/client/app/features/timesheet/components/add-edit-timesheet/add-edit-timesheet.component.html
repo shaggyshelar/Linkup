@@ -43,7 +43,7 @@
                         <div class="alert alert-danger" *ngIf="isError">
                             {{errorMessage}}
                         </div>
-                        <fieldset disabled='true'>
+                        <fieldset >
                             <div class="row">
                                 <div class="table-responsive">
                                     <table class="table">
@@ -66,11 +66,11 @@
                                         <tbody *ngFor="let timesheet of timesheetList;let index = index;">
                                             <tr>
                                                 <td rowspan="2">
-                                                    <p-dropdown [disabled]='true' [options]="projectList" [(ngModel)]='timesheet.Project' (onChange)="onProjectChange(timesheet.Project,index)"
+                                                    <p-dropdown [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted'" [options]="projectList" [(ngModel)]='timesheet.Project' (onChange)="onProjectChange(timesheet.Project,index)"
                                                         [style]="{'width':'100px'}"></p-dropdown>
                                                 </td>
                                                 <td rowspan="2">
-                                                    <p-dropdown [disabled]='true' [options]="tasksList[index]" [style]="{'width':'100px'}" [(ngModel)]='timesheet.Task'></p-dropdown>
+                                                    <p-dropdown [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted'" [options]="tasksList[index]" [style]="{'width':'100px'}" [(ngModel)]='timesheet.Task'></p-dropdown>
                                                 </td>
                                                 <td> B </td>
                                                 <td>

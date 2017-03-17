@@ -31,7 +31,7 @@
               <p-column field="Status.Value" header="Status" [sortable]="true"></p-column>
               <p-column header="Resignation Date" [sortable]="true">
                 <template let-rowData="rowData" pTemplate="body">
-                  {{rowData.ResignationDate }}
+                  {{rowData.ResignationDate | date:'dd/MM/y' }}
                 </template>
               </p-column>
               <p-column field="LeaveDetails.LeaveTaken" header="L Taken" ></p-column>

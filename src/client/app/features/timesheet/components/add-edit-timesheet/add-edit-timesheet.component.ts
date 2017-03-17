@@ -127,6 +127,8 @@ export class AddEditTimesheetComponent implements OnInit {
   onProjectChange(selectedProject: any, index: number) {
     this.isError = false;
     this.tasksList[index] = [];
+    this.timesheetList[index].ApproverUser.Value=selectedProject.AccountManager.Name;
+    this.timesheetList[index].ApproverUser.ID=selectedProject.AccountManager.ID;
     this.phasesService.getPhasesByProject(selectedProject).subscribe((res: any) => {
       this.tasksList[index].push({ label: 'Select', value: null });
       for (var i in res) {

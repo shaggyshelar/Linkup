@@ -68,6 +68,7 @@
                                                 <td rowspan="2">
                                                     <p-dropdown [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted'" [options]="projectList" [(ngModel)]='timesheet.Project' (onChange)="onProjectChange(timesheet.Project,index)"
                                                         [style]="{'width':'100px'}"></p-dropdown>
+                                                        <p>{{timesheet.ApproverUser?timesheet.ApproverUser.Value:''}}</p>
                                                 </td>
                                                 <td rowspan="2">
                                                     <p-dropdown [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted'" [options]="tasksList[index]" [style]="{'width':'100px'}" [(ngModel)]='timesheet.Task'></p-dropdown>

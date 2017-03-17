@@ -66,16 +66,17 @@
                                         <tbody *ngFor="let timesheet of timesheetList;let index = index;">
                                             <tr>
                                                 <td rowspan="2">
-                                                    <p-dropdown [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted'" [options]="projectList" [(ngModel)]='timesheet.Project' (onChange)="onProjectChange(timesheet.Project,index)"
+                                                    <p-dropdown
+                                                     [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" [options]="projectList" [(ngModel)]='timesheet.Project' (onChange)="onProjectChange(timesheet.Project,index)"
                                                         [style]="{'width':'100px'}"></p-dropdown>
                                                         <p>{{timesheet.ApproverUser?timesheet.ApproverUser.Value:''}}</p>
                                                 </td>
                                                 <td rowspan="2">
-                                                    <p-dropdown [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted'" [options]="tasksList[index]" [style]="{'width':'100px'}" [(ngModel)]='timesheet.Task'></p-dropdown>
+                                                    <p-dropdown [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted'  || (timesheet.Project?timesheet.Project.Title=='Leave':false)" [options]="tasksList[index]" [style]="{'width':'100px'}" [(ngModel)]='timesheet.Task'></p-dropdown>
                                                 </td>
                                                 <td> B </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Mondayhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Mondayhrs"
                                                         (keypress)='timeKeyPress($event)' (blur)="setTimeFormat($event.target.value,index,'Mondayhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Mondaydesc')">
@@ -84,7 +85,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Tuesdayhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Tuesdayhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Tuesdayhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Tuesdaydesc')">
@@ -93,7 +94,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Wednesdayhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Wednesdayhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Wednesdayhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Wednesdaydesc')"> 
@@ -102,7 +103,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Thursdayhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Thursdayhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Thursdayhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Thursdaydesc')">
@@ -111,7 +112,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Fridayhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Fridayhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Fridayhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Fridaydesc')">
@@ -120,7 +121,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Saturdayhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Saturdayhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Saturdayhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Saturdaydesc')">
@@ -129,7 +130,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Sundayhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Sundayhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Sundayhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Sundaydesc')">
@@ -148,7 +149,7 @@
                                             <tr class="hide-td-border">
                                                 <td> NB </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Mondaynbhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Mondaynbhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Mondaynbhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Mondaydescnb')">
@@ -157,7 +158,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Tuesdaynbhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Tuesdaynbhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Tuesdaynbhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Tuesdaydescnb')">
@@ -166,7 +167,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Wednesdaynbhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Wednesdaynbhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Wednesdaynbhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Wednesdaydescnb')">
@@ -175,7 +176,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Thursdaynbhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Thursdaynbhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Thursdaynbhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Thursdaydescnb')">
@@ -184,7 +185,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Fridaynbhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Fridaynbhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Fridaynbhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Fridaydescnb')">
@@ -193,7 +194,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Saturdaynbhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Saturdaynbhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Saturdaynbhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Saturdaydescnb')">
@@ -202,7 +203,7 @@
                                                 </span>
                                                 </td>
                                                 <td>
-                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved'" type="text" maxlength="5" [(ngModel)]="timesheet.Sundaynbhrs"
+                                                    <input [readonly]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" type="text" maxlength="5" [(ngModel)]="timesheet.Sundaynbhrs"
                                                         (keypress)="timeKeyPress($event)" (blur)="setTimeFormat($event.target.value,index,'Sundaynbhrs')"
                                                         class="hours-input" />
                                                     <span (click)="addNotes(index,'Sundaydescnb')">

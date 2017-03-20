@@ -67,12 +67,27 @@
                                             <tr>
                                                 <td rowspan="2">
                                                     <p-dropdown
+                                                     *ngIf="timesheet.ProjectTimesheetStatus !=='Approved' && timesheet.ProjectTimesheetStatus !=='Submitted'"
                                                      [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted' || (timesheet.Project?timesheet.Project.Title=='Leave':false)" [options]="projectList" [(ngModel)]='timesheet.Project' (onChange)="onProjectChange(timesheet.Project,index)"
                                                         [style]="{'width':'100px'}"></p-dropdown>
-                                                        <p>{{timesheet.ApproverUser?timesheet.ApproverUser.Value:''}}</p>
+                                                    <input 
+                                                     [disabled]='true'
+                                                     class="input-width"
+                                                     *ngIf="(timesheet.ProjectTimesheetStatus =='Approved' || timesheet.ProjectTimesheetStatus =='Submitted') && timesheet.Project"
+                                                     [(ngModel)]="timesheet.Project.Value"
+                                                    />
+                                                    <p class='input-width'>{{timesheet.ApproverUser?timesheet.ApproverUser.Value:''}}</p>
                                                 </td>
                                                 <td rowspan="2">
-                                                    <p-dropdown [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted'  || (timesheet.Project?timesheet.Project.Title=='Leave':false)" [options]="tasksList[index]" [style]="{'width':'100px'}" [(ngModel)]='timesheet.Task'></p-dropdown>
+                                                    <p-dropdown
+                                                     *ngIf="timesheet.ProjectTimesheetStatus !=='Approved' && timesheet.ProjectTimesheetStatus !=='Submitted'"
+                                                     [disabled]="timesheet.ProjectTimesheetStatus=='Approved' || timesheet.ProjectTimesheetStatus=='Submitted'  || (timesheet.Project?timesheet.Project.Title=='Leave':false)" [options]="tasksList[index]" [style]="{'width':'100px'}" [(ngModel)]='timesheet.Task'></p-dropdown>
+                                                     <input 
+                                                     [disabled]='true'
+                                                    class="input-width"
+                                                     *ngIf="(timesheet.ProjectTimesheetStatus =='Approved' || timesheet.ProjectTimesheetStatus =='Submitted')"
+                                                     [(ngModel)]="timesheet.Task"
+                                                    />
                                                 </td>
                                                 <td> B </td>
                                                 <td>
@@ -142,8 +157,7 @@
                                                     {{timesheet.ProjectTimesheetStatus}}
                                                 </td>
                                                 <td>
-                                                    <!--<i class="fa fa-times" aria-hidden="true" (click)="onDelete(index)"></i>-->
-                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                    <i class="fa fa-times" *ngIf="timesheet.ProjectTimesheetStatus !=='Approved' && timesheet.ProjectTimesheetStatus !=='Submitted'" aria-hidden="true" (click)="onDelete(index)"></i>
                                                 </td>
                                             </tr>
                                             <tr class="hide-td-border">
@@ -251,14 +265,14 @@
                 <div class="row">
                     <div class="col-md-12 pull-right">
                         <div class="pull-right">
-                            <button *ngIf='false' class="btn " type="button" (click)="saveTimsheet()">Save Timesheet</button>
-                            <button *ngIf='false' class="btn " type="button" (click)="onSendForApproval()">Send For Approval</button>
-                            <button class="btn " type="button" label="Cancel" (click)="onCancel()">Cancel</button>
+                            <button class="btn" *ngIf="timesheetStatus !== 'Approved' && timesheetStatus !== 'Submitted'" type="button" (click)="saveTimsheet()">Save Timesheet</button>
+                            <button class="btn" *ngIf="timesheetStatus !== 'Approved' && timesheetStatus !== 'Submitted'" type="button" (click)="onSendForApproval()">Send For Approval</button>
+                            <button class="btn" type="button" label="Cancel" (click)="onCancel()">Cancel</button>
                         </div>
                     </div>
                 </div>
                 <br/>
-                <div class="portlet light " *ngIf="timesheetStatus=='Approved'">
+                <div class="portlet light" *ngIf="timesheetStatus=='Approved'">
                     <div class="portlet-body">
                         <div class="row">
                             <div class="table-responsive">
@@ -282,9 +296,9 @@
                 </div>
 
                 <p-dialog header="Note:" responsive='true' [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true">
-                    <textarea rows="8" cols="35" [(ngModel)]="notes" disabled='true'></textarea>
-                    <!--<hr/>-->
-                    <!--<button class="btn" (click)="saveNotes()">Save & Close</button>-->
+                    <textarea rows="8" cols="35" [(ngModel)]="notes" [disabled]='modalDisable'></textarea>
+                    <hr *ngIf="!modalDisable"/>
+                    <button *ngIf="!modalDisable" class="btn" (click)="saveNotes()">Save & Close</button>
                 </p-dialog>
             </div>
         </div>

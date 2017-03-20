@@ -58,6 +58,7 @@ export class BulkApproveComponent implements OnInit {
 
   getApproverLeaves() {
     this.leaveService.getLeaveByStatus('Pending').subscribe((res: any) => {
+      this.leaveList=[];
       if (res.length > 0) {
         this.leaveList = res.reverse();
       }

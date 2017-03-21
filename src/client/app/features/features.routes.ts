@@ -17,9 +17,9 @@ export const featureRoutes: Routes = [
     {
         path: 'corporate',
         children: [...CorporateRoutes],
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         data: {
-            permissions: ['CORPORATE.MANAGE']
+          //  permissions: ['CORPORATE.MANAGE']
         }
     },
      {

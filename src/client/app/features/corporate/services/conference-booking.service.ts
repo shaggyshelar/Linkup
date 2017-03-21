@@ -1,9 +1,10 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-
+import { Router } from '@angular/router';
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
+import { MessageService } from '../../core/shared/index';
 
 /** Module Level Dependencies */
 import { BaseService } from '../../core/index';
@@ -12,15 +13,15 @@ import { BaseService } from '../../core/index';
 import { Conference } from '../models/conference';
 
 /** Context for service calls */
-export const CONTEXT = 'ConferenceBooking';
+const CONTEXT = 'ConferenceBooking';
 
 /** Service Definition */
 @Injectable()
 export class ConferenceBookingService extends BaseService {
     selectedSlot: any;
 
-    constructor( public http: Http) {
-        super(http, CONTEXT);
+    constructor( public http: Http, messageService: MessageService, router: Router) {
+        super(http, CONTEXT, messageService, router);
     }
     setSelectedSlot(event:any) {
         this.selectedSlot = event;

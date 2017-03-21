@@ -15,57 +15,57 @@ export const CorporateRoutes: Routes = [
   {
     path: 'manage-ticket',
     component: ManageTicketComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     data: {
-      permissions: ['TICKET.READ']
+     // permissions: ['TICKET.READ']
     }
   },
   {
     path: 'manage-ticket/:id',
     component: ManageTicketComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     data: {
-      permissions: ['TICKET.READ']
+     // permissions: ['TICKET.READ']
     }
   },
   {
     path: 'log-ticket',
     component: LogTicketComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     data: {
-      permissions: ['TICKET.READ']
+      //permissions: ['TICKET.READ']
     }
   },
   {
     path: 'conferenceBooking/:room',
     component: ConferenceComponent,
-    canActivate: [AuthGuard],
+   // canActivate: [AuthGuard],
     data: {
-      permissions: ['CONFERENCE_BOOK.READ']
+    //  permissions: ['CONFERENCE_BOOK.READ']
     }
   },
   {
     path: 'conferenceBooking',
     component: ConferenceComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     data: {
-      permissions: ['CONFERENCE_BOOK.READ']
+    //  permissions: ['CONFERENCE_BOOK.READ']
     }
   },
   {
     path: 'newBooking',
     component: BookComponent,
-    canActivate: [AuthGuard],
+   // canActivate: [AuthGuard],
     data: {
-      permissions: ['CONFERENCE_BOOK.CREATE']
+     // permissions: ['CONFERENCE_BOOK.CREATE']
     }
   },
   {
     path: 'myBookings',
     component: MyBookingComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     data: {
-      permissions: ['CONFERENCE_BOOK.READ']
+     // permissions: ['CONFERENCE_BOOK.READ']
     }
   }
 ];

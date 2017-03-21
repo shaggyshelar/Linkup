@@ -13,9 +13,11 @@ import { Project } from '../../models/project';
 import { ProjectService, TeamMemberService } from '../../services/index';
 import { ProjectTypeService } from '../../../core/shared/services/master/projectType.service';
 import { PriceTypeService } from '../../../core/shared/services/master/priceType.service';
-import { DeliveryUnitService,
-         DeliveryModelService, ProjectCategoryService, MessageService,
-         ClientService } from '../../../core/shared/index';
+import {
+    DeliveryUnitService,
+    DeliveryModelService, ProjectCategoryService, MessageService,
+    ClientService
+} from '../../../core/shared/index';
 
 /** Component Declaration */
 @Component({
@@ -37,6 +39,8 @@ export class AddEditProjectComponent implements OnInit {
     teamMember: any;
     filteredMemberList: any;
     selectedTeamMember: Object;
+    employeeList: any = [];
+    filteredEmployee: any = [];
     constructor(
         private projectService: ProjectService,
         private teamMemberService: TeamMemberService,
@@ -61,6 +65,7 @@ export class AddEditProjectComponent implements OnInit {
         this.deliverUnits = [];
         this.priceType = [];
         this.projectCategory = [];
+        this.getAllEmployees();
         this.projectType.push({ label: 'Select Project Type', value: null });
         this.projectType.push({ label: 'Administration', value: 'Administration' });
         this.projectType.push({ label: 'Internal', value: 'Internal' });
@@ -70,7 +75,7 @@ export class AddEditProjectComponent implements OnInit {
             _.forEach(result, (element: any) => {
                 this.deliverModels.push({
                     label: element.Title,
-                    value:{Value:element.Title ,ID:element.ID}
+                    value: { Value: element.Title, ID: element.ID }
                 });
             });
         });
@@ -79,7 +84,7 @@ export class AddEditProjectComponent implements OnInit {
             _.forEach(result, (element: any) => {
                 this.deliverUnits.push({
                     label: element.Title,
-                    value:{Value:element.Title ,ID:element.ID}
+                    value: { Value: element.Title, ID: element.ID }
                 });
             });
         });
@@ -97,16 +102,16 @@ export class AddEditProjectComponent implements OnInit {
             _.forEach(result, (element: any) => {
                 this.projectCategory.push({
                     label: element.Category,
-                    value:{Value:element.Category ,ID:element.ID}
+                    value: { Value: element.Category, ID: element.ID }
                 });
             });
         });
         this.clientService.getClients().subscribe(result => {
             this.clients.push({ label: 'Select Client', value: null });
-            _.forEach(result, (element:any) => {
+            _.forEach(result, (element: any) => {
                 this.clients.push({
                     label: element.ClientName,
-                    value: {Value:element.ClientName ,ID:element.ID}
+                    value: { Value: element.ClientName, ID: element.ID }
                 });
             });
         });
@@ -125,8 +130,8 @@ export class AddEditProjectComponent implements OnInit {
             DeliveryUnit: ['', [Validators.required]],
             ProjectCategory: ['', [Validators.required]],
             ClientName: ['', [Validators.required]],
-            ProjectStartDate: ['', [Validators.required]],
-            ProjectEndDate: ['', [Validators.required]],
+            StartDate: ['', [Validators.required]],
+            EndDate: ['', [Validators.required]],
             ProjectManager: ['', [Validators.required]],
             AccountManager: ['', [Validators.required]],
             DeliveryManager: ['', [Validators.required]],
@@ -136,7 +141,8 @@ export class AddEditProjectComponent implements OnInit {
             PriceType: ['', [Validators.required]],
             TeamSize: [''],
             IsActive: [false],
-            IsGlobal: [false]
+            IsGlobal: [false],
+            ProjectMasterID:['']
         });
         this.route.params.forEach((params: Params) => {
             if (params['id']) {
@@ -151,18 +157,19 @@ export class AddEditProjectComponent implements OnInit {
                             DeliveryUnit: result.DeliveryUnit,
                             ProjectCategory: result.ProjectCategory,
                             ClientName: result.ClientName,
-                            ProjectStartDate: new Date(result.StartDate),
-                            ProjectEndDate: new Date(result.EndDate),
-                            ProjectManager: result.ProjectManager.Name,
-                            AccountManager: result.AccountManager.Name,
-                            DeliveryManager: result.DeliveryManager.Name,
+                            StartDate: new Date(result.StartDate),
+                            EndDate: new Date(result.EndDate),
+                            ProjectManager: result.ProjectManager,
+                            AccountManager: result.AccountManager,
+                            DeliveryManager: result.DeliveryManager,
                             BillableNonBillable: result.BillableNonBillable,
                             ProjectSummary: result.ProjectSummary,
                             DeliveryModel: result.DeliveryModel,
                             PriceType: result.PriceType,
                             TeamSize: result.TeamSize,
                             IsActive: result.Active,
-                            IsGlobal: result.Isglobal
+                            IsGlobal: result.Isglobal,
+                            ProjectMasterID:result.ProjectMasterID
                         });
                         this.teamMemberService.getTeamByProject(result.ProjectMasterID).subscribe((result: any) => {
                             this.teamMember = result;
@@ -172,11 +179,34 @@ export class AddEditProjectComponent implements OnInit {
             }
         });
     }
-
-    onSubmit({ value, valid }: { value: Project, valid: boolean }) {
+    getAllEmployees() {
+        this.teamMemberService.getAllEmployee().subscribe(res => {
+            this.employeeList = [];
+            if (res) {
+                for (let i = 0; i < res.length; i++) {
+                    this.employeeList.push(res[i].Employee);
+                }
+            }
+        });
+    }
+    filterEmployeeList(event: any) {
+        let query = event.query;
+        this.filteredEmployee = [];
+        for (let i = 0; i < this.employeeList.length; i++) {
+            let employee = this.employeeList[i];
+            if (employee.Name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                this.filteredEmployee.push(employee);
+            }
+        }
+    }
+    onSubmit({ value, valid }: { value: any, valid: boolean }) {
         //value.ProjectStartDate = moment(value.ProjectStartDate).format('DD-MM-YYYY');
         //value.ProjectEndDate = moment(value.ProjectEndDate).format('DD-MM-YYYY');
-        value.TeamMembers = this.teamMember;
+        //value.TeamMembers = this.teamMember;
+        value.PriceType='Fixed';
+        value.ProjectTeamMembers=this.teamMember;
+        value.Active=value.IsActive;
+        value.Isglobal=value.IsGlobal;
         if (this.params) {
             this.projectService.editProject(value).subscribe(result => {
                 if (result) {
@@ -204,13 +234,14 @@ export class AddEditProjectComponent implements OnInit {
         this.selectedTeamMember = item;
     }
     onAddTeamMember() {
-        this.teamMember.push(this.selectedTeamMember);
-        this.selectedTeamMember = '';
-    }
-    filterTeamMember() {
-        this.filteredMemberList = [
-            { Id: 1, Name: 'Salauddin' },
-            { Id: 2, Name: 'Sachin' },
-            { Id: 3, Name: 'Aman' }];
+        let team = {
+            ProjectMasterID:this.params ? this.projectForm.value.ProjectMasterID:'',
+            Status: 'Active',
+            TeamMember: this.selectedTeamMember,
+            StartDate:this.projectForm.value.ProjectStartDate ,
+            EndDate: this.projectForm.value.ProjectEndDate
+        };
+        this.teamMember.push(team);
+        this.selectedTeamMember = {};
     }
 }

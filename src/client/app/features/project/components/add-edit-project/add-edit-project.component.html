@@ -57,7 +57,9 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Project Manager *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" formControlName="ProjectManager" name="projectManager">
+               <p-autoComplete formControlName="ProjectManager"  [suggestions]="filteredEmployee" (completeMethod)="filterEmployeeList($event)"
+                    field="Name" [size]="30"  [minLength]="1"></p-autoComplete>
+              <!--<input type="text" class="form-control" formControlName="ProjectManager" name="projectManager">-->
               <div class="alert alert-danger" *ngIf="projectForm.get('ProjectManager').hasError('required') && projectForm.get('ProjectManager').touched">
                 Please select Project Manager
               </div>
@@ -85,9 +87,9 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Project Start Date *</label>
             <div class="col-sm-10">
-              <p-calendar id="startTime" [showIcon]="true" dateFormat="dd-mm-yy" readonlyInput="readonlyInput" formControlName="ProjectStartDate"
-                name="ProjectStartDate"></p-calendar>
-                <div class="alert alert-danger" *ngIf="projectForm.get('ProjectStartDate').hasError('required') && projectForm.get('ProjectStartDate').touched">
+              <p-calendar id="startTime" [showIcon]="true" dateFormat="dd-mm-yy" readonlyInput="readonlyInput" formControlName="StartDate"
+                name="StartDate"></p-calendar>
+                <div class="alert alert-danger" *ngIf="projectForm.get('StartDate').hasError('required') && projectForm.get('StartDate').touched">
                   Please select Start Date
                 </div>
             </div>
@@ -95,9 +97,9 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="endTime">Project End Date *</label>
             <div class="col-sm-10">
-              <p-calendar id="endTime" [showIcon]="true" dateFormat="dd-mm-yy" readonlyInput="readonlyInput" formControlName="ProjectEndDate"
+              <p-calendar id="endTime" [showIcon]="true" dateFormat="dd-mm-yy" readonlyInput="readonlyInput" formControlName="EndDate"
                 name="projectEndDate"></p-calendar>
-                <div class="alert alert-danger" *ngIf="projectForm.get('ProjectEndDate').hasError('required') && projectForm.get('ProjectEndDate').touched">
+                <div class="alert alert-danger" *ngIf="projectForm.get('EndDate').hasError('required') && projectForm.get('EndDate').touched">
                   Please select End Date
                 </div>
             </div>
@@ -123,7 +125,9 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Account Manager *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" formControlName="AccountManager" name="AccountManager">
+              <p-autoComplete formControlName="AccountManager" name="AccountManager"   [suggestions]="filteredEmployee" (completeMethod)="filterEmployeeList($event)"
+                    field="Name" [size]="30"  [minLength]="1"></p-autoComplete>
+              <!--<input type="text" class="form-control" formControlName="AccountManager" name="AccountManager">-->
               <div class="alert alert-danger" *ngIf="projectForm.get('AccountManager').hasError('required') && projectForm.get('AccountManager').touched">
                 Please Add Account Manager
               </div>
@@ -132,7 +136,9 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Delivery Manager *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" formControlName="DeliveryManager" name="DeliveryManager">
+               <p-autoComplete formControlName="DeliveryManager" name="DeliveryManager"   [suggestions]="filteredEmployee" (completeMethod)="filterEmployeeList($event)"
+                    field="Name" [size]="30"  [minLength]="1"></p-autoComplete>
+              <!--<input type="text" class="form-control" formControlName="DeliveryManager" name="DeliveryManager">-->
               <div class="alert alert-danger" *ngIf="projectForm.get('DeliveryManager').hasError('required') && projectForm.get('DeliveryManager').touched">
                 Please Add Delivery Manager
               </div>
@@ -150,7 +156,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2">Team Members</label>
             <div class="col-sm-4">
-               <p-autoComplete (onSelect)="onTeamMemberSelect($event)"  [suggestions]="filteredMemberList" (completeMethod)="filterTeamMember($event)"
+               <p-autoComplete  (onSelect)="onTeamMemberSelect($event)"  [suggestions]="filteredEmployee" (completeMethod)="filterEmployeeList($event)"
                     field="Name" [size]="30"  [minLength]="1"></p-autoComplete>
             </div>
             <div class="col-sm-2">
@@ -169,10 +175,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor='let member of teamMember;let i = index; trackBy: trackByFn'>
-                    <td>{{i+1}}</td>
-                    <td>{{member.TeamMember.Name}}</td>
-                    <td><a (click)="onDeleteMember(i)">Delete</a></td>
+                  <tr *ngFor='let member of teamMember;let i = index; trackBy: trackByFn' >
+                    <td >{{i+1}}</td>
+                    <td >{{member.TeamMember.Name}}</td>
+                    <td ><a (click)="onDeleteMember(i)">Delete</a></td>
                   </tr>
                 </tbody>
               </table>
@@ -199,7 +205,7 @@
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button pButton type="submit" label="Save" id="saveBtn" [disabled]="projectForm.invalid"></button>
+              <button pButton type="submit" label="Save" id="saveBtn"></button>
               <button pButton type="button" label="Deactivate" id="deactivateBtn"></button>
               <button pButton type="button" label="Cancel" id="cancelBtn" (click)="onCancel()"></button>
             </div>

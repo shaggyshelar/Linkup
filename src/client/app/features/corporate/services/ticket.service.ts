@@ -1,24 +1,26 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
 //import 'rxjs/add/operator/map';
+import { MessageService } from '../../core/shared/index';
 
 /** Module Level Dependencies */
 import { BaseService } from '../../core/index';
 import { Ticket } from '../models/ticket';
 
 /** Context for service calls */
-export const CONTEXT = 'Ticket';
+const CONTEXT = 'Ticket';
 
 /** Service Definition */
 @Injectable()
 export class TicketService extends BaseService {
 
-    constructor(public http : Http) {
-        super(http, CONTEXT);
+    constructor(public http : Http, messageService: MessageService, router: Router) {
+        super(http, CONTEXT, messageService, router);
     }
 
     /**

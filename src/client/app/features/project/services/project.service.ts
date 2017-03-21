@@ -34,13 +34,26 @@ export class ProjectService extends BaseService {
     }
     saveProject(project: any): Observable<any> {
         return this
-            .post$(project)
+            .post$(project,true)
             .map(res => res.json());
     }
-    editProject(project: any): Observable<any> {
-        return this
-            .put$(project.Id, project)
-            .map(res => res.json());
+    editProject(payload: any) {
+            let headers = new Headers();
+            let body = JSON.stringify(payload);
+            headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+            headers.append('Content-Type', 'application/json');
+            let windowRef = this._window();
+            windowRef['App'].blockUI();
+            let options = new RequestOptions({ headers: headers });
+            return this.http.post(this.baseUrl + 'Project/Update', body, options)
+                .map(res => {
+                    windowRef['App'].unblockUI();
+                    return res.json();
+                })
+                .catch(err => {
+                    windowRef['App'].unblockUI();
+                    return this.handleError(err);
+                });
     }
     getMyProjectsForTimesheet(payload: any) {
         if (this._cacheService.exists('projectsForTimesheet')) {

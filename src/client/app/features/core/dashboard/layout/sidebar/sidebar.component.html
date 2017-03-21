@@ -210,19 +210,19 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item" [ifAuthorize]="['CORPORATE.MANAGE']">
+			<li class="nav-item">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-briefcase"></i>
 					<span class="title">Corporate</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
-					<li class="nav-item" [ifAuthorize]="['CONFERENCE_BOOK.READ']">
+					<li class="nav-item">
 						<a routerLink="/corporate/conferenceBooking" routerLinkActive="active">
 							<span class="title">Conference Booking</span>
 						</a>
 					</li>
-					<li class="nav-item" [ifAuthorize]="['TICKET.READ']">
+					<li class="nav-item">
 						<a routerLink="/corporate/log-ticket" routerLinkActive="active">
 							<span class="title">Log Ticket</span>
 						</a>

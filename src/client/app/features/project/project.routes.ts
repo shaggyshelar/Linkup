@@ -26,7 +26,7 @@ export const ProjectRoutes: Routes = [
     component: AddEditProjectComponent,
     canActivate: [AuthGuard],
     data: {
-      permissions: ['PROJECTS.MANAGEMYPROJECTS..CREATE']
+      permissions: ['PROJECTS.MANAGEMYPROJECTS.ADD']
     }
   },
   {

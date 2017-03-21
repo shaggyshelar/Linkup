@@ -8,3 +8,4 @@ export * from './services/master/deliveryUnit.service';
 export * from './services/master/projectCategory.service';
 export * from './services/master/client-type.service';
 export * from './services/master/currency.service';
+export * from './services/master/client.service';

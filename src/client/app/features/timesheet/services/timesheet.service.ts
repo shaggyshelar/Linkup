@@ -1,6 +1,6 @@
 /** Angular Dependencies */
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 /** Third Party Dependencies */
 import { Observable } from 'rxjs/Rx';
@@ -31,5 +31,41 @@ export class TimesheetService extends BaseService {
 
     getTimesheetByID(id: string) {
         return this.getChildList$('Edit/' + id, 0, 0, true).map(res => res.json());
+    }
+    saveTimesheet(payload: any) {
+        let headers = new Headers();
+        let body = JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl + '/Timesheet/Save', body, options)
+            .map(res => {
+                windowRef['App'].unblockUI();
+                return res.json();
+            })
+            .catch(err => {
+                windowRef['App'].unblockUI();
+                return this.handleError(err);
+            });
+    }
+    submitTimesheet(payload: any) {
+        let headers = new Headers();
+        let body = JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl + '/Timesheet/Submit', body, options)
+            .map(res => {
+                windowRef['App'].unblockUI();
+                return res.json();
+            })
+            .catch(err => {
+                windowRef['App'].unblockUI();
+                return this.handleError(err);
+            });
     }
 }

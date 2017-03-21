@@ -9,7 +9,8 @@ import { MessageService } from '../../../core/shared/index';
 import * as _ from 'lodash/index';
 import * as moment from 'moment/moment';
 import { ProjectService, PhasesService } from '../../../project/services/index';
-import { TimesheetService } from '../../services/index';
+import { TimesheetService, EmployeeTimesheetService } from '../../services/index';
+import { AuthService } from '../../../core/index';
 
 /** Component Declaration */
 @Component({
@@ -33,13 +34,18 @@ export class AddEditTimesheetComponent implements OnInit {
   notes: string = '';
   routeParam: string;
   timesheetStatus: string = 'New';
+  timesheetModel: any = {};
+  modalDisable: boolean;
+  currentUserDetail: any = {};
   constructor(
     private projectService: ProjectService,
     private phasesService: PhasesService,
     private route: ActivatedRoute,
     private messageService: MessageService,
     private router: Router,
-    private timesheetService: TimesheetService
+    private timesheetService: TimesheetService,
+    private employeeTimesheetService: EmployeeTimesheetService,
+    private authService: AuthService
   ) {
   }
 
@@ -57,6 +63,7 @@ export class AddEditTimesheetComponent implements OnInit {
       this.routeParam = params['id'];
     });
     this.getProject();
+    this.currentUserDetail = this.authService.getCurrentUser();
   }
   getProject() {
     this.projectService.getMyProjectsForTimesheet({ Date: this.weekStartDate }).subscribe((res: any) => {
@@ -66,36 +73,47 @@ export class AddEditTimesheetComponent implements OnInit {
       }
       if (this.routeParam) {
         this.getTimesheetForEdit();
+      } else {
+        this.employeeTimesheetService.getCurrentEmpTimesheetByDate({ Date: new Date() }).subscribe((res: any) => {
+          if (res !== null) {
+            this.timesheetModel = res;
+          }
+          console.log(res);
+        });
       }
+
     });
   }
   getTimesheetForEdit() {
     this.timesheetService.getTimesheetByID(this.routeParam).subscribe((res: any) => {
+      this.timesheetModel = res;
       this.timesheetList = res.Timesheets;
       this.weekStartDate = res.StartDate;
       this.weekEndDate = res.EndDate;
       this.timesheetStatus = res.SubmittedStatus;
       this.setTotal(res);
-      for (let i = 0; i < this.timesheetList.length; i++) {
-        let project = _.find(this.projectList, function (item) {
-          return item.value !== null && item.value.ID === res.Timesheets[i].Project.ID;
-        });
-        this.timesheetList[i].Project = project.value;
-        this.onProjectChange(project.value, i);
+      if (this.timesheetStatus !== 'Approved' && this.timesheetStatus !== 'Submitted') {
+        for (let i = 0; i < this.timesheetList.length; i++) {
+          let project = _.find(this.projectList, function (item) {
+            return item.value !== null && item.value.ID === res.Timesheets[i].Project.ID;
+          });
+          this.timesheetList[i].Project = project.value;
+          this.onProjectChange(project.value, i);
+        }
       }
       console.log(res);
     });
   }
   setTotal(total: any) {
     this.totalhours = {
-      TotalhrsFriday: total.TotalhrsFriday===null?0:total.TotalhrsFriday,
-      TotalhrsMonday: total.TotalhrsMonday===null?0:total.TotalhrsMonday,
-      TotalhrsSaturday: total.TotalhrsSaturday===null?0:total.TotalhrsSaturday,
-      TotalhrsSunday: total.TotalhrsSunday===null?0:total.TotalhrsSunday,
-      TotalhrsThursday: total.TotalhrsThursday===null?0:total.TotalhrsThursday,
-      TotalhrsTuesday: total.TotalhrsTuesday===null?0:total.TotalhrsTuesday,
-      TotalhrsWednesday: total.TotalhrsWednesday===null?0:total.TotalhrsWednesday,
-      TotalhrsTimesheet: total.TotalhrsTimesheet===null?0:total.TotalhrsTimesheet,
+      TotalhrsFriday: total.TotalhrsFriday === null ? 0 : total.TotalhrsFriday,
+      TotalhrsMonday: total.TotalhrsMonday === null ? 0 : total.TotalhrsMonday,
+      TotalhrsSaturday: total.TotalhrsSaturday === null ? 0 : total.TotalhrsSaturday,
+      TotalhrsSunday: total.TotalhrsSunday === null ? 0 : total.TotalhrsSunday,
+      TotalhrsThursday: total.TotalhrsThursday === null ? 0 : total.TotalhrsThursday,
+      TotalhrsTuesday: total.TotalhrsTuesday === null ? 0 : total.TotalhrsTuesday,
+      TotalhrsWednesday: total.TotalhrsWednesday === null ? 0 : total.TotalhrsWednesday,
+      TotalhrsTimesheet: total.TotalhrsTimesheet === null ? 0 : total.TotalhrsTimesheet,
     };
   }
   initTotalHour() {
@@ -127,6 +145,9 @@ export class AddEditTimesheetComponent implements OnInit {
   onProjectChange(selectedProject: any, index: number) {
     this.isError = false;
     this.tasksList[index] = [];
+    this.timesheetList[index].ApproverUser = {};
+    this.timesheetList[index].ApproverUser.Value = selectedProject.AccountManager.Name;
+    this.timesheetList[index].ApproverUser.ID = selectedProject.AccountManager.ID;
     this.phasesService.getPhasesByProject(selectedProject).subscribe((res: any) => {
       this.tasksList[index].push({ label: 'Select', value: null });
       for (var i in res) {
@@ -141,6 +162,13 @@ export class AddEditTimesheetComponent implements OnInit {
     this.dialog = { index: index, property: property };
     this.notes = this.timesheetList[this.dialog.index][this.dialog.property];
     this.dialogVisible = true;
+    if (this.timesheetList[this.dialog.index].ProjectTimesheetStatus === 'Approved' ||
+      this.timesheetList[this.dialog.index].ProjectTimesheetStatus === 'Submitted' ||
+      (this.timesheetList[this.dialog.index].Project ? this.timesheetList[this.dialog.index].Project.Title === 'Leave' : false)) {
+      this.modalDisable = true;
+    } else {
+      this.modalDisable = false;
+    }
   }
   saveNotes() {
     if (this.notes && this.notes !== null) {
@@ -151,6 +179,45 @@ export class AddEditTimesheetComponent implements OnInit {
 
   saveTimsheet() {
     this.isError = false;
+    if (!this.checkProjectAndTask()) {
+      return;
+    }
+    let payload: any = {};
+    for (var key in this.totalhours) {
+      payload[key] = this.totalhours[key];
+    }
+    payload.ApproverUser = [];
+    for (let i = 0; i < this.timesheetList.length; i++) {
+      payload.ApproverUser.push(this.timesheetList[i].ApproverUser);
+      this.timesheetList[i].WeekNumber = moment(this.weekStartDate).week();
+      this.timesheetList[i].Project.Value = this.timesheetList[i].Project.Title;
+      this.timesheetList[i].ProjectTimesheetStatus = 'Saved';
+      this.timesheetList[i].StartDate = this.weekStartDate;
+      this.timesheetList[i].EndDate = this.weekStartDate;
+      this.timesheetList[i].TimesheetStartDate = this.weekStartDate;
+      this.timesheetList[i].TimesheetEndDate = this.weekEndDate;
+      this.timesheetList[i].ApproverComment = null;
+      this.timesheetList[i].TimesheetStatus = 'Active';
+    }
+    payload.Timesheets = this.timesheetList;
+    payload.Employee = this.currentUserDetail.Employee;
+    payload.EmployeeName = this.currentUserDetail.Employee.Name;
+    payload.EmployeeDepartment = this.currentUserDetail.Department.Value;
+    payload.TimesheetStartDate = this.weekStartDate;
+    payload.TimesheetEndDate = this.weekEndDate;
+    payload.StartDate = this.weekStartDate;
+    payload.EndDate = this.weekEndDate;
+    payload.BillableHours = '0';
+    payload.NonBillableHours = '45';
+    payload.SubmittedStatus = 'Not Submitted';
+    payload.WeekNumber = moment(this.weekStartDate).week();
+    payload.CalendarYear = '2016';
+    // "SubmittedStatus": "Not Submitted",
+    // "WeekNumber": "09",
+
+    this.timesheetService.saveTimesheet(payload).subscribe((res: any) => {
+      console.log(res);
+    });
   }
 
   onSendForApproval() {
@@ -160,11 +227,17 @@ export class AddEditTimesheetComponent implements OnInit {
     if (!this.checkTotalHours()) {
       this.isError = true;
       this.errorMessage = 'Please make total hours of all days atleast 8 to submit timesheet';
+      return;
     }
     if (!this.checkDescription()) {
       this.isError = true;
       this.errorMessage = 'You cannot add empty Description!';
+      return;
     }
+    // this.timesheetService.submitTimesheet().subscribe((res: any) => {
+    //   console.log(res);
+    // });
+
   }
 
   onAddTimeSheet() {
@@ -307,13 +380,13 @@ export class AddEditTimesheetComponent implements OnInit {
         this.totalhours.TotalhrsSunday = moment(moment(this.totalhours.TotalhrsSunday, 'HH:mm').add(moment(this.timesheetList[i].Sundayhrs, 'HH:mm').hours() * 60 + moment(this.timesheetList[i].Sundayhrs, 'HH:mm').minutes(), 'minutes')).format('HH:mm');
       }
     }
-    this.totalhours.TotalhrsTimesheet = this.totalhours.TotalhrsFriday +
-      this.totalhours.TotalhrsMonday +
-      this.totalhours.TotalhrsSaturday +
-      this.totalhours.TotalhrsSunday +
-      this.totalhours.TotalhrsThursday +
-      this.totalhours.TotalhrsTuesday +
-      this.totalhours.TotalhrsWednesday +
-      this.totalhours.TotalhrsTimesheet;
+    //   this.totalhours.TotalhrsTimesheet = this.totalhours.TotalhrsFriday +
+    //     this.totalhours.TotalhrsMonday +
+    //     this.totalhours.TotalhrsSaturday +
+    //     this.totalhours.TotalhrsSunday +
+    //     this.totalhours.TotalhrsThursday +
+    //     this.totalhours.TotalhrsTuesday +
+    //     this.totalhours.TotalhrsWednesday +
+    //     this.totalhours.TotalhrsTimesheet;
   }
 }

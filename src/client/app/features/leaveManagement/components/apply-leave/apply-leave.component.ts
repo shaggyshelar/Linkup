@@ -166,6 +166,9 @@ export class ApplyLeaveComponent implements OnInit {
         }
     }
     deleteLeave(index: number) {
+        this.itsWeekend = false;
+        this.isValidationMessage = false;
+        this.validationMessage = '';
         this.addLeaveArr.splice(index, 1);
     }
     startChanged() {
@@ -263,7 +266,7 @@ export class ApplyLeaveComponent implements OnInit {
         return false;
     }
     checkPending(totalLeaveApplied: number) {
-        if (this.currentUserLeaveDetail.ActualBalance - this.pendingLeaveCount.LeaveTotal < totalLeaveApplied) {
+        if (this.currentUserLeaveDetail.ActualBalance - this.pendingLeaveCount.LeaveTotal - this.getAddedLeaveCount() < totalLeaveApplied) {
             if (this.pendingLeaveCount.LeaveTotal == 0) {
                 this.validationMessage = MessageService.APPLY_LEAVE_3;
             } else {
@@ -271,6 +274,17 @@ export class ApplyLeaveComponent implements OnInit {
             }
             this.isValidationMessage = true;
         }
+    }
+    getAddedLeaveCount() {
+        let leaveCount = 0;
+        for (let i = 0; i < this.addLeaveArr.length; i++) {
+            if (this.addLeaveArr[i].LeaveType.Value === 'Leave') {
+                leaveCount = leaveCount + 1;
+            } else if (this.addLeaveArr[i].LeaveType.Value === 'Half Day Leave') {
+                leaveCount = leaveCount + 0.5;
+            }
+        }
+        return leaveCount;
     }
     checkMarriagePending(totalLeaveApplied: number) {
         let totalMarriageLeave = parseInt(this.model.leaveType.Value);

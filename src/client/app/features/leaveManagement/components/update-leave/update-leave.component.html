@@ -93,8 +93,8 @@
             </div>
           </div>
         </div>
-        <div class="portlet light bordered">
-          <div class="row">
+        <div class="portlet light bordered" *ngIf="selectedLeave.Status!=='Cancelled'">
+          <div class="row" >
             <p-dataTable [value]="approverList" [responsive]="true">
               <p-column field="Project" header="Project"></p-column>
               <p-column field="Approver.Name" header="Manager"></p-column>
@@ -102,12 +102,14 @@
               <p-column field="Comments" header="Comments"></p-column>
             </p-dataTable>
           </div><br>
-          <div>
+          
+        </div>
+        <div>
             <span *ngIf="isCancellable">
                   <button id="cancel" class="btn red btn-outline" (click)="cancelClicked()">Cancel Leave</button>
             </span>
             <button id="close" class="btn blue btn-outline" (click)="closeClicked()">Close</button>
-          </div>
+            <span *ngIf="selectedLeave.Status=='Cancelled'" class="cancel-text">&nbsp;&nbsp;&nbsp; You have cancelled this leave request</span>
         </div>
       </div>
       <!-- END HOLIDAY LIST COMPONENT BY PRIMENG -->

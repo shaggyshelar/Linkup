@@ -21,13 +21,13 @@
                     <div class="portlet-body">
 
                         <div class="row">
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
                                 <span class="week-header">Week : {{weekStartDate | date:'dd/MM/y'}} to {{weekEndDate | date:'dd/MM/y'}}</span>
                             </div>
                             <div class="col-sm-3 ">
                                 <span class='status-header'>Status: {{timesheetStatus}} </span>
                             </div>
-                            <div class="col-sm-offset-2 col-sm-3" *ngIf='false'>
+                            <div class="col-sm-offset-2 col-sm-3" *ngIf='!routeParam'>
                                 <div class="input-group">
                                     <span class="input-group-addon" (click)="onPreviousWeek()"><i class="fa fa-caret-left fa-caret" aria-hidden="true"></i></span>
                                     <p-calendar inputStyleClass="timsheet-date-picker-header" id="date" required dateFormat="dd/mm/yy" [showIcon]="true" (onSelect)="dateChanged()"

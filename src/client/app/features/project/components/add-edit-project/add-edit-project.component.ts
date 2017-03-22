@@ -123,6 +123,22 @@ export class AddEditProjectComponent implements OnInit {
             label: 'Non-Billable',
             value: 'Non-Billable'
         }];
+        this.priceType = [{ label: 'Select ', value: null }, {
+            label: 'Cost Plus',
+            value: 'Cost Plus'
+        }, {
+            label: 'Fixed',
+            value: 'Fixed'
+        }, {
+            label: 'Hourly',
+            value: 'Hourly'
+        }, {
+            label: 'Monthly',
+            value: 'Monthly'
+        }, {
+            label: 'T & M',
+            value: 'T & M'
+        }];
         this.projectForm = this.formBuilder.group({
             Id: [null],
             ProjectName: ['', [Validators.required]],
@@ -140,9 +156,9 @@ export class AddEditProjectComponent implements OnInit {
             DeliveryModel: ['', [Validators.required]],
             PriceType: ['', [Validators.required]],
             TeamSize: [''],
-            IsActive: [false],
-            IsGlobal: [false],
-            ProjectMasterID:['']
+            Active: [false],
+            Isglobal: [false],
+            ProjectMasterID: ['']
         });
         this.route.params.forEach((params: Params) => {
             if (params['id']) {
@@ -167,9 +183,9 @@ export class AddEditProjectComponent implements OnInit {
                             DeliveryModel: result.DeliveryModel,
                             PriceType: result.PriceType,
                             TeamSize: result.TeamSize,
-                            IsActive: result.Active,
-                            IsGlobal: result.Isglobal,
-                            ProjectMasterID:result.ProjectMasterID
+                            Active: result.Active,
+                            Isglobal: result.Isglobal,
+                            ProjectMasterID: result.ProjectMasterID
                         });
                         this.teamMemberService.getTeamByProject(result.ProjectMasterID).subscribe((result: any) => {
                             this.teamMember = result;
@@ -200,22 +216,16 @@ export class AddEditProjectComponent implements OnInit {
         }
     }
     onSubmit({ value, valid }: { value: any, valid: boolean }) {
-        //value.ProjectStartDate = moment(value.ProjectStartDate).format('DD-MM-YYYY');
-        //value.ProjectEndDate = moment(value.ProjectEndDate).format('DD-MM-YYYY');
-        //value.TeamMembers = this.teamMember;
-        value.PriceType='Fixed';
-        value.ProjectTeamMembers=this.teamMember;
-        value.Active=value.IsActive;
-        value.Isglobal=value.IsGlobal;
+        value.ProjectTeamMembers = this.teamMember;;
         if (this.params) {
-            this.projectService.editProject(value).subscribe(result => {
+            this.projectService.editProjectWithTeamMembers(value).subscribe(result => {
                 if (result) {
                     this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Project Updated' });
                     this.router.navigate(['/project/manage']);
                 }
             });
         } else {
-            this.projectService.saveProject(value).subscribe(result => {
+            this.projectService.saveProjectWithTeamMembers(value).subscribe(result => {
                 if (result) {
                     this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Project Saved' });
                     this.router.navigate(['/project/manage']);
@@ -235,10 +245,10 @@ export class AddEditProjectComponent implements OnInit {
     }
     onAddTeamMember() {
         let team = {
-            ProjectMasterID:this.params ? this.projectForm.value.ProjectMasterID:'',
+            ProjectMasterID: this.params ? this.projectForm.value.ProjectMasterID : '',
             Status: 'Active',
             TeamMember: this.selectedTeamMember,
-            StartDate:this.projectForm.value.ProjectStartDate ,
+            StartDate: this.projectForm.value.ProjectStartDate,
             EndDate: this.projectForm.value.ProjectEndDate
         };
         this.teamMember.push(team);

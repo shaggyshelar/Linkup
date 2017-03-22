@@ -34,26 +34,62 @@ export class ProjectService extends BaseService {
     }
     saveProject(project: any): Observable<any> {
         return this
-            .post$(project,true)
+            .post$(project, true)
             .map(res => res.json());
     }
+    saveProjectWithTeamMembers(payload: any) {
+        let headers = new Headers();
+        let body = JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl + 'Project/AddProjectWithTeamMembers', body, options)
+            .map(res => {
+                windowRef['App'].unblockUI();
+                return res.json();
+            })
+            .catch(err => {
+                windowRef['App'].unblockUI();
+                return this.handleError(err);
+            });
+    }
+    editProjectWithTeamMembers(payload: any) {
+        let headers = new Headers();
+        let body = JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl + 'Project/UpdateProjectWithTeamMembers', body, options)
+            .map(res => {
+                windowRef['App'].unblockUI();
+                return res.json();
+            })
+            .catch(err => {
+                windowRef['App'].unblockUI();
+                return this.handleError(err);
+            });
+    }
     editProject(payload: any) {
-            let headers = new Headers();
-            let body = JSON.stringify(payload);
-            headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
-            headers.append('Content-Type', 'application/json');
-            let windowRef = this._window();
-            windowRef['App'].blockUI();
-            let options = new RequestOptions({ headers: headers });
-            return this.http.post(this.baseUrl + 'Project/Update', body, options)
-                .map(res => {
-                    windowRef['App'].unblockUI();
-                    return res.json();
-                })
-                .catch(err => {
-                    windowRef['App'].unblockUI();
-                    return this.handleError(err);
-                });
+        let headers = new Headers();
+        let body = JSON.stringify(payload);
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+        headers.append('Content-Type', 'application/json');
+        let windowRef = this._window();
+        windowRef['App'].blockUI();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.baseUrl + 'Project/Update', body, options)
+            .map(res => {
+                windowRef['App'].unblockUI();
+                return res.json();
+            })
+            .catch(err => {
+                windowRef['App'].unblockUI();
+                return this.handleError(err);
+            });
     }
     getMyProjectsForTimesheet(payload: any) {
         if (this._cacheService.exists('projectsForTimesheet')) {

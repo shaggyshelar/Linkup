@@ -37,6 +37,7 @@ export class AddEditTimesheetComponent implements OnInit {
   timesheetModel: any = {};
   modalDisable: boolean;
   currentUserDetail: any = {};
+  timesheetID: any = null;
   constructor(
     private projectService: ProjectService,
     private phasesService: PhasesService,
@@ -72,27 +73,33 @@ export class AddEditTimesheetComponent implements OnInit {
         this.projectList.push({ label: res[index].Title, value: res[index] });
       }
       if (this.routeParam) {
-        this.getTimesheetForEdit();
+        this.timesheetID = this.routeParam;
+        this.getTimesheetForEdit(this.routeParam);
       } else {
-        this.employeeTimesheetService.getCurrentEmpTimesheetByDate({ Date: new Date() }).subscribe((res: any) => {
-          if (res !== null) {
-            this.timesheetModel = res;
-          }
-          console.log(res);
-        });
+        this.getTimesheetByDate(new Date());
       }
-
     });
   }
-  getTimesheetForEdit() {
-    this.timesheetService.getTimesheetByID(this.routeParam).subscribe((res: any) => {
+  getTimesheetByDate(date: any) {
+    this.employeeTimesheetService.getCurrentEmpTimesheetByDate({ Date: date }).subscribe((res: any) => {
+      if (res !== null) {
+        this.timesheetModel = res;
+        this.getTimesheetForEdit(res.ID);
+        this.timesheetID = res.ID;
+      }
+    });
+  }
+  getTimesheetForEdit(timesheetID: any) {
+    this.timesheetService.getTimesheetByID(timesheetID).subscribe((res: any) => {
       this.timesheetModel = res;
-      this.timesheetList = res.Timesheets;
+      if (res.Timesheets.length > 0) {
+        this.timesheetList = res.Timesheets;
+      }
       this.weekStartDate = res.StartDate;
       this.weekEndDate = res.EndDate;
       this.timesheetStatus = res.SubmittedStatus;
       this.setTotal(res);
-      if (this.timesheetStatus !== 'Approved' && this.timesheetStatus !== 'Submitted') {
+      if (this.timesheetStatus !== 'Approved' && this.timesheetStatus !== 'Submitted'  &&  res.Timesheets.length > 0) {
         for (let i = 0; i < this.timesheetList.length; i++) {
           let project = _.find(this.projectList, function (item) {
             return item.value !== null && item.value.ID === res.Timesheets[i].Project.ID;
@@ -101,7 +108,6 @@ export class AddEditTimesheetComponent implements OnInit {
           this.onProjectChange(project.value, i);
         }
       }
-      console.log(res);
     });
   }
   setTotal(total: any) {
@@ -133,11 +139,13 @@ export class AddEditTimesheetComponent implements OnInit {
     this.selectedDate = moment(moment(this.selectedDate).subtract(1, 'weeks').isoWeekday(1).format('MM/DD/YYYY')).toDate();
     this.weekEndDate = moment(this.selectedDate).add(1, 'weeks').isoWeekday(0);
     this.weekStartDate = moment(this.selectedDate);
+    this.getTimesheetByDate(this.weekStartDate);
   }
   onNextWeek() {
     this.selectedDate = moment(moment(this.selectedDate).add(1, 'weeks').isoWeekday(1).format('MM/DD/YYYY')).toDate();
     this.weekEndDate = moment(this.selectedDate).add(1, 'weeks').isoWeekday(0);
     this.weekStartDate = moment(this.selectedDate);
+    this.getTimesheetByDate(this.weekStartDate);
   }
   getDate(day: number) {
     return moment(this.weekStartDate).isoWeekday(day);
@@ -182,41 +190,9 @@ export class AddEditTimesheetComponent implements OnInit {
     if (!this.checkProjectAndTask()) {
       return;
     }
-    let payload: any = {};
-    for (var key in this.totalhours) {
-      payload[key] = this.totalhours[key];
-    }
-    payload.ApproverUser = [];
-    for (let i = 0; i < this.timesheetList.length; i++) {
-      payload.ApproverUser.push(this.timesheetList[i].ApproverUser);
-      this.timesheetList[i].WeekNumber = moment(this.weekStartDate).week();
-      this.timesheetList[i].Project.Value = this.timesheetList[i].Project.Title;
-      this.timesheetList[i].ProjectTimesheetStatus = 'Saved';
-      this.timesheetList[i].StartDate = this.weekStartDate;
-      this.timesheetList[i].EndDate = this.weekStartDate;
-      this.timesheetList[i].TimesheetStartDate = this.weekStartDate;
-      this.timesheetList[i].TimesheetEndDate = this.weekEndDate;
-      this.timesheetList[i].ApproverComment = null;
-      this.timesheetList[i].TimesheetStatus = 'Active';
-    }
-    payload.Timesheets = this.timesheetList;
-    payload.Employee = this.currentUserDetail.Employee;
-    payload.EmployeeName = this.currentUserDetail.Employee.Name;
-    payload.EmployeeDepartment = this.currentUserDetail.Department.Value;
-    payload.TimesheetStartDate = this.weekStartDate;
-    payload.TimesheetEndDate = this.weekEndDate;
-    payload.StartDate = this.weekStartDate;
-    payload.EndDate = this.weekEndDate;
-    payload.BillableHours = '0';
-    payload.NonBillableHours = '45';
-    payload.SubmittedStatus = 'Not Submitted';
-    payload.WeekNumber = moment(this.weekStartDate).week();
-    payload.CalendarYear = '2016';
-    // "SubmittedStatus": "Not Submitted",
-    // "WeekNumber": "09",
-
+    let payload = this.getPayload(true);
     this.timesheetService.saveTimesheet(payload).subscribe((res: any) => {
-      console.log(res);
+      this.onCancel();
     });
   }
 
@@ -234,12 +210,47 @@ export class AddEditTimesheetComponent implements OnInit {
       this.errorMessage = 'You cannot add empty Description!';
       return;
     }
-    // this.timesheetService.submitTimesheet().subscribe((res: any) => {
-    //   console.log(res);
-    // });
+    let payload = this.getPayload(false);
+    this.timesheetService.submitTimesheet(payload).subscribe((res: any) => {
+      console.log(res);
+    });
 
   }
-
+  getPayload(isSave: boolean) {
+    let payload: any = {};
+    for (var key in this.totalhours) {
+      payload[key] = this.totalhours[key];
+    }
+    payload.ApproverUser = [];
+    for (let i = 0; i < this.timesheetList.length; i++) {
+      payload.ApproverUser.push(this.timesheetList[i].ApproverUser);
+      this.timesheetList[i].WeekNumber = moment(this.weekStartDate).week();
+      this.timesheetList[i].Project.Value = this.timesheetList[i].Project.Title;
+      this.timesheetList[i].ProjectTimesheetStatus = isSave ? 'Not Submitted' : 'Submitted';
+      this.timesheetList[i].StartDate = this.weekStartDate;
+      this.timesheetList[i].EndDate = this.weekStartDate;
+      this.timesheetList[i].TimesheetStartDate = this.weekStartDate;
+      this.timesheetList[i].TimesheetEndDate = this.weekEndDate;
+      this.timesheetList[i].ApproverComment = null;
+      this.timesheetList[i].TimesheetStatus = 'Active';
+      this.timesheetList[i].TimesheetID = this.timesheetID;
+    }
+    payload.Timesheets = this.timesheetList;
+    payload.Employee = this.currentUserDetail.Employee;
+    payload.EmployeeName = this.currentUserDetail.Employee.Name;
+    payload.EmployeeDepartment = this.currentUserDetail.Department.Value;
+    payload.TimesheetStartDate = this.weekStartDate;
+    payload.TimesheetEndDate = this.weekEndDate;
+    payload.StartDate = this.weekStartDate;
+    payload.EndDate = this.weekEndDate;
+    payload.BillableHours = '0';
+    payload.NonBillableHours = '45';
+    payload.SubmittedStatus = isSave ? 'Not Submitted' : 'Submitted';
+    payload.WeekNumber = moment(this.weekStartDate).week();
+    payload.CalendarYear = '2016';
+    payload.ID = this.timesheetID;
+    return payload;
+  }
   onAddTimeSheet() {
     if (!this.checkProjectAndTask()) {
       return;

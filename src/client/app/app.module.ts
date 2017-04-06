@@ -10,6 +10,7 @@ import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { FeaturesModule } from './features/index';
 
+
 @NgModule({
   //imports: [BrowserModule, HttpModule, AppRoutingModule, AboutModule, HomeModule, SharedModule.forRoot()],
   imports: [BrowserModule, HttpModule, FeaturesModule, AppRoutingModule, SharedModule.forRoot()],

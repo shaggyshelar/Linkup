@@ -10,7 +10,8 @@
     "build.fonts",
     "build.html_css",
     "build.js.dev",
-    "build.index.dev"
+    "build.index.dev",
+    "sw.manifest.static"
   ],
 
   "build.dev.watch": [
@@ -40,7 +41,8 @@
     "minify.bundles",
     "build.index.prod",
     "build.server.prod",
-    "build.service_worker"
+    "build.service_worker",
+    "sw.manifest.static"
   ],
 
   "build.prod.aot": [
@@ -56,7 +58,8 @@
     "build.bundles",
     "build.bundles.app.aot",
     "minify.bundles",
-    "build.index.prod"
+    "build.index.prod",
+    "sw.manifest.static"
   ],
 
   "build.prod.rollup.aot": [
@@ -73,7 +76,8 @@
     "build.bundles.app.rollup.aot",
     "transpile.bundles.rollup.aot",
     "minify.bundles",
-    "build.index.prod"
+    "build.index.prod",
+    "sw.manifest.static"
   ],
 
   "build.test": [
@@ -84,7 +88,8 @@
     "build.html_css",
     "build.js.dev",
     "build.js.test",
-    "build.index.dev"
+    "build.index.dev",
+    "sw.manifest.static"
   ],
 
   "test.watch": [
@@ -128,4 +133,3 @@
     "karma.run"
   ]
 }
-
